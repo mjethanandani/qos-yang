@@ -4,9 +4,10 @@ module ietf-qos-action {
   import ietf-inet-types {
     prefix inet;
   }
-  import ietf-qos-classifier {
-    prefix classifier;
-  }
+// fixme - used by meter only
+//     import ietf-qos-classifier {
+//       prefix classifier;
+//     }
   import ietf-qos-policy {
     prefix policy;
   }
@@ -153,52 +154,101 @@ module ietf-qos-action {
     description
       "dscp marking action type";
   }
-  identity meter {
+  identity meter-inline {
     base policy:action-type;
     description
-      "meter action type";
+      "meter-inline action type";
   }
-  identity srtcm-meter {
+  
+  identity meter-reference {
     base policy:action-type;
     description
-      "single rate three color meter action type";
+      "meter reference action type";
   }
-  identity trtcm-meter {
-    base policy:action-type;
+
+//     identity meter {
+//       base policy:action-type;
+//       description
+//         "meter action type";
+//     }
+//
+  identity meter-type {
+    description
+      "This base identity type defines meter types";
+  }
+
+  identity two-parameter-token-bucket-meter-type {
+    base meter-type;
+    description
+      "two parameter token bucket meter";
+  }
+
+  identity one-rate-tri-color-meter-type {
+    base meter-type;
+    description
+      "one rate three color meter type";
+  }
+
+  identity two-rate-tri-color-meter-type {
+    base meter-type;
     description
       "two rate three color meter action type";
+  }
+
+  identity discard {
+    base policy:action-type;
+    description
+      "discard action type";
+  }
+
+  // FIXME - explicit or implicit configuration?
+  // Juniper favors explicit.  
+  // Some type of if-feature? 
+  identity count {
+    base policy:action-type;
+    description
+      "discard action type";
   }
   identity schedular {
     base policy:action-type;
     description
       "schedular action type";
   }
+
+  identity drop-type {
+    description
+      "drop algorithm";
+  }
+
   identity always-drop {
-    base policy:action-type;
+    base drop-type;
+//       base policy:action-type;
     description
       "always drop algorithm";
   }
   identity tail-drop {
-    base policy:action-type;
+    base drop-type;
+//       base policy:action-type;
     description
       "tail drop algorithm";
   }
   identity random-detect {
-    base policy:action-type;
+    base drop-type;
+//       base policy:action-type;
     description
       "random detect algorithm";
   }
-  identity meter-action-type {
+  identity new-meter-action-type {
     description
       "action type in a meter";
   }
-  identity meter-action-drop {
-    base meter-action-type;
+  identity new-meter-action-drop {
+    base new-meter-action-type;
     description
       "drop action type in a meter";
   }
-  identity meter-action-dscp-set {
-    base meter-action-type;
+  identity new-meter-action-dscp-set {
+    base new-meter-action-type;
     description
       "dscp mark action type in a meter";
   }
@@ -224,184 +274,454 @@ module ietf-qos-action {
     description
       "the queue limit beyond which queue will not hold any packet";
   }
-  grouping meter-action-params {
-    leaf meter-action-type {
-      type identityref {
-        base meter-action-type;
-      }
+
+ /* 
+  * actions that can be augmented by different vendors for 
+  * different meter types 
+  */
+  grouping new-meter-action-params {
+    description
+      "new meter action parameters";
+    list new-meter-action-params {
+      key "new-meter-action-type";
+      ordered-by user;
       description
-        "meter action type";
-    }
-    choice val {
-      case meter-action-dscp-mark {
-        uses dscp-marking;
+        "Configuration of basic-meter & associated actions";
+      leaf new-meter-action-type {
+        type identityref {
+          base new-meter-action-type;
+        }
         description
-          "meter action: mark";
+          "new meter action type";
       }
-      case meter-action-drop {
+      choice new-meter-action-val {
         description
-          "meter action: drop";
-        uses drop;
+          " new-meter action based on choice of meter action type";
+      }
+    }
+  }
+
+  identity child-policy {
+    base policy:action-type;
+    description
+      "child-policy action type";
+  }
+
+
+//     grouping meter-action-params {
+//       leaf meter-action-type {
+//         type identityref {
+//           base meter-action-type;
+//         }
+//         description
+//           "meter action type";
+//       }
+//       choice val {
+//         case meter-action-dscp-mark {
+//           uses dscp-marking;
+//           description
+//             "meter action: mark";
+//         }
+//         case meter-action-drop {
+//           description
+//             "meter action: drop";
+//           uses drop;
+//         }
+//         description
+//           " meter action based on choice of meter action type";
+//       }
+//       description
+//         "meter action parameters";
+//     }
+
+ /* 
+  * "two-param-token-bucket meter".  The parameters are rate and burst.
+  * This grouping is used by standalone basic-meter template
+  * and basic-meter-inline for inline usage as a policy action.
+  */
+  grouping two-parameter-token-bucket-meter {
+    container two-parameter-token-bucket-meter {
+      description
+        "two parameter token bucket meter";
+      /* FIXME bits per second - junper also supports percent - need to augment */
+      leaf meter-rate {
+        type uint64;
+        units "bits-per-second";
+        description
+          "meter rate";
+      }
+      leaf meter-burst {
+        type uint64;
+        units "byes";
+        description
+          "burst size";
+      }
+      /* note - if not actions supported in "succeed" case, then do not augment */
+      container conform-action {
+        uses new-meter-action-params;
+        description
+          "conform action";
+      }
+      container exceed-action {
+        uses new-meter-action-params;
+        description
+          "exceed action";
+      }
+    }
+    description
+      "two param token bucket meter attributes";
+  }
+
+
+//     grouping generic-meter {
+//       leaf meter-id {
+//         type uint16;
+//         description
+//           "meter identifier";
+//       }
+//       uses rate-value-unit;
+//       uses burst;
+//       container color {
+//         uses classifier:classifier-entry-generic-attr;
+//         description
+//           "color aware & color blind attributes container";
+//       }
+//       container succeed-action {
+//         uses meter-action-params;
+//         leaf next-meter-id {
+//           type uint16;
+//           description
+//             "next meter identifier";
+//         }
+//         description
+//           "confirm action";
+//       }
+//       container fail-action {
+//         uses meter-action-params;
+//         leaf next-meter-id {
+//           type uint16;
+//           description
+//             "next meter identifier";
+//         }
+//         description
+//           "exceed action";
+//       }
+//       description
+//         "meter attributes";
+//     }
+//
+ /* 
+  * one-rate tri-color meter 
+  * This grouping is used by standalone meter template
+  * and meter-inline for inline usage as a policy action.
+  */
+  grouping one-rate-tri-color-meter {
+    container one-rate-tri-color-meter {
+      description
+        "two parameter token bucket meter";
+    /* bits per second - junper also supports percent */
+    leaf committed-rate {
+      type uint64;
+      units "bits-per-second";
+      description
+        "meter rate";
+    }
+    leaf committed-burst {
+      type uint64;
+      units "byes";
+      description
+        "commited burst size";
+    }
+    leaf excess-burst {
+      type uint64;
+      units "byes";
+      description
+        "excess burst size";
+    }
+    container conform-action {
+      uses new-meter-action-params;
+      description
+        "conform, or green action";
+    }
+    container exceed-action {
+      uses new-meter-action-params;
+      description
+        "exceed, or yellow action";
+    }
+    container violate-action {
+      uses new-meter-action-params;
+      description
+        "violate, or red action";
+    }
+  }
+    description
+      "one-rate-tri-color-meter attributes";
+  }
+
+//     grouping one-rate-tri-color-meter {
+//       container srtcm {
+//         leaf committed-rate {
+//           type uint64;
+//           units "bits-per-second";
+//           description
+//             "committed meter rate";
+//         }
+//         leaf committed-burst {
+//           type uint64;
+//           units "byes";
+//           description
+//             "commited burst size";
+//         }
+//         leaf excess-burst {
+//           type uint64;
+//           units "byes";
+//           description
+//             "excess burst size";
+//         }
+//         container conform-action {
+//           uses meter-action-params;
+//           description
+//             "conform action";
+//         }
+//         container conform-color {
+//           uses classifier:classifier-entry-generic-attr;
+//           description
+//             "color aware & color blind attributes container";
+//         }
+//         container exceed-action {
+//           uses meter-action-params;
+//           description
+//             "exceed action";
+//         }
+//         container exceed-color {
+//           uses classifier:classifier-entry-generic-attr;
+//           description
+//             "color aware & color blind attributes container";
+//         }
+//         container violate-action {
+//           uses meter-action-params;
+//           description
+//             "violate action";
+//         }
+//         container violate-color {
+//           uses classifier:classifier-entry-generic-attr;
+//           description
+//             "color aware & color blind attributes container";
+//         }
+//         description
+//           "one-rate-tri-color-meter attributes";
+//       }
+//       description
+//         "one-rate-tri-color-meter grouping";
+//     }
+//
+ /* 
+  * Two-rate tri-color meter 
+  * This grouping is used by standalone meter template
+  * and meter-inline for inline usage as a policy action.
+  */
+  grouping two-rate-tri-color-meter {
+    container two-rate-tri-color-meter {
+      description
+        "two parameter token bucket meter";
+    /* bits per second - junper also supports percent */
+    leaf committed-rate {
+      type uint64;
+      units "bits-per-second";
+      description
+        "meter rate";
+    }
+    leaf committed-burst {
+      type uint64;
+      units "byes";
+      description
+        "commited burst size";
+    }
+    leaf peak-rate {
+      type uint64;
+      units "bits-per-second";
+      description
+        "meter rate";
+    }
+    leaf peak-burst {
+      type uint64;
+      units "byes";
+      description
+        "commited burst size";
+    }
+    container conform-action {
+      uses new-meter-action-params;
+      description
+        "conform, or green action";
+    }
+    container exceed-action {
+      uses new-meter-action-params;
+      description
+        "exceed, or yellow action";
+    }
+    container violate-action {
+      uses new-meter-action-params;
+      description
+        "exceed, or red action";
+    }
+  }
+    description
+      "two-rate-tri-color-meter attributes";
+  }
+
+
+
+//     grouping two-rate-tri-color-meter {
+//       container trtcm {
+//         leaf committed-rate {
+//           type uint64;
+//           units "bits-per-second";
+//           description
+//             "committed meter rate";
+//         }
+//         leaf committed-burst {
+//           type uint64;
+//           units "byes";
+//           description
+//             "commited burst size";
+//         }
+//         leaf peak-rate {
+//           type uint64;
+//           units "bits-per-second";
+//           description
+//             "peak meter rate";
+//         }
+//         leaf peak-burst {
+//           type uint64;
+//           units "byes";
+//           description
+//             "peak burst size";
+//         }
+//         container conform-action {
+//           uses meter-action-params;
+//           description
+//             "conform action";
+//         }
+//         container conform-color {
+//           uses classifier:classifier-entry-generic-attr;
+//           description
+//             "color aware & color blind attributes container";
+//         }
+//         container exceed-action {
+//           uses meter-action-params;
+//           description
+//             "exceed action";
+//         }
+//         container exceed-color {
+//           uses classifier:classifier-entry-generic-attr;
+//           description
+//             "color aware & color blind attributes container";
+//         }
+//         container violate-action {
+//           uses meter-action-params;
+//           description
+//             "violate action";
+//         }
+//         container violate-color {
+//           uses classifier:classifier-entry-generic-attr;
+//           description
+//             "color aware & color blind attributes container";
+//         }
+//         description
+//           "two-rate-tri-color-meter attributes";
+//       }
+//       description
+//         "two-rate-tri-color-meter grouping";
+//     }
+
+ /* 
+  * Meter grouping. Meter grouping is used by both the meter template
+  * and the inline meter action. 
+  */
+  grouping meter {
+    /* FIXME name not needed? id? */
+    choice meter-type {
+      case two-parameter-token-bucket-meter-type {
+        uses two-parameter-token-bucket-meter;
+        description
+          "basic meter";
+      }
+      case one-rate-tri-color-meter-type {
+        uses one-rate-tri-color-meter;
+        description
+          "one rate tri-color meter";
+      }
+      case two-rate-tri-color-meter-type {
+        uses two-rate-tri-color-meter;
+        description
+          "two rate tri-color meter";
       }
       description
         " meter action based on choice of meter action type";
     }
     description
-      "meter action parameters";
-  }
-  grouping generic-meter {
-    leaf meter-id {
-      type uint16;
-      description
-        "meter identifier";
-    }
-    uses rate-value-unit;
-    uses burst;
-    container color {
-      uses classifier:classifier-entry-generic-attr;
-      description
-        "color aware & color blind attributes container";
-    }
-    container succeed-action {
-      uses meter-action-params;
-      leaf next-meter-id {
-        type uint16;
-        description
-          "next meter identifier";
-      }
-      description
-        "confirm action";
-    }
-    container fail-action {
-      uses meter-action-params;
-      leaf next-meter-id {
-        type uint16;
-        description
-          "next meter identifier";
-      }
-      description
-        "exceed action";
-    }
-    description
       "meter attributes";
   }
-  grouping one-rate-tri-color-meter {
-    container srtcm {
-      leaf committed-rate {
-        type uint64;
-        units "bits-per-second";
-        description
-          "committed meter rate";
-      }
-      leaf committed-burst {
-        type uint64;
-        units "byes";
-        description
-          "commited burst size";
-      }
-      leaf excess-burst {
-        type uint64;
-        units "byes";
-        description
-          "excess burst size";
-      }
-      container conform-action {
-        uses meter-action-params;
-        description
-          "conform action";
-      }
-      container conform-color {
-        uses classifier:classifier-entry-generic-attr;
-        description
-          "color aware & color blind attributes container";
-      }
-      container exceed-action {
-        uses meter-action-params;
-        description
-          "exceed action";
-      }
-      container exceed-color {
-        uses classifier:classifier-entry-generic-attr;
-        description
-          "color aware & color blind attributes container";
-      }
-      container violate-action {
-        uses meter-action-params;
-        description
-          "violate action";
-      }
-      container violate-color {
-        uses classifier:classifier-entry-generic-attr;
-        description
-          "color aware & color blind attributes container";
-      }
-      description
-        "one-rate-tri-color-meter attributes";
-    }
+
+  /* template usage */
+  container meter-template {
     description
-      "one-rate-tri-color-meter grouping";
+      "list of meter templates";
+    list meter-entry {
+      key "meter-name";
+      description
+        "meter entry template";
+      leaf meter-name {
+        type string;
+        description
+          "meter identifier";
+      }
+      uses meter;
+    }
   }
-  grouping two-rate-tri-color-meter {
-    container trtcm {
-      leaf committed-rate {
-        type uint64;
-        units "bits-per-second";
+
+  grouping meter-reference {
+    container meter-reference-cfg {
+      leaf meter-type {
+        type identityref {
+          base meter-type;
+        }
         description
-          "committed meter rate";
-      }
-      leaf committed-burst {
-        type uint64;
-        units "byes";
-        description
-          "commited burst size";
-      }
-      leaf peak-rate {
-        type uint64;
-        units "bits-per-second";
-        description
-          "peak meter rate";
-      }
-      leaf peak-burst {
-        type uint64;
-        units "byes";
-        description
-          "peak burst size";
-      }
-      container conform-action {
-        uses meter-action-params;
-        description
-          "conform action";
-      }
-      container conform-color {
-        uses classifier:classifier-entry-generic-attr;
-        description
-          "color aware & color blind attributes container";
-      }
-      container exceed-action {
-        uses meter-action-params;
-        description
-          "exceed action";
-      }
-      container exceed-color {
-        uses classifier:classifier-entry-generic-attr;
-        description
-          "color aware & color blind attributes container";
-      }
-      container violate-action {
-        uses meter-action-params;
-        description
-          "violate action";
-      }
-      container violate-color {
-        uses classifier:classifier-entry-generic-attr;
-        description
-          "color aware & color blind attributes container";
+          "This leaf defines type of the filter";
       }
       description
-        "two-rate-tri-color-meter attributes";
+        "meter reference";
     }
     description
-      "two-rate-tri-color-meter grouping";
+      "meter reference";
+  }
+
+  grouping count {
+    container count-cfg {
+      leaf count-action {
+        type empty;
+        description
+          "count action";
+      }
+      description
+        "the count action";
+    }
+    description
+      "the count action grouping";
+  }
+
+  grouping discard {
+    container discard-cfg {
+      leaf discard {
+        type empty;
+        description
+          "discard action";
+      }
+      description
+        "discard action";
+    }
+    description
+      "discard grouping";
   }
   grouping priority {
     container priority-cfg {
@@ -448,6 +768,44 @@ module ietf-qos-action {
     description
       "maximum rate attributes";
   }
+  grouping new-queue {
+    container queue-cfg {
+      uses priority;
+      uses min-rate;
+      uses max-rate;
+      container algorithmic-drop-cfg {
+        choice drop-algorithm {
+          case always-drop {
+            uses drop;
+            description
+              "Always Drop choice";
+          }
+          case tail-drop {
+             /* FIXME need way to augment for vendors - e.g. size, dscp-range */
+            container tail-drop-cfg {
+              leaf tail-drop-alg {
+                type empty;
+                description
+                 "tail drop algorithm";
+              }
+              description
+                "Tail Drop configuration container";
+            }
+            description
+              "Tail Drop choice";
+          }
+          description
+            "Choice of Drop Algorithm";
+        }
+        description
+          "Algorithmic Drop configuration container";
+      }
+      description
+        "Queue configuration container";
+    }
+    description
+      "Queue grouping";
+  }
   grouping queue {
     container queue-cfg {
       uses priority;
@@ -493,7 +851,7 @@ module ietf-qos-action {
     container generic-meter-cfg {
       list meter-list {
         key "meter-id";
-        uses generic-meter;
+//           uses generic-meter;
         description
           "Generic Meter configuration";
       }
@@ -503,43 +861,43 @@ module ietf-qos-action {
     description
       "Generic Meter configuration container grouping";
   }
-  grouping metering {
-    choice meter-type {
-      case srtcm {
-        uses one-rate-tri-color-meter;
-        description
-          "one rate tri-color meter";
-      }
-      case trtcm {
-        uses two-rate-tri-color-meter;
-        description
-          "two rate tri-color meter";
-      }
-      case generic-meter {
-        uses generic-metering;
-        description
-          "generic meter";
-      }
-      description
-        " meter action based on choice of meter action type";
-    }
-    description
-      "meter attributes";
-  }
-  container meter-template {
-    if-feature meter-template-support;
-    description
-      "list of meter-entry templates";
-    list meter-entry {
-      key "meter-name";
-      description
-        "meter entry template";
-      leaf meter-name {
-        type string;
-        description
-          "basic meter identifier";
-      }
-      uses metering;
-    }
-  }
+//     grouping metering {
+//       choice meter-type {
+//         case srtcm {
+//           uses one-rate-tri-color-meter;
+//           description
+//             "one rate tri-color meter";
+//         }
+//         case trtcm {
+//           uses two-rate-tri-color-meter;
+//           description
+//             "two rate tri-color meter";
+//         }
+//         case generic-meter {
+//           uses generic-metering;
+//           description
+//             "generic meter";
+//         }
+//         description
+//           " meter action based on choice of meter action type";
+//       }
+//       description
+//         "meter attributes";
+//     }
+//     container meter-template {
+//       if-feature meter-template-support;
+//       description
+//         "list of meter-entry templates";
+//       list meter-entry {
+//         key "meter-name";
+//         description
+//           "meter entry template";
+//         leaf meter-name {
+//           type string;
+//           description
+//             "basic meter identifier";
+//         }
+//         uses metering;
+//       }
+//     }
 }
