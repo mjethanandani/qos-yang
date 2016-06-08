@@ -88,7 +88,49 @@ module ietf-diffserv {
     description
       "augments diffserv filters to qos classifier";
   }
-  augment "/policy:policies/policy:policy-entry/" +
+
+ augment "/policy:policies" +
+         "/policy:policy-entry" +
+         "/policy:classifier-entry" +
+         "/policy:filter-entry" {
+   choice filter-params {
+     description
+       "Choice of action types";
+     case dscp {
+       uses classifier:dscp-cfg;
+         description
+           "Filter containing list of dscp ranges";
+     }
+     case source-ip-address {
+       uses classifier:source-ip-address-cfg;
+       description
+         "Filter containing list of source ip addresses";
+     }
+     case destination-ip-address {
+       uses classifier:destination-ip-address-cfg;
+       description
+         "Filter containing list of destination ip address";
+     }
+     case source-port {
+       uses classifier:source-port-cfg;
+       description
+         "Filter containing list of source-port ranges";
+     }
+     case destination-port {
+       uses classifier:destination-port-cfg;
+       description
+         "Filter containing list of destination-port ranges";
+     }
+     case protocol {
+       uses classifier:protocol-cfg;
+       description
+         "Filter Type Protocol";
+     }
+   }
+   description 
+     "Augments Diffserv Classifier with common filter types";
+ }  
+ augment "/policy:policies/policy:policy-entry/" +
           "policy:classifier-entry/" +
           "policy:classifier-action-entry-cfg" {
     choice action-cfg-params {
@@ -97,9 +139,9 @@ module ietf-diffserv {
       case dscp-marking {
         uses action:dscp-marking;
       }
-      case meter {
-        uses action:metering;
-      }
+//      case meter {
+//        uses action:metering;
+//      }
     }
     description
       "augments dscp-marking and meter to qos policy";
