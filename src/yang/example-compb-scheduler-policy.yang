@@ -1,0 +1,64 @@
+module example-compb-scheduler-policy {
+     yang-version 1;
+     namespace "urn:ietf:params:xml:ns:yang:example-compb-scheduler-policy";
+     prefix scheduler-plcy;
+
+  import ietf-qos-action {
+    prefix action;
+  }
+
+  import ietf-qos-policy {
+    prefix policy;
+  }
+
+  organization "Company B";
+  contact
+    "Editor:   XYZ
+              <mailto:xyz@compb.com>";
+
+   description
+     "This module defines a scheduler policy. The classification
+      is based on classifier-any, and the action is a scheduler.";
+
+   revision 2015-04-07 {
+     description
+       "Latest revision of diffserv policy";
+     reference "RFC XXXX";
+   }
+
+   identity queue-policy {
+     base policy:action-type;
+     description
+       "forwarding-class-queue action type";
+   }
+
+  grouping queue-policy-name {
+    container compb-queue-policy-name {
+      leaf name {
+        type string;
+        description
+          "Queue policy name";
+      }
+      description
+        "compb-queue-policy container";
+    }
+    description
+      "compb-queue policy grouping";
+  }
+  
+  augment "/policy:policies" +
+          "/policy:policy-entry" +
+          "/policy:classifier-entry" +
+          "/policy:classifier-action-entry-cfg" {
+    choice action-cfg-params {
+      case schedular {
+        uses action:schedular;
+      }
+      case queue-policy {
+        uses queue-policy-name;
+      }
+      description
+        "Augment the scheduler policy with a queue policy";
+    }
+  }
+}

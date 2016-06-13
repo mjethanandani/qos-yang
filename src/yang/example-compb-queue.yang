@@ -1,0 +1,160 @@
+module example-compb-queue {
+  yang-version 1;
+  namespace "urn:ietf:params:xml:ns:yang:ietf-compb-queue";
+  prefix compb-queue;
+
+  import ietf-qos-action {
+    prefix action;
+  }
+
+  organization "Company B";
+  contact
+    "Editor:   XYZ
+              <mailto:xyz@compb.com>";
+
+  description
+    "This module describes a compb queue module. This is a 
+     template for a queue within a queue policy, referenced 
+     by name.
+     
+     This version of this YANG module is part of RFC XXXX; see
+     the RFC itself for full legal notices.";
+
+  revision 2015-04-07 {
+    description
+      "Latest revision of diffserv based classifier";
+    reference "RFC XXXX";
+  }
+  
+  container compb-queue {
+    description
+      "Queue used in compb architecture";
+      leaf name {
+          type string;
+          description
+            "A unique name identifying this queue";
+      }
+      uses action:queue;
+      container excess-rate {
+        choice excess-rate-type {
+           case percent {
+             leaf excess-rate-percent {
+               type uint32 {
+                 range "1..100";
+               }
+               description
+                 "excess-rate-percent";
+             }
+           }
+           case proportion {
+             leaf excess-rate-poroportion {
+               type uint32 {
+                 range "1..1000";
+               }
+               description
+                 "excess-rate-poroportion";
+             }
+           }
+           description
+             "Choice of excess-rate type";
+        }
+        description
+            "Excess rate value";
+      }
+      leaf excess-priority {
+        type enumeration {
+          enum high {
+           description "High Loss Priority";
+          }
+          enum medium-high {
+           description "Medium-high Loss Priority";
+          }
+          enum medium-low {
+           description "Medium-low Loss Priority";
+          }
+          enum low {
+           description "Low Loss Priority";
+          }
+          enum none {
+           description "No excess priority";
+          }
+        }
+        description
+          "Priority of excess (above guaranted rate) traffic";
+      }
+      container buffer-size {
+        choice buffer-size-type {
+           case percent {
+             leaf buffer-size-percent {
+               type uint32 {
+                 range "1..100";
+               }
+               description
+                 "buffer-size-percent";
+             }
+           }
+           case temporal {
+             leaf buffer-size-temporal {
+               type uint64;
+               units "microsecond";
+               description
+                 "buffer-size-temporal";
+             }
+           }
+           case remainder {
+             leaf buffer-size-remainder {
+               type empty;
+               description
+                 "use remaining of buffer";
+             }
+           }
+           description
+             "Choice of buffer size type";
+        }
+        description
+            "Buffer size value";
+      }
+  }
+
+  augment 
+    "/compb-queue" +
+    "/queue-cfg" +
+    "/algorithmic-drop-cfg" +
+    "/drop-algorithm" {
+    case random-detect {
+      list drop-profile-list {
+        key "priority";
+        description
+          "map of priorities to drop-algorithms";
+        leaf priority {
+          type enumeration {
+            enum any {
+              description "Any priority mapped here";
+            }
+            enum high {
+              description "High Priority Packet";
+            }
+            enum medium-high {
+              description "Medium-high Priority Packet";
+            }
+            enum medium-low {
+              description "Medium-low Priority Packet";
+            }
+            enum low {
+              description "Low Priority Packet";
+            }
+          }
+          description
+            "Priority of guaranteed traffic";
+        }
+        leaf drop-profile {
+          type string;
+          description
+            "drop profile to use for this priority";
+        }
+      }
+    }
+    description
+      "compb random detect drop algorithm config";
+  }
+}
