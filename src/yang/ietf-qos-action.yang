@@ -4,10 +4,6 @@ module ietf-qos-action {
   import ietf-inet-types {
     prefix inet;
   }
-// fixme - used by meter only
-//     import ietf-qos-classifier {
-//       prefix classifier;
-//     }
   import ietf-qos-policy {
     prefix policy;
   }
@@ -71,6 +67,9 @@ module ietf-qos-action {
         "Choice of burst type";
     }
   }
+  
+// FIXME - this is vendor specific (Juniper's way of defining a
+//         queue threshold is different).  Should we move out of base?
   grouping threshold {
     description
       "Threshold Parameters";
@@ -166,12 +165,6 @@ module ietf-qos-action {
       "meter reference action type";
   }
 
-//     identity meter {
-//       base policy:action-type;
-//       description
-//         "meter action type";
-//     }
-//
   identity meter-type {
     description
       "This base identity type defines meter types";
@@ -220,35 +213,27 @@ module ietf-qos-action {
       "drop algorithm";
   }
 
-  identity always-drop {
-    base drop-type;
-//       base policy:action-type;
-    description
-      "always drop algorithm";
-  }
   identity tail-drop {
     base drop-type;
-//       base policy:action-type;
     description
       "tail drop algorithm";
   }
   identity random-detect {
     base drop-type;
-//       base policy:action-type;
     description
       "random detect algorithm";
   }
-  identity new-meter-action-type {
+  identity meter-action-type {
     description
       "action type in a meter";
   }
-  identity new-meter-action-drop {
-    base new-meter-action-type;
+  identity meter-action-drop {
+    base meter-action-type;
     description
       "drop action type in a meter";
   }
-  identity new-meter-action-dscp-set {
-    base new-meter-action-type;
+  identity meter-action-dscp-set {
+    base meter-action-type;
     description
       "dscp mark action type in a meter";
   }
@@ -265,6 +250,8 @@ module ietf-qos-action {
     description
       "always drop grouping";
   }
+// FIXME - this is vendor specific (Juniper's way of defining a
+//         queue threshold is different).  Should we move out of base?
   grouping queuelimit {
     container qlimit-thresh {
       uses threshold;
@@ -279,24 +266,24 @@ module ietf-qos-action {
   * actions that can be augmented by different vendors for 
   * different meter types 
   */
-  grouping new-meter-action-params {
+  grouping meter-action-params {
     description
-      "new meter action parameters";
-    list new-meter-action-params {
-      key "new-meter-action-type";
+      "meter action parameters";
+    list meter-action-params {
+      key "meter-action-type";
       ordered-by user;
       description
         "Configuration of basic-meter & associated actions";
-      leaf new-meter-action-type {
+      leaf meter-action-type {
         type identityref {
-          base new-meter-action-type;
+          base meter-action-type;
         }
         description
-          "new meter action type";
+          "meter action type";
       }
-      choice new-meter-action-val {
+      choice meter-action-val {
         description
-          " new-meter action based on choice of meter action type";
+          " meter action based on choice of meter action type";
       }
     }
   }
@@ -308,31 +295,6 @@ module ietf-qos-action {
   }
 
 
-//     grouping meter-action-params {
-//       leaf meter-action-type {
-//         type identityref {
-//           base meter-action-type;
-//         }
-//         description
-//           "meter action type";
-//       }
-//       choice val {
-//         case meter-action-dscp-mark {
-//           uses dscp-marking;
-//           description
-//             "meter action: mark";
-//         }
-//         case meter-action-drop {
-//           description
-//             "meter action: drop";
-//           uses drop;
-//         }
-//         description
-//           " meter action based on choice of meter action type";
-//       }
-//       description
-//         "meter action parameters";
-//     }
 
  /* 
   * "two-param-token-bucket meter".  The parameters are rate and burst.
@@ -358,12 +320,12 @@ module ietf-qos-action {
       }
       /* note - if not actions supported in "succeed" case, then do not augment */
       container conform-action {
-        uses new-meter-action-params;
+        uses meter-action-params;
         description
           "conform action";
       }
       container exceed-action {
-        uses new-meter-action-params;
+        uses meter-action-params;
         description
           "exceed action";
       }
@@ -373,43 +335,6 @@ module ietf-qos-action {
   }
 
 
-//     grouping generic-meter {
-//       leaf meter-id {
-//         type uint16;
-//         description
-//           "meter identifier";
-//       }
-//       uses rate-value-unit;
-//       uses burst;
-//       container color {
-//         uses classifier:classifier-entry-generic-attr;
-//         description
-//           "color aware & color blind attributes container";
-//       }
-//       container succeed-action {
-//         uses meter-action-params;
-//         leaf next-meter-id {
-//           type uint16;
-//           description
-//             "next meter identifier";
-//         }
-//         description
-//           "confirm action";
-//       }
-//       container fail-action {
-//         uses meter-action-params;
-//         leaf next-meter-id {
-//           type uint16;
-//           description
-//             "next meter identifier";
-//         }
-//         description
-//           "exceed action";
-//       }
-//       description
-//         "meter attributes";
-//     }
-//
  /* 
   * one-rate tri-color meter 
   * This grouping is used by standalone meter template
@@ -439,17 +364,17 @@ module ietf-qos-action {
         "excess burst size";
     }
     container conform-action {
-      uses new-meter-action-params;
+      uses meter-action-params;
       description
         "conform, or green action";
     }
     container exceed-action {
-      uses new-meter-action-params;
+      uses meter-action-params;
       description
         "exceed, or yellow action";
     }
     container violate-action {
-      uses new-meter-action-params;
+      uses meter-action-params;
       description
         "violate, or red action";
     }
@@ -458,63 +383,6 @@ module ietf-qos-action {
       "one-rate-tri-color-meter attributes";
   }
 
-//     grouping one-rate-tri-color-meter {
-//       container srtcm {
-//         leaf committed-rate {
-//           type uint64;
-//           units "bits-per-second";
-//           description
-//             "committed meter rate";
-//         }
-//         leaf committed-burst {
-//           type uint64;
-//           units "byes";
-//           description
-//             "commited burst size";
-//         }
-//         leaf excess-burst {
-//           type uint64;
-//           units "byes";
-//           description
-//             "excess burst size";
-//         }
-//         container conform-action {
-//           uses meter-action-params;
-//           description
-//             "conform action";
-//         }
-//         container conform-color {
-//           uses classifier:classifier-entry-generic-attr;
-//           description
-//             "color aware & color blind attributes container";
-//         }
-//         container exceed-action {
-//           uses meter-action-params;
-//           description
-//             "exceed action";
-//         }
-//         container exceed-color {
-//           uses classifier:classifier-entry-generic-attr;
-//           description
-//             "color aware & color blind attributes container";
-//         }
-//         container violate-action {
-//           uses meter-action-params;
-//           description
-//             "violate action";
-//         }
-//         container violate-color {
-//           uses classifier:classifier-entry-generic-attr;
-//           description
-//             "color aware & color blind attributes container";
-//         }
-//         description
-//           "one-rate-tri-color-meter attributes";
-//       }
-//       description
-//         "one-rate-tri-color-meter grouping";
-//     }
-//
  /* 
   * Two-rate tri-color meter 
   * This grouping is used by standalone meter template
@@ -550,17 +418,17 @@ module ietf-qos-action {
         "commited burst size";
     }
     container conform-action {
-      uses new-meter-action-params;
+      uses meter-action-params;
       description
         "conform, or green action";
     }
     container exceed-action {
-      uses new-meter-action-params;
+      uses meter-action-params;
       description
         "exceed, or yellow action";
     }
     container violate-action {
-      uses new-meter-action-params;
+      uses meter-action-params;
       description
         "exceed, or red action";
     }
@@ -568,71 +436,6 @@ module ietf-qos-action {
     description
       "two-rate-tri-color-meter attributes";
   }
-
-
-
-//     grouping two-rate-tri-color-meter {
-//       container trtcm {
-//         leaf committed-rate {
-//           type uint64;
-//           units "bits-per-second";
-//           description
-//             "committed meter rate";
-//         }
-//         leaf committed-burst {
-//           type uint64;
-//           units "byes";
-//           description
-//             "commited burst size";
-//         }
-//         leaf peak-rate {
-//           type uint64;
-//           units "bits-per-second";
-//           description
-//             "peak meter rate";
-//         }
-//         leaf peak-burst {
-//           type uint64;
-//           units "byes";
-//           description
-//             "peak burst size";
-//         }
-//         container conform-action {
-//           uses meter-action-params;
-//           description
-//             "conform action";
-//         }
-//         container conform-color {
-//           uses classifier:classifier-entry-generic-attr;
-//           description
-//             "color aware & color blind attributes container";
-//         }
-//         container exceed-action {
-//           uses meter-action-params;
-//           description
-//             "exceed action";
-//         }
-//         container exceed-color {
-//           uses classifier:classifier-entry-generic-attr;
-//           description
-//             "color aware & color blind attributes container";
-//         }
-//         container violate-action {
-//           uses meter-action-params;
-//           description
-//             "violate action";
-//         }
-//         container violate-color {
-//           uses classifier:classifier-entry-generic-attr;
-//           description
-//             "color aware & color blind attributes container";
-//         }
-//         description
-//           "two-rate-tri-color-meter attributes";
-//       }
-//       description
-//         "two-rate-tri-color-meter grouping";
-//     }
 
  /* 
   * Meter grouping. Meter grouping is used by both the meter template
@@ -768,18 +571,13 @@ module ietf-qos-action {
     description
       "maximum rate attributes";
   }
-  grouping new-queue {
+  grouping queue {
     container queue-cfg {
       uses priority;
       uses min-rate;
       uses max-rate;
       container algorithmic-drop-cfg {
         choice drop-algorithm {
-          case always-drop {
-            uses drop;
-            description
-              "Always Drop choice";
-          }
           case tail-drop {
              /* FIXME need way to augment for vendors - e.g. size, dscp-range */
             container tail-drop-cfg {
@@ -806,37 +604,6 @@ module ietf-qos-action {
     description
       "Queue grouping";
   }
-  grouping queue {
-    container queue-cfg {
-      uses priority;
-      uses min-rate;
-      uses max-rate;
-      container algorithmic-drop-cfg {
-        choice drop-algorithm {
-          case always-drop {
-            uses drop;
-            description
-              "Always Drop configuration container";
-          }
-          case tail-drop {
-            container tail-drop-cfg {
-              uses queuelimit;
-              description
-                "Tail Drop configuration container";
-            }
-          }
-          description
-            "Choice of Drop Algorithm";
-        }
-        description
-          "Algorithmic Drop configuration container";
-      }
-      description
-        "Queue configuration container";
-    }
-    description
-      "Queue configuration grouping";
-  }
   grouping schedular {
     container schedular-cfg {
       uses min-rate;
@@ -847,57 +614,4 @@ module ietf-qos-action {
     description
       "Schedular configuration grouping";
   }
-  grouping generic-metering {
-    container generic-meter-cfg {
-      list meter-list {
-        key "meter-id";
-//           uses generic-meter;
-        description
-          "Generic Meter configuration";
-      }
-      description
-        "Generic Meter list configuration container";
-    }
-    description
-      "Generic Meter configuration container grouping";
-  }
-//     grouping metering {
-//       choice meter-type {
-//         case srtcm {
-//           uses one-rate-tri-color-meter;
-//           description
-//             "one rate tri-color meter";
-//         }
-//         case trtcm {
-//           uses two-rate-tri-color-meter;
-//           description
-//             "two rate tri-color meter";
-//         }
-//         case generic-meter {
-//           uses generic-metering;
-//           description
-//             "generic meter";
-//         }
-//         description
-//           " meter action based on choice of meter action type";
-//       }
-//       description
-//         "meter attributes";
-//     }
-//     container meter-template {
-//       if-feature meter-template-support;
-//       description
-//         "list of meter-entry templates";
-//       list meter-entry {
-//         key "meter-name";
-//         description
-//           "meter entry template";
-//         leaf meter-name {
-//           type string;
-//           description
-//             "basic meter identifier";
-//         }
-//         uses metering;
-//       }
-//     }
 }
