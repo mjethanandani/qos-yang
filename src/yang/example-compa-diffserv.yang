@@ -1,0 +1,454 @@
+   module example-compa-diffserv {
+     namespace "urn:ietf:params:xml:ns:yang:example-compa-diffserv";
+     prefix example;
+
+     import ietf-interfaces {
+       prefix if;
+     }
+     import ietf-qos-classifier {
+       prefix classifier;
+     }
+     import ietf-qos-policy {
+       prefix policy;
+     }
+     import ietf-qos-action {
+       prefix action;
+     }
+     import ietf-qos-target {
+       prefix target;
+     }
+     import ietf-diffserv {
+       prefix diffserv;
+     }
+
+     organization "Company A";
+     contact
+       "Editor:   XYZ
+                 <mailto:xyz@compa.com>";
+     description
+       "This module contains a collection of YANG definitions of
+        companyA diffserv specification extension.";
+     revision 2016-03-03 {
+       description
+         "Initial revision for diffserv actions on network packets";
+       reference
+         "RFC 6020: YANG - A Data Modeling Language for the
+                    Network Configuration Protocol (NETCONF)";
+     }
+
+     identity default-policy-type {
+       base policy:policy-type;
+       description
+         "This defines default policy-type";
+     }
+
+     identity qos-group {
+       base classifier:filter-type;
+       description
+         "qos-group filter-type";
+     }
+
+     grouping qos-group-cfg {
+       list qos-group-cfg {
+         key "qos-group-min qos-group-max";
+         description
+           "list of dscp ranges";
+         leaf qos-group-min {
+           type uint8;
+           description
+             "Minimum value of qos-group range";
+         }
+         leaf qos-group-max {
+           type uint8;
+           description
+             "maximum value of qos-group range";
+         }
+       }
+       description
+         "Filter containing list of qos-group ranges";
+     }
+
+     grouping wred-threshold {
+       container wred-min-thresh {
+         uses action:threshold;
+         description
+           "Minimum threshold";
+       }
+       container wred-max-thresh {
+         uses action:threshold;
+         description
+           "Maximum threshold";
+       }
+       leaf mark-probability {
+         type uint32 {
+           range "1..1000";
+         }
+         description
+           "Mark probability";
+       }
+       description
+         "WRED threshold attributes";
+     }
+
+     grouping randomdetect {
+       leaf exp-weighting-const {
+         type uint32;
+         description
+           "Exponential weighting constant factor for wred profile ";
+       }
+       uses wred-threshold;
+       description
+         "Random detect attributes";
+     }
+
+     augment "/classifier:classifiers/classifier:classifier-entry/" +
+             "classifier:filter-entry/diffserv:filter-param" {
+       case qos-group {
+         uses qos-group-cfg;
+         description
+           "Filter containing list of qos-group ranges.
+            Qos-group represent packet metadata information
+            in a device. ";
+       }
+       description
+         "augmentation of classifier filters";
+     }
+     augment "/policy:policies/policy:policy-entry/" +
+             "policy:classifier-entry/" +
+             "policy:classifier-action-entry-cfg/" +
+             "policy:action-cfg-params" {
+       case priority {
+         uses action:priority;
+       }
+       case min-rate {
+         uses action:min-rate;
+       }
+       case max-rate {
+         uses action:max-rate;
+       }
+       case random-detect {
+         uses randomdetect;
+       }
+       case meter-inline {
+         uses action:meter;
+       }
+       case child-policy {
+         leaf child-policy {
+           type leafref {
+             path "/policy:policies/policy:policy-entry/" +
+                  "policy:policy-name";
+           }
+           description
+             "Child Policy in the hierarchial configuration";
+         }
+       }
+       description
+         "Augment the actions to policy entry";
+     }
+
+     augment "/policy:policies" +
+             "/policy:policy-entry" +
+             "/policy:classifier-entry" +
+             "/policy:classifier-action-entry-cfg" +
+             "/policy:action-cfg-params" +
+             "/example:meter-inline" +
+             "/example:meter-type" +
+             "/example:one-rate-two-color-meter-type" +
+             "/example:one-rate-two-color-meter" +
+             "/example:conform-action" +
+             "/example:meter-action-params" +
+             "/example:meter-action-val" {
+      
+       description
+             "augment the one-rate-two-color meter conform with actions";
+       case meter-action-drop {
+         description
+             "meter drop";
+              uses action:drop;
+       }
+       case meter-action-mark-dscp {
+         description
+             "meter action dscp marking";
+              uses action:dscp-marking;
+       }
+     }
+     augment "/policy:policies" +
+             "/policy:policy-entry" +
+             "/policy:classifier-entry" +
+             "/policy:classifier-action-entry-cfg" +
+             "/policy:action-cfg-params" +
+             "/example:meter-inline" +
+             "/example:meter-type" +
+             "/example:one-rate-two-color-meter-type" +
+             "/example:one-rate-two-color-meter" +
+             "/example:exceed-action" +
+             "/example:meter-action-params" +
+             "/example:meter-action-val" {
+      
+       description
+             "augment the one-rate-two-color meter exceed with actions";
+       case meter-action-drop {
+         description
+             "meter drop";
+              uses action:drop;
+       }
+       case meter-action-mark-dscp {
+         description
+             "meter action dscp marking";
+              uses action:dscp-marking;
+       }
+     }
+     augment "/policy:policies" +
+             "/policy:policy-entry" +
+             "/policy:classifier-entry" +
+             "/policy:classifier-action-entry-cfg" +
+             "/policy:action-cfg-params" +
+             "/example:meter-inline" +
+             "/example:meter-type" +
+             "/example:one-rate-tri-color-meter-type" +
+             "/example:one-rate-tri-color-meter" +
+             "/example:conform-action" +
+             "/example:meter-action-params" +
+             "/example:meter-action-val" {
+      
+       description
+             "augment the one-rate-tri-color meter conform with actions";
+       case meter-action-drop {
+         description
+             "meter drop";
+              uses action:drop;
+       }
+       case meter-action-mark-dscp {
+         description
+             "meter action dscp marking";
+              uses action:dscp-marking;
+       }
+     }
+     augment "/policy:policies" +
+             "/policy:policy-entry" +
+             "/policy:classifier-entry" +
+             "/policy:classifier-action-entry-cfg" +
+             "/policy:action-cfg-params" +
+             "/example:meter-inline" +
+             "/example:meter-type" +
+             "/example:one-rate-tri-color-meter-type" +
+             "/example:one-rate-tri-color-meter" +
+             "/example:exceed-action" +
+             "/example:meter-action-params" +
+             "/example:meter-action-val" {
+      
+       description
+             "augment the one-rate-tri-color meter exceed with actions";
+       case meter-action-drop {
+         description
+             "meter drop";
+              uses action:drop;
+       }
+       case meter-action-mark-dscp {
+         description
+             "meter action dscp marking";
+              uses action:dscp-marking;
+       }
+     }
+     augment "/policy:policies" +
+             "/policy:policy-entry" +
+             "/policy:classifier-entry" +
+             "/policy:classifier-action-entry-cfg" +
+             "/policy:action-cfg-params" +
+             "/example:meter-inline" +
+             "/example:meter-type" +
+             "/example:one-rate-tri-color-meter-type" +
+             "/example:one-rate-tri-color-meter" +
+             "/example:violate-action" +
+             "/example:meter-action-params" +
+             "/example:meter-action-val" {
+       description
+             "augment the one-rate-tri-color meter conform with actions";
+       case meter-action-drop {
+         description
+             "meter drop";
+              uses action:drop;
+       }
+       case meter-action-mark-dscp {
+         description
+             "meter action dscp marking";
+              uses action:dscp-marking;
+       }
+     }
+
+     augment "/policy:policies" +
+             "/policy:policy-entry" +
+             "/policy:classifier-entry" +
+             "/policy:classifier-action-entry-cfg" +
+             "/policy:action-cfg-params" +
+             "/example:meter-inline" +
+             "/example:meter-type" +
+             "/example:two-rate-tri-color-meter-type" +
+             "/example:two-rate-tri-color-meter" +
+             "/example:conform-action" +
+             "/example:meter-action-params" +
+             "/example:meter-action-val" {
+      
+       description
+             "augment the one-rate-tri-color meter conform with actions";
+       case meter-action-drop {
+         description
+             "meter drop";
+              uses action:drop;
+       }
+       case meter-action-mark-dscp {
+         description
+             "meter action dscp marking";
+              uses action:dscp-marking;
+       }
+     }
+     augment "/policy:policies" +
+             "/policy:policy-entry" +
+             "/policy:classifier-entry" +
+             "/policy:classifier-action-entry-cfg" +
+             "/policy:action-cfg-params" +
+             "/example:meter-inline" +
+             "/example:meter-type" +
+             "/example:two-rate-tri-color-meter-type" +
+             "/example:two-rate-tri-color-meter" +
+             "/example:exceed-action" +
+             "/example:meter-action-params" +
+             "/example:meter-action-val" {
+      
+       description
+             "augment the two-rate-tri-color meter exceed with actions";
+       case meter-action-drop {
+         description
+             "meter drop";
+              uses action:drop;
+       }
+       case meter-action-mark-dscp {
+         description
+             "meter action dscp marking";
+              uses action:dscp-marking;
+       }
+     }
+     augment "/policy:policies" +
+             "/policy:policy-entry" +
+             "/policy:classifier-entry" +
+             "/policy:classifier-action-entry-cfg" +
+             "/policy:action-cfg-params" +
+             "/example:meter-inline" +
+             "/example:meter-type" +
+             "/example:two-rate-tri-color-meter-type" +
+             "/example:two-rate-tri-color-meter" +
+             "/example:violate-action" +
+             "/example:meter-action-params" +
+             "/example:meter-action-val" {
+       description
+             "augment the two-rate-tri-color meter violate with actions";
+       case meter-action-drop {
+         description
+             "meter drop";
+              uses action:drop;
+       }
+       case meter-action-mark-dscp {
+         description
+             "meter action dscp marking";
+              uses action:dscp-marking;
+       }
+     }
+     augment "/policy:policies" +
+             "/policy:policy-entry" +
+             "/policy:classifier-entry" +
+             "/policy:classifier-action-entry-cfg" +
+             "/policy:action-cfg-params" +
+             "/example:meter-inline" +
+             "/example:meter-type" +
+             "/example:one-rate-two-color-meter-type" +
+             "/example:one-rate-two-color-meter" {
+       description
+             "augment the one-rate-two-color meter with" +
+             "color classifiers";
+         container conform-color {
+           uses classifier:classifier-entry-generic-attr;
+           description
+             "conform color classifier container";
+         }
+         container exceed-color {
+           uses classifier:classifier-entry-generic-attr;
+           description
+             "exceed color classifier container";
+         }
+     }
+     augment "/policy:policies" +
+             "/policy:policy-entry" +
+             "/policy:classifier-entry" +
+             "/policy:classifier-action-entry-cfg" +
+             "/policy:action-cfg-params" +
+             "/example:meter-inline" +
+             "/example:meter-type" +
+             "/example:one-rate-tri-color-meter-type" +
+             "/example:one-rate-tri-color-meter" {
+       description
+             "augment the one-rate-tri-color meter with" +
+             "color classifiers";
+         container conform-color {
+           uses classifier:classifier-entry-generic-attr;
+           description
+             "conform color classifier container";
+         }
+         container exceed-color {
+           uses classifier:classifier-entry-generic-attr;
+           description
+             "exceed color classifier container";
+         }
+         container violate-color {
+           uses classifier:classifier-entry-generic-attr;
+           description
+             "violate color classifier container";
+         }
+     }
+     augment "/policy:policies" +
+             "/policy:policy-entry" +
+             "/policy:classifier-entry" +
+             "/policy:classifier-action-entry-cfg" +
+             "/policy:action-cfg-params" +
+             "/example:meter-inline" +
+             "/example:meter-type" +
+             "/example:two-rate-tri-color-meter-type" +
+             "/example:two-rate-tri-color-meter" {
+       description
+             "augment the two-rate-tri-color meter with" +
+             "color classifiers";
+         container conform-color {
+           uses classifier:classifier-entry-generic-attr;
+           description
+             "conform color classifier container";
+         }
+         container exceed-color {
+           uses classifier:classifier-entry-generic-attr;
+           description
+             "exceed color classifier container";
+         }
+         container violate-color {
+           uses classifier:classifier-entry-generic-attr;
+           description
+             "violate color classifier container";
+         }
+     }
+
+     augment "/if:interfaces/if:interface/target:qos-target-entry/" +
+             "target:qos-target-classifier-statistics/" +
+             "diffserv:diffserv-action-statistics" {
+       uses target:queuing-stats;
+       description
+         "Augment the statistics to policy entry";
+     }
+     augment "/if:interfaces/if:interface/target:qos-target-entry/" +
+             "target:qos-target-classifier-statistics" {
+       leaf relative-path {
+         type string;
+         description
+           "Relative Path of the classifier entry in the
+            hierarchial policy";
+       }
+       description
+         "Augment the statistics to policy entry";
+     }
+   }

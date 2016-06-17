@@ -43,61 +43,7 @@ module ietf-qos-action {
     description
       " This feature allows support of meter-template.";
   }
-  grouping burst {
-    description
-      "burst size or interval configuration";
-    choice burst-type {
-      case size {
-        leaf burst-size {
-          type uint64;
-          units "bytes";
-          description
-            "burst size";
-        }
-      }
-      case interval {
-        leaf burst-interval {
-          type uint64;
-          units "microsecond";
-          description
-            "burst interval";
-        }
-      }
-      description
-        "Choice of burst type";
-    }
-  }
-  
-// FIXME - this is vendor specific (Juniper's way of defining a
-//         queue threshold is different).  Should we move out of base?
-  grouping threshold {
-    description
-      "Threshold Parameters";
-    container threshold {
-      description
-        "threshold";
-      choice threshold-type {
-        case size {
-          leaf threshold-size {
-            type uint64;
-            units "bytes";
-            description
-              "Threshold size";
-          }
-        }
-        case interval {
-          leaf threshold-interval {
-            type uint64;
-            units "microsecond";
-            description
-              "Threshold interval";
-          }
-        }
-        description
-          "Choice of threshold type";
-      }
-    }
-  }
+
   identity rate-unit-type {
     description
       "base rate-unit type";
@@ -127,6 +73,108 @@ module ietf-qos-action {
     description
       "percentage";
   }
+
+  identity dscp-marking {
+    base policy:action-type;
+    description
+      "dscp marking action type";
+  }
+  identity meter-inline {
+    base policy:action-type;
+    description
+      "meter-inline action type";
+  }
+  identity meter-reference {
+    base policy:action-type;
+    description
+      "meter reference action type";
+  }
+  identity min-rate {
+    base policy:action-type;
+    description
+      "min-rate action type";
+  }
+  identity max-rate {
+    base policy:action-type;
+    description
+      "max-rate action type";
+  }
+  identity queue {
+    base policy:action-type;
+    description
+      "queue action type";
+  }
+  identity schedular {
+    base policy:action-type;
+    description
+      "schedular action type";
+  }
+  identity discard {
+    base policy:action-type;
+    description
+      "discard action type";
+  }
+  identity child-policy {
+    base policy:action-type;
+    description
+      "child-policy action type";
+  }
+  identity count {
+    base policy:action-type;
+    description
+      "discard action type";
+  }
+
+  identity meter-type {
+    description
+      "This base identity type defines meter types";
+  }
+  identity one-rate-two-color-meter-type {
+    base meter-type;
+    description
+      "one rate two color meter type";
+  }
+  identity one-rate-tri-color-meter-type {
+    base meter-type;
+    description
+      "one rate three color meter type";
+  }
+  identity two-rate-tri-color-meter-type {
+    base meter-type;
+    description
+      "two rate three color meter action type";
+  }
+
+  identity drop-type {
+    description
+      "drop algorithm";
+  }
+  identity tail-drop {
+    base drop-type;
+    description
+      "tail drop algorithm";
+  }
+  identity random-detect {
+    base drop-type;
+    description
+      "random detect algorithm";
+  }
+
+  identity meter-action-type {
+    description
+      "action type in a meter";
+  }
+  identity meter-action-drop {
+    base meter-action-type;
+    description
+      "drop action type in a meter";
+  }
+  identity meter-action-mark-dscp {
+    base meter-action-type;
+    description
+      "dscp mark action type in a meter";
+  }
+
   grouping rate-value-unit {
     leaf rate-value {
       type uint64;
@@ -143,100 +191,60 @@ module ietf-qos-action {
     description
       "rate value and unit grouping";
   }
-  identity queue {
-    base policy:action-type;
+  grouping burst {
     description
-      "queue action type";
-  }
-  identity dscp-marking {
-    base policy:action-type;
-    description
-      "dscp marking action type";
-  }
-  identity meter-inline {
-    base policy:action-type;
-    description
-      "meter-inline action type";
+      "burst size or interval configuration";
+    choice burst-type {
+      case size {
+        leaf burst-size {
+          type uint64;
+          units "bytes";
+          description
+            "burst size";
+        }
+      }
+      case interval {
+        leaf burst-interval {
+          type uint64;
+          units "microsecond";
+          description
+            "burst interval";
+        }
+      }
+      description
+        "Choice of burst type";
+    }
   }
   
-  identity meter-reference {
-    base policy:action-type;
+  grouping threshold {
     description
-      "meter reference action type";
+      "Threshold Parameters";
+    container threshold {
+      description
+        "threshold";
+      choice threshold-type {
+        case size {
+          leaf threshold-size {
+            type uint64;
+            units "bytes";
+            description
+              "Threshold size";
+          }
+        }
+        case interval {
+          leaf threshold-interval {
+            type uint64;
+            units "microsecond";
+            description
+              "Threshold interval";
+          }
+        }
+        description
+          "Choice of threshold type";
+      }
+    }
   }
 
-  identity meter-type {
-    description
-      "This base identity type defines meter types";
-  }
-
-  identity two-parameter-token-bucket-meter-type {
-    base meter-type;
-    description
-      "two parameter token bucket meter";
-  }
-
-  identity one-rate-tri-color-meter-type {
-    base meter-type;
-    description
-      "one rate three color meter type";
-  }
-
-  identity two-rate-tri-color-meter-type {
-    base meter-type;
-    description
-      "two rate three color meter action type";
-  }
-
-  identity discard {
-    base policy:action-type;
-    description
-      "discard action type";
-  }
-
-  // FIXME - explicit or implicit configuration?
-  // Juniper favors explicit.  
-  // Some type of if-feature? 
-  identity count {
-    base policy:action-type;
-    description
-      "discard action type";
-  }
-  identity schedular {
-    base policy:action-type;
-    description
-      "schedular action type";
-  }
-
-  identity drop-type {
-    description
-      "drop algorithm";
-  }
-
-  identity tail-drop {
-    base drop-type;
-    description
-      "tail drop algorithm";
-  }
-  identity random-detect {
-    base drop-type;
-    description
-      "random detect algorithm";
-  }
-  identity meter-action-type {
-    description
-      "action type in a meter";
-  }
-  identity meter-action-drop {
-    base meter-action-type;
-    description
-      "drop action type in a meter";
-  }
-  identity meter-action-dscp-set {
-    base meter-action-type;
-    description
-      "dscp mark action type in a meter";
-  }
   grouping drop {
     container drop-cfg {
       leaf drop-action {
@@ -250,8 +258,7 @@ module ietf-qos-action {
     description
       "always drop grouping";
   }
-// FIXME - this is vendor specific (Juniper's way of defining a
-//         queue threshold is different).  Should we move out of base?
+
   grouping queuelimit {
     container qlimit-thresh {
       uses threshold;
@@ -262,10 +269,6 @@ module ietf-qos-action {
       "the queue limit beyond which queue will not hold any packet";
   }
 
- /* 
-  * actions that can be augmented by different vendors for 
-  * different meter types 
-  */
   grouping meter-action-params {
     description
       "meter action parameters";
@@ -288,24 +291,10 @@ module ietf-qos-action {
     }
   }
 
-  identity child-policy {
-    base policy:action-type;
-    description
-      "child-policy action type";
-  }
-
-
-
- /* 
-  * "two-param-token-bucket meter".  The parameters are rate and burst.
-  * This grouping is used by standalone basic-meter template
-  * and basic-meter-inline for inline usage as a policy action.
-  */
-  grouping two-parameter-token-bucket-meter {
-    container two-parameter-token-bucket-meter {
+  grouping one-rate-two-color-meter {
+    container one-rate-two-color-meter {
       description
-        "two parameter token bucket meter";
-      /* FIXME bits per second - junper also supports percent - need to augment */
+        "single rate two color marker meter";
       leaf meter-rate {
         type uint64;
         units "bits-per-second";
@@ -318,7 +307,6 @@ module ietf-qos-action {
         description
           "burst size";
       }
-      /* note - if not actions supported in "succeed" case, then do not augment */
       container conform-action {
         uses meter-action-params;
         description
@@ -331,20 +319,13 @@ module ietf-qos-action {
       }
     }
     description
-      "two param token bucket meter attributes";
+      "single rate two color marker meter attributes";
   }
 
-
- /* 
-  * one-rate tri-color meter 
-  * This grouping is used by standalone meter template
-  * and meter-inline for inline usage as a policy action.
-  */
   grouping one-rate-tri-color-meter {
     container one-rate-tri-color-meter {
       description
         "two parameter token bucket meter";
-    /* bits per second - junper also supports percent */
     leaf committed-rate {
       type uint64;
       units "bits-per-second";
@@ -383,16 +364,10 @@ module ietf-qos-action {
       "one-rate-tri-color-meter attributes";
   }
 
- /* 
-  * Two-rate tri-color meter 
-  * This grouping is used by standalone meter template
-  * and meter-inline for inline usage as a policy action.
-  */
   grouping two-rate-tri-color-meter {
     container two-rate-tri-color-meter {
       description
         "two parameter token bucket meter";
-    /* bits per second - junper also supports percent */
     leaf committed-rate {
       type uint64;
       units "bits-per-second";
@@ -437,15 +412,10 @@ module ietf-qos-action {
       "two-rate-tri-color-meter attributes";
   }
 
- /* 
-  * Meter grouping. Meter grouping is used by both the meter template
-  * and the inline meter action. 
-  */
   grouping meter {
-    /* FIXME name not needed? id? */
     choice meter-type {
-      case two-parameter-token-bucket-meter-type {
-        uses two-parameter-token-bucket-meter;
+      case one-rate-two-color-meter-type {
+        uses one-rate-two-color-meter;
         description
           "basic meter";
       }
@@ -466,10 +436,10 @@ module ietf-qos-action {
       "meter attributes";
   }
 
-  /* template usage */
   container meter-template {
     description
       "list of meter templates";
+    if-feature meter-template-support;
     list meter-entry {
       key "meter-name";
       description
@@ -579,7 +549,6 @@ module ietf-qos-action {
       container algorithmic-drop-cfg {
         choice drop-algorithm {
           case tail-drop {
-             /* FIXME need way to augment for vendors - e.g. size, dscp-range */
             container tail-drop-cfg {
               leaf tail-drop-alg {
                 type empty;

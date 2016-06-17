@@ -139,9 +139,6 @@ module ietf-diffserv {
       case dscp-marking {
         uses action:dscp-marking;
       }
-//      case meter {
-//        uses action:metering;
-//      }
     }
     description
       "augments dscp-marking and meter to qos policy";
