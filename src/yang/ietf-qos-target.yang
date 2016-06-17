@@ -147,9 +147,45 @@ module ietf-qos-target {
       }
     }
   }
+  grouping two-color-marking-meter-stats {
+    description
+      "Two-Color-Marking Metering Counters";
+    leaf conform-pkts {
+      type uint64;
+      description
+        "Number of conform packets";
+    }
+    leaf conform-bytes {
+      type uint64;
+      description
+        "Bytes of conform packets";
+    }
+    leaf conform-rate {
+      type uint64;
+      units "bits-per-second";
+      description
+        "Traffic Rate measured as conformimg";
+    }
+    leaf exceed-pkts {
+      type uint64;
+      description
+        "Number of packets counted as exceeding";
+    }
+    leaf exceed-bytes {
+      type uint64;
+      description
+        "Bytes of packets counted as exceeding";
+    }
+    leaf exceed-rate {
+      type uint64;
+      units "bits-per-second";
+      description
+        "Traffic Rate measured as exceeding";
+    }
+  }
   grouping tri-color-marking-meter-stats {
     description
-      "Tri-Colur-Marking Metering Counters";
+      "Tri-Color-Marking Metering Counters";
     leaf conform-pkts {
       type uint64;
       description
@@ -202,41 +238,20 @@ module ietf-qos-target {
   grouping meter-stats {
     description
       "Metering Counters";
-    list generic-meter-statistics {
-      key "meter-id";
+    container one-rate-two-color-meter-statistics {
+      uses two-color-marking-meter-stats;
       description
-        "Meter statistics";
-      leaf meter-id {
-        type uint16;
-        description
-          "Meter Identifier";
-      }
-      leaf metered-pkts {
-        type uint64;
-        description
-          "Number of packets counted by the meter";
-      }
-      leaf metered-bytes {
-        type uint64;
-        description
-          "Bytes of packets counted by the meter";
-      }
-      leaf metered-rate {
-        type uint64;
-        units "bits-per-second";
-        description
-          "Traffic Rate measured by the meter";
-      }
+        "One rate two color marker meter statistics";
     }
-    container srtcm-meter-statistics {
+    container one-rate-tri-color-meter-statistics {
       uses tri-color-marking-meter-stats;
       description
-        "Srtcm meter statistics";
+        "One rate tri color marker meter statistics";
     }
-    container trtcm-meter-statistics {
+    container two-rate-tri-color-meter-statistics {
       uses tri-color-marking-meter-stats;
       description
-        "Trtcm meter statistics";
+        "Two rate tri color marker meter statistics";
     }
   }
   augment "/if:interfaces/if:interface" {
