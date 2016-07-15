@@ -94,14 +94,15 @@
        leaf exp-weighting-const {
          type uint32;
          description
-           "Exponential weighting constant factor for wred profile ";
+           "Exponential weighting constant factor for wred profile";
        }
        uses wred-threshold;
        description
          "Random detect attributes";
      }
 
-     augment "/classifier:classifiers/classifier:classifier-entry/" +
+     augment "/classifier:classifiers/" + 
+             "classifier:classifier-entry/" +
              "classifier:filter-entry/diffserv:filter-param" {
        case qos-group {
          uses qos-group-cfg;
@@ -160,7 +161,8 @@
              "/example:meter-action-val" {
       
        description
-             "augment the one-rate-two-color meter conform with actions";
+             "augment the one-rate-two-color meter conform
+              with actions";
        case meter-action-drop {
          description
              "meter drop";
@@ -186,7 +188,8 @@
              "/example:meter-action-val" {
       
        description
-             "augment the one-rate-two-color meter exceed with actions";
+             "augment the one-rate-two-color meter exceed
+              with actions";
        case meter-action-drop {
          description
              "meter drop";
@@ -212,7 +215,8 @@
              "/example:meter-action-val" {
       
        description
-             "augment the one-rate-tri-color meter conform with actions";
+             "augment the one-rate-tri-color meter conform
+              with actions";
        case meter-action-drop {
          description
              "meter drop";
@@ -238,7 +242,8 @@
              "/example:meter-action-val" {
       
        description
-             "augment the one-rate-tri-color meter exceed with actions";
+             "augment the one-rate-tri-color meter exceed
+              with actions";
        case meter-action-drop {
          description
              "meter drop";
@@ -263,7 +268,8 @@
              "/example:meter-action-params" +
              "/example:meter-action-val" {
        description
-             "augment the one-rate-tri-color meter conform with actions";
+             "augment the one-rate-tri-color meter conform
+              with actions";
        case meter-action-drop {
          description
              "meter drop";
@@ -290,7 +296,8 @@
              "/example:meter-action-val" {
       
        description
-             "augment the one-rate-tri-color meter conform with actions";
+             "augment the one-rate-tri-color meter conform
+              with actions";
        case meter-action-drop {
          description
              "meter drop";
@@ -316,7 +323,8 @@
              "/example:meter-action-val" {
       
        description
-             "augment the two-rate-tri-color meter exceed with actions";
+             "augment the two-rate-tri-color meter exceed
+              with actions";
        case meter-action-drop {
          description
              "meter drop";
@@ -341,7 +349,8 @@
              "/example:meter-action-params" +
              "/example:meter-action-val" {
        description
-             "augment the two-rate-tri-color meter violate with actions";
+             "augment the two-rate-tri-color meter violate
+              with actions";
        case meter-action-drop {
          description
              "meter drop";
@@ -433,14 +442,16 @@
          }
      }
 
-     augment "/if:interfaces/if:interface/target:qos-target-entry/" +
+     augment "/if:interfaces/if:interface/" +
+             "target:qos-target-entry/" +
              "target:qos-target-classifier-statistics/" +
              "diffserv:diffserv-action-statistics" {
        uses target:queuing-stats;
        description
          "Augment the statistics to policy entry";
      }
-     augment "/if:interfaces/if:interface/target:qos-target-entry/" +
+     augment "/if:interfaces/if:interface/" + 
+             "target:qos-target-entry/" +
              "target:qos-target-classifier-statistics" {
        leaf relative-path {
          type string;
