@@ -262,7 +262,7 @@ module ietf-qos-classifier {
     }
     list filter-entry {
       if-feature policy-inline-classifier-config;
-      must "classifier-entry-inline == true" {
+      must "../classifier-entry-inline = 'true'" {
         description
           "For inline filter configuration, inline attribute
            must be true";
