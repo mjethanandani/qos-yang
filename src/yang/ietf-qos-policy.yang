@@ -5,24 +5,24 @@ module ietf-qos-policy {
   import ietf-qos-classifier {
     prefix classifier;
   }
-  organization "IETF NETMOD (Netmod Working Group) Working Group";
+  organization "IETF RTG (Routing Area) Working Group";
   contact
-    "WG Web:   <http://tools.ietf.org/wg/netmod/>
-     WG List:  <mailto:netmod@ietf.org>
-     WG Chair: Jurgen Schonwalder
-               <mailto:j.schoenwaelder@jacobs-university.de>
-     WG Chair: Lou Berger
-               <mailto:lberger@labn.net>
-     WG Chair: Kent Watsen
-               <mailto:kwatsen@juniper.net>
+    "WG Web:   <http://tools.ietf.org/wg/rtgwg/>
+     WG List:  <mailto:rtgwg@ietf.org>
+     WG Chair: Chris Bowers
+               <mailto:cbowers@juniper.net>
+     WG Chair: Jeff Tantsura
+               <mailto:jefftant.ietf@gmail.com>
      Editor:   Aseem Choudhary
                <mailto:asechoud@cisco.com>
      Editor:   Mahesh Jethanandani
-               <mailto:mjethanandani@gmail.com>";
+               <mailto:mjethanandani@gmail.com>
+     Editor:   Norm Strahle
+               <mailto:nstrahle@juniper.net>";
   description
     "This module contains a collection of YANG definitions for
      configuring qos specification implementations.
-     Copyright (c) 2014 IETF Trust and the persons identified as
+     Copyright (c) 2021 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
      Redistribution and use in source and binary forms, with or
      without modification, is permitted pursuant to, and subject
@@ -32,31 +32,31 @@ module ietf-qos-policy {
      (http://trustee.ietf.org/license-info).
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
-  revision 2016-03-03 {
+  revision 2021-07-12 {
     description
-      "Latest revision of qos policy";
+      "Initial revision of qos policy";
     reference "RFC XXXX";
   }
   identity policy-type {
     description
       "This base identity type defines policy-types";
   }
-  grouping policy-generic-attr {
+  grouping generic-attr {
     description
       "Policy Attributes";
-    leaf policy-name {
+    leaf name {
       type string;
       description
         "policy name";
     }
-    leaf policy-type {
+    leaf type {
       type identityref {
         base policy-type;
       }
       description
         "policy type";
     }
-    leaf policy-descr {
+    leaf description {
       type string;
       description
         "policy description";
@@ -66,47 +66,47 @@ module ietf-qos-policy {
     description
       "This base identity type defines action-types";
   }
-  grouping classifier-action-entry-cfg {
+  grouping classifier-action-entry {
     description
       "List of Configuration of classifier & associated actions";
-    list classifier-action-entry-cfg {
-      key "action-type";
+    list action {
+      key "type";
       ordered-by user;
       description
         "Configuration of classifier & associated actions";
-      leaf action-type {
+      leaf type {
         type identityref {
           base action-type;
         }
         description
           "This defines action type ";
       }
-      choice action-cfg-params {
+      choice action-params {
         description
           "Choice of action types";
       }
     }
   }
-  container policies {
+  container policies{
     description
       "list of policy templates";
-    list policy-entry {
-      key "policy-name policy-type";
+    list policy{
+      key "name type";
       description
         "policy template";
-      uses policy-generic-attr;
-      list classifier-entry {
-        key "classifier-entry-name";
+      uses generic-attr;
+      list classifier{
+        key "name";
         ordered-by user;
         description
           "Classifier entry configuration in a policy";
-        leaf classifier-entry-name {
+        leaf name {
           type string;
           description
             "classifier entry name";
         }
-        uses classifier:classifier-entry-inline-attr;
-        uses classifier-action-entry-cfg;
+        uses classifier:inline-attr;
+        uses classifier-action-entry;
       }
     }
   }

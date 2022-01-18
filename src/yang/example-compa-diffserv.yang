@@ -1,24 +1,23 @@
    module example-compa-diffserv {
+     yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:example-compa-diffserv";
      prefix example;
 
-     import ietf-interfaces {
-       prefix if;
-     }
      import ietf-qos-classifier {
        prefix classifier;
+       reference "RFC XXXX: YANG Model for QoS";
      }
      import ietf-qos-policy {
        prefix policy;
+       reference "RFC XXXX: YANG Model for QoS";
      }
      import ietf-qos-action {
        prefix action;
-     }
-     import ietf-qos-target {
-       prefix target;
+       reference "RFC XXXX: YANG Model for QoS";
      }
      import ietf-diffserv {
        prefix diffserv;
+       reference "RFC XXXX: YANG Model for QoS";
      }
 
      organization "Company A";
@@ -130,19 +129,6 @@
        case random-detect {
          uses randomdetect;
        }
-       case meter-inline {
-         uses action:meter;
-       }
-       case child-policy {
-         leaf child-policy {
-           type leafref {
-             path "/policy:policies/policy:policy-entry/" +
-                  "policy:policy-name";
-           }
-           description
-             "Child Policy in the hierarchial configuration";
-         }
-       }
        description
          "Augment the actions to policy entry";
      }
@@ -152,13 +138,13 @@
              "/policy:classifier-entry" +
              "/policy:classifier-action-entry-cfg" +
              "/policy:action-cfg-params" +
-             "/example:meter-inline" +
-             "/example:meter-type" +
-             "/example:one-rate-two-color-meter-type" +
-             "/example:one-rate-two-color-meter" +
-             "/example:conform-action" +
-             "/example:meter-action-params" +
-             "/example:meter-action-val" {
+             "/diffserv:meter-inline" +
+             "/diffserv:meter-type" +
+             "/diffserv:one-rate-two-color-meter-type" +
+             "/diffserv:one-rate-two-color-meter" +
+             "/diffserv:conform-action" +
+             "/diffserv:conform-2color-meter-action-params" +
+             "/diffserv:conform-2color-meter-action-val" {
       
        description
              "augment the one-rate-two-color meter conform
@@ -179,13 +165,13 @@
              "/policy:classifier-entry" +
              "/policy:classifier-action-entry-cfg" +
              "/policy:action-cfg-params" +
-             "/example:meter-inline" +
-             "/example:meter-type" +
-             "/example:one-rate-two-color-meter-type" +
-             "/example:one-rate-two-color-meter" +
-             "/example:exceed-action" +
-             "/example:meter-action-params" +
-             "/example:meter-action-val" {
+             "/diffserv:meter-inline" +
+             "/diffserv:meter-type" +
+             "/diffserv:one-rate-two-color-meter-type" +
+             "/diffserv:one-rate-two-color-meter" +
+             "/diffserv:exceed-action" +
+             "/diffserv:exceed-2color-meter-action-params" +
+             "/diffserv:exceed-2color-meter-action-val" {
       
        description
              "augment the one-rate-two-color meter exceed
@@ -206,13 +192,13 @@
              "/policy:classifier-entry" +
              "/policy:classifier-action-entry-cfg" +
              "/policy:action-cfg-params" +
-             "/example:meter-inline" +
-             "/example:meter-type" +
-             "/example:one-rate-tri-color-meter-type" +
-             "/example:one-rate-tri-color-meter" +
-             "/example:conform-action" +
-             "/example:meter-action-params" +
-             "/example:meter-action-val" {
+             "/diffserv:meter-inline" +
+             "/diffserv:meter-type" +
+             "/diffserv:one-rate-tri-color-meter-type" +
+             "/diffserv:one-rate-tri-color-meter" +
+             "/diffserv:conform-action" +
+             "/diffserv:conform-3color-meter-action-params" +
+             "/diffserv:conform-3color-meter-action-val" {
       
        description
              "augment the one-rate-tri-color meter conform
@@ -233,13 +219,13 @@
              "/policy:classifier-entry" +
              "/policy:classifier-action-entry-cfg" +
              "/policy:action-cfg-params" +
-             "/example:meter-inline" +
-             "/example:meter-type" +
-             "/example:one-rate-tri-color-meter-type" +
-             "/example:one-rate-tri-color-meter" +
-             "/example:exceed-action" +
-             "/example:meter-action-params" +
-             "/example:meter-action-val" {
+             "/diffserv:meter-inline" +
+             "/diffserv:meter-type" +
+             "/diffserv:one-rate-tri-color-meter-type" +
+             "/diffserv:one-rate-tri-color-meter" +
+             "/diffserv:exceed-action" +
+             "/diffserv:exceed-3color-meter-action-params" +
+             "/diffserv:exceed-3color-meter-action-val" {
       
        description
              "augment the one-rate-tri-color meter exceed
@@ -260,13 +246,13 @@
              "/policy:classifier-entry" +
              "/policy:classifier-action-entry-cfg" +
              "/policy:action-cfg-params" +
-             "/example:meter-inline" +
-             "/example:meter-type" +
-             "/example:one-rate-tri-color-meter-type" +
-             "/example:one-rate-tri-color-meter" +
-             "/example:violate-action" +
-             "/example:meter-action-params" +
-             "/example:meter-action-val" {
+             "/diffserv:meter-inline" +
+             "/diffserv:meter-type" +
+             "/diffserv:one-rate-tri-color-meter-type" +
+             "/diffserv:one-rate-tri-color-meter" +
+             "/diffserv:violate-action" +
+             "/diffserv:violate-3color-meter-action-params" +
+             "/diffserv:violate-3color-meter-action-val" {
        description
              "augment the one-rate-tri-color meter conform
               with actions";
@@ -287,13 +273,13 @@
              "/policy:classifier-entry" +
              "/policy:classifier-action-entry-cfg" +
              "/policy:action-cfg-params" +
-             "/example:meter-inline" +
-             "/example:meter-type" +
-             "/example:two-rate-tri-color-meter-type" +
-             "/example:two-rate-tri-color-meter" +
-             "/example:conform-action" +
-             "/example:meter-action-params" +
-             "/example:meter-action-val" {
+             "/diffserv:meter-inline" +
+             "/diffserv:meter-type" +
+             "/diffserv:two-rate-tri-color-meter-type" +
+             "/diffserv:two-rate-tri-color-meter" +
+             "/diffserv:conform-action" +
+             "/diffserv:conform-3color-meter-action-params" +
+             "/diffserv:conform-3color-meter-action-val" {
       
        description
              "augment the one-rate-tri-color meter conform
@@ -314,13 +300,13 @@
              "/policy:classifier-entry" +
              "/policy:classifier-action-entry-cfg" +
              "/policy:action-cfg-params" +
-             "/example:meter-inline" +
-             "/example:meter-type" +
-             "/example:two-rate-tri-color-meter-type" +
-             "/example:two-rate-tri-color-meter" +
-             "/example:exceed-action" +
-             "/example:meter-action-params" +
-             "/example:meter-action-val" {
+             "/diffserv:meter-inline" +
+             "/diffserv:meter-type" +
+             "/diffserv:two-rate-tri-color-meter-type" +
+             "/diffserv:two-rate-tri-color-meter" +
+             "/diffserv:exceed-action" +
+             "/diffserv:exceed-3color-meter-action-params" +
+             "/diffserv:exceed-3color-meter-action-val" {
       
        description
              "augment the two-rate-tri-color meter exceed
@@ -341,13 +327,13 @@
              "/policy:classifier-entry" +
              "/policy:classifier-action-entry-cfg" +
              "/policy:action-cfg-params" +
-             "/example:meter-inline" +
-             "/example:meter-type" +
-             "/example:two-rate-tri-color-meter-type" +
-             "/example:two-rate-tri-color-meter" +
-             "/example:violate-action" +
-             "/example:meter-action-params" +
-             "/example:meter-action-val" {
+             "/diffserv:meter-inline" +
+             "/diffserv:meter-type" +
+             "/diffserv:two-rate-tri-color-meter-type" +
+             "/diffserv:two-rate-tri-color-meter" +
+             "/diffserv:violate-action" +
+             "/diffserv:violate-3color-meter-action-params" +
+             "/diffserv:violate-3color-meter-action-val" {
        description
              "augment the two-rate-tri-color meter violate
               with actions";
@@ -367,10 +353,10 @@
              "/policy:classifier-entry" +
              "/policy:classifier-action-entry-cfg" +
              "/policy:action-cfg-params" +
-             "/example:meter-inline" +
-             "/example:meter-type" +
-             "/example:one-rate-two-color-meter-type" +
-             "/example:one-rate-two-color-meter" {
+             "/diffserv:meter-inline" +
+             "/diffserv:meter-type" +
+             "/diffserv:one-rate-two-color-meter-type" +
+             "/diffserv:one-rate-two-color-meter" {
        description
              "augment the one-rate-two-color meter with" +
              "color classifiers";
@@ -390,10 +376,10 @@
              "/policy:classifier-entry" +
              "/policy:classifier-action-entry-cfg" +
              "/policy:action-cfg-params" +
-             "/example:meter-inline" +
-             "/example:meter-type" +
-             "/example:one-rate-tri-color-meter-type" +
-             "/example:one-rate-tri-color-meter" {
+             "/diffserv:meter-inline" +
+             "/diffserv:meter-type" +
+             "/diffserv:one-rate-tri-color-meter-type" +
+             "/diffserv:one-rate-tri-color-meter" {
        description
              "augment the one-rate-tri-color meter with" +
              "color classifiers";
@@ -418,10 +404,10 @@
              "/policy:classifier-entry" +
              "/policy:classifier-action-entry-cfg" +
              "/policy:action-cfg-params" +
-             "/example:meter-inline" +
-             "/example:meter-type" +
-             "/example:two-rate-tri-color-meter-type" +
-             "/example:two-rate-tri-color-meter" {
+             "/diffserv:meter-inline" +
+             "/diffserv:meter-type" +
+             "/diffserv:two-rate-tri-color-meter-type" +
+             "/diffserv:two-rate-tri-color-meter" {
        description
              "augment the two-rate-tri-color meter with" +
              "color classifiers";
@@ -440,26 +426,5 @@
            description
              "violate color classifier container";
          }
-     }
-
-     augment "/if:interfaces/if:interface/" +
-             "target:qos-target-entry/" +
-             "target:qos-target-classifier-statistics/" +
-             "diffserv:diffserv-action-statistics" {
-       uses target:queuing-stats;
-       description
-         "Augment the statistics to policy entry";
-     }
-     augment "/if:interfaces/if:interface/" + 
-             "target:qos-target-entry/" +
-             "target:qos-target-classifier-statistics" {
-       leaf relative-path {
-         type string;
-         description
-           "Relative Path of the classifier entry in the
-            hierarchial policy";
-       }
-       description
-         "Augment the statistics to policy entry";
      }
    }

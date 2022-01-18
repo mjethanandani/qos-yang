@@ -1,0 +1,290 @@
+ module example-compc-qos-policy {
+     yang-version 1.1;
+     namespace "urn:example-compc-qos-policy";
+     prefix "compcqos";
+
+     import ietf-qos-policy {
+       prefix "pol";
+       reference "RFC XXXX: YANG Model for QoS";
+     }
+
+     import ietf-qos-action {
+       prefix "action";
+       reference "RFC XXXX: YANG Model for QoS";
+     }
+
+     organization "";
+     contact "";
+     description "";
+
+     revision 2019-03-13 {
+       description "";
+       reference "";
+     }
+
+     /* identities */
+
+     identity compc-qos-policy {
+       base pol:policy-type;
+     }
+     identity mdrr-queuing-policy {
+       base compc-qos-policy;
+     }
+
+     identity pwfq-queuing-policy {
+       base compc-qos-policy;
+     }
+
+     identity policing-policy {
+       base compc-qos-policy;
+     }
+
+     identity metering-policy {
+       base compc-qos-policy;
+     }
+
+     identity forwarding-policy {
+       base compc-qos-policy;
+     }
+
+     identity overhead-profile-policy {
+       base compc-qos-policy;
+     }
+
+     identity resource-profile-policy {
+       base compc-qos-policy;
+     }
+
+     identity protocol-rate-limit-policy {
+       base compc-qos-policy;
+     }
+
+     identity compc-qos-action {
+       base pol:action-type;
+     }
+
+     /* groupings */
+
+     grouping redirect-action-grp {
+       container redirect {
+         /* Redirect options */
+       }
+     }
+
+     /* deviations */
+
+     deviation "/pol:policies/pol:policy-entry" {
+       deviate add {
+         must "pol:type = compc-qos-policy" {
+           description
+             "Only policy types drived from compc-qos-policy " +
+             "are supported";
+         }
+       }
+     }
+
+     deviation "/pol:policies/pol:policy-entry/pol:classifier-entry" {
+       deviate add {
+         must "../per-class-action = 'true'" {
+           description
+             "Only policies with per-class actions have classifiers";
+         }
+         must "((../sub-type != 'mdrr-queuing-policy') and " +
+              " (../sub-type != 'pwfq-queuing-policy')) or " +
+              "(((../sub-type = 'mdrr-queuing-policy') or " +
+              "  (../sub-type = 'pwfq-queueing-policy')) and " +
+              " ((classifier-entry-name = '0') or " +
+              "  (classifier-entry-name = '1') or " +
+              "  (classifier-entry-name = '2') or " +
+              "  (classifier-entry-name = '3') or " +
+              "  (classifier-entry-name = '4') or " +
+              "  (classifier-entry-name = '5') or " +
+              "  (classifier-entry-name = '6') or " +
+              "  (classifier-entry-name = '7') or " +
+              "  (classifier-entry-name = '8')))" {
+           description
+             "MDRR queuing policy's or PWFQ queuing policy's " +
+             "classifier-entry-name is limited to the listed values";
+         }
+       }
+     }
+
+     deviation "/pol:policies/pol:policy-entry/pol:classifier-entry" +
+               "/pol:classifier-action-entry-cfg" {
+       deviate add {
+         max-elements 1;
+         must "action-type = 'compc-qos-action'" {
+           description
+             "Only compc-qos-action is allowed";
+         }
+       }
+     }
+
+     /* augments */
+
+     augment "/pol:policies/pol:policy-entry" {
+       when "pol:type = 'compc-qos-policy')" {
+         description
+           "Additional nodes only for diffserv-policy";
+       }
+       leaf sub-type {
+         type identityref {
+           base compc-qos-policy;
+         }
+         mandatory true;
+         /* The value of this leaf must not change once configured */
+       }
+       leaf per-class-action {
+         mandatory true;
+         type boolean;
+         must "(((. = 'true') and " +
+              "  ((../sub-type = 'policing-policy') or " +
+              "   (../sub-type = 'metering-policy') or " +
+              "   (../sub-type = 'mdrr-queuing-policy') or " +
+              "   (../sub-type = 'pwfq-queuing-policy') or " +
+              "   (../sub-type = 'forwarding-policy'))) or " +
+              " ((. = 'false') and " +
+              "  ((../sub-type = 'overhead-profile-policy') or " +
+              "   (../sub-type = 'resource-profile-policy') or " +
+              "   (../sub-type = 'protocol-rate-limit-policy')))" {
+           description
+             "Only certain policies have per-class action";
+         }
+       }
+       container traffic-classifier {
+         presence true;
+         when "../sub-type = 'policing-policy' or " +
+              "../sub-type = 'metering-policy' or " +
+              "../sub-type = 'forwarding-policy'" {
+           description
+             "A classifier for policing-policy or metering-policy";
+         }
+         leaf name {
+           type string;
+           mandatory true;
+           description
+             "Traffic classifier name";
+         }
+         leaf type {
+           type enumeration {
+             enum 'internal-dscp-only-classifier' {
+               value 0;
+               description
+                 "Classify traffic based on (internal) dscp only";
+             }
+             enum 'ipv4-header-based-classifier' {
+               value 1;
+               description
+                 "Classify traffic based on IPv4 packet header fields";
+             }
+             enum 'ipv6-header-based-classifier' {
+               value 2;
+               description
+                 "Classify traffic based on IPv6 packet header fields";
+             }
+           }
+           mandatory true;
+           description
+             "Traffic classifier type";
+         }
+       }
+       container traffic-queue {
+         when "(../sub-type = 'mdrr-queuing-policy') or " +
+              "(../sub-type = 'pwfq-queuing-policy')" {
+           description
+             "Queuing policy properties";
+         }
+         leaf queue-map {
+           type string;
+           description
+             "Traffic queue map for queuing policy";
+         }
+       }
+       container overhead-profile {
+         when "../sub-type = 'overhead-profile-policy'" {
+           description
+             "Overhead profile policy properties";
+         }
+       }
+       container resource-profile {
+         when "../sub-type = 'resource-profile-policy'" {
+           description
+             "Resource profile policy properties";
+         }
+       }
+       container protocol-rate-limit {
+         when "../sub-type = 'protocol-rate-limit-policy'" {
+           description
+             "Protocol rate limit policy properties";
+         }
+       }
+     }
+     augment "/pol:policies/pol:policy-entry/pol:classifier-entry" +
+             "/pol:classifier-action-entry-cfg/pol:action-cfg-params" {
+       when "../../../pol:type = 'compc-qos-policy')" {
+         description
+           "Configurations for a classifier-policy-type policy";
+       }
+       case metering-or-policing-policy {
+         when "../../../sub-type = 'policing-policy' or "
+            + "../../../sub-type = 'metering-policy'" {
+         }
+         container dscp-marking {
+           uses action:dscp-marking;
+         }
+         container precedence-marking {
+           uses action:dscp-marking;
+         }
+         container priority-marking {
+           uses action:priority;
+         }
+         container rate-limiting {
+           uses action:one-rate-two-color-meter;
+         }
+       }
+       case mdrr-queuing-policy {
+         when "../../../sub-type = 'mdrr-queuing-policy'" {
+           description
+             "MDRR queue handling properties for the traffic " +
+             "classified into current queue";
+         }
+         leaf mdrr-queue-weight {
+           type uint8 {
+             range "20..100";
+           }
+           units percentage;
+         }
+       }
+       case pwfq-queuing-policy {
+         when "../../../sub-type = 'pwfq-queuing-policy'" {
+           description
+             "PWFQ queue handling properties for traffic " +
+             "classified into current queue";
+         }
+         leaf pwfq-queue-weight {
+           type uint8 {
+             range "20..100";
+           }
+           units percentage;
+         }
+         leaf pwfq-queue-priority {
+           type uint8;
+         }
+         leaf pwfq-queue-rate {
+           type uint8;
+         }
+       }
+       case forwarding-policy {
+         when "../../../sub-type = 'forwarding-policy'" {
+           description
+             "Forward policy handling properties for traffic " +
+             "in this classifier";
+         }
+         uses redirect-action-grp;
+       }
+       description
+         "Add the classify action configuration";
+     }
+
+   }
+
