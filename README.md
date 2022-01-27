@@ -14,9 +14,9 @@ If the repository does not have all the latest tags uploaded, one can create a l
 
 where the `version` field is the current published version of the draft. For example, if the current published version is -06, then the tag created should be:
 
-`git tag draft-ietf-idr-bgp-model-06`
+`git tag draft-ietf-idr-rtgwg-qos-model-06`
 
-This tag will cause `draft-ietf-idr-bgp-model-07` to be built.
+This tag will cause `draft-ietf-rtgwg-qos-model-07` to be built.
 
 ## Native Build
 
