@@ -45,10 +45,11 @@ module ietf-diffserv {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2020-03-17 {
+  revision YYYY-MM-DD {
     description
-      "Latest revision of diffserv based classifier";
-    reference "RFC XXXX";
+      "Initial version";
+    reference
+      "RFC XXXX: A YANG Model for Quality of Service (QoS)";
   }
 
   feature diffserv-queue-inline-support {

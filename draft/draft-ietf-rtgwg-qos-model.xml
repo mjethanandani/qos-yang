@@ -2805,11 +2805,11 @@ module ietf-scheduler-policy {
 
       &RFC2119;
 
-      <?rfc include='reference.RFC.2697'?>
+      <?rfc include='reference.RFC.2697.xml'?>
 
-      <?rfc include='reference.RFC.2698'?>
+      <?rfc include='reference.RFC.2698.xml'?>
 
-      <?rfc include='reference.RFC.8342'?>
+      <?rfc include='reference.RFC.8342.xml'?>
 
       &RFC3289;
 
@@ -2827,7 +2827,7 @@ module ietf-scheduler-policy {
     <references title="Informative References">
       &RFC2475;
 
-      <?rfc include='reference.RFC.8340'?>
+      <?rfc include='reference.RFC.8340.xml'?>
 
     </references>
 
