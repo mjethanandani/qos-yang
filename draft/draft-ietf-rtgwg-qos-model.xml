@@ -6,6 +6,7 @@
     There has to be one entity for each item to be referenced.                    
     An alternate method (rfc include) is described in the references. -->
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC2474 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2474.xml">
 <!ENTITY RFC2475 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2475.xml">
 <!ENTITY RFC3289 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3289.xml">
 <!ENTITY RFC6020 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml">
@@ -14,8 +15,14 @@
 <!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!ENTITY RFC8343 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8343.xml">
 ]>
-<rfc category="std" docName="draft-ietf-rtgwg-qos-model-06"
-     ipr="trust200902">
+<rfc
+    category="std"
+    consensus="true"
+    docName="draft-ietf-rtgwg-qos-model-latest"
+    ipr="trust200902"
+    submissionType="IETF"
+    xml:lang="en">
+  
   <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 
   <!-- used by XSLT processors -->
@@ -43,7 +50,7 @@
   <?rfc compact="yes" ?>
 
   <front>
-    <title abbrev="A YANG Data Model for Quality of Service (QoS)"> A YANG Data Model for Quality of Service (QoS)</title>
+    <title abbrev="YANG Model for QoS"> A YANG Model for Quality of Service (QoS)</title>
 
     <author fullname="Aseem Choudhary" initials="A.C." surname="Choudhary">
       <organization>Cisco Systems</organization>
@@ -67,7 +74,7 @@
 
     <author fullname="Mahesh Jethanandani" initials="M."
             surname="Jethanandani">
-      <organization>VMware</organization>
+      <organization>Kloud Services</organization>
 
       <address>
         <email>mjethanandani@gmail.com</email>
@@ -103,162 +110,190 @@
         <email>ingwherchen@mitre.org</email>
       </address>
     </author>
-    <date day="08" month="Nov" year="2021"/>
+    <date/>
 
     <abstract>
-      <t>This document describes a YANG Data model for Quality of
-         Service (QoS) configuration in network devices. This
-         document doesn't describe QoS statistics counters.  </t>
+      <t>This document describes a YANG model for configuration of
+      Quality of Service (QoS) configuration in network devices. This
+      document doesn't describe QoS statistics counters.  </t>
     </abstract>
   </front>
 
   <middle>
     <section anchor="intro" title="Introduction">
-      <t> This document defines a base YANG <xref target="RFC6020"/> 
-      <xref target="RFC7950"/>  data model for Quality of Service (QoS)
-      configuration parameters. Differentiated Services (DiffServ)
-      module is an augmentation of base QoS modules. Remote Procedure
-      Calls (RPC) or notification definition is not part of this
-      document. QoS base modules define a basic building blocks to
-      define a classifier, policy, action and target. The base modules
-      have been augmented to include packet match fields and action 
-      parameters to define the DiffServ module. Queues and schedulers 
-      are stitched as part of diffserv policy itself or separate modules
-      are defined for creating Queue policy and Scheduling policy.
-      The DiffServ model is based on DiffServ architecture, and various
+      <t> This document defines a base YANG <xref target="RFC6020"/>
+      <xref target="RFC7950"/> model for Quality of Service (QoS)
+      configuration parameters. QoS base modules define the basic
+      building blocks to define a classifier, policy, action and
+      target. The base models are augmented to include packet match
+      fields and action parameters to define the Diffrentiated
+      Services (DiffServ) module. Queues and schedulers are stitched
+      as part of diffserv policy model. Separate models have been
+      defined for creating Queue policy and Scheduling policy. The
+      DiffServ model is based on DiffServ architecture, and various
       references have been made to available standard architecture
       documents.</t>
 
-      <t>DiffServ is a preferred approach for network service providers to
-      offer services to different customers based on their network
-      Quality-of-Service (QoS) objectives. The traffic streams are
-      differentiated based on DiffServ Code Points (DSCP) carried in the IP
-      header of each packet. The DSCP markings are applied by upstream node or
-      by the edge router on entry to the DiffServ network.</t>
+      <t>DiffServ is a preferred approach for network service
+      providers to offer services to different customers based on
+      their network Quality-of-Service (QoS) objectives. The traffic
+      streams are differentiated based on DiffServ Code Points (DSCP)
+      carried in the IP header of each packet. The DSCP markings are
+      applied by upstream node or by the edge router on entry to the
+      DiffServ network.</t>
 
-      <t> Editorial Note: (To be removed by RFC Editor) </t>
+      <t> The YANG modules in this document conform to the Network
+      Management Datastore Architecture (NMDA) <xref
+      target="RFC8342"/>. </t>
 
-      <t> This draft contains several placeholder values that need to be
-      replaced with finalized values at the time of publication.  Please
-      apply the following replacements:
+      <t> Tree diagrams used in this document follow the notation
+      defined in <xref target="RFC8340"/></t>
 
-      o  "XXXX" --> the assigned RFC value for this draft both in this
-      draft and in the YANG models under the revision statement.
+      <section>
+	<name>Note to RFC Editor</name>
+	<t> Editorial Note: (To be removed by RFC Editor) </t>
+	<t> This draft contains several placeholder values that need to
+	be replaced with finalized values at the time of publication.
+	Please apply the following replacements:
+	<ul>
+	  <li>"XXXX" --> the assigned RFC value for this draft both in
+	  this draft and in the yang modules under the revision
+	  statement.</li>
 
-      o  The "revision" date in model, in the format XXXX-XX-XX, needs to
-      be updated with the date the draft gets approved.</t>
-
-      <t> The YANG modules in this document conform to the Network Management
-      Datastore Architecture (NMDA) <xref target="RFC8342"/>. </t>
-
-      <section title="Tree Diagrams ">
-
-      <t> Tree diagrams used in this document follow the notation defined in
-          <xref target="RFC8340"/></t>
+	  <li>The "revision" date in model, in the format XXXX-XX-XX,
+	  needs to be updated with the date the draft gets
+	  approved.</li>
+	</ul>
+	</t>
       </section>
-
+      
       <section title="Terminology">
-        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
-        NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
-        "MAY", and "OPTIONAL" in this document are to be interpreted as
-        described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/>
-        when, and only when, they appear in all capitals, as shown here.</t>
+        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
+        "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT
+        RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
+        interpreted as described in BCP 14 <xref target="RFC2119"/>
+        <xref target="RFC8174"/> when, and only when, they appear in
+        all capitals, as shown here.</t>
       </section>
       <section title="Definitions and Acronyms">
-
+	<t>This document uses definitions and acronyms defined in
+	<xref target="RFC2474">Definitions of the Differentiated
+	Services Field (DS Field) in the IPv4 and IPv6 Headers</xref>,
+	<xref target="RFC2475">An Architecture for Differentiated
+	Services</xref>, and other documents. Here are some of them.
+	</t>
         <t>
-        DSCP: Differentiated Services Code Point
-
-        ICMP: Internet Control Message Protocol
-
-        IP: Internet Protocol
-
-        IPv4: Internet Protocol version 4
-
-        IPv6: Internet Protocol version 6
-
-         TCP: Transmission Control Protocol
-
-         UDP: User Datagram Protocol
-
-        </t>
-
+	  <ul>
+	    <li>Classifier: an entity which selects packets based on
+	    the content of packet headers according to defined
+	    rules.</li>
+	    <li>DiffServ: Differentiated Services enhancements to
+	    the Internet protocol are intended to enable scalable
+	    service discrimination in the Internet without the need
+	    for per-flow state and signaling at every hop.  A
+	    variety of services may be built from a small,
+	    well-defined set of building blocks which are deployed
+	    in network nodes.</li>
+	    <li>DSCP: Differentiated Services Code Point</li>
+	    <li>Marking: the process of setting the DS codepoint in
+            a packet based on defined rules; pre-marking, re-marking.
+	    </li>
+	    <li>Metering: the process of measuring the temporal
+            properties (e.g., rate) of a traffic stream
+            selected by a classifier. The instantaneous state of
+	    this process may be used to affect the operation of a
+	    marker, shaper, or dropper, and/or may be used for
+            accounting and measurement purposes.</li>
+	    <li>Policing: the process of discarding packets (by a
+            dropper) within a traffic stream in accordance with the
+	    state of a corresponding meter enforcing a traffic
+            profile.</li>
+	    <li>RED: Random Early Detection</li>
+	    <li>Shaping: the process of delaying packets within a
+            traffic stream to cause it to conform to some defined
+	    traffic profile.</li>
+	    <li>WRED: Weighted Random
+	    Early Detection</li>
+	  </ul>
+	</t>
       </section>
     </section>
-
+    
     <section title="QoS Model Design">
-      <t>A classifier consists of packets which may be grouped when a logical
-      set of rules are applied on different packet header fields. The grouping
-      may be based on different values or range of values of same packet
-      header field, presence or absence of some values or range of values of a
-      packet field or a combination thereof. The QoS classifier is defined in
-      the ietf-qos-classifier module.</t>
+      <t>A classifier consists of packets which may be grouped when a
+      logical set of rules are applied on different packet header
+      fields. The grouping may be based on different values or range
+      of values of same packet header field, presence or absence of
+      some values or range of values of a packet field or a
+      combination thereof. The QoS classifier is defined in the
+      ietf-qos-classifier module.</t>
 
       <t>A classifier entry contains one or more packet conditioning
       functions. A packet conditioning function is typically based on
-      direction of traffic and may drop, mark or delay network packets. A set
-      of classifier entries with corresponding conditioning functions when
-      arranged in order of priority represents a QoS policy. A QoS policy may
-      contain one or more classifier entries. These are defined in
-      ietf-qos-policy module.</t>
+      direction of traffic and may drop, mark or delay network
+      packets. A set of classifier entries with corresponding
+      conditioning functions when arranged in order of priority
+      represents a QoS policy. A QoS policy may contain one or more
+      classifier entries. These are defined in ietf-qos-policy
+      module.</t>
 
-      <t>Actions are configured in line with respect to the policy module.
-      These include marking, dropping or shaping. Actions are defined in the
-      ietf-qos-action module.</t>
+      <t>Actions are configured in line with respect to the policy
+      module.  These include marking, dropping or shaping. Actions are
+      defined in the ietf-qos-action module.</t>
 
-      <t>A meter qualifies if the traffic arrival rate is based on agreed upon
-      rate and variability. A meter is modeled based on commonly used 
-      alogrithms in industry, <xref target="RFC2697">Single Rate Tri Color 
-      Marking (srTCM) </xref> meter, <xref target="RFC2698">Two Rate Tri Color 
-      Marking (trTCM)</xref> meter, and Single Rate Two Color Marking meter. 
-      Different vendors can extend it with other types of meters as well.
-      </t>
-      <t>
-      This module imports definitions from "Common YANG Data Types"
-      <xref target="RFC6991"/> and "A YANG Data Model for Interface
-      Management" <xref target="RFC8343"/>.
+      <t>A meter qualifies if the traffic arrival rate is based on
+      agreed upon rate and variability. A meter is modeled based on
+      commonly used alogrithms in industry, <xref
+      target="RFC2697">Single Rate Tri Color Marking (srTCM) </xref>
+      meter, <xref target="RFC2698">Two Rate Tri Color Marking
+      (trTCM)</xref> meter, and Single Rate Two Color Marking meter.
+      Different vendors can extend it with other types of meters as
+      well.
       </t>
     </section>
 
     <section title="DiffServ Model Design">
       <t>DiffServ architecture <xref target="RFC3289"/> and <xref
-      target="RFC2475"/> describe the architecture as a simple model where
-      traffic entering a network is classified and possibly conditioned at the
-      boundary of the network and assigned a different Behavior Aggregate
-      (BA). Each BA is identified by a specific value of DSCP, and is used to
-      select a Per Hop Behavior (PHB).</t>
+      target="RFC2475"/> describe the architecture as a simple model
+      where traffic entering a network is classified and possibly
+      conditioned at the boundary of the network and assigned a
+      different Behavior Aggregate (BA). Each BA is identified by a
+      specific value of DSCP, and is used to select a Per Hop Behavior
+      (PHB).</t>
 
-      <t>The packet classification policy identifies the subset of traffic
-      which may receive a DiffServ by being conditioned or mapped. Packet
-      classifiers select packets within a stream based on the content of some
-      portion of the packet header. There are two types of classifiers, the BA
-      classifier, and the Multi-Field (MF) classifier which selects packets
-      based on a value which is combination of one or more header fields. In
-      the ietf-diffserv module, this is realized by augmenting the QoS
-      classification module.</t>
+      <t>The packet classification policy identifies the subset of
+      traffic which may receive a DiffServ by being conditioned or
+      mapped. Packet classifiers select packets within a stream based
+      on the content of some portion of the packet header. There are
+      two types of classifiers, the BA classifier, and the Multi-Field
+      (MF) classifier which selects packets based on a value which is
+      combination of one or more header fields. In the ietf-diffserv
+      module, this is realized by augmenting the QoS classification
+      module.</t>
 
-      <t>Traffic conditioning includes metering, shaping and/or marking.
-      A meter is used to measure the traffic against a given traffic
-      profile. The traffic profile specifies the temporal property of the
-      traffic. A packet that arrives is first determined to be in or out of
-      the profile, which will result in the action of marked, dropped or
-      shaped. This is realized in vendor specific modules based on the 
-      parameters defined in action module. The metering parameters are 
-      augmented to the QoS policy module when metering is defined inline, and
-      to the metering template when metering profile is referred in policy
+      <t>Traffic conditioning includes metering, shaping and/or
+      marking.  A meter is used to measure the traffic against a given
+      traffic profile. The traffic profile specifies the temporal
+      property of the traffic. A packet that arrives is first
+      determined to be in or out of the profile, which will result in
+      the action of marked, dropped or shaped. This is realized in
+      vendor specific modules based on the parameters defined in
+      action module. The metering parameters are augmented to the QoS
+      policy module when metering is defined inline, and to the
+      metering template when metering profile is referred in policy
       module. </t>
 
     </section>
 
     <section title=" Modules Tree Structure">
-      <t>This document defines seven YANG modules - four QoS base modules, 
-         a scheduler policy module, a queuing policy module and one
-         DiffServ module.</t>
+      <t>This document defines seven YANG modules - four QoS base
+      modules, a scheduler policy module, a queuing policy module and
+      one DiffServ module.</t>
 
-      <t>ietf-qos-classifier consists of classifier entries identified by a
-      classifier entry name. Each entry MAY contain a list of filter entries.
-      When no filter entry is present in a classifier entry, it matches all
-      traffic.</t>
+      <t>ietf-qos-classifier consists of classifier entries identified
+      by a classifier entry name. Each entry MAY contain a list of
+      filter entries.  When no filter entry is present in a classifier
+      entry, it matches all traffic.</t>
 
       <figure>
         <artwork><![CDATA[
@@ -697,6 +732,11 @@ module: ietf-scheduler-policy
     </section>
 
     <section title="Modules">
+      <t>
+      Modules defined in this draft import definitions from "Common
+      YANG Data Types" <xref target="RFC6991"/> and "A YANG Data Model
+      for Interface Management" <xref target="RFC8343"/>.
+      </t>
       <section title="ietf-qos-classifier">
         <figure>
           <artwork><![CDATA[
@@ -2762,11 +2802,13 @@ module ietf-scheduler-policy {
     </section>
 
     <section anchor="ack" title="Acknowledgement">
-    <t> The authors wish to thank Ruediger Geib, Fred Baker, Greg Misky,
-   Tom Petch, Acee Lindem, many others for their helpful comments. </t>
+    <t> The authors wish to thank Ruediger Geib, Fred Baker, Greg
+    Misky, Tom Petch, Acee Lindem, many others for their helpful
+    comments. </t>
 
     <t> MITRE has approved this document for Public Release,
-    Distribution Unlimited, with Public Release Case Number 19-3027. </t>
+    Distribution Unlimited, with Public Release Case Number
+    19-3027. </t>
     </section>
 
     <section anchor="contrib" title="Contributors">
@@ -2777,7 +2819,8 @@ module ietf-scheduler-policy {
     Email: nstrahle@juniper.net       .]]>
     </artwork> </figure>
     </section>
-  </middle>
+</middle>
+
 
   <!--  *****BACK MATTER ***** -->
 
@@ -2825,6 +2868,8 @@ module ietf-scheduler-policy {
     </references>
 
     <references title="Informative References">
+      &RFC2474;
+      
       &RFC2475;
 
       <?rfc include='reference.RFC.8340.xml'?>
