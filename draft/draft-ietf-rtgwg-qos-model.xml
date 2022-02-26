@@ -409,6 +409,7 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD.yang)
 
       <section title="ietf-qos-target">
         <figure>
+	  <name>ietf-qos-target module</name>
           <artwork><![CDATA[
 <CODE BEGINS>file "ietf-qos-target@YYYY-MM-DD.yang"
 INSERT_TEXT_FROM_FILE(../bin/ietf-qos-target@YYYY-MM-DD.yang)
@@ -419,6 +420,7 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-target@YYYY-MM-DD.yang)
 
       <section title="ietf-diffserv">
         <figure>
+	  <name>ietf-diffserv module</name>
           <artwork><![CDATA[
 <CODE BEGINS>file "ietf-diffserv@YYYY-MM-DD.yang"
 INSERT_TEXT_FROM_FILE(../bin/ietf-diffserv@YYYY-MM-DD.yang)
@@ -428,6 +430,7 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-diffserv@YYYY-MM-DD.yang)
       </section>
       <section title="ietf-queue-policy">
         <figure>
+	  <name>ietf-queue-policy module</name>
           <artwork><![CDATA[
 <CODE BEGINS>file "ietf-queue-policy@YYYY-MM-DD.yang"
 INSERT_TEXT_FROM_FILE(../bin/ietf-queue-policy@YYYY-MM-DD.yang)
@@ -437,6 +440,7 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-queue-policy@YYYY-MM-DD.yang)
       </section>
       <section title="ietf-scheduler-policy">
         <figure>
+	  <name>ietf-scheduler-policy module</name>
           <artwork><![CDATA[
 <CODE BEGINS>file "ietf-scheduler-policy@YYYY-MM-DD.yang"
 INSERT_TEXT_FROM_FILE(../bin/ietf-scheduler-policy@YYYY-MM-DD.yang)
