@@ -5,8 +5,9 @@ module ietf-qos-classifier {
 
   organization
     "IETF Routing Area Working Group";
+
   contact
-    "WG Web:   <http://datatracker.ietf.org/wg/rtgwg/>
+    "WG Web:   <https://datatracker.ietf.org/wg/rtgwg/>
      WG List:  <mailto:rtgwg@ietf.org>
 
      Editor:   Aseem Choudhary
@@ -20,6 +21,7 @@ module ietf-qos-classifier {
 
      Copyright (c) 2021 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
+
      Redistribution and use in source and binary forms, with or
      without modification, is permitted pursuant to, and subject
      to the license terms contained in, the Simplified BSD License
