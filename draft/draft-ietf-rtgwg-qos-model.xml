@@ -323,7 +323,7 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-policy@YYYY-MM-DD-sub-tree.txt)m    ]]></a
       <figure>
 	<name>ietf-qos-actions tree diagram</name>
         <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)m    ]]></artwork>
+INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)    ]]></artwork>
       </figure>
    <t>ietf-qos-target module contains reference of qos-policy and augments
    ietf-interfaces <xref target="RFC8343"/> module. A single policy of a particular 
@@ -334,16 +334,11 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)m    ]]></a
    restrictions.</t>    
    <t>Classifier, metering and queuing counters are associated with a target. </t>
 
-      <figure>
-        <artwork><![CDATA[
-module: ietf-qos-target
-  augment /if:interfaces/if:interface:
-    +--rw qos-target-policy* [direction type]
-       +--rw direction    identityref
-       +--rw type         identityref
-       +--rw name         string
-    ]]></artwork>
-      </figure>
+   <figure>
+     <name>ietf-qos-target tree diagram</name>
+     <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../bin/ietf-qos-target@YYYY-MM-DD-sub-tree.txt)    ]]></artwork>
+   </figure>
 
       <t>Diffserv module augments QoS classifier module. Many of the YANG
       types defined in <xref target="RFC6991"/> are represented as leafs in
@@ -355,279 +350,20 @@ module: ietf-qos-target
       QoS target module.</t>
 
       <figure>
+	<name>ietf-diffserv tree diagram</name>
         <artwork><![CDATA[
-module: ietf-diffserv
-  augment /classifier:classifiers/classifier:classifier +
-          /classifier:filter:
-    +--rw (filter-param)?
-       +--:(dscp)
-       |  +--rw dscp* [dscp-min dscp-max]
-       |     +--rw dscp-min    inet:dscp
-       |     +--rw dscp-max    inet:dscp
-       +--:(source-ipv4-prefix)
-       |  +--rw source-ipv4-prefix* [source-ipv4-prefix]
-       |     +--rw source-ipv4-prefix    inet:ipv4-prefix
-       +--:(destination-ipv4-prefix)
-       |  +--rw destination-ipv4-prefix* [destination-ipv4-prefix]
-       |     +--rw destination-ipv4-prefix    inet:ipv4-prefix
-       +--:(source-ipv6-prefix)
-       |  +--rw source-ipv6-prefix* [source-ipv6-prefix]
-       |     +--rw source-ipv6-prefix    inet:ipv6-prefix
-       +--:(destination-ipv6-prefix)
-       |  +--rw destination-ipv6-prefix* [destination-ipv6-prefix]
-       |     +--rw destination-ipv6-prefix    inet:ipv6-prefix
-       +--:(source-port)
-       |  +--rw source-port* [source-port-min source-port-max]
-       |     +--rw source-port-min    inet:port-number
-       |     +--rw source-port-max    inet:port-number
-       +--:(destination-port)
-       |  +--rw destination-port*
-                      [destination-port-min destination-port-max]
-       |     +--rw destination-port-min    inet:port-number
-       |     +--rw destination-port-max    inet:port-number
-       +--:(protocol)
-       |  +--rw protocol* [protocol-min protocol-max]
-       |     +--rw protocol-min    uint8
-       |     +--rw protocol-max    uint8
-       +--:(traffic-group)
-          +--rw traffic-group
-             +--rw traffic-group-name?   string
-  augment /policy:policies/policy:policy/policy:classifier + 
-          /policy:filter:
-    +--rw (filter-params)?
-       +--:(dscp)
-       |  +--rw dscp* [dscp-min dscp-max]
-       |     +--rw dscp-min    inet:dscp
-       |     +--rw dscp-max    inet:dscp
-       +--:(source-ipv4-prefix)
-       |  +--rw source-ipv4-prefix* [source-ipv4-prefix]
-       |     +--rw source-ipv4-prefix    inet:ipv4-prefix
-       +--:(destination-ipv4-prefix)
-       |  +--rw destination-ipv4-prefix* [destination-ipv4-prefix]
-       |     +--rw destination-ipv4-prefix    inet:ipv4-prefix
-       +--:(source-ipv6-prefix)
-       |  +--rw source-ipv6-prefix* [source-ipv6-prefix]
-       |     +--rw source-ipv6-prefix    inet:ipv6-prefix
-       +--:(destination-ipv6-prefix)
-       |  +--rw destination-ipv6-prefix* [destination-ipv6-prefix]
-       |     +--rw destination-ipv6-prefix    inet:ipv6-prefix
-       +--:(source-port)
-       |  +--rw source-port* [source-port-min source-port-max]
-       |     +--rw source-port-min    inet:port-number
-       |     +--rw source-port-max    inet:port-number
-       +--:(destination-port)
-       |  +--rw destination-port*
-                       [destination-port-min destination-port-max]
-       |     +--rw destination-port-min    inet:port-number
-       |     +--rw destination-port-max    inet:port-number
-       +--:(protocol)
-       |  +--rw protocol* [protocol-min protocol-max]
-       |     +--rw protocol-min    uint8
-       |     +--rw protocol-max    uint8
-       +--:(traffic-group)
-          +--rw traffic-group
-             +--rw traffic-group-name?   string
-  augment /policy:policies/policy:policy/policy:classifier + 
-          /policy:action/policy:action-params:
-    +--:(dscp-marking)
-    |  +--rw dscp
-    |     +--rw dscp?   inet:dscp
-    +--:(meter-inline) {action:meter-inline-feature}?
-    |  +--rw (meter-type)?
-    |     +--:(one-rate-two-color-meter-type)
-    |     |  +--rw one-rate-two-color-meter
-    |     |     +--rw committed-rate-value?    uint64
-    |     |     +--rw committed-rate-unit?     identityref
-    |     |     +--rw committed-burst-value?   uint64
-    |     |     +--rw committed-burst-unit?    identityref
-    |     |     +--rw conform-action
-    |     |     |  +--rw conform-2color-meter-action-params*
-                                  [conform-2color-meter-action-type]
-    |     |     |     +--rw conform-2color-meter-action-type
-                                  identityref
-    |     |     |     +--rw (conform-2color-meter-action-val)?
-    |     |     +--rw exceed-action
-    |     |        +--rw exceed-2color-meter-action-params*
-                                  [exceed-2color-meter-action-type]
-    |     |           +--rw exceed-2color-meter-action-type
-                                  identityref
-    |     |           +--rw (exceed-2color-meter-action-val)?
-    |     +--:(one-rate-tri-color-meter-type)
-    |     |  +--rw one-rate-tri-color-meter
-    |     |     +--rw committed-rate-value?    uint64
-    |     |     +--rw committed-rate-unit?     identityref
-    |     |     +--rw committed-burst-value?   uint64
-    |     |     +--rw committed-burst-unit?    identityref
-    |     |     +--rw excess-burst-value?      uint64
-    |     |     +--rw excess-burst-unit?       identityref
-    |     |     +--rw conform-action
-    |     |     |  +--rw conform-3color-meter-action-params*
-                                  [conform-3color-meter-action-type]
-    |     |     |     +--rw conform-3color-meter-action-type
-                                  identityref
-    |     |     |     +--rw (conform-3color-meter-action-val)?
-    |     |     +--rw exceed-action
-    |     |     |  +--rw exceed-3color-meter-action-params*
-                                  [exceed-3color-meter-action-type]
-    |     |     |     +--rw exceed-3color-meter-action-type
-                                  identityref
-    |     |     |     +--rw (exceed-3color-meter-action-val)?
-    |     |     +--rw violate-action
-    |     |        +--rw violate-3color-meter-action-params*
-                                  [violate-3color-meter-action-type]
-    |     |           +--rw violate-3color-meter-action-type
-                                  identityref
-    |     |           +--rw (violate-3color-meter-action-val)?
-    |     +--:(two-rate-tri-color-meter-type)
-    |        +--rw two-rate-tri-color-meter
-    |           +--rw committed-rate-value?    uint64
-    |           +--rw committed-rate-unit?     identityref
-    |           +--rw committed-burst-value?   uint64
-    |           +--rw committed-burst-unit?    identityref
-    |           +--rw peak-rate-value?         uint64
-    |           +--rw peak-rate-unit?          identityref
-    |           +--rw peak-burst-value?        uint64
-    |           +--rw peak-burst-unit?         identityref
-    |           +--rw conform-action
-    |           |  +--rw conform-3color-meter-action-params*
-                                  [conform-3color-meter-action-type]
-    |           |     +--rw conform-3color-meter-action-type
-                                  identityref
-    |           |     +--rw (conform-3color-meter-action-val)?
-    |           +--rw exceed-action
-    |           |  +--rw exceed-3color-meter-action-params*
-                                  [exceed-3color-meter-action-type]
-    |           |     +--rw exceed-3color-meter-action-type
-                                  identityref
-    |           |     +--rw (exceed-3color-meter-action-val)?
-    |           +--rw violate-action
-    |              +--rw violate-3color-meter-action-params*
-                                  [violate-3color-meter-action-type]
-    |                 +--rw violate-3color-meter-action-type
-                                  identityref
-    |                 +--rw (violate-3color-meter-action-val)?
-    +--:(meter-reference) {action:meter-reference-feature}?
-    |  +--rw meter
-    |     +--rw name    string
-    |     +--rw type    identityref
-    +--:(traffic-group-marking) {action:traffic-group-feature}?
-    |  +--rw traffic-group
-    |     +--rw traffic-group?   string
-    +--:(child-policy) {action:child-policy-feature}?
-    |  +--rw child-policy {child-policy-feature}?
-    |     +--rw policy-name?   string
-    +--:(count) {action:count-feature}?
-    |  +--rw count {count-feature}?
-    |     +--rw count-action?   empty
-    +--:(named-count) {action:named-counter-feature}?
-    |  +--rw named-counter {named-counter-feature}?
-    |     +--rw count-name-action?   string
-    +--:(queue-inline) {diffserv-queue-inline-support}?
-    |  +--rw queue
-    |     +--rw priority
-    |     |  +--rw priority-level?   uint8
-    |     +--rw min-rate
-    |     |  +--rw rate-value?   uint64
-    |     |  +--rw rate-unit?    identityref
-    |     +--rw max-rate
-    |     |  +--rw rate-value?    uint64
-    |     |  +--rw rate-unit?     identityref
-    |     |  +--rw burst-value?   uint64
-    |     |  +--rw burst-unit?    identityref
-    |     +--rw algorithmic-drop
-    |        +--rw (drop-algorithm)?
-    |           +--:(tail-drop)
-    |              +--rw tail-drop
-    |                 +--rw tail-drop?   empty
-    +--:(scheduler-inline) {diffserv-scheduler-inline-support}?
-       +--rw scheduler
-          +--rw min-rate
-          |  +--rw rate-value?   uint64
-          |  +--rw rate-unit?    identityref
-          +--rw max-rate
-             +--rw rate-value?    uint64
-             +--rw rate-unit?     identityref
-             +--rw burst-value?   uint64
-             +--rw burst-unit?    identityref
+INSERT_TEXT_FROM_FILE(../bin/ietf-diffserv@YYYY-MM-DD-sub-tree.txt)    ]]></artwork>
+      </figure>
+      <figure>
+	<name>ietf-queue-policy tree diagram</name>
+        <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../bin/ietf-queue-policy@YYYY-MM-DD-sub-tree.txt)
     ]]></artwork>
       </figure>
       <figure>
+	<name>ietf-scheduler-policy tree diagram</name>
         <artwork><![CDATA[
-module: ietf-queue-policy
-  +--rw queue {queue-policy-support}?
-     +--rw name?    string
-     +--rw queue
-        +--rw priority
-        |  +--rw priority-level?   uint8
-        +--rw min-rate
-        |  +--rw rate-value?   uint64
-        |  +--rw rate-unit?    identityref
-        +--rw max-rate
-        |  +--rw rate-value?    uint64
-        |  +--rw rate-unit?     identityref
-        |  +--rw burst-value?   uint64
-        |  +--rw burst-unit?    identityref
-        +--rw algorithmic-drop
-           +--rw (drop-algorithm)?
-              +--:(tail-drop)
-                 +--rw tail-drop
-                    +--rw tail-drop?   empty
-
-  augment /policy:policies/policy:policy/policy:classifier +
-          /policy:filter:
-    +--rw (filter-params)? {queue-policy-support}?
-       +--:(traffic-group-name)
-          +--rw traffic-group
-             +--rw traffic-group-name?   string
-  augment /policy:policies/policy:policy/policy:classifier +
-          /policy:action/policy:action-params:
-    +--:(queue-template-name)
-                     {queue-template-support,queue-policy-support}?
-    |  +--rw queue-reference
-    |     +--rw queue-name    string
-    +--:(queue-inline) {queue-inline-support,queue-policy-support}?
-       +--rw queue
-          +--rw priority
-          |  +--rw priority-level?   uint8
-          +--rw min-rate
-          |  +--rw rate-value?   uint64
-          |  +--rw rate-unit?    identityref
-          +--rw max-rate
-          |  +--rw rate-value?    uint64
-          |  +--rw rate-unit?     identityref
-          |  +--rw burst-value?   uint64
-          |  +--rw burst-unit?    identityref
-          +--rw algorithmic-drop
-             +--rw (drop-algorithm)?
-                +--:(tail-drop)
-                   +--rw tail-drop
-                      +--rw tail-drop?   empty
-    ]]></artwork>
-      </figure>
-      <figure>
-        <artwork><![CDATA[
-module: ietf-scheduler-policy
-  augment /policy:policies/policy:policy/policy:classifier +
-          /policy:filter:
-    +--rw (filter-params)?
-       +--:(filter-match-all)
-          +--rw match-all-cfg
-             +--rw match-all-action?   empty
-  augment /policy:policies/policy:policy/policy:classifier +
-          /policy:action/policy:action-params:
-    +--:(scheduler)
-    |  +--rw scheduler
-    |     +--rw min-rate
-    |     |  +--rw rate-value?   uint64
-    |     |  +--rw rate-unit?    identityref
-    |     +--rw max-rate
-    |        +--rw rate-value?    uint64
-    |        +--rw rate-unit?     identityref
-    |        +--rw burst-value?   uint64
-    |        +--rw burst-unit?    identityref
-    +--:(queue-policy-name)
-       +--rw queue-policy-name
-          +--rw queue-policy    string
+INSERT_TEXT_FROM_FILE(../bin/ietf-scheduler-policy@YYYY-MM-DD-sub-tree.txt)
     ]]></artwork>
       </figure>
     </section>
