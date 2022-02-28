@@ -311,7 +311,9 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-classifier@YYYY-MM-DD-sub-tree.txt)
       <figure>
 	<name>ietf-qos-policy tree diagram</name>
         <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../bin/ietf-qos-policy@YYYY-MM-DD-sub-tree.txt)m    ]]></artwork>
+INSERT_TEXT_FROM_FILE(../bin/ietf-qos-policy@YYYY-MM-DD-sub-tree.txt)
+
+    ]]></artwork>
       </figure>
 
       <t>ietf-qos-action module contains grouping of set of QoS actions. These
@@ -323,7 +325,8 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-policy@YYYY-MM-DD-sub-tree.txt)m    ]]></a
       <figure>
 	<name>ietf-qos-actions tree diagram</name>
         <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)    ]]></artwork>
+INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)
+    ]]></artwork>
       </figure>
    <t>ietf-qos-target module contains reference of qos-policy and augments
    ietf-interfaces <xref target="RFC8343"/> module. A single policy of a particular 
@@ -337,7 +340,8 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)    ]]></ar
    <figure>
      <name>ietf-qos-target tree diagram</name>
      <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../bin/ietf-qos-target@YYYY-MM-DD-sub-tree.txt)    ]]></artwork>
+INSERT_TEXT_FROM_FILE(../bin/ietf-qos-target@YYYY-MM-DD-sub-tree.txt)
+    ]]></artwork>
    </figure>
 
       <t>Diffserv module augments QoS classifier module. Many of the YANG
@@ -352,7 +356,8 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-target@YYYY-MM-DD-sub-tree.txt)    ]]></ar
       <figure>
 	<name>ietf-diffserv tree diagram</name>
         <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../bin/ietf-diffserv@YYYY-MM-DD-sub-tree.txt)    ]]></artwork>
+INSERT_TEXT_FROM_FILE(../bin/ietf-diffserv@YYYY-MM-DD-sub-tree.txt)  
+  ]]></artwork>
       </figure>
       <figure>
 	<name>ietf-queue-policy tree diagram</name>

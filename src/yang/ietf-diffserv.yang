@@ -396,7 +396,7 @@ module ietf-diffserv {
       }
       case destination-ipv4-prefix {
         when "/policy:policies/policy:policy/policy:type != " +
-	     "'diffserv:ipv6-diffserv-policy-type'" {
+             "'diffserv:ipv6-diffserv-policy-type'" {
             description
                "If policy type is v6, this filter cannot be used.";
         }
@@ -406,7 +406,7 @@ module ietf-diffserv {
       }
       case source-ipv6-prefix {
         when "/policy:policies/policy:policy/policy:type != "+
-	     "'diffserv:ipv4-diffserv-policy-type'" {
+             "'diffserv:ipv4-diffserv-policy-type'" {
             description
                "If policy type is v4, this filter cannot be used.";
         }
@@ -416,7 +416,7 @@ module ietf-diffserv {
       }
       case destination-ipv6-prefix {
         when "/policy:policies/policy:policy/policy:type != " +
-	     "'diffserv:ipv4-diffserv-policy-type'" {
+             "'diffserv:ipv4-diffserv-policy-type'" {
             description
                "If policy type is v4, this filter cannot be used.";
         }
