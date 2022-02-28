@@ -50,7 +50,7 @@
   <?rfc compact="yes" ?>
 
   <front>
-    <title abbrev="YANG Model for QoS"> A YANG Model for Quality of Service (QoS)</title>
+    <title abbrev="YANG Models for QoS">YANG Models for Quality of Service (QoS)</title>
 
     <author fullname="Aseem Choudhary" initials="A.C." surname="Choudhary">
       <organization>Cisco Systems</organization>
