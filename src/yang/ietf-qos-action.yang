@@ -968,6 +968,8 @@ module ietf-qos-action {
           case red {
             container red {
               uses red-config-parameters;
+              description
+                "Random Early Detect configuration";
             }
           }
           case wred {
@@ -982,9 +984,9 @@ module ietf-qos-action {
                 leaf color-type {
                   type identityref {
                     base wred-color-type;
-                    description
-                      "wred color-type of each profile";
                   }
+                  description
+                    "wred color-type of each profile";
                 }
                 list color-val {
                   key "min max";
