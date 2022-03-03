@@ -1000,9 +1000,16 @@ module ietf-qos-action {
                     description
                       "maximum value of color types";
                   }
+                  description
+                    "list of color markings which constitute
+                     a traffic profile";
                 }
                 uses red-config-parameters;
+                description
+                  "list of RED profiles each with its own threshold values";
               }
+              description
+                "Weighted Random Early Detect configuration";
             }
           }
           description
