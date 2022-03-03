@@ -152,6 +152,84 @@ module ietf-qos-action {
     description
       "micro seconds";
   }
+  identity red-threshold-unit {
+    description
+      "base red-unit type";
+  }
+  identity red-threshold-bytes {
+    base red-threshold-unit;
+    description
+      "bytes";
+  }
+  identity red-threshold-kb {
+    base red-threshold-unit;
+    description
+      "kilo bytes";
+  }
+  identity red-threshold-mb {
+    base red-threshold-unit;
+    description
+      "mega bytes";
+  }
+  identity red-threshold-ms {
+    base red-threshold-unit;
+    description
+      "milli seconds";
+  }
+  identity red-threshold-us {
+    base red-threshold-unit;
+    description
+      "micro seconds";
+  }
+  identity red-threshold-pc {
+    base red-threshold-unit;
+    description
+      "per-centage";
+  }
+  identity red-theshold-pt {
+    base red-threshold-unit;
+    description
+      "per-thousand";
+  }
+  identity red-threshold-pm {
+    base red-threshold-unit;
+    description
+      "per-million";
+  }
+  identity wred-color-type {
+    description
+      "base wred color type";
+  }
+  identity wred-color-dscp {
+    base wred-color-type;
+    description
+      "dscp wred color type";
+  }
+  identity probability-unit {
+    description
+      "base probability unit type";
+  }
+  identity probability-pc {
+    base probability-unit;
+    description
+      "probability in percentage";
+  }
+  identity probability-pt {
+    base probability-unit;
+    description
+      "probability in per thousand";
+  }
+  identity probability-pm {
+    base probability-unit;
+    description
+      "probability in per million";
+  }
+  identity probability-denominator {
+    base probability-unit;
+    description
+      "probability value is denominator value
+       while numerator is always 1";
+  }
   identity dscp-marking {
     base policy:action-type;
     description
@@ -233,6 +311,16 @@ module ietf-qos-action {
     base drop-type;
     description
       "tail drop algorithm";
+  }
+  identity red {
+    base drop-type;
+    description
+      "Random Early Detect drop algorithm";
+  }
+  identity wred {
+    base drop-type;
+    description
+      "Weighted Random Early Detect drop algorithm";
   }
 
   identity conform-2color-meter-action-type {
@@ -809,6 +897,54 @@ module ietf-qos-action {
     description
       "maximum rate attributes";
   }
+  grouping red-config-parameters {
+    leaf min-threshold-val {
+      type uint64;
+      description
+       "minimum value of red threshold";
+    }
+    leaf min-threshold-unit {
+      type identityref {
+        base red-threshold-unit;
+      }
+      description
+       "unit of minimum red threshold";
+    }
+    leaf max-threshold-val {
+      type uint64;
+      description
+       "maximum value of red threshold";
+    }
+    leaf max-threshold-unit {
+      type identityref {
+        base red-threshold-unit;
+      }
+      description
+       "unit of maximum red threshold";
+    }
+    leaf weight {
+      type uint8;
+      description
+       "the decay factor for the average queue size
+        calculation. the numbers are 2's exponent";
+    }
+    leaf max-probability-val {
+      type uint64;
+      description
+       "value of maximum probability value. this value need
+        be interpreted along with max-probability-unit";
+    }
+    leaf max-probability-unit {
+      type identityref {
+        base probability-unit;
+      }
+      description
+       "probability unit type as defined
+        by probability-unit";
+    }
+    description
+      "Random Early Detect Configuration Parameters";
+  }
   grouping queue {
     container queue {
       uses priority;
@@ -828,6 +964,44 @@ module ietf-qos-action {
             }
             description
               "Tail Drop choice";
+          }
+          case red {
+            container red {
+              uses red-config-parameters;
+            }
+          }
+          case wred {
+            container wred {
+              list wred {
+                key "profile";
+                leaf profile {
+                  type uint8;
+                  description
+                    "profile id of each wred profile";
+                }
+                leaf color-type {
+                  type identityref {
+                    base wred-color-type;
+                    description
+                      "wred color-type of each profile";
+                  }
+                }
+                list color-val {
+                  key "min max";
+                  leaf min {
+                    type uint8;
+                    description
+                      "minimum value of color types";
+                  }
+                  leaf max {
+                    type uint8;
+                    description
+                      "maximum value of color types";
+                  }
+                }
+                uses red-config-parameters;
+              }
+            }
           }
           description
             "Choice of Drop Algorithm";
