@@ -29,8 +29,9 @@ module ietf-scheduler-policy {
     "This module contains a collection of YANG definitions for
      configuring diffserv specification implementations.
 
-     Copyright (c) 2022 IETF Trust and the persons identified as
+     Copyright (c) 2021 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
+
      Redistribution and use in source and binary forms, with or
      without modification, is permitted pursuant to, and subject
      to the license terms contained in, the Simplified BSD License
@@ -81,8 +82,10 @@ module ietf-scheduler-policy {
       "the match-all filter grouping";
   }
 
-  augment "/policy:policies/policy:policy/policy:classifier/policy:filter" {
-        when "../../policy:type = 'scheduler-policy:scheduler-policy-type'" {
+  augment "/policy:policies/policy:policy/policy:classifier" +
+          "/policy:filter" {
+        when "../../policy:type =" +
+             "'scheduler-policy:scheduler-policy-type'" {
             description
                "Only when policy type is scheduler-policy";
         }
@@ -121,8 +124,10 @@ module ietf-scheduler-policy {
   }
   
   
-  augment "/policy:policies/policy:policy/policy:classifier/policy:action/policy:action-params" {
-        when "../../policy:type = 'scheduler-policy:scheduler-policy-type'" {
+  augment "/policy:policies/policy:policy/policy:classifier" + 
+          "/policy:action/policy:action-params" {
+        when "../../policy:type =" +
+             "'scheduler-policy:scheduler-policy-type'" {
             description
                "Only when policy type is scheduler-policy";
         }

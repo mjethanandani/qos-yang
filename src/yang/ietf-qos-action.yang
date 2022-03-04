@@ -58,15 +58,18 @@ module ietf-qos-action {
   } 
   feature meter-reference-feature {
     description
-      " This feature allows support of meter by reference configuration.";
+      " This feature allows support of meter by
+        reference configuration.";
   } 
   feature queue-action-support {
     description
-      " This feature allows support of queue action configuration in policy.";
+      " This feature allows support of queue action
+        configuration in policy.";
   } 
   feature scheduler-action-support {
     description
-      " This feature allows support of scheduler configuration in policy.";
+      " This feature allows support of scheduler
+        configuration in policy.";
   } 
   feature child-policy-feature {
     description
@@ -1006,7 +1009,8 @@ module ietf-qos-action {
                 }
                 uses red-config-parameters;
                 description
-                  "list of RED profiles each with its own threshold values";
+                  "list of RED profiles each with its own
+                   threshold values";
               }
               description
                 "Weighted Random Early Detect configuration";
