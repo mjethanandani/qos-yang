@@ -31,7 +31,7 @@ module ietf-diffserv {
     "This module contains a collection of YANG definitions for
      configuring diffserv specification implementations.
 
-     Copyright (c) 2022 IETF Trust and the persons identified as
+     Copyright (c) 2021 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -316,7 +316,8 @@ module ietf-diffserv {
       "traffic group grouping";
   }
 
-  augment "/classifier:classifiers/classifier:classifier/classifier:filter" {
+  augment "/classifier:classifiers/classifier:classifier" + 
+          "/classifier:filter" {
     choice filter-param {
       description
         "Choice of filter types";
@@ -374,7 +375,8 @@ module ietf-diffserv {
           ../../policy:type = 'diffserv:ipv6-diffserv-policy-type' or 
           ../../policy:type = 'diffserv:diffserv-policy-type'" {
       description
-        "If policy type is v4, v6 or default diffserv, this filter can be used.";
+        "If policy type is v4, v6 or default diffserv,
+         this filter can be used.";
     }
     choice filter-params {
       description
@@ -448,12 +450,14 @@ module ietf-diffserv {
     description
       "Augments Diffserv Classifier with common filter types";
   }
-  augment "/policy:policies/policy:policy/policy:classifier/policy:action/policy:action-params" {
+  augment "/policy:policies/policy:policy/policy:classifier" + 
+          "/policy:action/policy:action-params" {
     when "../../policy:type = 'diffserv:ipv4-diffserv-policy-type' or 
           ../../policy:type = 'diffserv:ipv6-diffserv-policy-type' or 
           ../../policy:type = 'diffserv:diffserv-policy-type' " {
       description
-        "If policy type is v4, v6 or default diffserv, these actions can be used.";
+        "If policy type is v4, v6 or default diffserv,
+         these actions can be used.";
     }
     description
       "Augments Diffserv Policy with action configuration";

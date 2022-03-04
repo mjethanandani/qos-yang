@@ -29,8 +29,9 @@ module ietf-queue-policy {
     "This module contains a collection of YANG definitions for
      configuring diffserv specification implementations.
 
-     Copyright (c) 2022 IETF Trust and the persons identified as
+     Copyright (c) 2021 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
+
      Redistribution and use in source and binary forms, with or
      without modification, is permitted pursuant to, and subject
      to the license terms contained in, the Simplified BSD License
@@ -71,7 +72,8 @@ module ietf-queue-policy {
       "This defines queue policy-type";
   }
 
-  augment "/policy:policies/policy:policy/policy:classifier/policy:filter" {
+  augment "/policy:policies/policy:policy/policy:classifier" +
+          "/policy:filter" {
     when "../../policy:type = 'queue-policy:queue-policy-type'" {
       description
         "If policy type is queue policy, this filter can be used.";
@@ -122,7 +124,8 @@ module ietf-queue-policy {
     }
     uses action:queue;
   }
-  augment "/policy:policies/policy:policy/policy:classifier/policy:action/policy:action-params" {
+  augment "/policy:policies/policy:policy/policy:classifier" + 
+          "/policy:action/policy:action-params" {
     when "../../policy:type = 'queue-policy:queue-policy-type'" {
       description
         "queue policy actions.";
