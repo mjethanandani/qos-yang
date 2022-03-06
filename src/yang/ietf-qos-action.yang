@@ -973,6 +973,7 @@ module ietf-qos-action {
               uses red-config-parameters;
               leaf ecn-enabled {
                 type boolean;
+                default "false";
                 description
                   "ecn is enabled on the queue";
               }
@@ -1019,6 +1020,7 @@ module ietf-qos-action {
               }
               leaf ecn-enabled {
                 type boolean;
+                default "false";
                 description
                   "ecn is enabled on the queue";
               }
