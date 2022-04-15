@@ -971,6 +971,12 @@ module ietf-qos-action {
           case red {
             container red {
               uses red-config-parameters;
+              leaf ecn-enabled {
+                type boolean;
+                default "false";
+                description
+                  "ecn is enabled on the queue";
+              }
               description
                 "Random Early Detect configuration";
             }
@@ -1011,6 +1017,12 @@ module ietf-qos-action {
                 description
                   "list of RED profiles each with its own
                    threshold values";
+              }
+              leaf ecn-enabled {
+                type boolean;
+                default "false";
+                description
+                  "ecn is enabled on the queue";
               }
               description
                 "Weighted Random Early Detect configuration";
