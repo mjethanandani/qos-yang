@@ -69,7 +69,6 @@ module ietf-qos-classifier {
       "Classifier entry filter logical AND operation";
   }
   identity match-any-filter {
-    if-feature "match-any-filter-type-support";
     base match-filter-operation;
     description
       "Classifier entry filter logical OR operation";

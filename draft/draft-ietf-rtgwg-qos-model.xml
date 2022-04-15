@@ -2048,6 +2048,22 @@ module example-compc-qos-policy {
       ]]></artwork>
         </figure>
       </section>
+      <section title="Configuration example for QoS Classifier">
+        <figure>
+	  <name>Configuration example for QoS Classifier</name>
+          <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../src/yang/example-qos-configuration-a.1.1.xml)
+    ]]></artwork>
+        </figure>
+      </section>
+      <section title="Configuration example for QoS Policy">
+        <figure>
+	  <name>Configuration example for QoS Policy</name>
+          <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../src/yang/example-qos-configuration-a.1.2.xml)
+    ]]></artwork>
+        </figure>
+      </section>
     </section>
   </back>
 </rfc>
