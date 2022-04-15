@@ -14,7 +14,7 @@
     <classifier>
       <name>my-classifier</name>
       <inline>true</inline>
-      <filter-operation>match-any-filter</filter-operation>
+      <filter-operation>classifier:match-any-filter</filter-operation>
       <filter>
 	<!-- 
 	     Add the type of filter here.
