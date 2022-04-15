@@ -1,0 +1,19 @@
+<!--
+    This example shows a QoS classifier configuration.
+-->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<classifiers
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-qos-classifier"
+      xmlns:bt="urn:ietf:params:xml:ns:yang:ietf-bgp-types">
+  <classifier>
+    <name>my-classifier</name>
+    <filter-operation>match-any-filter</filter-operation>
+    <filter>
+      <!-- 
+	   Add the type of filter here.
+      -->
+      <logical-not>true</logical-not>
+    </filter>
+  </classifier>
+</classifiers>

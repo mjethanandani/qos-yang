@@ -87,11 +87,9 @@ module ietf-qos-classifier {
     leaf logical-not {
       type boolean;
       description
-        "
-         This is logical-not operator for a filter. When true, it
+        "This is logical-not operator for a filter. When true, it
          indicates filter looks for absence of a pattern defined
-         by the filter
-        ";
+         by the filter.";
     }
   }
   grouping generic-attr {
