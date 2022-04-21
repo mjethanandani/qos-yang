@@ -145,12 +145,12 @@ module ietf-diffserv {
       key "dscp-min dscp-max";
       description
         "list of dscp ranges";
-      leaf dscp-min {
+      leaf min {
         type inet:dscp;
         description
           "Minimum value of dscp min-max range";
       }
-      leaf dscp-max {
+      leaf max {
         type inet:dscp;
         must ". >= ../dscp-min" {
           error-message
@@ -164,11 +164,11 @@ module ietf-diffserv {
       "Filter grouping containing list of dscp ranges";
   }
   grouping source-ipv4-prefix {
-    list source-ipv4-prefix {
+    list source {
       key "source-ipv4-prefix";
       description
         "list of source ipv4 prefix";
-      leaf source-ipv4-prefix {
+      leaf ipv4-prefix {
         type inet:ipv4-prefix;
         description
           "source ipv4 prefix";
@@ -178,11 +178,11 @@ module ietf-diffserv {
       "Filter grouping containing list of source ipv4 prefixes";
   }
   grouping destination-ipv4-prefix {
-    list destination-ipv4-prefix {
+    list destination {
       key "destination-ipv4-prefix";
       description
         "list of destination ipv4 prefix";
-      leaf destination-ipv4-prefix {
+      leaf ipv4-prefix {
         type inet:ipv4-prefix;
         description
           "destination ipv4 prefix";
@@ -192,11 +192,11 @@ module ietf-diffserv {
       "Filter grouping containing list of destination ipv4 prefix";
   }
   grouping source-ipv6-prefix {
-    list source-ipv6-prefix {
+    list source {
       key "source-ipv6-prefix";
       description
         "list of source ipv6 prefix";
-      leaf source-ipv6-prefix {
+      leaf ipv6-prefix {
         type inet:ipv6-prefix;
         description
           "source ipv6 prefix";
@@ -206,11 +206,11 @@ module ietf-diffserv {
       "Filter grouping containing list of source ipv6 prefixes";
   }
   grouping destination-ipv6-prefix {
-    list destination-ipv6-prefix {
+    list destination {
       key "destination-ipv6-prefix";
       description
         "list of destination ipv4 or ipv6 prefix";
-      leaf destination-ipv6-prefix {
+      leaf ipv6-prefix {
         type inet:ipv6-prefix;
         description
           "destination ipv6 prefix";
@@ -224,12 +224,12 @@ module ietf-diffserv {
       key "source-port-min source-port-max";
       description
         "list of ranges of source port";
-      leaf source-port-min {
+      leaf min {
         type inet:port-number;
         description
           "minimum value of source port range";
       }
-      leaf source-port-max {
+      leaf max {
         type inet:port-number;
         must ". >= ../source-port-min" {
           error-message
@@ -248,12 +248,12 @@ module ietf-diffserv {
       key "destination-port-min destination-port-max";
       description
         "list of ranges of destination port";
-      leaf destination-port-min {
+      leaf port-min {
         type inet:port-number;
         description
           "minimum value of destination port range";
       }
-      leaf destination-port-max {
+      leaf port-max {
         type inet:port-number;
         must ". >= ../destination-port-min" {
           error-message
@@ -279,14 +279,14 @@ module ietf-diffserv {
       reference
         "RFC 791: Internet Protocol
          RFC 8200: Internet Protocol, Version 6 (IPv6) Specification";
-      leaf protocol-min {
+      leaf min {
         type uint8 {
           range "0..255";
         }
         description
           "minimum value of protocol range";
       }
-      leaf protocol-max {
+      leaf max {
         type uint8 {
           range "0..255";
         }
@@ -304,7 +304,7 @@ module ietf-diffserv {
   }
   grouping traffic-group {
     container traffic-group {
-      leaf traffic-group-name {
+      leaf name {
         type string ;
         description
           "This leaf defines name of the traffic group referenced";
@@ -336,7 +336,8 @@ module ietf-diffserv {
         description
           "Filter containing list of destination ipv4 prefix";
       }
-      case source-ipv6-prefix { uses source-ipv6-prefix;
+      case source-ipv6-prefix {
+        uses source-ipv6-prefix;
         description
           "Filter containing list of source ipv6 prefixes";
       }

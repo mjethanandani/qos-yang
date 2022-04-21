@@ -348,12 +348,12 @@ module ietf-qos-action {
   }
 
   grouping rate-value-unit {
-    leaf rate-value {
+    leaf value {
       type uint64;
       description
         "rate value";
     }
-    leaf rate-unit {
+    leaf unit {
       type identityref {
         base rate-unit-type;
       }
@@ -366,12 +366,12 @@ module ietf-qos-action {
   grouping burst {
     description
     "burst value and unit configuration";
-    leaf burst-value {
+    leaf value {
       type uint64;
       description
         "burst value";
     }
-    leaf burst-unit {
+    leaf unit {
       type identityref {
         base burst-unit-type;
       }
@@ -386,9 +386,9 @@ module ietf-qos-action {
     container threshold {
       description
         "threshold";
-      choice threshold-type {
+      choice type {
         case size {
-          leaf threshold-size {
+          leaf size {
             type uint64;
             units "bytes";
             description
@@ -396,7 +396,7 @@ module ietf-qos-action {
           }
         }
         case interval {
-          leaf threshold-interval {
+          leaf interval {
             type uint64;
             units "microsecond";
             description
@@ -436,19 +436,19 @@ module ietf-qos-action {
   grouping conform-2color-meter-action-params {
     description
       "meter action parameters";
-    list conform-2color-meter-action-params {
+    list params {
       key "conform-2color-meter-action-type";
       ordered-by user;
       description
         "Configuration of basic-meter & associated actions";
-      leaf conform-2color-meter-action-type {
+      leaf type {
         type identityref {
           base conform-2color-meter-action-type;
         }
         description
           "meter action type";
       }
-      choice conform-2color-meter-action-val {
+      choice val {
         description
           " meter action based on choice of meter action type";
       }
@@ -458,19 +458,19 @@ module ietf-qos-action {
   grouping exceed-2color-meter-action-params {
     description
       "meter action parameters";
-    list exceed-2color-meter-action-params {
+    list params {
       key "exceed-2color-meter-action-type";
       ordered-by user;
       description
         "Configuration of basic-meter & associated actions";
-      leaf exceed-2color-meter-action-type {
+      leaf type {
         type identityref {
           base exceed-2color-meter-action-type;
         }
         description
           "meter action type";
       }
-      choice exceed-2color-meter-action-val {
+      choice val {
         description
           " meter action based on choice of meter action type";
       }
@@ -481,19 +481,19 @@ module ietf-qos-action {
   grouping conform-3color-meter-action-params {
     description
       "meter action parameters";
-    list conform-3color-meter-action-params {
+    list params {
       key "conform-3color-meter-action-type";
       ordered-by user;
       description
         "Configuration of basic-meter & associated actions";
-      leaf conform-3color-meter-action-type {
+      leaf type {
         type identityref {
           base conform-3color-meter-action-type;
         }
         description
           "meter action type";
       }
-      choice conform-3color-meter-action-val {
+      choice val {
         description
           " meter action based on choice of meter action type";
       }
@@ -503,19 +503,19 @@ module ietf-qos-action {
   grouping exceed-3color-meter-action-params {
     description
       "meter action parameters";
-    list exceed-3color-meter-action-params {
+    list params {
       key "exceed-3color-meter-action-type";
       ordered-by user;
       description
         "Configuration of basic-meter & associated actions";
-      leaf exceed-3color-meter-action-type {
+      leaf type {
         type identityref {
           base exceed-3color-meter-action-type;
         }
         description
           "meter action type";
       }
-      choice exceed-3color-meter-action-val {
+      choice val {
         description
           " meter action based on choice of meter action type";
       }
@@ -525,19 +525,19 @@ module ietf-qos-action {
   grouping violate-3color-meter-action-params {
     description
       "meter action parameters";
-    list violate-3color-meter-action-params {
+    list params {
       key "violate-3color-meter-action-type";
       ordered-by user;
       description
         "Configuration of basic-meter & associated actions";
-      leaf violate-3color-meter-action-type {
+      leaf type {
         type identityref {
           base violate-3color-meter-action-type;
         }
         description
           "meter action type";
       }
-      choice violate-3color-meter-action-val {
+      choice val {
         description
           " meter action based on choice of meter action type";
       }
@@ -545,7 +545,7 @@ module ietf-qos-action {
   }
 
   grouping one-rate-two-color-meter {
-    container one-rate-two-color-meter {
+    container one-rate-two-color {
       description
         "single rate two color marker meter";
       leaf committed-rate-value {
@@ -588,7 +588,7 @@ module ietf-qos-action {
   }
 
   grouping one-rate-tri-color-meter {
-    container one-rate-tri-color-meter {
+    container one-rate-tri-color {
       description
         "single rate three color meter";
     leaf committed-rate-value {
@@ -648,7 +648,7 @@ module ietf-qos-action {
   }
 
   grouping two-rate-tri-color-meter {
-    container two-rate-tri-color-meter {
+    container two-rate-tri-color {
       description
         "two rate three color meter";
     leaf committed-rate-value {
@@ -721,18 +721,18 @@ module ietf-qos-action {
   }
 
   grouping meter {
-    choice meter-type {
-      case one-rate-two-color-meter-type {
+    choice type {
+      case one-rate-two-color {
         uses one-rate-two-color-meter;
         description
           "basic meter";
       }
-      case one-rate-tri-color-meter-type {
+      case one-rate-tri-color {
         uses one-rate-tri-color-meter;
         description
           "one rate tri-color meter";
       }
-      case two-rate-tri-color-meter-type {
+      case two-rate-tri-color {
         uses two-rate-tri-color-meter;
         description
           "two rate tri-color meter";
@@ -764,12 +764,12 @@ module ietf-qos-action {
   grouping meter-reference {
     container meter {
       leaf name {
-        type string ;
+        type string ; /* Should this be leafref? */
         mandatory true;    
         description
           "This leaf defines name of the meter referenced";
       }
-      leaf type {
+      leaf type { /* If name is a leafref, then is type unnecessary? */
         type identityref {
           base meter-type;
         }
@@ -830,7 +830,7 @@ module ietf-qos-action {
 
   grouping priority {
     container priority {
-      leaf priority-level {
+      leaf level {
         type uint8;
         description
           "priority level";
@@ -851,7 +851,7 @@ module ietf-qos-action {
       "minimum rate grouping";
   }
   grouping dscp-marking {
-    container dscp {
+    container dscp {  /* Why both container and leaf dscp? */
       leaf dscp {
         type inet:dscp;
         description
@@ -864,7 +864,7 @@ module ietf-qos-action {
       "dscp marking grouping";
   }
   grouping traffic-group-marking {
-    container traffic-group {
+    container traffic-group { /* Why both container and leaf traffic-group? */
       leaf traffic-group {
         type string;
         description
@@ -879,7 +879,7 @@ module ietf-qos-action {
   grouping child-policy {
     container child-policy {
       if-feature child-policy-feature;
-      leaf policy-name {
+      leaf name {
         type string;
         description
           "Hierarchical Policy";
@@ -953,10 +953,10 @@ module ietf-qos-action {
       uses priority;
       uses min-rate;
       uses max-rate;
-      container algorithmic-drop {
+      container drop-algorithmic {
         choice drop-algorithm {
           case tail-drop {
-            container tail-drop {
+            container tail-drop { /* why both container and leaf? */
               leaf tail-drop {
                 type empty;
                 description
