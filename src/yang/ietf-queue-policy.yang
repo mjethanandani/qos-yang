@@ -49,24 +49,7 @@ module ietf-queue-policy {
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
-  feature queue-policy-support {
-    description
-      " This feature allows queue policy configuration
-        as a separate policy type support.";
-  }
-
-  feature queue-inline-support {
-    description
-      "Queue inline support in Queue policy";
-  }
-
-  feature queue-template-support {
-    description
-      "Queue template support in Queue policy";
-  }
-
   identity queue-policy-type {
-    if-feature "queue-policy-support";
     base policy:policy-type;
     description
       "This defines queue policy-type";
@@ -78,7 +61,6 @@ module ietf-queue-policy {
       description
         "If policy type is queue policy, this filter can be used.";
     }
-    if-feature "queue-policy-support";
     choice filter-params {
       description
         "Choice of action types";
@@ -114,7 +96,6 @@ module ietf-queue-policy {
   }
 
   container queue {
-    if-feature "queue-policy-support";
     description
       "Queue template";
     leaf name {
@@ -130,13 +111,10 @@ module ietf-queue-policy {
       description
         "queue policy actions.";
     }
-    if-feature "queue-policy-support";
     case queue-template-name {
-      if-feature "queue-template-support";
       uses queue-reference;
     }
     case queue-inline {
-      if-feature "queue-inline-support";
       uses action:queue;
     }
     description

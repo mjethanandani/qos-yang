@@ -48,29 +48,6 @@ module ietf-qos-action {
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
-  feature meter-template-support {
-    description
-      " This feature allows support of meter-template.";
-  }
-  feature meter-inline-feature {
-    description
-      " This feature allows support of meter-inline configuration.";
-  } 
-  feature meter-reference-feature {
-    description
-      " This feature allows support of meter by
-        reference configuration.";
-  } 
-  feature queue-action-support {
-    description
-      " This feature allows support of queue action
-        configuration in policy.";
-  } 
-  feature scheduler-action-support {
-    description
-      " This feature allows support of scheduler
-        configuration in policy.";
-  } 
   feature child-policy-feature {
     description
       " This feature allows configuration of hierarchical policy.";
@@ -85,16 +62,6 @@ module ietf-qos-action {
       "This feature allows action configuration to enable
        named counter in a classifier";
   }
-  feature traffic-group-feature {
-    description
-      "traffic-group action support";
-  }
-  feature burst-time-unit-support {
-    description
-      "This feature allows burst unit to be configured as
-       time duration.";
-  } 
-
   identity rate-unit-type {
     description
       "base rate-unit type";
@@ -144,13 +111,11 @@ module ietf-qos-action {
       "mega bytes";
   }
   identity millisecond {
-    if-feature burst-time-unit-support;
     base burst-unit-type;
     description
       "milli seconds";
   }
   identity microsecond {
-    if-feature burst-time-unit-support;
     base burst-unit-type;
     description
       "micro seconds";
@@ -239,25 +204,21 @@ module ietf-qos-action {
       "dscp marking action type";
   }
   identity meter-inline {
-    if-feature meter-inline-feature;
     base policy:action-type;
     description
       "meter-inline action type";
   }
   identity meter-reference {
-    if-feature meter-reference-feature;
     base policy:action-type;
     description
       "meter reference action type";
   }
   identity queue {
-    if-feature queue-action-support;
     base policy:action-type;
     description
       "queue action type";
   }
   identity scheduler {
-    if-feature scheduler-action-support;
     base policy:action-type;
     description
       "scheduler action type";
@@ -748,7 +709,6 @@ module ietf-qos-action {
     description
       "list of meter templates";
     list meter {
-      if-feature meter-template-support;
       key "name";
       description
         "meter entry template";
