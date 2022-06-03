@@ -51,14 +51,6 @@ module ietf-diffserv {
       "RFC XXXX: A YANG Model for Quality of Service (QoS)";
   }
 
-  feature diffserv-queue-inline-support {
-    description
-      "Queue inline support in diffserv policy";
-  }
-  feature diffserv-scheduler-inline-support {
-    description
-      "scheduler inline support in diffserv policy";
-  }
   identity diffserv-policy-type {
     base policy:policy-type;
     description
@@ -466,15 +458,12 @@ module ietf-diffserv {
       uses action:dscp-marking;
     }
     case meter-inline {
-      if-feature action:meter-inline-feature;
       uses action:meter;
     }
     case meter-reference {
-      if-feature action:meter-reference-feature;
       uses action:meter-reference;
     }
     case traffic-group-marking {
-      if-feature action:traffic-group-feature;
       uses action:traffic-group-marking;
     }
     case child-policy {
@@ -490,11 +479,9 @@ module ietf-diffserv {
       uses action:named-counter;
     }
     case queue-inline {
-      if-feature diffserv-queue-inline-support;
       uses action:queue;
     }
     case scheduler-inline {
-      if-feature diffserv-scheduler-inline-support;
       uses action:scheduler;
     }
   }
