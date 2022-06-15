@@ -7,7 +7,7 @@ module ietf-qos-action {
     prefix inet;
     reference "RFC 6991: Common YANG Data Types";
   }
-  import ietf-qos-policy {
+  import ietf-traffic-policy {
     prefix policy;
     reference "RFC XXXX: YANG Model for QoS";
   }

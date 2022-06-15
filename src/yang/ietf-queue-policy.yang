@@ -3,7 +3,7 @@ module ietf-queue-policy {
   namespace "urn:ietf:params:xml:ns:yang:ietf-queue-policy";
   prefix queue-policy;
 
-  import ietf-qos-policy {
+  import ietf-traffic-policy {
     prefix policy;
   }
   import ietf-qos-action {
