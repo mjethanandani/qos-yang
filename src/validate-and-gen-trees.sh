@@ -60,7 +60,7 @@ for i in yang/example-qos-configuration-a.*.*.xml
 do
     name=$(echo $i | cut -f 1-4 -d '.')
     echo "Validating $name"
-    response=`yanglint -ii -t config -p ../../iana/yang-parameters -p ../bin ../bin/ietf-qos-classifier\@$(date +%Y-%m-%d).yang ../bin/ietf-qos-policy\@$(date +%Y-%m-%d).yang $name`
+    response=`yanglint -ii -t config -p ../../iana/yang-parameters -p ../bin ../bin/ietf-traffic-policy\@$(date +%Y-%m-%d).yang ../bin/ietf-queue-policy\@$(date +%Y-%m-%d).yang $name`
     if [ $? -ne 0 ]; then
        printf "failed (error code: $?)\n"
        printf "$response\n\n"

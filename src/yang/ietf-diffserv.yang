@@ -48,68 +48,6 @@ module ietf-diffserv {
       "RFC XXXX: A YANG Model for Quality of Service (QoS)";
   }
 
-  identity diffserv-policy-type {
-    base policy:policy-type;
-    description
-      "This defines ip policy-type";
-  }
-  identity ipv4-diffserv-policy-type {
-    base policy:policy-type;
-    description
-      "This defines ipv4 policy-type";
-  }
-  identity ipv6-diffserv-policy-type {
-    base policy:policy-type;
-    description
-      "This defines ipv6 policy-type";
-  }
-
-  identity dscp {
-    base policy:filter-type;
-    description
-      "Differentiated services code point filter-type";
-  }
-  identity source-ipv4-prefix {
-    base policy:filter-type;
-    description
-      "source ipv4 prefix filter-type";
-  }
-  identity destination-ipv4-prefix {
-    base policy:filter-type;
-    description
-      "destination ipv4 prefix filter-type";
-  }
-  identity source-ipv6-prefix {
-    base policy:filter-type;
-    description
-      "source ipv6 prefix filter-type";
-  }
-  identity destination-ipv6-prefix {
-    base policy:filter-type;
-    description
-      "destination ipv6 prefix filter-type";
-  }
-  identity source-port {
-    base policy:filter-type;
-    description
-      "source port filter-type";
-  }
-  identity destination-port {
-    base policy:filter-type;
-    description
-      "destination port filter-type";
-  }
-  identity protocol {
-    base policy:filter-type;
-    description
-      "protocol type filter-type";
-  }
-  identity traffic-group-name {
-    base policy:filter-type;
-    description
-      "traffic-group filter type";
-  }
-  
   identity meter-type {
     description
       "This base identity type defines meter types";
@@ -267,7 +205,8 @@ module ietf-diffserv {
           protocol in the 'upper-layer' header.";
       reference
         "RFC 791: Internet Protocol
-         RFC 8200: Internet Protocol, Version 6 (IPv6) Specification";
+         RFC 8200: Internet Protocol, Version 6 (IPv6)
+                   Specification";
       leaf protocol-min {
         type uint8 {
           range "0..255";
