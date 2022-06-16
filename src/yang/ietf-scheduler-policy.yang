@@ -3,10 +3,7 @@ module ietf-scheduler-policy {
   namespace "urn:ietf:params:xml:ns:yang:ietf-scheduler-policy";
   prefix scheduler-policy;
 
-  import ietf-qos-classifier {
-    prefix classifier;
-  }
-  import ietf-qos-policy {
+  import ietf-traffic-policy {
     prefix policy;
   }
   import ietf-qos-action {
@@ -49,21 +46,14 @@ module ietf-scheduler-policy {
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
-  feature scheduler-policy-support {
-    description
-      " This feature allows sheduler policy configuration
-        as a separate policy type support.";
-  }
-
   identity scheduler-policy-type {
-    if-feature scheduler-policy-support;
     base policy:policy-type;
     description
       "This defines scheduler policy-type";
   }
 
   identity filter-match-all {
-    base classifier:filter-type;
+    base policy:filter-type;
     description
       "Traffic-group filter type";
   }

@@ -1,7 +1,11 @@
-module ietf-qos-classifier {
+module ietf-traffic-policy {
   yang-version 1.1;
-  namespace "urn:ietf:params:xml:ns:yang:ietf-qos-classifier";
-  prefix classifier;
+  namespace "urn:ietf:params:xml:ns:yang:ietf-traffic-policy";
+  prefix policy;
+
+  import ietf-interfaces {
+    prefix if;
+  }
 
   organization
     "IETF Routing Area Working Group";
@@ -46,15 +50,13 @@ module ietf-qos-classifier {
   }
   feature classifier-template-feature {
     description
-      " This feature allows classifier as template configuration
-        in a policy.";
+       " This feature allows classifier as template configuration
+         in a policy.";
   }
-  feature match-any-filter-type-support {
+  identity policy-type {
     description
-      " This feature allows classifier configuration
-        directly under policy.";
+      "This base identity type defines policy-types";
   }
-
   identity filter-type {
     description
       "This is identity of base filter-type";
@@ -72,6 +74,20 @@ module ietf-qos-classifier {
     base match-filter-operation;
     description
       "Classifier entry filter logical OR operation";
+  }
+  identity direction {
+    description
+      "This is identity of traffic direction";
+  }
+  identity inbound {
+    base direction;
+    description
+      "Direction of traffic coming into the network entry";
+  }
+  identity outbound {
+    base direction;
+    description
+      "Direction of traffic going out of the network entry";
   }
   grouping filters {
     description
@@ -91,7 +107,7 @@ module ietf-qos-classifier {
          by the filter.";
     }
   }
-  grouping generic-attr {
+  grouping generic-classifier-attr {
     description
       "
        Classifier generic attributes like name,
@@ -135,7 +151,7 @@ module ietf-qos-classifier {
     }
     list filter{
       if-feature policy-inline-classifier-config;
-      must " ../classifier-entry-inline = 'true' " {
+      must " ../inline = 'true' " {
         description
           "For inline filter configuration, inline attribute" +
           "must be true";
@@ -146,6 +162,52 @@ module ietf-qos-classifier {
         "Filters configured inline in a policy";
     }
   }
+  grouping generic-policy-attr {
+    description
+      "Policy Attributes";
+    leaf name {
+      type string;
+      description
+        "policy name";
+    }
+    leaf type {
+      type identityref {
+        base policy-type;
+      }
+      description
+        "policy type";
+    }
+    leaf description {
+      type string;
+      description
+        "policy description";
+    }
+  }
+  identity action-type {
+    description
+      "This base identity type defines action-types";
+  }
+  grouping classifier-action-entry {
+    description
+      "List of Configuration of classifier & associated actions";
+    list action {
+      key "type";
+      ordered-by user;
+      description
+        "Configuration of classifier & associated actions";
+      leaf type {
+        type identityref {
+          base action-type;
+        }
+        description
+          "This defines action type ";
+      }
+      choice action-params {
+        description
+          "Choice of action types";
+      }
+    }
+  }
   container classifiers {
     if-feature classifier-template-feature;
     description
@@ -154,12 +216,64 @@ module ietf-qos-classifier {
       key "name";
       description
         "each classifier entry contains a list of filters";
-      uses generic-attr;
+      uses generic-classifier-attr;
       list filter {
         key "type logical-not";
         uses filters;
         description
           "Filter entry configuration";
+      }
+    }
+  }
+  container policies{
+    description
+      "list of policy templates";
+    list policy{
+      key "name type";
+      description
+        "policy template";
+      uses generic-policy-attr;
+      list classifier{
+        key "name";
+        ordered-by user;
+        description
+          "Classifier entry configuration in a policy";
+        leaf name {
+          type string;
+          description
+            "classifier entry name";
+        }
+        uses inline-attr;
+        uses classifier-action-entry;
+      }
+    }
+  }
+  augment "/if:interfaces/if:interface" {
+    description
+      "Augments Diffserv Target Entry to Interface module";
+    list qos-target-policy {
+      key "direction type";
+      description
+        "policy target for inbound or outbound direction";
+      leaf direction {
+        type identityref {
+          base direction;
+        }
+        description
+          "Direction of the traffic flow either inbound or outbound";
+      }
+      leaf type {
+        type identityref {
+          base policy-type;
+        }
+        description
+          "Policy entry type";
+      }
+      leaf name {
+        type string;
+        mandatory true;
+        description
+          "Policy name";
       }
     }
   }

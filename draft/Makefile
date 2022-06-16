@@ -48,14 +48,12 @@ endif
 	-rm -f ../bin/*\@$(shell date +%Y)-*-*-tree.txt*
 	-rm -f ../bin/*\@$(shell date +%Y)-*-*.yang
 
-$(next).xml: $(draft).xml ../src/yang/ietf-diffserv.yang ../src/yang/ietf-qos-action.yang ../src/yang/ietf-qos-classifier.yang ../src/yang/ietf-qos-policy.yang ../src/yang/ietf-qos-target.yang ../src/yang/ietf-queue-policy.yang ../src/yang/ietf-scheduler-policy.yang
+$(next).xml: $(draft).xml ../src/yang/ietf-diffserv.yang ../src/yang/ietf-qos-action.yang ../src/yang/ietf-traffic-policy.yang ../src/yang/ietf-queue-policy.yang ../src/yang/ietf-scheduler-policy.yang
 	-mkdir -p ../bin
 	sed -e"s/$(basename $<)-latest/$(basename $@)/" -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" $< > $@
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/ietf-diffserv.yang > ../bin/ietf-diffserv\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/ietf-qos-action.yang > ../bin/ietf-qos-action\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/ietf-qos-classifier.yang > ../bin/ietf-qos-classifier\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/ietf-qos-policy.yang > ../bin/ietf-qos-policy\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/ietf-qos-target.yang > ../bin/ietf-qos-target\@$(shell date +%Y-%m-%d).yang
+	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/ietf-traffic-policy.yang > ../bin/ietf-traffic-policy\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/ietf-queue-policy.yang > ../bin/ietf-queue-policy\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/ietf-scheduler-policy.yang > ../bin/ietf-scheduler-policy\@$(shell date +%Y-%m-%d).yang
 
