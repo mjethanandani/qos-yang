@@ -7,10 +7,6 @@ module ietf-qos-action {
     prefix inet;
     reference "RFC 6991: Common YANG Data Types";
   }
-  import ietf-traffic-policy {
-    prefix policy;
-    reference "RFC XXXX: YANG Model for QoS";
-  }
 
   organization
     "IETF Routing Area Working Group";
@@ -198,55 +194,6 @@ module ietf-qos-action {
       "probability value is denominator value
        while numerator is always 1";
   }
-  identity dscp-marking {
-    base policy:action-type;
-    description
-      "dscp marking action type";
-  }
-  identity meter-inline {
-    base policy:action-type;
-    description
-      "meter-inline action type";
-  }
-  identity meter-reference {
-    base policy:action-type;
-    description
-      "meter reference action type";
-  }
-  identity queue {
-    base policy:action-type;
-    description
-      "queue action type";
-  }
-  identity scheduler {
-    base policy:action-type;
-    description
-      "scheduler action type";
-  }
-  identity discard {
-    base policy:action-type;
-    description
-      "discard action type";
-  }
-  identity child-policy {
-    if-feature child-policy-feature;
-    base policy:action-type;
-    description
-      "child-policy action type";
-  }
-  identity count {
-    if-feature count-feature;
-    base policy:action-type;
-    description
-      "count action type";
-  }
-  identity named-counter {
-    if-feature named-counter-feature;
-    base policy:action-type;
-    description
-      "name counter action type";
-  }
-
   identity meter-type {
     description
       "This base identity type defines meter types";

@@ -1,0 +1,28 @@
+<!--
+    This example shows a QoS policy configuration.
+-->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<policies
+  xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy">
+  <policy>
+    <name>my-policy</name>
+    <type>diffserv</type>
+    <classifier>
+      <name>my-classifier</name>
+      <inline>true</inline>
+      <filter-operation>match-any-filter</filter-operation>
+      <filter>
+	<type>dscp</type>
+	<logical-not>true</logical-not>
+      </filter>
+      <action>
+	<type>dscp-marking</type>
+	<!-- 
+	     Add the action-params here once it has been defined.
+	-->
+      </action>
+    </classifier>
+  </policy>
+</policies>
+

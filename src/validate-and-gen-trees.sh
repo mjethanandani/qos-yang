@@ -56,11 +56,11 @@ rm ../bin/*-sub-tree.txt.tmp
 
 echo "Validating examples"
 
-for i in yang/example-qos-configuration-a.*.xml
+for i in yang/example-qos-configuration-a.*.*.xml
 do
-    name=$(echo $i | cut -f 1-3 -d '.')
-    echo "Validating $name.xml"
-    response=`yanglint -ii -t config -p ../../iana/yang-parameters -p ../bin ../bin/ietf-diffserv\@$(date +%Y-%m-%d).yang $name.xml`
+    name=$(echo $i | cut -f 1-4 -d '.')
+    echo "Validating $name"
+    response=`yanglint -ii -t config -p ../../iana/yang-parameters -p ../bin ../bin/ietf-traffic-policy\@$(date +%Y-%m-%d).yang ../bin/ietf-queue-policy\@$(date +%Y-%m-%d).yang $name`
     if [ $? -ne 0 ]; then
        printf "failed (error code: $?)\n"
        printf "$response\n\n"

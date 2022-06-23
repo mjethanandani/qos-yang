@@ -6,6 +6,9 @@ module ietf-traffic-policy {
   import ietf-interfaces {
     prefix if;
   }
+  import ietf-qos-action {
+    prefix action;
+  }
 
   organization
     "IETF Routing Area Working Group";
@@ -57,10 +60,72 @@ module ietf-traffic-policy {
     description
       "This base identity type defines policy-types";
   }
+  identity diffserv {
+    base policy-type;
+    description
+      "This defines ip policy-type";
+  }
+  identity ipv4-diffserv {
+    base policy-type;
+    description
+      "This defines ipv4 policy-type";
+  }
+  identity ipv6-diffserv {
+    base policy-type;
+    description
+      "This defines ipv6 policy-type";
+  }
+
   identity filter-type {
     description
       "This is identity of base filter-type";
   }
+  identity dscp {
+    base filter-type;
+    description
+      "Differentiated services code point filter-type";
+  }
+  identity source-ipv4-prefix {
+    base filter-type;
+    description
+      "source ipv4 prefix filter-type";
+  }
+  identity destination-ipv4-prefix {
+    base filter-type;
+    description
+      "destination ipv4 prefix filter-type";
+  }
+  identity source-ipv6-prefix {
+    base filter-type;
+    description
+      "source ipv6 prefix filter-type";
+  }
+  identity destination-ipv6-prefix {
+    base filter-type;
+    description
+      "destination ipv6 prefix filter-type";
+  }
+  identity source-port {
+    base filter-type;
+    description
+      "source port filter-type";
+  }
+  identity destination-port {
+    base filter-type;
+    description
+      "destination port filter-type";
+  }
+  identity protocol {
+    base filter-type;
+    description
+      "protocol type filter-type";
+  }
+  identity traffic-group-name {
+    base filter-type;
+    description
+      "traffic-group filter type";
+  }
+
   identity match-filter-operation {
     description
       "filter match logical operation type";
@@ -102,11 +167,9 @@ module ietf-traffic-policy {
     leaf logical-not {
       type boolean;
       description
-        "
-         This is logical-not operator for a filter. When true, it
+        "This is logical-not operator for a filter. When true, it
          indicates filter looks for absence of a pattern defined
-         by the filter
-        ";
+         by the filter.";
     }
   }
   grouping generic-classifier-attr {
@@ -189,6 +252,55 @@ module ietf-traffic-policy {
     description
       "This base identity type defines action-types";
   }
+  identity dscp-marking {
+    base action-type;
+    description
+      "dscp marking action type";
+  }
+  identity meter-inline {
+    base action-type;
+    description
+      "meter-inline action type";
+  }
+  identity meter-reference {
+    base action-type;
+    description
+      "meter reference action type";
+  }
+  identity queue {
+    base action-type;
+    description
+      "queue action type";
+  }
+  identity scheduler {
+    base action-type;
+    description
+      "scheduler action type";
+  }
+  identity discard {
+    base action-type;
+    description
+      "discard action type";
+  }
+  identity child-policy {
+    if-feature action:child-policy-feature;
+    base action-type;
+    description
+      "child-policy action type";
+  }
+  identity count {
+    if-feature action:count-feature;
+    base action-type;
+    description
+      "count action type";
+  }
+  identity named-counter {
+    if-feature action:named-counter-feature;
+    base action-type;
+    description
+      "name counter action type";
+  }
+
   grouping classifier-action-entry {
     description
       "List of Configuration of classifier & associated actions";
