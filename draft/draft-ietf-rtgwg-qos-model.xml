@@ -357,6 +357,12 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-queue-policy@YYYY-MM-DD-sub-tree.txt)
 INSERT_TEXT_FROM_FILE(../bin/ietf-scheduler-policy@YYYY-MM-DD-sub-tree.txt)
     ]]></artwork>
       </figure>
+      <figure>
+	<name>ietf-qos-oper tree diagram</name>
+        <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD-sub-tree.txt)
+    ]]></artwork>
+      </figure>
     </section>
 
     <section title="Modules">
@@ -414,6 +420,16 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-queue-policy@YYYY-MM-DD.yang)
           <artwork><![CDATA[
 <CODE BEGINS>file "ietf-scheduler-policy@YYYY-MM-DD.yang"
 INSERT_TEXT_FROM_FILE(../bin/ietf-scheduler-policy@YYYY-MM-DD.yang)
+<CODE ENDS>
+    ]]></artwork>
+        </figure>
+      </section>
+      <section title="ietf-qos-oper">
+        <figure>
+	  <name>ietf-qos-oper module</name>
+          <artwork><![CDATA[
+<CODE BEGINS>file "ietf-qos-oper@YYYY-MM-DD.yang"
+INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD.yang)
 <CODE ENDS>
     ]]></artwork>
         </figure>

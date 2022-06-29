@@ -264,7 +264,8 @@ module ietf-diffserv {
         description
           "Filter containing list of destination ipv4 prefix";
       }
-      case source-ipv6-prefix { uses source-ipv6-prefix;
+      case source-ipv6-prefix {
+        uses source-ipv6-prefix;
         description
           "Filter containing list of source ipv6 prefixes";
       }
