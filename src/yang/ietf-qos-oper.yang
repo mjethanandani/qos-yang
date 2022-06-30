@@ -326,7 +326,6 @@ module ietf-qos-oper {
           uses classifier-entry-statistics;
         }
         list named-statistics {
-          config false;
           description
             "Statistics for a statistics-name";
           leaf stats-name {
@@ -349,7 +348,6 @@ module ietf-qos-oper {
               uses classifier-entry-statistics;
             }
             list metering-statistics {
-              config false;
               description
                 "Statistics for each Meter associated with
                  the Policy";
@@ -359,7 +357,6 @@ module ietf-qos-oper {
               uses metering-stats;
             }
             list queueing-statistics {
-              config false;
               description
                 "Statistics for each Queue associated with
                  the Policy";
@@ -368,7 +365,6 @@ module ietf-qos-oper {
           }
         }
         list metering-statistics {
-          config false;
           description
             "Statistics for each Meter associated with the Policy";
           reference
@@ -377,7 +373,6 @@ module ietf-qos-oper {
           uses metering-stats;
         }
         list queueing-statistics {
-          config false;
           description
             "Statistics for each Queue associated with the Policy";
           uses queuing-stats;

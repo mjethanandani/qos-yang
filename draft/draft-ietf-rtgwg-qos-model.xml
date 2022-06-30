@@ -348,19 +348,19 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)
       vendor specific augmentation. Statistics are realized by augmenting the
       QoS target module.</t>
      
-      <t>Classifier statistics consists of list of classifier entries
+      <t>Classifier statistics consist of list of classifier entries
       identified by a classifier entry name.  Classifier counters include
-      matched packets, bytes and average rate of traffic matching a
+      matched packets and bytes, and average rate of traffic matching a
       particular classifier.</t> 
 
-      <t> Metering statistics consists of meters identified by an identifier.
-      Metering counters include conform, exceed, violate and drop packets
+      <t> Metering statistics consist of meters identified by an identifier.
+      Metering counters include conform, exceed, violate, drop packets,
       and bytes.</t>
 
       <t>Queuing counters include instantaneous, peak, average queue length,
       as well as output conform, exceed, tail drop packets and bytes.</t>
 
-      <t>Named statistics is defined as statistics which are tagged by a name.
+      <t>Named statistics is defined as statistics which is tagged by a name.
       This could be aggregated or non-aggregated.  Aggregated named
       statistics is defined as counters which are aggregated across
       classifier entries in a policy applied to an interface in a
