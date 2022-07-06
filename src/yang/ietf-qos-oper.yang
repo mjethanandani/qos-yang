@@ -91,12 +91,12 @@ module ietf-qos-oper {
     leaf conform-pkts {
       type yang:zero-based-counter64;
       description
-        "Number of conform packets";
+        "Number of packets within conform rate and burst";
     }
     leaf conform-bytes {
       type yang:zero-based-counter64;
       description
-        "Bytes of conform packets";
+        "Total bytes count within conform rate and burst";
     }
     leaf conform-rate {
       type yang:gauge64;
@@ -107,12 +107,14 @@ module ietf-qos-oper {
     leaf exceed-pkts {
       type yang:zero-based-counter64;
       description
-        "Number of packets counted as exceeding";
+        "Number of non-conforming packets which are within peak rate
+         and peak burst";
     }
     leaf exceed-bytes {
       type yang:zero-based-counter64;
       description
-        "Bytes of packets counted as exceeding";
+        "Total non-conforming bytes count which is within peak rate
+         and peak burst";
     }
     leaf exceed-rate {
       type yang:gauge64;
@@ -123,12 +125,13 @@ module ietf-qos-oper {
     leaf violate-pkts {
       type yang:zero-based-counter64;
       description
-        "Number of packets counted as violating";
+        "Number of packets which are beyond peak rate
+         and peak burst";
     }
     leaf violate-bytes {
       type yang:zero-based-counter64;
       description
-        "Bytes of packets counted as violating";
+        "Total bytes count which is beyond peak rate and peak burst";
     }
     leaf violate-rate {
       type yang:gauge64;
@@ -183,22 +186,12 @@ module ietf-qos-oper {
       description
         "Queue Identifier";
     }
-    leaf output-conform-pkts {
+    leaf transmit-pkts {
       type yang:zero-based-counter64;
       description
         "Number of packets transmitted from queue";
     }
-    leaf output-conform-bytes {
-      type yang:zero-based-counter64;
-      description
-        "Number of bytes transmitted from queue";
-    }
-    leaf output-exceed-pkts {
-      type yang:zero-based-counter64;
-      description
-        "Number of packets transmitted from queue";
-    }
-    leaf output-exceed-bytes {
+    leaf transmit-bytes {
       type yang:zero-based-counter64;
       description
         "Number of bytes transmitted from queue";
