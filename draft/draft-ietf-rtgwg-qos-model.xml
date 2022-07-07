@@ -53,17 +53,17 @@
     <title abbrev="YANG Models for QoS">YANG Models for Quality of Service (QoS)</title>
 
     <author fullname="Aseem Choudhary" initials="A.C." surname="Choudhary">
-      <organization>Cisco Systems</organization>
+      <organization>Aviatrix Systems</organization>
 
       <address>
         <postal>
-          <street>170 W. Tasman Drive</street>
+          <street>2901 Tasman Drive #109</street>
 
-          <city>San Jose</city>
+          <city>Santa Clara</city>
 
           <region>CA</region>
 
-          <code>95134</code>
+          <code>95054</code>
 
           <country>US</country>
         </postal>
@@ -250,6 +250,15 @@
       Different vendors can extend it with other types of meters as
       well.
       </t>
+      <t>QoS operational model include QoS policy applied to an interface
+      in each direction of traffic.  For each QoS policy applied to an
+      interface the model further includes counters for associated
+      Classifiers, Meters and Queues in a particular direction.  To
+      modularize and for reusability, grouping have been defined for
+      various counters of classifier, Meters and Queues.  The target is
+      assumed to be interface but the groupings can be used for any other
+      target type where QoS policy is applied.
+      </t>
     </section>
 
     <section title="DiffServ Model Design">
@@ -338,6 +347,26 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)
       policy-module. Any queuing, AQM and scheduling actions are part of
       vendor specific augmentation. Statistics are realized by augmenting the
       QoS target module.</t>
+     
+      <t>Classifier statistics consist of list of classifier entries
+      identified by a classifier entry name.  Classifier counters include
+      matched packets and bytes, and average rate of traffic matching a
+      particular classifier.</t> 
+
+      <t> Metering statistics consist of meters identified by an identifier.
+      Metering counters include conform, exceed, violate, drop packets,
+      and bytes.</t>
+
+      <t>Queuing counters include instantaneous, peak, average queue length,
+      as well as output conform, exceed, tail drop packets and bytes.</t>
+
+      <t>Named statistics is defined as statistics which is tagged by a name.
+      This could be aggregated or non-aggregated.  Aggregated named
+      statistics is defined as counters which are aggregated across
+      classifier entries in a policy applied to an interface in a
+      particular direction.  Non-aggregated named statistics are counters
+      of classifier, metering or queuing which have the same tag name but
+      maintained separately.</t>
 
       <figure>
 	<name>ietf-diffserv tree diagram</name>
@@ -355,6 +384,12 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-queue-policy@YYYY-MM-DD-sub-tree.txt)
 	<name>ietf-scheduler-policy tree diagram</name>
         <artwork><![CDATA[
 INSERT_TEXT_FROM_FILE(../bin/ietf-scheduler-policy@YYYY-MM-DD-sub-tree.txt)
+    ]]></artwork>
+      </figure>
+      <figure>
+	<name>ietf-qos-oper tree diagram</name>
+        <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD-sub-tree.txt)
     ]]></artwork>
       </figure>
     </section>
@@ -414,6 +449,16 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-queue-policy@YYYY-MM-DD.yang)
           <artwork><![CDATA[
 <CODE BEGINS>file "ietf-scheduler-policy@YYYY-MM-DD.yang"
 INSERT_TEXT_FROM_FILE(../bin/ietf-scheduler-policy@YYYY-MM-DD.yang)
+<CODE ENDS>
+    ]]></artwork>
+        </figure>
+      </section>
+      <section title="ietf-qos-oper">
+        <figure>
+	  <name>ietf-qos-oper module</name>
+          <artwork><![CDATA[
+<CODE BEGINS>file "ietf-qos-oper@YYYY-MM-DD.yang"
+INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD.yang)
 <CODE ENDS>
     ]]></artwork>
         </figure>
