@@ -6,8 +6,10 @@ module ietf-qos-target {
   import ietf-interfaces {
     prefix if;
   }
-  import ietf-qos-policy {
-    prefix policy;
+  import iana-qos-types {
+    prefix qos-types;
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
   organization
@@ -46,20 +48,6 @@ module ietf-qos-target {
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
-  identity direction {
-    description
-      "This is identity of traffic direction";
-  }
-  identity inbound {
-    base direction;
-    description
-      "Direction of traffic coming into the network entry";
-  }
-  identity outbound {
-    base direction;
-    description
-      "Direction of traffic going out of the network entry";
-  }
   augment "/if:interfaces/if:interface" {
     description
       "Augments Diffserv Target Entry to Interface module";
@@ -69,14 +57,14 @@ module ietf-qos-target {
         "policy target for inbound or outbound direction";
       leaf direction {
         type identityref {
-          base direction;
+          base qos-types:direction;
         }
         description
           "Direction of the traffic flow either inbound or outbound";
       }
       leaf type {
         type identityref {
-          base policy:policy-type;
+          base qos-types:policy-type;
         }
         description
           "Policy entry type";

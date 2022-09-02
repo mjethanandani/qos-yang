@@ -6,6 +6,11 @@ module ietf-qos-policy {
   import ietf-qos-classifier {
     prefix classifier;
   }
+  import iana-qos-types {
+    prefix qos-types;
+    reference
+      "RFC XXXX: YANG Model for QoS";
+  }
 
   organization
     "IETF Routing Area Working Group";
@@ -43,10 +48,6 @@ module ietf-qos-policy {
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
-  identity policy-type {
-    description
-      "This base identity type defines policy-types";
-  }
   grouping generic-attr {
     description
       "Policy Attributes";
@@ -57,7 +58,7 @@ module ietf-qos-policy {
     }
     leaf type {
       type identityref {
-        base policy-type;
+        base qos-types:policy-type;
       }
       description
         "policy type";
@@ -82,7 +83,7 @@ module ietf-qos-policy {
         "Configuration of classifier & associated actions";
       leaf type {
         type identityref {
-          base action-type;
+          base qos-types:action-type;
         }
         description
           "This defines action type ";

@@ -3,6 +3,12 @@ module ietf-qos-classifier {
   namespace "urn:ietf:params:xml:ns:yang:ietf-qos-classifier";
   prefix classifier;
 
+  import iana-qos-types {
+    prefix qos-types;
+    reference
+      "RFC XXXX: YANG Model for QoS";
+  }
+
   organization
     "IETF Routing Area Working Group";
 
@@ -39,47 +45,12 @@ module ietf-qos-classifier {
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
-  feature policy-inline-classifier-config {
-    description
-      " This feature allows classifier configuration
-        directly under policy.";
-  }
-  feature classifier-template-feature {
-    description
-      " This feature allows classifier as template configuration
-        in a policy.";
-  }
-  feature match-any-filter-type-support {
-    description
-      " This feature allows classifier configuration
-        directly under policy.";
-  }
-
-  identity filter-type {
-    description
-      "This is identity of base filter-type";
-  }
-  identity match-filter-operation {
-    description
-      "filter match logical operation type";
-  }
-  identity match-all-filter {
-    base match-filter-operation;
-    description
-      "Classifier entry filter logical AND operation";
-  }
-  identity match-any-filter {
-    if-feature "match-any-filter-type-support";
-    base match-filter-operation;
-    description
-      "Classifier entry filter logical OR operation";
-  }
   grouping filters {
     description
       "Filters types in a Classifier entry";
     leaf type {
       type identityref {
-        base filter-type;
+        base qos-types:filter-type;
       }
       description
         "This leaf defines type of the filter";
@@ -96,10 +67,8 @@ module ietf-qos-classifier {
   }
   grouping generic-attr {
     description
-      "
-       Classifier generic attributes like name,
-       description, operation type
-      ";
+      "Classifier generic attributes like name,
+       description, operation type.";
     leaf name {
       type string;
       description
@@ -112,45 +81,51 @@ module ietf-qos-classifier {
     }
     leaf filter-operation {
       type identityref {
-        base match-filter-operation;
+        base qos-types:match-filter-operation;
       }
-      default "match-all-filter";
+      default "qos-types:match-all-filter";
       description
         "Filters are applicable as match-any or match-all filters";
     }
   }
+
   grouping inline-attr {
     description
       "attributes of inline classifier in a policy";
+
     leaf inline {
       type boolean;
       default "false";
       description
         "Indication of inline classifier entry";
     }
+
     leaf filter-operation {
       type identityref {
-        base match-filter-operation;
+        base qos-types:match-filter-operation;
       }
-      default "match-all-filter";
+      default "qos-types:match-all-filter";
       description
         "Filters are applicable as match-any or match-all filters";
     }
+
     list filter{
-      if-feature policy-inline-classifier-config;
-      must " ../classifier-entry-inline = 'true' " {
-        description
-          "For inline filter configuration, inline attribute" +
-          "must be true";
-      }
+      if-feature qos-types:policy-inline-classifier-config;
+      //      must "derived-from-or-self(../classifier-entry-inline, " +
+      //   "'true')" {
+      //        description
+      //          "For inline filter configuration, inline attribute
+      //           must be true";
+      //      }
       key "type logical-not";
       uses filters;
       description
         "Filters configured inline in a policy";
     }
   }
+
   container classifiers {
-    if-feature classifier-template-feature;
+    if-feature qos-types:classifier-template-feature;
     description
       "list of classifier entry";
     list classifier{

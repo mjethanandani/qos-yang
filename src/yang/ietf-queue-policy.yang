@@ -12,6 +12,11 @@ module ietf-queue-policy {
   import ietf-diffserv {
     prefix diffserv;
   }
+  import iana-qos-types {
+    prefix qos-types;
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
+  }
 
   organization
     "IETF Routing Area Working Group";
@@ -49,36 +54,15 @@ module ietf-queue-policy {
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
-  feature queue-policy-support {
-    description
-      " This feature allows queue policy configuration
-        as a separate policy type support.";
-  }
-
-  feature queue-inline-support {
-    description
-      "Queue inline support in Queue policy";
-  }
-
-  feature queue-template-support {
-    description
-      "Queue template support in Queue policy";
-  }
-
-  identity queue-policy-type {
-    if-feature "queue-policy-support";
-    base policy:policy-type;
-    description
-      "This defines queue policy-type";
-  }
 
   augment "/policy:policies/policy:policy/policy:classifier" +
           "/policy:filter" {
-    when "../../policy:type = 'queue-policy:queue-policy-type'" {
+    when "derived-from-or-self(../../policy:type, " +
+         "'queue-policy:queue-policy-type')" {
       description
         "If policy type is queue policy, this filter can be used.";
     }
-    if-feature "queue-policy-support";
+    if-feature qos-types:queue-policy-support;
     choice filter-params {
       description
         "Choice of action types";
@@ -93,7 +77,7 @@ module ietf-queue-policy {
   }
 
   identity queue-template-name {
-    base policy:action-type;
+    base qos-types:action-type;
     description
       "queue template name";
   }
@@ -114,7 +98,7 @@ module ietf-queue-policy {
   }
 
   container queue {
-    if-feature "queue-policy-support";
+    if-feature qos-types:queue-policy-support;
     description
       "Queue template";
     leaf name {
@@ -126,17 +110,18 @@ module ietf-queue-policy {
   }
   augment "/policy:policies/policy:policy/policy:classifier" + 
           "/policy:action/policy:action-params" {
-    when "../../policy:type = 'queue-policy:queue-policy-type'" {
+    when "derived-from-or-self(../../policy:type,"  +
+         "'queue-policy:queue-policy-type')" {
       description
         "queue policy actions.";
     }
-    if-feature "queue-policy-support";
+    if-feature qos-types:queue-policy-support;
     case queue-template-name {
-      if-feature "queue-template-support";
+      if-feature qos-types:queue-template-support;
       uses queue-reference;
     }
     case queue-inline {
-      if-feature "queue-inline-support";
+      if-feature qos-types:queue-inline-support;
       uses action:queue;
     }
     description
