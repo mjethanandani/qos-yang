@@ -3,10 +3,7 @@ module ietf-diffserv {
   namespace "urn:ietf:params:xml:ns:yang:ietf-diffserv";
   prefix diffserv;
 
-  import ietf-qos-classifier {
-    prefix classifier;
-  }
-  import ietf-qos-policy {
+  import ietf-traffic-policy {
     prefix policy;
   }
   import ietf-qos-action {
@@ -23,14 +20,15 @@ module ietf-diffserv {
 
   organization
     "IETF Routing Area Working Group";
+
   contact
     "WG Web:   <https://datatracker.ietf.org/wg/rtgwg/>
      WG List:  <mailto:rtgwg@ietf.org>
 
      Editor:   Aseem Choudhary
-               <mailto:asechoud@cisco.com>
+               <mailto:achoudhary@aviatrix.com>
      Editor:   Mahesh Jethanandani
-               <mailto:mjethanandani@gmail.com";
+               <mailto:mjethanandani@gmail.com>";
 
   description
     "This module contains a collection of YANG definitions for
@@ -41,7 +39,7 @@ module ietf-diffserv {
 
      Redistribution and use in source and binary forms, with or
      without modification, is permitted pursuant to, and subject
-     to the license terms contained in, the Simplified BSD License
+     to the license terms contained in, the Revised BSD License
      set forth in Section 4.c of the IETF Trust's Legal Provisions
      Relating to IETF Documents
      (http://trustee.ietf.org/license-info).
@@ -194,7 +192,8 @@ module ietf-diffserv {
           protocol in the 'upper-layer' header.";
       reference
         "RFC 791: Internet Protocol
-         RFC 8200: Internet Protocol, Version 6 (IPv6) Specification";
+         RFC 8200: Internet Protocol, Version 6 (IPv6)
+                   Specification";
       leaf protocol-min {
         type uint8 {
           range "0..255";
@@ -232,8 +231,8 @@ module ietf-diffserv {
       "traffic group grouping";
   }
 
-  augment "/classifier:classifiers/classifier:classifier" + 
-          "/classifier:filter" {
+  augment "/policy:classifiers/policy:classifier" + 
+          "/policy:filter" {
     choice filter-param {
       description
         "Choice of filter types";
@@ -252,7 +251,8 @@ module ietf-diffserv {
         description
           "Filter containing list of destination ipv4 prefix";
       }
-      case source-ipv6-prefix { uses source-ipv6-prefix;
+      case source-ipv6-prefix {
+        uses source-ipv6-prefix;
         description
           "Filter containing list of source ipv6 prefixes";
       }
@@ -307,7 +307,7 @@ module ietf-diffserv {
       }
       case source-ipv4-prefix {
         when "derived-from-or-self(/policy:policies/" +
-	     "policy:policy/policy:type, " +
+             "policy:policy/policy:type, " +
              "'qos-types:ipv6-diffserv-policy-type')" {
             description
                "If policy type is v6, this filter cannot be used.";
@@ -318,7 +318,7 @@ module ietf-diffserv {
       }
       case destination-ipv4-prefix {
         when "derived-from-or-self(/policy:policies" +
-	     "/policy:policy/policy:type, " +
+             "/policy:policy/policy:type, " +
              "'qos-types:ipv6-diffserv-policy-type')" {
             description
                "If policy type is v6, this filter cannot be used.";
@@ -329,7 +329,7 @@ module ietf-diffserv {
       }
       case source-ipv6-prefix {
         when "derived-from-or-self(/policy:policies" +
-	     "/policy:policy/policy:type, "+
+             "/policy:policy/policy:type, "+
              "'qos-types:ipv4-diffserv-policy-type')" {
             description
                "If policy type is v4, this filter cannot be used.";
@@ -340,7 +340,7 @@ module ietf-diffserv {
       }
       case destination-ipv6-prefix {
         when "derived-from-or-self(/policy:policies" +
-	     "/policy:policy/policy:type, " +
+             "/policy:policy/policy:type, " +
              "'qos-types:ipv4-diffserv-policy-type')" {
             description
                "If policy type is v4, this filter cannot be used.";

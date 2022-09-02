@@ -52,23 +52,23 @@
   <front>
     <title abbrev="YANG Models for QoS">YANG Models for Quality of Service (QoS)</title>
 
-    <author fullname="Aseem Choudhary" initials="A.C." surname="Choudhary">
-      <organization>Cisco Systems</organization>
+    <author fullname="Aseem Choudhary" initials="A." surname="Choudhary">
+      <organization>Aviatrix Systems</organization>
 
       <address>
         <postal>
-          <street>170 W. Tasman Drive</street>
+          <street>2901 Tasman Drive #109</street>
 
-          <city>San Jose</city>
+          <city>Santa Clara</city>
 
           <region>CA</region>
 
-          <code>95134</code>
+          <code>95054</code>
 
           <country>US</country>
         </postal>
 
-        <email>asechoud@cisco.com</email>
+        <email>achoudhary@aviatrix.com</email>
       </address>
     </author>
 
@@ -234,7 +234,7 @@
       packets. A set of classifier entries with corresponding
       conditioning functions when arranged in order of priority
       represents a QoS policy. A QoS policy may contain one or more
-      classifier entries. These are defined in ietf-qos-policy
+      classifier entries. These are defined in ietf-traffic-policy
       module.</t>
 
       <t>Actions are configured in line with respect to the policy
@@ -249,6 +249,15 @@
       (trTCM)</xref> meter, and Single Rate Two Color Marking meter.
       Different vendors can extend it with other types of meters as
       well.
+      </t>
+      <t>QoS operational model include QoS policy applied to an interface
+      in each direction of traffic.  For each QoS policy applied to an
+      interface the model further includes counters for associated
+      Classifiers, Meters and Queues in a particular direction.  To
+      modularize and for reusability, grouping have been defined for
+      various counters of classifier, Meters and Queues.  The target is
+      assumed to be interface but the groupings can be used for any other
+      target type where QoS policy is applied.
       </t>
     </section>
 
@@ -295,23 +304,16 @@
       filter entries.  When no filter entry is present in a classifier
       entry, it matches all traffic.</t>
 
-      <figure>
-	<name>ietf-qos-classifier tree diagram</name>
-        <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../bin/ietf-qos-classifier@YYYY-MM-DD-sub-tree.txt)
-    ]]></artwork>
-      </figure>
-
-      <t>An ietf-qos-policy module contains list of policy objects identified
+      <t>An ietf-traffic-policy module contains list of policy objects identified
       by a policy name and policy type which MUST be provided. With different
       values of policy types, each vendor MAY define their own construct of
       policy for different QoS functionalities. Each vendor MAY augment
       classifier entry in a policy definition with a set of actions.</t>
 
       <figure>
-	<name>ietf-qos-policy tree diagram</name>
+	<name>ietf-traffic-policy tree diagram</name>
         <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../bin/ietf-qos-policy@YYYY-MM-DD-sub-tree.txt)
+INSERT_TEXT_FROM_FILE(../bin/ietf-traffic-policy@YYYY-MM-DD-sub-tree.txt)
 
     ]]></artwork>
       </figure>
@@ -337,13 +339,6 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)
    restrictions.</t>    
    <t>Classifier, metering and queuing counters are associated with a target. </t>
 
-   <figure>
-     <name>ietf-qos-target tree diagram</name>
-     <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../bin/ietf-qos-target@YYYY-MM-DD-sub-tree.txt)
-    ]]></artwork>
-   </figure>
-
       <t>Diffserv module augments QoS classifier module. Many of the YANG
       types defined in <xref target="RFC6991"/> are represented as leafs in
       the classifier module.</t>
@@ -352,6 +347,26 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-target@YYYY-MM-DD-sub-tree.txt)
       policy-module. Any queuing, AQM and scheduling actions are part of
       vendor specific augmentation. Statistics are realized by augmenting the
       QoS target module.</t>
+     
+      <t>Classifier statistics consist of list of classifier entries
+      identified by a classifier entry name.  Classifier counters include
+      matched packets and bytes, and average rate of traffic matching a
+      particular classifier.</t> 
+
+      <t> Metering statistics consist of meters identified by an identifier.
+      Metering counters include conform, exceed, violate, drop packets,
+      and bytes.</t>
+
+      <t>Queuing counters include instantaneous, peak, average queue length,
+      as well as output conform, exceed, tail drop packets and bytes.</t>
+
+      <t>Named statistics is defined as statistics which is tagged by a name.
+      This could be aggregated or non-aggregated.  Aggregated named
+      statistics is defined as counters which are aggregated across
+      classifier entries in a policy applied to an interface in a
+      particular direction.  Non-aggregated named statistics are counters
+      of classifier, metering or queuing which have the same tag name but
+      maintained separately.</t>
 
       <figure>
 	<name>ietf-diffserv tree diagram</name>
@@ -371,6 +386,12 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-queue-policy@YYYY-MM-DD-sub-tree.txt)
 INSERT_TEXT_FROM_FILE(../bin/ietf-scheduler-policy@YYYY-MM-DD-sub-tree.txt)
     ]]></artwork>
       </figure>
+      <figure>
+	<name>ietf-qos-oper tree diagram</name>
+        <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD-sub-tree.txt)
+    ]]></artwork>
+      </figure>
     </section>
 
     <section title="Modules">
@@ -379,23 +400,13 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-scheduler-policy@YYYY-MM-DD-sub-tree.txt)
       YANG Data Types" <xref target="RFC6991"/> and "A YANG Data Model
       for Interface Management" <xref target="RFC8343"/>.
       </t>
-      <section title="ietf-qos-classifier">
-        <figure>
-	  <name>ietf-qos-classifier module</name>
-          <artwork><![CDATA[
-<CODE BEGINS> file "ietf-qos-classifer@YYYY-MM-DD.yang"
-INSERT_TEXT_FROM_FILE(../bin/ietf-qos-classifier@YYYY-MM-DD.yang)
-<CODE ENDS>
-    ]]></artwork>
-        </figure>
-      </section>
 
-      <section title="ietf-qos-policy">
+      <section title="ietf-traffic-policy">
         <figure>
-	  <name>ietf-qos-policy module</name>
+	  <name>ietf-traffic-policy module</name>
           <artwork><![CDATA[
-<CODE BEGINS> file "ietf-qos-policy@YYYY-MM-DD.yang"
-INSERT_TEXT_FROM_FILE(../bin/ietf-qos-policy@YYYY-MM-DD.yang)
+<CODE BEGINS> file "ietf-traffic-policy@YYYY-MM-DD.yang"
+INSERT_TEXT_FROM_FILE(../bin/ietf-traffic-policy@YYYY-MM-DD.yang)
 <CODE ENDS>
     ]]></artwork>
         </figure>
@@ -407,17 +418,6 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-policy@YYYY-MM-DD.yang)
           <artwork><![CDATA[
 <CODE BEGINS>file "ietf-qos-action@YYYY-MM-DD.yang"
 INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD.yang)
-<CODE ENDS>
-    ]]></artwork>
-        </figure>
-      </section>
-
-      <section title="ietf-qos-target">
-        <figure>
-	  <name>ietf-qos-target module</name>
-          <artwork><![CDATA[
-<CODE BEGINS>file "ietf-qos-target@YYYY-MM-DD.yang"
-INSERT_TEXT_FROM_FILE(../bin/ietf-qos-target@YYYY-MM-DD.yang)
 <CODE ENDS>
     ]]></artwork>
         </figure>
@@ -449,6 +449,16 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-queue-policy@YYYY-MM-DD.yang)
           <artwork><![CDATA[
 <CODE BEGINS>file "ietf-scheduler-policy@YYYY-MM-DD.yang"
 INSERT_TEXT_FROM_FILE(../bin/ietf-scheduler-policy@YYYY-MM-DD.yang)
+<CODE ENDS>
+    ]]></artwork>
+        </figure>
+      </section>
+      <section title="ietf-qos-oper">
+        <figure>
+	  <name>ietf-qos-oper module</name>
+          <artwork><![CDATA[
+<CODE BEGINS>file "ietf-qos-oper@YYYY-MM-DD.yang"
+INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD.yang)
 <CODE ENDS>
     ]]></artwork>
         </figure>
@@ -567,11 +577,7 @@ demonstrating some of the following functionality:
      namespace "urn:ietf:params:xml:ns:yang:example-compa-diffserv";
      prefix example;
 
-     import ietf-qos-classifier {
-       prefix classifier;
-       reference "RFC XXXX: YANG Model for QoS";
-     }
-     import ietf-qos-policy {
+     import ietf-traffic-policy {
        prefix policy;
        reference "RFC XXXX: YANG Model for QoS";
      }
@@ -618,7 +624,7 @@ demonstrating some of the following functionality:
      }
 
      identity qos-group {
-       base classifier:filter-type;
+       base policy:filter-type;
        description
          "qos-group filter-type";
      }
@@ -681,9 +687,9 @@ demonstrating some of the following functionality:
          "Random detect attributes";
      }
 
-     augment "/classifier:classifiers/" + 
-             "classifier:classifier-entry/" +
-             "classifier:filter-entry/diffserv:filter-param" {
+     augment "/policy:classifiers/" + 
+             "policy:classifier-entry/" +
+             "policy:filter-entry/diffserv:filter-param" {
        case qos-group {
          uses qos-group-cfg;
          description
@@ -966,7 +972,7 @@ demonstrating some of the following functionality:
              "exceed color classifier container";
          }
          container violate-color {
-           uses classifier:classifier-entry-generic-attr;
+           uses policy:classifier-entry-generic-attr;
            description
              "violate color classifier container";
          }
@@ -989,12 +995,12 @@ demonstrating some of the following functionality:
              "conform color classifier container";
          }
          container exceed-color {
-           uses classifier:classifier-entry-generic-attr;
+           uses policy:classifier-entry-generic-attr;
            description
              "exceed color classifier container";
          }
          container violate-color {
-           uses classifier:classifier-entry-generic-attr;
+           uses policy:classifier-entry-generic-attr;
            description
              "violate color classifier container";
          }
@@ -1025,11 +1031,7 @@ module example-compb-diffserv-filter-policy {
                "example-compb-diffserv-filter-policy";
      prefix compb-filter-policy;
 
-  import ietf-qos-classifier {
-    prefix classifier;
-    reference "RFC XXXX: YANG Model for QoS";
-  }
-  import ietf-qos-policy {
+  import ietf-traffic-policy {
     prefix policy;
     reference "RFC XXXX: YANG Model for QoS";
   }
@@ -1074,13 +1076,13 @@ module example-compb-diffserv-filter-policy {
    *************************************************/
 
   identity forwarding-class {
-      base classifier:filter-type;
+      base policy:filter-type;
       description
         "Forwarding class filter type";
   }
 
   identity internal-loss-priority  {
-     base classifier:filter-type;
+     base policy:filter-type;
      description
         "Internal loss priority filter type";
   }
@@ -1346,11 +1348,7 @@ module example-compb-queue-policy {
   namespace "urn:ietf:params:xml:ns:yang:example-compb-queue-policy";
   prefix queue-plcy;
 
-  import ietf-qos-classifier {
-    prefix classifier;
-    reference "RFC XXXX: YANG Model for QoS";
-  }
-  import ietf-qos-policy {
+  import ietf-traffic-policy {
     prefix policy;
     reference "RFC XXXX: YANG Model for QoS";
   }
@@ -1381,7 +1379,7 @@ module example-compb-queue-policy {
   }
 
   identity forwarding-class {
-    base classifier:filter-type;
+    base policy:filter-type;
     description
        "Forwarding class filter type";
   }
@@ -1624,7 +1622,7 @@ module example-compb-scheduler-policy {
     reference "RFC XXXX: YANG Model for QoS";
   }
 
-  import ietf-qos-policy {
+  import ietf-traffic-policy {
     prefix policy;
     reference "RFC XXXX: YANG Model for QoS";
   }
@@ -1691,7 +1689,7 @@ Company C vendor augmentation is based on Ericsson's implementation differentiat
 Because each classifier sorts traffic into one or more traffic forwarding classes, this type of classifier does not align with ietf-qos-classifier.yang, which defines one traffic forwarding class per classifier.  Additionally, Company C's policing and metering policies relies on the classifier's pre-defined traffic forwarding classes to provide differentiated services, rather than redefining the patterns within a policing or metering policy, as is defined in ietf-diffserv.yang. 
 </t>
       <t>
-Due to these differences, even though Company C uses all the building blocks of classifier and policy, Company C's augmentation does not use ietf-diffserv.yang to provide differentiated service levels.  Instead, Company C's augmentation uses the basic building blocks, ietf-qos-policy.yang to provide differentiated services.
+Due to these differences, even though Company C uses all the building blocks of classifier and policy, Company C's augmentation does not use ietf-diffserv.yang to provide differentiated service levels.  Instead, Company C's augmentation uses the basic building blocks, ietf-traffic-policy.yang to provide differentiated services.
 </t>
         <figure>
           <artwork><![CDATA[
@@ -1700,7 +1698,7 @@ module example-compc-qos-policy {
   namespace "urn:ietf:params:xml:ns:yang:example-compc-qos-policy";
   prefix "compcqos";
 
-  import ietf-qos-policy {
+  import ietf-traffic-policy {
     prefix "pol";
     reference "RFC XXXX: YANG Model for QoS";
   }
@@ -2046,6 +2044,22 @@ module example-compc-qos-policy {
   }
 }
       ]]></artwork>
+        </figure>
+      </section>
+      <section title="Configuration example for QoS Classifier">
+        <figure>
+	  <name>Configuration example for QoS Classifier</name>
+          <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../src/yang/example-qos-configuration-a.1.1.xml)
+    ]]></artwork>
+        </figure>
+      </section>
+      <section title="Configuration example for QoS Policy">
+        <figure>
+	  <name>Configuration example for QoS Policy</name>
+          <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../src/yang/example-qos-configuration-a.1.2.xml)
+    ]]></artwork>
         </figure>
       </section>
     </section>

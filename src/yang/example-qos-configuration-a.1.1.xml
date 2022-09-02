@@ -1,0 +1,17 @@
+<!--
+    This example shows a QoS classifier configuration.
+-->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<classifiers
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy"
+    xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types">
+  <classifier>
+    <name>my-classifier</name>
+    <filter-operation>qt:match-any-filter</filter-operation>
+    <filter>
+      <type>qt:dscp</type>
+      <logical-not>true</logical-not>
+    </filter>
+  </classifier>
+</classifiers>
