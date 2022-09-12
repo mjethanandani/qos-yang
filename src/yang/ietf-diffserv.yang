@@ -392,15 +392,12 @@ module ietf-diffserv {
       uses action:dscp-marking;
     }
     case meter-inline {
-      if-feature qos-types:meter-inline-feature;
       uses action:meter;
     }
     case meter-reference {
-      if-feature qos-types:meter-reference-feature;
       uses action:meter-reference;
     }
     case traffic-group-marking {
-      if-feature qos-types:traffic-group-feature;
       uses action:traffic-group-marking;
     }
     case child-policy {
@@ -416,11 +413,9 @@ module ietf-diffserv {
       uses action:named-counter;
     }
     case queue-inline {
-      if-feature qos-types:diffserv-queue-inline-support;
       uses action:queue;
     }
     case scheduler-inline {
-      if-feature qos-types:diffserv-scheduler-inline-support;
       uses action:scheduler;
     }
   }

@@ -66,84 +66,17 @@ module ietf-qos-action {
     description
       "rate value and unit grouping";
   }
-  grouping burst {
-    description
-    "burst value and unit configuration";
-    leaf burst-value {
-      type uint64;
-      description
-        "burst value";
-    }
-    leaf burst-unit {
-      type identityref {
-        base qos-types:burst-unit-type;
-      }
-      description
-        "burst unit";
-    }
-  }
-
-  grouping threshold {
-    description
-      "Threshold Parameters";
-    container threshold {
-      description
-        "threshold";
-      choice threshold-type {
-        case size {
-          leaf threshold-size {
-            type uint64;
-            units "bytes";
-            description
-              "Threshold size";
-          }
-        }
-        case interval {
-          leaf threshold-interval {
-            type uint64;
-            units "microsecond";
-            description
-              "Threshold interval";
-          }
-        }
-        description
-          "Choice of threshold type";
-      }
-    }
-  }
-
-  grouping drop {
-    container drop {
-      leaf drop-action {
-        type empty;
-        description
-          "always drop algorithm";
-      }
-      description
-        "the drop action";
-    }
-    description
-      "always drop grouping";
-  }
-
-  grouping queuelimit {
-    container qlimit-thresh {
-      uses threshold;
-      description
-        "the queue limit";
-    }
-    description
-      "the queue limit beyond which queue will not hold any packet";
-  }
 
   grouping conform-2color-meter-action-params {
     description
       "meter action parameters";
+
     list conform-2color-meter-action-params {
       key "conform-2color-meter-action-type";
       ordered-by user;
       description
         "Configuration of basic-meter & associated actions";
+
       leaf conform-2color-meter-action-type {
         type identityref {
           base qos-types:conform-2color-meter-action-type;
@@ -151,9 +84,10 @@ module ietf-qos-action {
         description
           "meter action type";
       }
+
       choice conform-2color-meter-action-val {
         description
-          " meter action based on choice of meter action type";
+          "Meter action based on choice of meter action type";
       }
     }
   }
@@ -161,11 +95,13 @@ module ietf-qos-action {
   grouping exceed-2color-meter-action-params {
     description
       "meter action parameters";
+
     list exceed-2color-meter-action-params {
       key "exceed-2color-meter-action-type";
       ordered-by user;
       description
         "Configuration of basic-meter & associated actions";
+
       leaf exceed-2color-meter-action-type {
         type identityref {
           base qos-types:exceed-2color-meter-action-type;
@@ -173,6 +109,7 @@ module ietf-qos-action {
         description
           "meter action type";
       }
+
       choice exceed-2color-meter-action-val {
         description
           " meter action based on choice of meter action type";
@@ -450,11 +387,12 @@ module ietf-qos-action {
   container meters {
     description
       "list of meter templates";
+
     list meter {
-      if-feature qos-types:meter-template-support;
       key "name";
       description
         "meter entry template";
+
       leaf name {
         type string;
         description
@@ -593,10 +531,23 @@ module ietf-qos-action {
     description
       "Grouping of Hierarchical Policy configuration";
   }
+
   grouping max-rate {
     container max-rate {
       uses rate-value-unit;
-      uses burst;
+
+      leaf burst-value {
+        type uint64;
+        description
+          "burst value";
+      }
+      leaf burst-unit {
+        type identityref {
+          base qos-types:burst-unit-type;
+        }
+        description
+          "burst unit";
+      }
       description
         "maximum rate attributes container";
     }

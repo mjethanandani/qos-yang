@@ -12,7 +12,6 @@
     <classifier>
       <name>my-classifier</name>
       <inline>true</inline>
-      <filter-operation>qt:match-any-filter</filter-operation>
       <filter>
 	<type>qt:dscp</type>
 	<logical-not>true</logical-not>

@@ -8,7 +8,6 @@
     xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types">
   <classifier>
     <name>my-classifier</name>
-    <filter-operation>qt:match-any-filter</filter-operation>
     <filter>
       <type>qt:dscp</type>
       <logical-not>true</logical-not>

@@ -47,7 +47,7 @@ ifeq (org,$(draft_type))
 endif
 	-rm -rf ../bin
 
-$(next).xml: $(draft).xml ../src/yang/ietf-diffserv.yang ../src/yang/ietf-qos-action.yang ../src/yang/ietf-qos-classifier.yang ../src/yang/ietf-qos-policy.yang ../src/yang/ietf-qos-target.yang ../src/yang/ietf-queue-policy.yang ../src/yang/ietf-scheduler-policy.yang ../src/yang/ietf-qos-oper.yang ../src/yang/iana-qos-types.yang
+$(next).xml: $(draft).xml ../src/yang/ietf-diffserv.yang ../src/yang/ietf-qos-action.yang ../src/yang/ietf-queue-policy.yang ../src/yang/ietf-scheduler-policy.yang ../src/yang/ietf-traffic-policy.yang ../src/yang/ietf-qos-oper.yang ../src/yang/iana-qos-types.yang
 	-mkdir -p ../bin
 	sed -e"s/$(basename $<)-latest/$(basename $@)/" -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" $< > $@
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/ietf-diffserv.yang > ../bin/ietf-diffserv\@$(shell date +%Y-%m-%d).yang

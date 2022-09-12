@@ -41,29 +41,6 @@ module iana-qos-types {
   /*
    * Features.
    */
-  feature meter-template-support {
-    description
-      "This feature allows support of meter-template.";
-  }
-  feature meter-inline-feature {
-    description
-      " This feature allows support of meter-inline configuration.";
-  } 
-  feature meter-reference-feature {
-    description
-      " This feature allows support of meter by
-        reference configuration.";
-  } 
-  feature queue-action-support {
-    description
-      " This feature allows support of queue action
-        configuration in policy.";
-  } 
-  feature scheduler-action-support {
-    description
-      " This feature allows support of scheduler
-        configuration in policy.";
-  } 
   feature child-policy-feature {
     description
       " This feature allows configuration of hierarchical policy.";
@@ -78,16 +55,6 @@ module iana-qos-types {
       "This feature allows action configuration to enable
        named counter in a classifier";
   }
-  feature traffic-group-feature {
-    description
-      "traffic-group action support";
-  }
-  feature burst-time-unit-support {
-    description
-      "This feature allows burst unit to be configured as
-       time duration.";
-  } 
-
   feature policy-inline-classifier-config {
     description
       " This feature allows classifier configuration
@@ -97,40 +64,6 @@ module iana-qos-types {
     description
       " This feature allows classifier as template configuration
         in a policy.";
-  }
-  feature match-any-filter-type-support {
-    description
-      " This feature allows classifier configuration
-        directly under policy.";
-  }
-
-  feature diffserv-queue-inline-support {
-    description
-      "Queue inline support in diffserv policy";
-  }
-  feature diffserv-scheduler-inline-support {
-    description
-      "scheduler inline support in diffserv policy";
-  }
-  feature queue-policy-support {
-    description
-      " This feature allows queue policy configuration
-        as a separate policy type support.";
-  }
-
-  feature queue-inline-support {
-    description
-      "Queue inline support in Queue policy";
-  }
-
-  feature queue-template-support {
-    description
-      "Queue template support in Queue policy";
-  }
-  feature scheduler-policy-support {
-    description
-      "This feature allows sheduler policy configuration
-       as a separate policy type support.";
   }
 
   /*
@@ -156,13 +89,11 @@ module iana-qos-types {
       "This defines ipv6 policy-type";
   }
   identity queue-policy-type {
-    if-feature qos-types:queue-policy-support;
     base policy-type;
     description
       "This defines queue policy-type";
   }
   identity scheduler-policy-type {
-    if-feature scheduler-policy-support;
     base policy-type;
     description
       "This defines scheduler policy-type";
