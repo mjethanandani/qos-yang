@@ -13,6 +13,12 @@ module ietf-qos-oper {
     reference
       "RFC8343: A YANG Data Model for Interface Management";
   }
+  import iana-qos-types {
+    prefix qos-types;
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
+  }
+
 
   organization "IETF RTG (Routing Area) Working Group";
 
@@ -45,21 +51,6 @@ module ietf-qos-oper {
       "Initial version";
     reference
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
-  }
-
-  identity direction {
-    description
-      "This is a base identity of traffic direction";
-  }
-  identity inbound {
-    base direction;
-    description
-      "Direction of traffic coming into the network entry";
-  }
-  identity outbound {
-    base direction;
-    description
-      "Direction of traffic going out of the network entry";
   }
 
   grouping named-stats {
@@ -299,7 +290,7 @@ module ietf-qos-oper {
 
         leaf direction {
           type identityref {
-            base direction;
+            base qos-types:direction;
           }
           description
             "Direction of the traffic flow either inbound
