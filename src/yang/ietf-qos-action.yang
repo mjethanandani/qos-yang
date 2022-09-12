@@ -5,7 +5,13 @@ module ietf-qos-action {
 
   import ietf-inet-types {
     prefix inet;
-    reference "RFC 6991: Common YANG Data Types";
+    reference
+      "RFC 6991: Common YANG Data Types";
+  }
+  import iana-qos-types {
+    prefix qos-types;
+    reference
+      "RFC XXXX: YANG Model for QoS";
   }
 
   organization
@@ -44,217 +50,6 @@ module ietf-qos-action {
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
-  feature child-policy-feature {
-    description
-      " This feature allows configuration of hierarchical policy.";
-  }
-  feature count-feature {
-    description
-      "This feature allows action configuration to enable
-       counter in a classifier";
-  }
-  feature named-counter-feature {
-    description
-      "This feature allows action configuration to enable
-       named counter in a classifier";
-  }
-  identity rate-unit-type {
-    description
-      "base rate-unit type";
-  }
-  identity bits-per-second {
-    base rate-unit-type;
-    description
-      "bits per second identity";
-  }
-  identity kilo-bits-per-second {
-    base rate-unit-type;
-    description
-      "kilo bits per second identity";
-  }
-  identity mega-bits-per-second {
-    base rate-unit-type;
-    description
-      "mega bits per second identity";
-  }
-  identity giga-bits-per-second {
-    base rate-unit-type;
-    description
-      "mega bits per second identity";
-  }
-  identity percent {
-    base rate-unit-type;
-    description
-      "percentage";
-  }
-  identity burst-unit-type {
-    description
-      "base burst-unit type";
-  }
-  identity bytes {
-    base burst-unit-type;
-    description
-      "bytes";
-  }
-  identity kilo-bytes {
-    base burst-unit-type;
-    description
-      "kilo bytes";
-  }
-  identity mega-bytes {
-    base burst-unit-type;
-    description
-      "mega bytes";
-  }
-  identity millisecond {
-    base burst-unit-type;
-    description
-      "milli seconds";
-  }
-  identity microsecond {
-    base burst-unit-type;
-    description
-      "micro seconds";
-  }
-  identity red-threshold-unit {
-    description
-      "base red-unit type";
-  }
-  identity red-threshold-bytes {
-    base red-threshold-unit;
-    description
-      "bytes";
-  }
-  identity red-threshold-kb {
-    base red-threshold-unit;
-    description
-      "kilo bytes";
-  }
-  identity red-threshold-mb {
-    base red-threshold-unit;
-    description
-      "mega bytes";
-  }
-  identity red-threshold-ms {
-    base red-threshold-unit;
-    description
-      "milli seconds";
-  }
-  identity red-threshold-us {
-    base red-threshold-unit;
-    description
-      "micro seconds";
-  }
-  identity red-threshold-pc {
-    base red-threshold-unit;
-    description
-      "per-centage";
-  }
-  identity red-theshold-pt {
-    base red-threshold-unit;
-    description
-      "per-thousand";
-  }
-  identity red-threshold-pm {
-    base red-threshold-unit;
-    description
-      "per-million";
-  }
-  identity wred-color-type {
-    description
-      "base wred color type";
-  }
-  identity wred-color-dscp {
-    base wred-color-type;
-    description
-      "dscp wred color type";
-  }
-  identity probability-unit {
-    description
-      "base probability unit type";
-  }
-  identity probability-pc {
-    base probability-unit;
-    description
-      "probability in percentage";
-  }
-  identity probability-pt {
-    base probability-unit;
-    description
-      "probability in per thousand";
-  }
-  identity probability-pm {
-    base probability-unit;
-    description
-      "probability in per million";
-  }
-  identity probability-denominator {
-    base probability-unit;
-    description
-      "probability value is denominator value
-       while numerator is always 1";
-  }
-  identity meter-type {
-    description
-      "This base identity type defines meter types";
-  }
-  identity one-rate-two-color-meter-type {
-    base meter-type;
-    description
-      "one rate two color meter type";
-  }
-  identity one-rate-tri-color-meter-type {
-    base meter-type;
-    description
-      "one rate three color meter type";
-  }
-  identity two-rate-tri-color-meter-type {
-    base meter-type;
-    description
-      "two rate three color meter action type";
-  }
-
-  identity drop-type {
-    description
-      "drop algorithm";
-  }
-  identity tail-drop {
-    base drop-type;
-    description
-      "tail drop algorithm";
-  }
-  identity red {
-    base drop-type;
-    description
-      "Random Early Detect drop algorithm";
-  }
-  identity wred {
-    base drop-type;
-    description
-      "Weighted Random Early Detect drop algorithm";
-  }
-
-  identity conform-2color-meter-action-type {
-    description
-      "action type in a meter";
-  }
-  identity exceed-2color-meter-action-type {
-    description
-      "action type in a meter";
-  }
-  identity conform-3color-meter-action-type {
-    description
-      "action type in a meter";
-  }
-  identity exceed-3color-meter-action-type {
-    description
-      "action type in a meter";
-  }
-  identity violate-3color-meter-action-type {
-    description
-      "action type in a meter";
-  }
-
   grouping rate-value-unit {
     leaf rate-value {
       type uint64;
@@ -263,7 +58,7 @@ module ietf-qos-action {
     }
     leaf rate-unit {
       type identityref {
-        base rate-unit-type;
+        base qos-types:rate-unit-type;
       }
       description
         "rate unit";
@@ -271,94 +66,28 @@ module ietf-qos-action {
     description
       "rate value and unit grouping";
   }
-  grouping burst {
-    description
-    "burst value and unit configuration";
-    leaf burst-value {
-      type uint64;
-      description
-        "burst value";
-    }
-    leaf burst-unit {
-      type identityref {
-        base burst-unit-type;
-      }
-      description
-        "burst unit";
-    }
-  }
-
-  grouping threshold {
-    description
-      "Threshold Parameters";
-    container threshold {
-      description
-        "threshold";
-      choice threshold-type {
-        case size {
-          leaf threshold-size {
-            type uint64;
-            units "bytes";
-            description
-              "Threshold size";
-          }
-        }
-        case interval {
-          leaf threshold-interval {
-            type uint64;
-            units "microsecond";
-            description
-              "Threshold interval";
-          }
-        }
-        description
-          "Choice of threshold type";
-      }
-    }
-  }
-
-  grouping drop {
-    container drop {
-      leaf drop-action {
-        type empty;
-        description
-          "always drop algorithm";
-      }
-      description
-        "the drop action";
-    }
-    description
-      "always drop grouping";
-  }
-
-  grouping queuelimit {
-    container qlimit-thresh {
-      uses threshold;
-      description
-        "the queue limit";
-    }
-    description
-      "the queue limit beyond which queue will not hold any packet";
-  }
 
   grouping conform-2color-meter-action-params {
     description
       "meter action parameters";
+
     list conform-2color-meter-action-params {
       key "conform-2color-meter-action-type";
       ordered-by user;
       description
         "Configuration of basic-meter & associated actions";
+
       leaf conform-2color-meter-action-type {
         type identityref {
-          base conform-2color-meter-action-type;
+          base qos-types:conform-2color-meter-action-type;
         }
         description
           "meter action type";
       }
+
       choice conform-2color-meter-action-val {
         description
-          " meter action based on choice of meter action type";
+          "Meter action based on choice of meter action type";
       }
     }
   }
@@ -366,18 +95,21 @@ module ietf-qos-action {
   grouping exceed-2color-meter-action-params {
     description
       "meter action parameters";
+
     list exceed-2color-meter-action-params {
       key "exceed-2color-meter-action-type";
       ordered-by user;
       description
         "Configuration of basic-meter & associated actions";
+
       leaf exceed-2color-meter-action-type {
         type identityref {
-          base exceed-2color-meter-action-type;
+          base qos-types:exceed-2color-meter-action-type;
         }
         description
           "meter action type";
       }
+
       choice exceed-2color-meter-action-val {
         description
           " meter action based on choice of meter action type";
@@ -396,7 +128,7 @@ module ietf-qos-action {
         "Configuration of basic-meter & associated actions";
       leaf conform-3color-meter-action-type {
         type identityref {
-          base conform-3color-meter-action-type;
+          base qos-types:conform-3color-meter-action-type;
         }
         description
           "meter action type";
@@ -418,7 +150,7 @@ module ietf-qos-action {
         "Configuration of basic-meter & associated actions";
       leaf exceed-3color-meter-action-type {
         type identityref {
-          base exceed-3color-meter-action-type;
+          base qos-types:exceed-3color-meter-action-type;
         }
         description
           "meter action type";
@@ -440,7 +172,7 @@ module ietf-qos-action {
         "Configuration of basic-meter & associated actions";
       leaf violate-3color-meter-action-type {
         type identityref {
-          base violate-3color-meter-action-type;
+          base qos-types:violate-3color-meter-action-type;
         }
         description
           "meter action type";
@@ -463,7 +195,7 @@ module ietf-qos-action {
       }
       leaf committed-rate-unit {
         type identityref {
-          base rate-unit-type;
+          base qos-types:rate-unit-type;
         }
         description
           "committed rate unit";
@@ -475,7 +207,7 @@ module ietf-qos-action {
       }
       leaf committed-burst-unit {
         type identityref {
-          base burst-unit-type;
+          base qos-types:burst-unit-type;
         }
         description
           "committed burst unit";
@@ -506,7 +238,7 @@ module ietf-qos-action {
     }
     leaf committed-rate-unit {
       type identityref {
-        base rate-unit-type;
+        base qos-types:rate-unit-type;
       }
       description
         "committed rate unit";
@@ -518,7 +250,7 @@ module ietf-qos-action {
     }
     leaf committed-burst-unit {
       type identityref {
-        base burst-unit-type;
+        base qos-types:burst-unit-type;
       }
       description
         "committed burst unit";
@@ -530,7 +262,7 @@ module ietf-qos-action {
     }
     leaf excess-burst-unit {
       type identityref {
-        base burst-unit-type;
+        base qos-types:burst-unit-type;
       }
       description
         "excess burst unit";
@@ -567,7 +299,7 @@ module ietf-qos-action {
     }
     leaf committed-rate-unit {
       type identityref {
-        base rate-unit-type;
+        base qos-types:rate-unit-type;
       }
       description
         "committed rate unit";
@@ -579,7 +311,7 @@ module ietf-qos-action {
     }
     leaf committed-burst-unit {
       type identityref {
-        base burst-unit-type;
+        base qos-types:burst-unit-type;
       }
       description
         "committed burst unit";
@@ -591,7 +323,7 @@ module ietf-qos-action {
     }
     leaf peak-rate-unit {
       type identityref {
-        base rate-unit-type;
+        base qos-types:rate-unit-type;
       }
       description
         "committed rate unit";
@@ -603,7 +335,7 @@ module ietf-qos-action {
     }
     leaf peak-burst-unit {
       type identityref {
-        base burst-unit-type;
+        base qos-types:burst-unit-type;
       }
       description
         "peak burst unit";
@@ -629,7 +361,7 @@ module ietf-qos-action {
   }
 
   grouping meter {
-    choice meter-type {
+    choice meter-types {
       case one-rate-two-color-meter-type {
         uses one-rate-two-color-meter;
         description
@@ -655,10 +387,12 @@ module ietf-qos-action {
   container meters {
     description
       "list of meter templates";
+
     list meter {
       key "name";
       description
         "meter entry template";
+
       leaf name {
         type string;
         description
@@ -678,7 +412,7 @@ module ietf-qos-action {
       }
       leaf type {
         type identityref {
-          base meter-type;
+          base qos-types:meter-type;
         }
         mandatory true;    
         description
@@ -693,7 +427,7 @@ module ietf-qos-action {
 
   grouping count {
     container count {
-    if-feature count-feature;
+    if-feature qos-types:count-feature;
       leaf count-action {
         type empty;
         description
@@ -708,7 +442,7 @@ module ietf-qos-action {
 
   grouping named-counter {
     container named-counter {
-    if-feature named-counter-feature;
+    if-feature qos-types:named-counter-feature;
       leaf count-name-action {
         type string;
         description
@@ -785,7 +519,7 @@ module ietf-qos-action {
   }
   grouping child-policy {
     container child-policy {
-      if-feature child-policy-feature;
+      if-feature qos-types:child-policy-feature;
       leaf policy-name {
         type string;
         description
@@ -797,10 +531,23 @@ module ietf-qos-action {
     description
       "Grouping of Hierarchical Policy configuration";
   }
+
   grouping max-rate {
     container max-rate {
       uses rate-value-unit;
-      uses burst;
+
+      leaf burst-value {
+        type uint64;
+        description
+          "burst value";
+      }
+      leaf burst-unit {
+        type identityref {
+          base qos-types:burst-unit-type;
+        }
+        description
+          "burst unit";
+      }
       description
         "maximum rate attributes container";
     }
@@ -815,7 +562,7 @@ module ietf-qos-action {
     }
     leaf min-threshold-unit {
       type identityref {
-        base red-threshold-unit;
+        base qos-types:red-threshold-unit;
       }
       description
        "unit of minimum red threshold";
@@ -827,7 +574,7 @@ module ietf-qos-action {
     }
     leaf max-threshold-unit {
       type identityref {
-        base red-threshold-unit;
+        base qos-types:red-threshold-unit;
       }
       description
        "unit of maximum red threshold";
@@ -846,7 +593,7 @@ module ietf-qos-action {
     }
     leaf max-probability-unit {
       type identityref {
-        base probability-unit;
+        base qos-types:probability-unit;
       }
       description
        "probability unit type as defined
@@ -899,7 +646,7 @@ module ietf-qos-action {
                 }
                 leaf color-type {
                   type identityref {
-                    base wred-color-type;
+                    base qos-types:wred-color-type;
                   }
                   description
                     "wred color-type of each profile";

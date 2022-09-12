@@ -3,18 +3,18 @@
 #
 # Does the user have all the IETF published models.
 #
-if [ ! -d ../../iana/yang-parameters ]; then
-   rsync -avz --delete rsync.iana.org::assignments/yang-parameters ../../iana/
+if [ ! -d ../bin/yang-parameters ]; then
+   rsync -avz --delete rsync.iana.org::assignments/yang-parameters ../bin/
 fi
 
 for i in ../bin/ietf-*\@$(date +%Y-%m-%d).yang
 do
     name=$(echo $i | cut -f 1-3 -d '.')
-    echo "Validating $name.yang"
+    echo "Validating $name.yang using pyang"
     if test "${name#^example}" = "$name"; then
-        response=`pyang --ietf --lint --strict --canonical -p ../../iana/yang-parameters  -p ../bin -f tree --max-line-length=72 --tree-line-length=69 $name.yang > $name-tree.txt.tmp`
+        response=`pyang --ietf --lint --strict --canonical -p ../bin/yang-parameters  -p ../bin -f tree --max-line-length=72 --tree-line-length=69 $name.yang > $name-tree.txt.tmp`
     else            
-        response=`pyang --ietf --strict --canonical -p ../../iana/yang-parameters  -p ../bin -f tree --max-line-length=72 --tree-line-length=69 $name.yang > $name-tree.txt.tmp`
+        response=`pyang --ietf --strict --canonical -p ../bin/yang-parameters  -p ../bin -f tree --max-line-length=72 --tree-line-length=69 $name.yang > $name-tree.txt.tmp`
     fi
     if [ $? -ne 0 ]; then
         printf "$name.yang failed pyang validation\n"
@@ -24,7 +24,16 @@ do
         exit 1
     fi
     fold -w 71 $name-tree.txt.tmp > $name-tree.txt
-    response=`yanglint -p ../../iana/yang-parameters  -p ../bin $name.yang -i`
+done
+rm ../bin/*-tree.txt.tmp
+
+for i in ../bin/ietf-*\@$(date +%Y-%m-%d).yang
+do
+    name=$(echo $i | cut -f 1-3 -d '.')
+    echo "Validating $name.yang using yanglint"
+    if test "${name#^example}" = "$name"; then
+	response=`yanglint -p ../bin/yang-parameters  -p ../bin $name.yang -i`
+    fi
     if [ $? -ne 0 ]; then
         printf "$name.yang failed yanglint validation\n"
         printf "$response\n\n"
@@ -32,7 +41,6 @@ do
         exit 1
     fi
 done
-rm ../bin/*-tree.txt.tmp
 
 for i in ../bin/ietf-*\@$(date +%Y-%m-%d).yang
 do
@@ -41,7 +49,7 @@ do
     if test "${name#^example}" = "$name"; then
        response=`pyang --lint --strict --canonical -p ../../yang-parameters -p ../bin -f tree --tree-depth=3 --max-line-length=72 --tree-line-length=69 $name.yang > $name-sub-tree.txt.tmp`
     else            
-        response=`pyang --ietf --strict --canonical -p ../../iana/yang-parameters -p ../bin -f tree --tree-depth=3 --max-line-length=72 --tree-line-length=69 $name.yang > $name-sub-tree.txt.tmp`
+        response=`pyang --ietf --strict --canonical -p ../bin/yang-parameters -p ../bin -f tree --tree-depth=3 --max-line-length=72 --tree-line-length=69 $name.yang > $name-sub-tree.txt.tmp`
     fi
     if [ $? -ne 0 ]; then
         printf "$name.yang failed generation of sub-tree diagram\n"
@@ -58,9 +66,9 @@ echo "Validating examples"
 
 for i in yang/example-qos-configuration-a.*.*.xml
 do
-    name=$(echo $i | cut -f 1-4 -d '.')
-    echo "Validating $name"
-    response=`yanglint -ii -t config -p ../../iana/yang-parameters -p ../bin ../bin/ietf-traffic-policy\@$(date +%Y-%m-%d).yang ../bin/ietf-queue-policy\@$(date +%Y-%m-%d).yang $name`
+    name=$(echo $i | cut -f 1-3 -d '.')
+    echo "Validating $name.xml"
+    response=`yanglint -ii -t config -p ../bin/yang-parameters -p ../bin ../bin/ietf-diffserv\@$(date +%Y-%m-%d).yang $name.xml`
     if [ $? -ne 0 ]; then
        printf "failed (error code: $?)\n"
        printf "$response\n\n"

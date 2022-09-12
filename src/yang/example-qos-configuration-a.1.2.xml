@@ -4,20 +4,20 @@
 
 <?xml version="1.0" encoding="UTF-8"?>
 <policies
-  xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy">
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy"
+    xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types">
   <policy>
     <name>my-policy</name>
-    <type>diffserv</type>
+    <type>qt:diffserv-policy-type</type>
     <classifier>
       <name>my-classifier</name>
       <inline>true</inline>
-      <filter-operation>match-any-filter</filter-operation>
       <filter>
-	<type>dscp</type>
+	<type>qt:dscp</type>
 	<logical-not>true</logical-not>
       </filter>
       <action>
-	<type>dscp-marking</type>
+	<type>qt:dscp-marking</type>
 	<!-- 
 	     Add the action-params here once it has been defined.
 	-->

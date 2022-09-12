@@ -49,18 +49,14 @@ module ietf-queue-policy {
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
-  identity queue-policy-type {
-    base policy:policy-type;
-    description
-      "This defines queue policy-type";
-  }
-
   augment "/policy:policies/policy:policy/policy:classifier" +
           "/policy:filter" {
-    when "../../policy:type = 'queue-policy:queue-policy-type'" {
+    when "derived-from-or-self(../../policy:type, " +
+         "'queue-policy:queue-policy-type')" {
       description
         "If policy type is queue policy, this filter can be used.";
     }
+
     choice filter-params {
       description
         "Choice of action types";
@@ -72,12 +68,6 @@ module ietf-queue-policy {
     }
     description
       "Augments Queue policy Classifier with common filter types";
-  }
-
-  identity queue-template-name {
-    base policy:action-type;
-    description
-      "queue template name";
   }
 
   grouping queue-reference {
@@ -107,7 +97,8 @@ module ietf-queue-policy {
   }
   augment "/policy:policies/policy:policy/policy:classifier" + 
           "/policy:action/policy:action-params" {
-    when "../../policy:type = 'queue-policy:queue-policy-type'" {
+    when "derived-from-or-self(../../policy:type,"  +
+         "'queue-policy:queue-policy-type')" {
       description
         "queue policy actions.";
     }

@@ -6,8 +6,10 @@ module ietf-traffic-policy {
   import ietf-interfaces {
     prefix if;
   }
-  import ietf-qos-action {
-    prefix action;
+  import iana-qos-types {
+    prefix qos-types;
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
   organization
@@ -46,120 +48,12 @@ module ietf-traffic-policy {
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
-  feature policy-inline-classifier-config {
-    description
-      " This feature allows classifier configuration
-        directly under policy.";
-  }
-  feature classifier-template-feature {
-    description
-       " This feature allows classifier as template configuration
-         in a policy.";
-  }
-  identity policy-type {
-    description
-      "This base identity type defines policy-types";
-  }
-  identity diffserv {
-    base policy-type;
-    description
-      "This defines ip policy-type";
-  }
-  identity ipv4-diffserv {
-    base policy-type;
-    description
-      "This defines ipv4 policy-type";
-  }
-  identity ipv6-diffserv {
-    base policy-type;
-    description
-      "This defines ipv6 policy-type";
-  }
-
-  identity filter-type {
-    description
-      "This is identity of base filter-type";
-  }
-  identity dscp {
-    base filter-type;
-    description
-      "Differentiated services code point filter-type";
-  }
-  identity source-ipv4-prefix {
-    base filter-type;
-    description
-      "source ipv4 prefix filter-type";
-  }
-  identity destination-ipv4-prefix {
-    base filter-type;
-    description
-      "destination ipv4 prefix filter-type";
-  }
-  identity source-ipv6-prefix {
-    base filter-type;
-    description
-      "source ipv6 prefix filter-type";
-  }
-  identity destination-ipv6-prefix {
-    base filter-type;
-    description
-      "destination ipv6 prefix filter-type";
-  }
-  identity source-port {
-    base filter-type;
-    description
-      "source port filter-type";
-  }
-  identity destination-port {
-    base filter-type;
-    description
-      "destination port filter-type";
-  }
-  identity protocol {
-    base filter-type;
-    description
-      "protocol type filter-type";
-  }
-  identity traffic-group-name {
-    base filter-type;
-    description
-      "traffic-group filter type";
-  }
-
-  identity match-filter-operation {
-    description
-      "filter match logical operation type";
-  }
-  identity match-all-filter {
-    base match-filter-operation;
-    description
-      "Classifier entry filter logical AND operation";
-  }
-  identity match-any-filter {
-    base match-filter-operation;
-    description
-      "Classifier entry filter logical OR operation";
-  }
-  identity direction {
-    description
-      "This is identity of traffic direction";
-  }
-  identity inbound {
-    base direction;
-    description
-      "Direction of traffic coming into the network entry";
-  }
-  identity outbound {
-    base direction;
-    description
-      "Direction of traffic going out of the network entry";
-  }
   grouping filters {
     description
       "Filters types in a Classifier entry";
     leaf type {
       type identityref {
-        base filter-type;
+        base qos-types:filter-type;
       }
       description
         "This leaf defines type of the filter";
@@ -190,9 +84,9 @@ module ietf-traffic-policy {
     }
     leaf filter-operation {
       type identityref {
-        base match-filter-operation;
+        base qos-types:match-filter-operation;
       }
-      default "match-all-filter";
+      default "qos-types:match-all-filter";
       description
         "Filters are applicable as match-any or match-all filters";
     }
@@ -208,14 +102,14 @@ module ietf-traffic-policy {
     }
     leaf filter-operation {
       type identityref {
-        base match-filter-operation;
+        base qos-types:match-filter-operation;
       }
-      default "match-all-filter";
+      default "qos-types:match-all-filter";
       description
         "Filters are applicable as match-any or match-all filters";
     }
     list filter{
-      if-feature policy-inline-classifier-config;
+      if-feature qos-types:policy-inline-classifier-config;
       must " ../inline = 'true' " {
         description
           "For inline filter configuration, inline attribute" +
@@ -226,79 +120,6 @@ module ietf-traffic-policy {
       description
         "Filters configured inline in a policy";
     }
-  }
-  grouping generic-policy-attr {
-    description
-      "Policy Attributes";
-    leaf name {
-      type string;
-      description
-        "policy name";
-    }
-    leaf type {
-      type identityref {
-        base policy-type;
-      }
-      description
-        "policy type";
-    }
-    leaf description {
-      type string;
-      description
-        "policy description";
-    }
-  }
-  identity action-type {
-    description
-      "This base identity type defines action-types";
-  }
-  identity dscp-marking {
-    base action-type;
-    description
-      "dscp marking action type";
-  }
-  identity meter-inline {
-    base action-type;
-    description
-      "meter-inline action type";
-  }
-  identity meter-reference {
-    base action-type;
-    description
-      "meter reference action type";
-  }
-  identity queue {
-    base action-type;
-    description
-      "queue action type";
-  }
-  identity scheduler {
-    base action-type;
-    description
-      "scheduler action type";
-  }
-  identity discard {
-    base action-type;
-    description
-      "discard action type";
-  }
-  identity child-policy {
-    if-feature action:child-policy-feature;
-    base action-type;
-    description
-      "child-policy action type";
-  }
-  identity count {
-    if-feature action:count-feature;
-    base action-type;
-    description
-      "count action type";
-  }
-  identity named-counter {
-    if-feature action:named-counter-feature;
-    base action-type;
-    description
-      "name counter action type";
   }
 
   grouping classifier-action-entry {
@@ -311,7 +132,7 @@ module ietf-traffic-policy {
         "Configuration of classifier & associated actions";
       leaf type {
         type identityref {
-          base action-type;
+          base qos-types:action-type;
         }
         description
           "This defines action type ";
@@ -323,7 +144,7 @@ module ietf-traffic-policy {
     }
   }
   container classifiers {
-    if-feature classifier-template-feature;
+    if-feature qos-types:classifier-template-feature;
     description
       "list of classifier entry";
     list classifier{
@@ -346,7 +167,26 @@ module ietf-traffic-policy {
       key "name type";
       description
         "policy template";
-      uses generic-policy-attr;
+
+      leaf name {
+        type string;
+        description
+          "policy name";
+      }
+
+      leaf type {
+        type identityref {
+          base qos-types:policy-type;
+        }
+        description
+          "policy type";
+      }
+      leaf description {
+        type string;
+        description
+          "policy description";
+      }
+
       list classifier{
         key "name";
         ordered-by user;
@@ -371,14 +211,14 @@ module ietf-traffic-policy {
         "policy target for inbound or outbound direction";
       leaf direction {
         type identityref {
-          base direction;
+          base qos-types:direction;
         }
         description
           "Direction of the traffic flow either inbound or outbound";
       }
       leaf type {
         type identityref {
-          base policy-type;
+          base qos-types:policy-type;
         }
         description
           "Policy entry type";

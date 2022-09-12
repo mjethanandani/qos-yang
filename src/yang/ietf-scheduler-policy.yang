@@ -3,11 +3,11 @@ module ietf-scheduler-policy {
   namespace "urn:ietf:params:xml:ns:yang:ietf-scheduler-policy";
   prefix scheduler-policy;
 
-  import ietf-traffic-policy {
-    prefix policy;
-  }
   import ietf-qos-action {
     prefix action;
+  }
+  import ietf-traffic-policy {
+    prefix policy;
   }
 
   organization
@@ -46,18 +46,6 @@ module ietf-scheduler-policy {
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
-  identity scheduler-policy-type {
-    base policy:policy-type;
-    description
-      "This defines scheduler policy-type";
-  }
-
-  identity filter-match-all {
-    base policy:filter-type;
-    description
-      "Traffic-group filter type";
-  }
-
   grouping filter-match-all {
     container match-all-cfg {
       leaf match-all-action {
@@ -74,8 +62,8 @@ module ietf-scheduler-policy {
 
   augment "/policy:policies/policy:policy/policy:classifier" +
           "/policy:filter" {
-        when "../../policy:type =" +
-             "'scheduler-policy:scheduler-policy-type'" {
+        when "derived-from-or-self(../../policy:type, " +
+             "'scheduler-policy:scheduler-policy-type')" {
             description
                "Only when policy type is scheduler-policy";
         }
@@ -92,12 +80,6 @@ module ietf-scheduler-policy {
       "Augments Queue policy Classifier with common filter types";
   }
 
-  identity queue-policy-name {
-    base policy:action-type;
-    description
-      "queue policy name";
-  }
-  
   grouping queue-policy-name-cfg {
     container queue-policy-name {
       leaf queue-policy {
@@ -116,8 +98,8 @@ module ietf-scheduler-policy {
   
   augment "/policy:policies/policy:policy/policy:classifier" + 
           "/policy:action/policy:action-params" {
-        when "../../policy:type =" +
-             "'scheduler-policy:scheduler-policy-type'" {
+        when "derived-from-or-self(../../policy:type, " +
+             "'scheduler-policy:scheduler-policy-type')" {
             description
                "Only when policy type is scheduler-policy";
         }

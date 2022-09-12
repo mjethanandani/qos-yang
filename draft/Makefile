@@ -45,10 +45,9 @@ endif
 ifeq (org,$(draft_type))
 	-rm -f $(draft).xml
 endif
-	-rm -f ../bin/*\@$(shell date +%Y)-*-*-tree.txt*
-	-rm -f ../bin/*\@$(shell date +%Y)-*-*.yang
+	-rm -rf ../bin
 
-$(next).xml: $(draft).xml ../src/yang/ietf-diffserv.yang ../src/yang/ietf-qos-action.yang ../src/yang/ietf-traffic-policy.yang ../src/yang/ietf-queue-policy.yang ../src/yang/ietf-scheduler-policy.yang ../src/yang/ietf-qos-oper.yang
+$(next).xml: $(draft).xml ../src/yang/ietf-diffserv.yang ../src/yang/ietf-qos-action.yang ../src/yang/ietf-queue-policy.yang ../src/yang/ietf-scheduler-policy.yang ../src/yang/ietf-traffic-policy.yang ../src/yang/ietf-qos-oper.yang ../src/yang/iana-qos-types.yang
 	-mkdir -p ../bin
 	sed -e"s/$(basename $<)-latest/$(basename $@)/" -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" $< > $@
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/ietf-diffserv.yang > ../bin/ietf-diffserv\@$(shell date +%Y-%m-%d).yang
@@ -57,6 +56,7 @@ $(next).xml: $(draft).xml ../src/yang/ietf-diffserv.yang ../src/yang/ietf-qos-ac
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/ietf-queue-policy.yang > ../bin/ietf-queue-policy\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/ietf-scheduler-policy.yang > ../bin/ietf-scheduler-policy\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/ietf-qos-oper.yang > ../bin/ietf-qos-oper\@$(shell date +%Y-%m-%d).yang
+	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/iana-qos-types.yang > ../bin/iana-qos-types\@$(shell date +%Y-%m-%d).yang
 
 	cd ../src; ./validate-and-gen-trees.sh; cd ..;
 	../src/insert-figures.sh $@ > tmp; mv tmp $@

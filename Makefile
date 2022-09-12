@@ -21,7 +21,7 @@ push:
 debug:
 	docker run -it $(image) bash
 
-clean: packages-clean
+clean: 
 	make -C draft clean
 	-docker rm $(leftover)
 	-docker rmi $(leftover-image)

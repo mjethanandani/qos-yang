@@ -12,6 +12,11 @@ module ietf-diffserv {
   import ietf-inet-types {
     prefix inet;
   }
+  import iana-qos-types {
+    prefix qos-types;
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
+  }
 
   organization
     "IETF Routing Area Working Group";
@@ -49,25 +54,6 @@ module ietf-diffserv {
       "RFC XXXX: A YANG Model for Quality of Service (QoS)";
   }
 
-  identity meter-type {
-    description
-      "This base identity type defines meter types";
-  }
-  identity one-rate-two-color-meter-type {
-    base meter-type;
-    description
-      "one rate two color meter type";
-  }
-  identity one-rate-tri-color-meter-type {
-    base meter-type;
-    description
-      "one rate three color meter type";
-  }
-  identity two-rate-tri-color-meter-type {
-    base meter-type;
-    description
-      "two rate three color meter action type";
-  }
   grouping dscp {
     list dscp {
       key "dscp-min dscp-max";
@@ -301,9 +287,12 @@ module ietf-diffserv {
   }
   augment "/policy:policies/policy:policy/policy:classifier" +
           "/policy:filter" {
-    when "../../policy:type = 'diffserv:ipv4-diffserv-policy-type' or 
-          ../../policy:type = 'diffserv:ipv6-diffserv-policy-type' or 
-          ../../policy:type = 'diffserv:diffserv-policy-type'" {
+    when "derived-from-or-self(../../policy:type, " +
+         "'qos-types:ipv4-diffserv-policy-type') or " +
+         "derived-from-or-self(../../policy:type, " +
+         "'qos-types:ipv6-diffserv-policy-type') or " +
+         "derived-from-or-self(../../policy:type, " +
+         "'qos-types:diffserv-policy-type')" {
       description
         "If policy type is v4, v6 or default diffserv,
          this filter can be used.";
@@ -317,8 +306,9 @@ module ietf-diffserv {
           "Filter containing list of dscp ranges";
       }
       case source-ipv4-prefix {
-        when "/policy:policies/policy:policy/policy:type != " +
-             "'diffserv:ipv6-diffserv-policy-type'" {
+        when "derived-from-or-self(/policy:policies/" +
+             "policy:policy/policy:type, " +
+             "'qos-types:ipv6-diffserv-policy-type')" {
             description
                "If policy type is v6, this filter cannot be used.";
         }
@@ -327,8 +317,9 @@ module ietf-diffserv {
           "Filter containing list of source ipv4 prefixes";
       }
       case destination-ipv4-prefix {
-        when "/policy:policies/policy:policy/policy:type != " +
-             "'diffserv:ipv6-diffserv-policy-type'" {
+        when "derived-from-or-self(/policy:policies" +
+             "/policy:policy/policy:type, " +
+             "'qos-types:ipv6-diffserv-policy-type')" {
             description
                "If policy type is v6, this filter cannot be used.";
         }
@@ -337,8 +328,9 @@ module ietf-diffserv {
           "Filter containing list of destination ipv4 prefix";
       }
       case source-ipv6-prefix {
-        when "/policy:policies/policy:policy/policy:type != "+
-             "'diffserv:ipv4-diffserv-policy-type'" {
+        when "derived-from-or-self(/policy:policies" +
+             "/policy:policy/policy:type, "+
+             "'qos-types:ipv4-diffserv-policy-type')" {
             description
                "If policy type is v4, this filter cannot be used.";
         }
@@ -347,8 +339,9 @@ module ietf-diffserv {
           "Filter containing list of source ipv6 prefixes";
       }
       case destination-ipv6-prefix {
-        when "/policy:policies/policy:policy/policy:type != " +
-             "'diffserv:ipv4-diffserv-policy-type'" {
+        when "derived-from-or-self(/policy:policies" +
+             "/policy:policy/policy:type, " +
+             "'qos-types:ipv4-diffserv-policy-type')" {
             description
                "If policy type is v4, this filter cannot be used.";
         }
@@ -382,9 +375,12 @@ module ietf-diffserv {
   }
   augment "/policy:policies/policy:policy/policy:classifier" + 
           "/policy:action/policy:action-params" {
-    when "../../policy:type = 'diffserv:ipv4-diffserv-policy-type' or 
-          ../../policy:type = 'diffserv:ipv6-diffserv-policy-type' or 
-          ../../policy:type = 'diffserv:diffserv-policy-type' " {
+    when "derived-from-or-self(../../policy:type, " +
+         "'qos-types:ipv4-diffserv-policy-type') or " +
+         "derived-from-or-self(../../policy:type, " +
+         "'qos-types:ipv6-diffserv-policy-type') or " +
+         "derived-from-or-self(../../policy:type, " +
+         "'qos-types:diffserv-policy-type')" {
       description
         "If policy type is v4, v6 or default diffserv,
          these actions can be used.";
@@ -405,15 +401,15 @@ module ietf-diffserv {
       uses action:traffic-group-marking;
     }
     case child-policy {
-      if-feature action:child-policy-feature;
+      if-feature qos-types:child-policy-feature;
       uses action:child-policy;
     }
     case count {
-      if-feature action:count-feature;
+      if-feature qos-types:count-feature;
       uses action:count;
     }
     case named-count {
-      if-feature action:named-counter-feature;
+      if-feature qos-types:named-counter-feature;
       uses action:named-counter;
     }
     case queue-inline {

@@ -5,12 +5,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classifiers
     xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy"
-      xmlns:bt="urn:ietf:params:xml:ns:yang:ietf-bgp-types">
+    xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types">
   <classifier>
     <name>my-classifier</name>
-    <filter-operation>match-any-filter</filter-operation>
     <filter>
-      <type>dscp</type>
+      <type>qt:dscp</type>
       <logical-not>true</logical-not>
     </filter>
   </classifier>
