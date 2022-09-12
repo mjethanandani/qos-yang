@@ -1,0 +1,8 @@
+# Emacs tmp files
+*~
+draft/#*
+draft/.#*
+
+# Built files
+draft/draft-ietf-rtgwg-qos-model-*.*
+bin/*
