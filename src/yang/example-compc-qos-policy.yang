@@ -3,6 +3,11 @@
      namespace "urn:example-compc-qos-policy";
      prefix "compcqos";
 
+     import iana-qos-types {
+       prefix qos-types;
+       reference
+         "RFC XXXX: YANG Models for Quality of Service (QoS).";
+     }
      import ietf-qos-policy {
        prefix "pol";
        reference "RFC XXXX: YANG Model for QoS";
@@ -25,7 +30,7 @@
      /* identities */
 
      identity compc-qos-policy {
-       base pol:policy-type;
+       base qos-types:policy-type;
      }
      identity mdrr-queuing-policy {
        base compc-qos-policy;

@@ -521,10 +521,6 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD.yang)
 
       &RFC2119;
 
-      <?rfc include='reference.RFC.2697.xml'?>
-
-      <?rfc include='reference.RFC.2698.xml'?>
-
       <?rfc include='reference.RFC.8342.xml'?>
 
       &RFC3289;
@@ -544,6 +540,10 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD.yang)
       &RFC2474;
       
       &RFC2475;
+
+      <?rfc include='reference.RFC.2697.xml'?>
+
+      <?rfc include='reference.RFC.2698.xml'?>
 
       <?rfc include='reference.RFC.8340.xml'?>
 
