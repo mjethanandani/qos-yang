@@ -3,11 +3,10 @@ module example-compb-diffserv-filter-policy {
      namespace "urn:ietf:params:xml:ns:yang:example-compb-diffserv-filter-policy";
      prefix compb-filter-policy;
 
-///  import ietf-interfaces {
-///    prefix if;
-///  }
-  import ietf-qos-classifier {
-    prefix classifier;
+  import iana-qos-types {
+    prefix qos-types;
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
   import ietf-qos-policy {
     prefix policy;
@@ -15,9 +14,6 @@ module example-compb-diffserv-filter-policy {
   import ietf-qos-action {
     prefix action;
   }
-////  import ietf-diffserv-target {
-////    prefix target;
-////  }
   import ietf-diffserv {
     prefix diffserv;
   }
@@ -72,19 +68,19 @@ module example-compb-diffserv-filter-policy {
    *************************************************/
 
   identity forwarding-class {
-      base classifier:filter-type;
+      base qos-types:filter-type;
       description
         "Forwarding class filter type";
   }
 
   identity internal-loss-priority  {
-     base classifier:filter-type;
+     base qos-types:filter-type;
      description
         "Internal loss priority filter type";
   }
 
-  grouping forwarding-class-cfg {
-    list forwarding-class-cfg {
+  grouping forwarding-class {
+    list forwarding-class {
       key "forwarding-class";
       description
         "list of forwarding-classes";
@@ -98,8 +94,8 @@ module example-compb-diffserv-filter-policy {
       "Filter containing list of forwarding classes";
   }
 
-  grouping loss-priority-cfg {
-    list loss-priority-cfg {
+  grouping loss-priority {
+    list loss-priority {
       key "loss-priority";
       description
         "list of loss-priorities";
@@ -132,12 +128,12 @@ module example-compb-diffserv-filter-policy {
           "/policy:filter-entry" +
           "/diffserv:filter-params" {
     case forwarding-class {
-        uses forwarding-class-cfg;
+        uses forwarding-class;
       description
         "Filter Type Internal-loss-priority";
     }
     case internal-loss-priority {
-        uses loss-priority-cfg;
+        uses loss-priority;
       description
         "Filter Type Internal-loss-priority";
     }
@@ -163,7 +159,7 @@ module example-compb-diffserv-filter-policy {
   }
 
   grouping mark-fwd-class {
-    container mark-fwd-class-cfg {
+    container mark-fwd-class {
       leaf forwarding-class {
         type string;
         description
@@ -177,7 +173,7 @@ module example-compb-diffserv-filter-policy {
   }
 
   grouping mark-loss-priority {
-    container mark-loss-priority-cfg {
+    container mark-loss-priority {
       leaf loss-priority {
         type enumeration {
           enum high {
@@ -206,8 +202,8 @@ module example-compb-diffserv-filter-policy {
   augment "/policy:policies" +
           "/policy:policy-entry" +
           "/policy:classifier-entry" +
-          "/policy:classifier-action-entry-cfg" +
-          "/diffserv:action-cfg-params" {
+          "/policy:classifier-action-entry" +
+          "/diffserv:action-params" {
     case mark-fwd-class {
       uses mark-fwd-class;
       description

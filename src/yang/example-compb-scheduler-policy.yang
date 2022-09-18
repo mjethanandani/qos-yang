@@ -52,8 +52,8 @@
      augment "/policy:policies" +
              "/policy:policy-entry" +
              "/policy:classifier-entry" +
-             "/policy:classifier-action-entry-cfg" {
-       choice action-cfg-params {
+             "/policy:classifier-action-entry" {
+       choice action-params {
          case scheduler {
            uses action:scheduler;
          }

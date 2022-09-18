@@ -3,11 +3,12 @@
      namespace "urn:ietf:params:xml:ns:yang:example-compa-diffserv";
      prefix example;
 
-     import ietf-qos-classifier {
-       prefix classifier;
-       reference "RFC XXXX: YANG Model for QoS";
+     import iana-qos-types {
+       prefix qos-types;
+       reference
+         "RFC XXXX: YANG Models for Quality of Service (QoS).";
      }
-     import ietf-qos-policy {
+     import ietf-traffic-policy {
        prefix policy;
        reference "RFC XXXX: YANG Model for QoS";
      }
@@ -42,13 +43,13 @@
      }
 
      identity qos-group {
-       base classifier:filter-type;
+       base qos-types:filter-type;
        description
          "qos-group filter-type";
      }
 
-     grouping qos-group-cfg {
-       list qos-group-cfg {
+     grouping qos-group {
+       list qos-group {
          key "qos-group-min qos-group-max";
          description
            "list of dscp ranges";
@@ -100,11 +101,11 @@
          "Random detect attributes";
      }
 
-     augment "/classifier:classifiers/" + 
-             "classifier:classifier-entry/" +
-             "classifier:filter-entry/diffserv:filter-param" {
+     augment "/policy:classifiers/" + 
+             "policy:classifier-entry/" +
+             "policy:filter-entry/diffserv:filter-param" {
        case qos-group {
-         uses qos-group-cfg;
+         uses qos-group;
          description
            "Filter containing list of qos-group ranges.
             Qos-group represent packet metadata information
@@ -115,8 +116,8 @@
      }
      augment "/policy:policies/policy:policy-entry/" +
              "policy:classifier-entry/" +
-             "policy:classifier-action-entry-cfg/" +
-             "policy:action-cfg-params" {
+             "policy:classifier-action-entry/" +
+             "policy:action-params" {
        case priority {
          uses action:priority;
        }
@@ -136,8 +137,8 @@
      augment "/policy:policies" +
              "/policy:policy-entry" +
              "/policy:classifier-entry" +
-             "/policy:classifier-action-entry-cfg" +
-             "/policy:action-cfg-params" +
+             "/policy:classifier-action-entry" +
+             "/policy:action-params" +
              "/diffserv:meter-inline" +
              "/diffserv:meter-type" +
              "/diffserv:one-rate-two-color-meter-type" +
@@ -163,8 +164,8 @@
      augment "/policy:policies" +
              "/policy:policy-entry" +
              "/policy:classifier-entry" +
-             "/policy:classifier-action-entry-cfg" +
-             "/policy:action-cfg-params" +
+             "/policy:classifier-action-entry" +
+             "/policy:action-params" +
              "/diffserv:meter-inline" +
              "/diffserv:meter-type" +
              "/diffserv:one-rate-two-color-meter-type" +
@@ -190,8 +191,8 @@
      augment "/policy:policies" +
              "/policy:policy-entry" +
              "/policy:classifier-entry" +
-             "/policy:classifier-action-entry-cfg" +
-             "/policy:action-cfg-params" +
+             "/policy:classifier-action-entry" +
+             "/policy:action-params" +
              "/diffserv:meter-inline" +
              "/diffserv:meter-type" +
              "/diffserv:one-rate-tri-color-meter-type" +
@@ -217,8 +218,8 @@
      augment "/policy:policies" +
              "/policy:policy-entry" +
              "/policy:classifier-entry" +
-             "/policy:classifier-action-entry-cfg" +
-             "/policy:action-cfg-params" +
+             "/policy:classifier-action-entry" +
+             "/policy:action-params" +
              "/diffserv:meter-inline" +
              "/diffserv:meter-type" +
              "/diffserv:one-rate-tri-color-meter-type" +
@@ -244,8 +245,8 @@
      augment "/policy:policies" +
              "/policy:policy-entry" +
              "/policy:classifier-entry" +
-             "/policy:classifier-action-entry-cfg" +
-             "/policy:action-cfg-params" +
+             "/policy:classifier-action-entry" +
+             "/policy:action-params" +
              "/diffserv:meter-inline" +
              "/diffserv:meter-type" +
              "/diffserv:one-rate-tri-color-meter-type" +
@@ -271,8 +272,8 @@
      augment "/policy:policies" +
              "/policy:policy-entry" +
              "/policy:classifier-entry" +
-             "/policy:classifier-action-entry-cfg" +
-             "/policy:action-cfg-params" +
+             "/policy:classifier-action-entry" +
+             "/policy:action-params" +
              "/diffserv:meter-inline" +
              "/diffserv:meter-type" +
              "/diffserv:two-rate-tri-color-meter-type" +
@@ -298,8 +299,8 @@
      augment "/policy:policies" +
              "/policy:policy-entry" +
              "/policy:classifier-entry" +
-             "/policy:classifier-action-entry-cfg" +
-             "/policy:action-cfg-params" +
+             "/policy:classifier-action-entry" +
+             "/policy:action-params" +
              "/diffserv:meter-inline" +
              "/diffserv:meter-type" +
              "/diffserv:two-rate-tri-color-meter-type" +
@@ -325,8 +326,8 @@
      augment "/policy:policies" +
              "/policy:policy-entry" +
              "/policy:classifier-entry" +
-             "/policy:classifier-action-entry-cfg" +
-             "/policy:action-cfg-params" +
+             "/policy:classifier-action-entry" +
+             "/policy:action-params" +
              "/diffserv:meter-inline" +
              "/diffserv:meter-type" +
              "/diffserv:two-rate-tri-color-meter-type" +
@@ -351,8 +352,8 @@
      augment "/policy:policies" +
              "/policy:policy-entry" +
              "/policy:classifier-entry" +
-             "/policy:classifier-action-entry-cfg" +
-             "/policy:action-cfg-params" +
+             "/policy:classifier-action-entry" +
+             "/policy:action-params" +
              "/diffserv:meter-inline" +
              "/diffserv:meter-type" +
              "/diffserv:one-rate-two-color-meter-type" +
@@ -361,12 +362,12 @@
              "augment the one-rate-two-color meter with" +
              "color classifiers";
          container conform-color {
-           uses classifier:classifier-entry-generic-attr;
+           uses policy:generic-classifier-attr;
            description
              "conform color classifier container";
          }
          container exceed-color {
-           uses classifier:classifier-entry-generic-attr;
+           uses policy:generic-classifier-attr;
            description
              "exceed color classifier container";
          }
@@ -374,8 +375,8 @@
      augment "/policy:policies" +
              "/policy:policy-entry" +
              "/policy:classifier-entry" +
-             "/policy:classifier-action-entry-cfg" +
-             "/policy:action-cfg-params" +
+             "/policy:classifier-action-entry" +
+             "/policy:action-params" +
              "/diffserv:meter-inline" +
              "/diffserv:meter-type" +
              "/diffserv:one-rate-tri-color-meter-type" +
@@ -384,17 +385,17 @@
              "augment the one-rate-tri-color meter with" +
              "color classifiers";
          container conform-color {
-           uses classifier:classifier-entry-generic-attr;
+           uses policy:generic-classifier-attr;
            description
              "conform color classifier container";
          }
          container exceed-color {
-           uses classifier:classifier-entry-generic-attr;
+           uses policy:generic-classifier-attr;
            description
              "exceed color classifier container";
          }
          container violate-color {
-           uses classifier:classifier-entry-generic-attr;
+           uses policy:generic-classifier-attr;
            description
              "violate color classifier container";
          }
@@ -402,8 +403,8 @@
      augment "/policy:policies" +
              "/policy:policy-entry" +
              "/policy:classifier-entry" +
-             "/policy:classifier-action-entry-cfg" +
-             "/policy:action-cfg-params" +
+             "/policy:classifier-action-entry" +
+             "/policy:action-params" +
              "/diffserv:meter-inline" +
              "/diffserv:meter-type" +
              "/diffserv:two-rate-tri-color-meter-type" +
@@ -412,17 +413,17 @@
              "augment the two-rate-tri-color meter with" +
              "color classifiers";
          container conform-color {
-           uses classifier:classifier-entry-generic-attr;
+           uses policy:generic-classifier-attr;
            description
              "conform color classifier container";
          }
          container exceed-color {
-           uses classifier:classifier-entry-generic-attr;
+           uses policy:generic-classifier-attr;
            description
              "exceed color classifier container";
          }
          container violate-color {
-           uses classifier:classifier-entry-generic-attr;
+           uses policy:generic-classifier-attr;
            description
              "violate color classifier container";
          }

@@ -110,7 +110,7 @@
      }
 
      deviation "/pol:policies/pol:policy-entry/pol:classifier-entry" +
-               "/pol:classifier-action-entry-cfg" {
+               "/pol:classifier-action-entry" {
        deviate add {
          max-elements 1;
          must "action-type = 'compc-qos-action'" {
@@ -220,7 +220,7 @@
        }
      }
      augment "/pol:policies/pol:policy-entry/pol:classifier-entry" +
-             "/pol:classifier-action-entry-cfg/pol:action-cfg-params" {
+             "/pol:classifier-action-entry/pol:action-params" {
        when "../../../pol:type = 'compc-qos-policy')" {
          description
            "Configurations for a classifier-policy-type policy";

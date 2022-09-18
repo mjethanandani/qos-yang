@@ -118,9 +118,7 @@
      }
 
      augment
-       "/compb-queue" +
-       "/queue-cfg" +
-       "/algorithmic-drop-cfg" +
+       "/compb-queue/queue/algorithmic-drop" +
        "/drop-algorithm" {
        case random-detect {
          list drop-profile-list {
