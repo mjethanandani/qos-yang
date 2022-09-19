@@ -398,20 +398,20 @@ module iana-qos-types {
       "Traffic-group filter type";
   }
 
-  identity match-filter-operation {
+  typedef match-operation-type {
+    type enumeration {
+      enum match-all-operation {
+        description
+          "Classifier entry filters logical AND operation";
+      }
+      enum match-any-operation {
+        description
+          "Classifier entry filters logical OR operation";
+      }
+    }
+    default "match-all-operation";
     description
       "Filter match logical operation type";
-  }
-  identity match-all-filter {
-    base match-filter-operation;
-    description
-      "Classifier entry filter logical AND operation";
-  }
-  identity match-any-filter {
-    if-feature "match-any-filter-type-support";
-    base match-filter-operation;
-    description
-      "Classifier entry filter logical OR operation";
   }
 
   identity direction {
