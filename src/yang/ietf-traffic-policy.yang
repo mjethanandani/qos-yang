@@ -83,10 +83,7 @@ module ietf-traffic-policy {
         "classifier entry description statement";
     }
     leaf filter-operation {
-      type identityref {
-        base qos-types:match-filter-operation;
-      }
-      default "qos-types:match-all-filter";
+      type qos-types:match-operation-type; 
       description
         "Filters are applicable as match-any or match-all filters";
     }
@@ -101,10 +98,7 @@ module ietf-traffic-policy {
         "Indication of inline classifier entry";
     }
     leaf filter-operation {
-      type identityref {
-        base qos-types:match-filter-operation;
-      }
-      default "qos-types:match-all-filter";
+      type qos-types:match-operation-type; 
       description
         "Filters are applicable as match-any or match-all filters";
     }
