@@ -2046,6 +2046,9 @@ module example-compc-qos-policy {
       ]]></artwork>
         </figure>
       </section>
+    </section>
+    <section title="Configuration examples">
+      <t>This section describes several examples of how the models defined in this draft can be used for configuration.</t>
       <section title="Configuration example for QoS Classifier">
         <figure>
 	  <name>Configuration example for QoS Classifier</name>
