@@ -584,15 +584,18 @@ module example-compa-diffserv {
   }
   import ietf-traffic-policy {
     prefix policy;
-    reference "RFC XXXX: YANG Model for QoS";
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
   import ietf-qos-action {
     prefix action;
-    reference "RFC XXXX: YANG Model for QoS";
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
   import ietf-diffserv {
     prefix diffserv;
-    reference "RFC XXXX: YANG Model for QoS";
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
   organization "Company A";
@@ -1041,15 +1044,18 @@ module example-compb-diffserv-filter-policy {
   }
   import ietf-traffic-policy {
     prefix policy;
-    reference "RFC XXXX: YANG Model for QoS";
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
   import ietf-qos-action {
     prefix action;
-    reference "RFC XXXX: YANG Model for QoS";
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
   import ietf-diffserv {
     prefix diffserv;
-    reference "RFC XXXX: YANG Model for QoS";
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
   organization "Company B";
@@ -1362,7 +1368,8 @@ module example-compb-queue-policy {
   }
   import ietf-traffic-policy {
     prefix policy;
-    reference "RFC XXXX: YANG Model for QoS";
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
   organization "Company B";
@@ -1468,7 +1475,8 @@ module example-compb-queue {
 
   import ietf-qos-action {
     prefix action;
-    reference "RFC XXXX: YANG Model for QoS";
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
   organization "Company B";
@@ -1636,12 +1644,14 @@ module example-compb-scheduler-policy {
   }
   import ietf-qos-action {
     prefix action;
-    reference "RFC XXXX: YANG Model for QoS";
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
   import ietf-traffic-policy {
     prefix policy;
-    reference "RFC XXXX: YANG Model for QoS";
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
   organization "Company B";
