@@ -9,7 +9,7 @@ module ietf-traffic-policy {
   import iana-qos-types {
     prefix qos-types;
     reference
-      "RFC XXXX: YANG Models for Quality of Service (QoS).";
+      "RFC XXXX: YANG Data Models for Quality of Service (QoS).";
   }
 
   organization

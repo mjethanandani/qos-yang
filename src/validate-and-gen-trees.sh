@@ -68,7 +68,7 @@ for i in yang/example-qos-configuration-a.*.*.xml
 do
     name=$(echo $i | cut -f 1-3 -d '.')
     echo "Validating $name.xml"
-    response=`yanglint -ii -t config -p ../bin/yang-parameters -p ../bin ../bin/ietf-diffserv\@$(date +%Y-%m-%d).yang $name.xml`
+    response=`yanglint -ii -t config -p ../bin/yang-parameters -p ../bin ../bin/ietf-diffserv\@$(date +%Y-%m-%d).yang ../bin/ietf-qos-action\@$(date +%Y-%m-%d).yang ../bin/ietf-traffic-policy\@$(date +%Y-%m-%d).yang ../bin/yang-parameters/ietf-interfaces@2018-02-20.yang ../bin/yang-parameters/iana-if-type@2021-06-21.yang $name.xml`
     if [ $? -ne 0 ]; then
        printf "failed (error code: $?)\n"
        printf "$response\n\n"
