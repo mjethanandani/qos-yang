@@ -28,12 +28,11 @@ module example-compa-diffserv {
   description
     "This module contains a collection of YANG definitions of
      companyA diffserv specification extension.";
-  revision 2016-03-03 {
+  revision YYYY-MM-DD {
     description
       "Initial revision for diffserv actions on network packets";
     reference
-      "RFC 6020: YANG - A Data Modeling Language for the
-                 Network Configuration Protocol (NETCONF)";
+      "RFC 7950: The YANG 1.1 Data Modeling Language";
   }
 
   identity default-policy-type {
@@ -61,7 +60,7 @@ module example-compa-diffserv {
       leaf qos-group-max {
         type uint8;
         description
-          "maximum value of qos-group range";
+          "Maximum value of qos-group range";
       }
     }
     description

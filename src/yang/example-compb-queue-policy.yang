@@ -34,9 +34,9 @@ module example-compb-queue-policy {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2015-04-07 {
+  revision YYYY-MM-DD {
     description
-      "Latest revision of diffserv policy";
+      "Initial revision of diffserv policy";
     reference "RFC XXXX";
   }
 
