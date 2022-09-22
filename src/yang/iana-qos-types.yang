@@ -426,21 +426,22 @@ module iana-qos-types {
 
   identity meter-action-type {
     description
-      "Base identify for conform action type for 2 color in a meter";
+      "Base identify for actions related to metering";
   }
   identity action-drop {
     base meter-action-type;
       description
-        "Drop packets that conform to the set value.";
+        "Drop packets that conform/exceed/violate to the set value.";
   }
   identity action-transmit {
     base meter-action-type;
       description
-        "Transmit packets that conform to the set value.";
+        "Transmit packets that conform/exceed/violate to the set
+         value.";
   }
   identity action-mark {
     base meter-action-type;
       description
-        "Mark packets that conform to the set value.";
+        "Mark packets that conform/exceed/violate to the set value.";
   }
 }

@@ -38,14 +38,14 @@
 	  <committed-rate-value>128000</committed-rate-value>
 	  <committed-rate-unit>qt:bits-per-second</committed-rate-unit>
 	  <conform-action>
-	    <conform-2color-meter-action-params>
-	      <conform-2color-meter-action-type>qt:action-transmit</conform-2color-meter-action-type>
-	    </conform-2color-meter-action-params>
+	    <conform-2color-meter-action>
+	      <action-type>qt:action-transmit</action-type>
+	    </conform-2color-meter-action>
 	  </conform-action>
 	  <exceed-action>
-	    <exceed-2color-meter-action-params>
-	      <exceed-2color-meter-action-type>qt:action-drop</exceed-2color-meter-action-type>
-	    </exceed-2color-meter-action-params>
+	    <exceed-2color-meter-action>
+	      <action-type>qt:action-drop</action-type>
+	    </exceed-2color-meter-action>
 	  </exceed-action>
 	</one-rate-two-color-meter>
       </action>

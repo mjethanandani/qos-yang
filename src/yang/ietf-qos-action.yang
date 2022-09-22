@@ -71,13 +71,13 @@ module ietf-qos-action {
     description
       "meter action parameters";
 
-    list conform-2color-meter-action-params {
-      key "conform-2color-meter-action-type";
+    list conform-2color-meter-action {
+      key "action-type";
       ordered-by user;
       description
         "Configuration of basic-meter & associated actions";
 
-      leaf conform-2color-meter-action-type {
+      leaf action-type {
         type identityref {
           base qos-types:meter-action-type;
         }
@@ -85,7 +85,7 @@ module ietf-qos-action {
           "meter action type";
       }
 
-      choice conform-2color-meter-action-val {
+      choice action-val {
         description
           "Meter action based on choice of meter action type";
       }
@@ -96,13 +96,13 @@ module ietf-qos-action {
     description
       "meter action parameters";
 
-    list exceed-2color-meter-action-params {
-      key "exceed-2color-meter-action-type";
+    list exceed-2color-meter-action {
+      key "action-type";
       ordered-by user;
       description
         "Configuration of basic-meter & associated actions";
 
-      leaf exceed-2color-meter-action-type {
+      leaf action-type {
         type identityref {
           base qos-types:meter-action-type;
         }
@@ -110,7 +110,7 @@ module ietf-qos-action {
           "meter action type";
       }
 
-      choice exceed-2color-meter-action-val {
+      choice action-val {
         description
           " meter action based on choice of meter action type";
       }
@@ -122,20 +122,21 @@ module ietf-qos-action {
     description
       "meter action parameters";
     list conform-3color-meter-action-params {
-      key "conform-3color-meter-action-type";
+      key "action-type";
       ordered-by user;
       description
         "Configuration of basic-meter & associated actions";
-      leaf conform-3color-meter-action-type {
+
+      leaf action-type {
         type identityref {
           base qos-types:meter-action-type;
         }
         description
-          "meter action type";
+          "Meter action type";
       }
-      choice conform-3color-meter-action-val {
+      choice action-val {
         description
-          " meter action based on choice of meter action type";
+          "Meter action based on choice of meter action type";
       }
     }
   }
@@ -144,20 +145,21 @@ module ietf-qos-action {
     description
       "meter action parameters";
     list exceed-3color-meter-action-params {
-      key "exceed-3color-meter-action-type";
+      key "action-type";
       ordered-by user;
       description
         "Configuration of basic-meter & associated actions";
-      leaf exceed-3color-meter-action-type {
+
+      leaf action-type {
         type identityref {
           base qos-types:meter-action-type;
         }
         description
-          "meter action type";
+          "Meter action type";
       }
-      choice exceed-3color-meter-action-val {
+      choice action-val {
         description
-          " meter action based on choice of meter action type";
+          "Meter action based on choice of meter action type";
       }
     }
   }
@@ -166,20 +168,21 @@ module ietf-qos-action {
     description
       "meter action parameters";
     list violate-3color-meter-action-params {
-      key "violate-3color-meter-action-type";
+      key "action-type";
       ordered-by user;
       description
         "Configuration of basic-meter & associated actions";
-      leaf violate-3color-meter-action-type {
+
+      leaf action-type {
         type identityref {
           base qos-types:meter-action-type;
         }
         description
-          "meter action type";
+          "Meter action type";
       }
-      choice violate-3color-meter-action-val {
+      choice action-val {
         description
-          " meter action based on choice of meter action type";
+          "Meter action based on choice of meter action type";
       }
     }
   }
