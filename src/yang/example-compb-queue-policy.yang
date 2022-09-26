@@ -32,10 +32,11 @@ module example-compb-queue-policy {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2015-04-07 {
+  revision YYYY-MM-DD {
     description
       "Latest revision of diffserv policy";
-    reference "RFC XXXX";
+    reference
+      "RFC XXXX: A YANG Data Model for Quality of Service (QoS).";
   }
 
   identity forwarding-class {
@@ -58,7 +59,10 @@ module example-compb-queue-policy {
           "/policy:policy-entry" +
           "/policy:classifier-entry" +
           "/policy:filter-entry" {
-    /* Does NOT support "logical-not" of forwarding class.  Use "must"? */
+    /*
+     * Does NOT support "logical-not" of forwarding class.
+     * Use "must"?
+     */
     choice filter-params {
       description
         "Choice of filters";

@@ -1,11 +1,9 @@
 module example-compb-diffserv-filter-policy {
-     yang-version 1;
-     namespace "urn:ietf:params:xml:ns:yang:example-compb-diffserv-filter-policy";
-     prefix compb-filter-policy;
+  yang-version 1;
+  namespace "urn:ietf:params:xml:ns:yang:" +
+            "example-compb-diffserv-filter-policy";
+  prefix compb-filter-policy;
 
-///  import ietf-interfaces {
-///    prefix if;
-///  }
   import ietf-qos-classifier {
     prefix classifier;
   }
@@ -15,28 +13,27 @@ module example-compb-diffserv-filter-policy {
   import ietf-qos-action {
     prefix action;
   }
-////  import ietf-diffserv-target {
-////    prefix target;
-////  }
   import ietf-diffserv {
     prefix diffserv;
   }
 
-  organization "Company B";
+  organization
+    "Company B";
+
   contact
     "Editor:   XYZ
-              <mailto:xyz@compb.com>";
+               <mailto:xyz@compb.com>";
 
   description
     "This module contains a collection of YANG definitions for
      configuring diffserv specification implementations.
 
-     Copyright (c) 2014 IETF Trust and the persons identified as
+     Copyright (c) 2022 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
      without modification, is permitted pursuant to, and subject
-     to the license terms contained in, the Simplified BSD License
+     to the license terms contained in, the Revised BSD License
      set forth in Section 4.c of the IETF Trust's Legal Provisions
      Relating to IETF Documents
      (http://trustee.ietf.org/license-info).
@@ -44,10 +41,11 @@ module example-compb-diffserv-filter-policy {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2015-04-07 {
+  revision YYYY-MM-DD {
     description
       "Latest revision of diffserv policy";
-    reference "RFC XXXX";
+    reference
+      "RFC XXXX: YANG Data Model for QoS.";
   }
 
 

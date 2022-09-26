@@ -1,67 +1,72 @@
-   module example-compb-scheduler-policy {
-        yang-version 1.1;
-        namespace "urn:ietf:params:xml:ns:yang:" +
-                  "example-compb-scheduler-policy";
-        prefix scheduler-plcy;
+module example-compb-scheduler-policy {
+  yang-version 1.1;
+  namespace "urn:ietf:params:xml:ns:yang:" +
+            "example-compb-scheduler-policy";
+  prefix scheduler-plcy;
 
-     import ietf-qos-action {
-       prefix action;
-       reference "RFC XXXX: YANG Model for QoS";
-     }
+  import ietf-qos-action {
+    prefix action;
+    reference
+      "RFC XXXX: A YANG Data Model for Quality of Service (QoS).";
+  }
 
-     import ietf-qos-policy {
-       prefix policy;
-       reference "RFC XXXX: YANG Model for QoS";
-     }
+  import ietf-qos-policy {
+    prefix policy;
+    reference
+      "RFC XXXX: A YANG Data Model for Quality of Service (QoS).";
+  }
 
-     organization "Company B";
-     contact
-       "Editor:   XYZ
-                 <mailto:xyz@compb.com>";
+  organization
+    "Company B";
 
+  contact
+    "Editor:   XYZ
+               <mailto:xyz@compb.com>";
+
+  description
+    "This module defines a scheduler policy. The classification
+     is based on classifier-any, and the action is a scheduler.";
+
+  revision YYYY-MM-DD {
+    description
+      "Latest revision of diffserv policy";
+    reference
+      "RFC XXXX: A YANG Data Model for Quality of Service (QoS).";
+  }
+
+  identity queue-policy {
+    base policy:action-type;
+    description
+      "forwarding-class-queue action type";
+  }
+
+  grouping queue-policy-name {
+    container compb-queue-policy-name {
+      leaf name {
+        type string;
+        description
+          "Queue policy name";
+      }
       description
-        "This module defines a scheduler policy. The classification
-         is based on classifier-any, and the action is a scheduler.";
+        "compb-queue-policy container";
+    }
+    description
+      "compb-queue policy grouping";
+  }
 
-      revision 2019-03-13 {
-        description
-          "Latest revision of diffserv policy";
-        reference "RFC XXXX";
+  augment "/policy:policies" +
+    "/policy:policy-entry" +
+    "/policy:classifier-entry" +
+    "/policy:classifier-action-entry-cfg" {
+    choice action-cfg-params {
+      case scheduler {
+        uses action:scheduler;
       }
-
-      identity queue-policy {
-        base policy:action-type;
-        description
-          "forwarding-class-queue action type";
+      case queue-policy {
+        uses queue-policy-name;
       }
-
-     grouping queue-policy-name {
-       container compb-queue-policy-name {
-         leaf name {
-           type string;
-           description
-             "Queue policy name";
-         }
-         description
-           "compb-queue-policy container";
-       }
-       description
-         "compb-queue policy grouping";
-     }
-
-     augment "/policy:policies" +
-             "/policy:policy-entry" +
-             "/policy:classifier-entry" +
-             "/policy:classifier-action-entry-cfg" {
-       choice action-cfg-params {
-         case scheduler {
-           uses action:scheduler;
-         }
-         case queue-policy {
-           uses queue-policy-name;
-         }
-         description
-           "Augment the scheduler policy with a queue policy";
-       }
-     }
-   }
+      description
+        "Augment the scheduler policy with a queue policy";
+    }
+  }
+}
