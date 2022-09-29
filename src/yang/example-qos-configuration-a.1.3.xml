@@ -1,0 +1,70 @@
+<!--
+    This example shows a QoS policy configuration for a single rate
+    two color policing. For a description of the problem refer to:
+    https://networklessons.com/quality-of-service/policing-configuration-example
+-->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<classifiers
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy"
+    xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types">
+  <classifier>
+    <name>ICMP</name>
+    <description>class-map definition for ICMP</description>
+    <filter>
+      <type>qt:protocol</type>
+      <logical-not>false</logical-not>
+      <protocol
+	  xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
+	<protocol-min>4</protocol-min>
+	<protocol-max>4</protocol-max>
+      </protocol>
+    </filter>
+  </classifier>
+</classifiers>
+
+<policies
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy"
+    xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types">
+  <policy>
+    <name>SINGLE-RATE-TWO-COLOR</name>
+    <type>qt:diffserv-policy-type</type>
+    <classifier>
+      <name>ICMP</name>
+      <action>
+	<type>qt:meter-inline</type>
+	<one-rate-two-color-meter
+	    xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
+	  <committed-rate-value>128000</committed-rate-value>
+	  <committed-rate-unit>qt:bits-per-second</committed-rate-unit>
+	  <conform-action>
+	    <conform-2color-meter-action>
+	      <action-type>qt:action-transmit</action-type>
+	    </conform-2color-meter-action>
+	  </conform-action>
+	  <exceed-action>
+	    <exceed-2color-meter-action>
+	      <action-type>qt:action-drop</action-type>
+	    </exceed-2color-meter-action>
+	  </exceed-action>
+	</one-rate-two-color-meter>
+      </action>
+    </classifier>
+  </policy>
+</policies>
+
+<interfaces
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces"
+    xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types"
+    xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">
+  <interface>
+    <name>FastEthernet 0/0</name>
+    <type>ianaift:ethernetCsmacd</type>
+    <qos-target-policy
+	xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy">
+      <direction>qt:inbound</direction>
+      <type>qt:diffserv-policy-type</type>
+      <name>SINGLE-RATE-TWO-COLOR</name>
+    </qos-target-policy>
+  </interface>
+</interfaces>

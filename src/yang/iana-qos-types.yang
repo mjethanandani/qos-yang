@@ -109,25 +109,21 @@ module iana-qos-types {
       "dscp marking action type";
   }
   identity meter-inline {
-    if-feature meter-inline-feature;
     base action-type;
     description
       "meter-inline action type";
   }
   identity meter-reference {
-    if-feature meter-reference-feature;
     base action-type;
     description
       "meter reference action type";
   }
   identity queue {
-    if-feature queue-action-support;
     base action-type;
     description
       "queue action type";
   }
   identity scheduler {
-    if-feature scheduler-action-support;
     base action-type;
     description
       "scheduler action type";
@@ -165,17 +161,17 @@ module iana-qos-types {
     description
       "This base identity type defines meter types";
   }
-  identity one-rate-two-color-meter-type {
+  identity one-rate-two-color {
     base meter-type;
     description
       "one rate two color meter type";
   }
-  identity one-rate-tri-color-meter-type {
+  identity one-rate-tri-color {
     base meter-type;
     description
       "one rate three color meter type";
   }
-  identity two-rate-tri-color-meter-type {
+  identity two-rate-tri-color {
     base meter-type;
     description
       "two rate three color meter action type";
@@ -251,13 +247,11 @@ module iana-qos-types {
       "mega bytes";
   }
   identity millisecond {
-    if-feature burst-time-unit-support;
     base burst-unit-type;
     description
       "milli seconds";
   }
   identity microsecond {
-    if-feature burst-time-unit-support;
     base burst-unit-type;
     description
       "micro seconds";
@@ -430,24 +424,24 @@ module iana-qos-types {
   }
 
 
-  identity conform-2color-meter-action-type {
+  identity meter-action-type {
     description
-      "action type in a meter";
+      "Base identify for actions related to metering";
   }
-  identity exceed-2color-meter-action-type {
-    description
-      "action type in a meter";
+  identity action-drop {
+    base meter-action-type;
+      description
+        "Drop packets that conform/exceed/violate to the set value.";
   }
-  identity conform-3color-meter-action-type {
-    description
-      "action type in a meter";
+  identity action-transmit {
+    base meter-action-type;
+      description
+        "Transmit packets that conform/exceed/violate to the set
+         value.";
   }
-  identity exceed-3color-meter-action-type {
-    description
-      "action type in a meter";
-  }
-  identity violate-3color-meter-action-type {
-    description
-      "action type in a meter";
+  identity action-mark {
+    base meter-action-type;
+      description
+        "Mark packets that conform/exceed/violate to the set value.";
   }
 }
