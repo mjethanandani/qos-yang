@@ -113,9 +113,9 @@
     <date/>
 
     <abstract>
-      <t>This document describes a YANG model for configuration of
-      Quality of Service (QoS) configuration in network devices. This
-      document doesn't describe QoS statistics counters.  </t>
+      <t>This document describes a YANG model for configuration and
+      operational data of Quality of Service (QoS) in network devices.
+      </t>
     </abstract>
   </front>
 
@@ -123,16 +123,17 @@
     <section anchor="intro" title="Introduction">
       <t> This document defines a base YANG <xref target="RFC6020"/>
       <xref target="RFC7950"/> model for Quality of Service (QoS)
-      configuration parameters. QoS base modules define the basic
-      building blocks to define a classifier, policy, action and
-      target. The base models are augmented to include packet match
-      fields and action parameters to define the Diffrentiated
-      Services (DiffServ) module. Queues and schedulers are stitched
-      as part of diffserv policy model. Separate models have been
-      defined for creating Queue policy and Scheduling policy. The
-      DiffServ model is based on DiffServ architecture, and various
+      configuration and statistics parameters. Traffic Policy module 
+      defines the basic building blocks to define a classifier, policy
+      and target. QoS Action module defines QoS action related
+      parameters. Traffic policy is augmented to include packet match
+      and action parameters to define the Diffrentiated Services
+      (DiffServ) policy, Queues policy and  Scheduler policy. Each
+      of these policies are defined as separate modules. The Diffserv
+      module is based on DiffServ architecture, and various
       references have been made to available standard architecture
-      documents.</t>
+      documents. QoS statistics counters are defined in QoS
+      Operational module.</t>
 
       <t>DiffServ is a preferred approach for network service
       providers to offer services to different customers based on
@@ -561,13 +562,13 @@ v00 2010-09-17  SS    Initial version
       module.</t>
 
       <section title="Example of Company A Diffserv Model">
-      <t> The following Company A vendor example augments the qos and diffserv model,
+      <t> The following Company A vendor example augments the QoS and diffserv model,
 demonstrating some of the following functionality:
       </t>
         <t>- use of template based classifier definitions </t>
         <t>- use of single policy type modelling queue, scheduler
    policy, and a filter policy. All of these policies either augment
-   the qos policy or the diffserv modules</t>
+   the QoS policy or the diffserv modules</t>
         <t>- use of inline actions in a policy</t>
         <t>- flexibility in marking dscp or metadata at ingress and/or egress. </t>
         <figure>
@@ -577,7 +578,7 @@ INSERT_TEXT_FROM_FILE(../bin/example-compa-diffserv@YYYY-MM-DD.yang)
         </figure>
       </section>
       <section title="Example of Company B Diffserv Model">
-      <t> The following vendor example augments the qos and diffserv model,
+      <t> The following vendor example augments the QoS and diffserv model,
 demonstrating some of the following functionality:
       </t>
  
@@ -585,7 +586,7 @@ demonstrating some of the following functionality:
    vs referencing an externally defined classifier)</t>
         <t>- use of mulitple policy types, e.g. a queue policy, a scheduler
    policy, and a filter policy. All of these policies either augment
-   the qos policy or the diffserv modules</t>
+   the QoS policy or the diffserv modules</t>
         <t>- use of a queue module, which uses and extends the queue grouping
    from the ietf-qos-action module</t>
         <t>- use of meter templates (v.s. meter inline)</t>
