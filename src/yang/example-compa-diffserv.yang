@@ -34,7 +34,7 @@ module example-compa-diffserv {
     description
       "Initial revision for diffserv actions on network packets";
     reference
-      "RFC 7950: The YANG 1.1 Data Modeling Language";
+      "RFC XXXX: A YANG Data Model for Quality of Service (QoS).";
   }
 
   identity default-policy-type {
@@ -47,6 +47,12 @@ module example-compa-diffserv {
     base qos-types:filter-type;
     description
       "qos-group filter-type";
+  }
+
+  identity drop {
+    base qos-types:action-type;
+    description
+      "drop action-type";
   }
 
   grouping qos-group {
@@ -68,43 +74,23 @@ module example-compa-diffserv {
     description
       "Filter containing list of qos-group ranges";
   }
-
-  grouping wred-threshold {
-    container wred-min-thresh {
-      uses action:threshold;
-      description
-        "Minimum threshold";
-    }
-    container wred-max-thresh {
-      uses action:threshold;
-      description
-        "Maximum threshold";
-    }
-    leaf mark-probability {
-      type uint32 {
-        range "1..1000";
+  grouping drop {
+    container drop {
+      leaf drop {
+        type empty;
+        description
+          "drop action";
       }
       description
-        "Mark probability";
+        "drop container";
     }
     description
-      "WRED threshold attributes";
-  }
-
-  grouping randomdetect {
-    leaf exp-weighting-const {
-      type uint32;
-      description
-        "Exponential weighting constant factor for wred profile";
-    }
-    uses wred-threshold;
-    description
-      "Random detect attributes";
+      "drop grouping";
   }
 
   augment "/policy:classifiers/" +
-    "policy:classifier-entry/" +
-    "policy:filter-entry/diffserv:filter-param" {
+    "policy:classifier/" +
+    "policy:filter/diffserv:filter-param" {
     case qos-group {
       uses qos-group;
       description
@@ -115,9 +101,9 @@ module example-compa-diffserv {
     description
       "augmentation of classifier filters";
   }
-  augment "/policy:policies/policy:policy-entry/" +
-    "policy:classifier-entry/" +
-    "policy:classifier-action-entry/" +
+  augment "/policy:policies/policy:policy/" +
+    "policy:classifier/" +
+    "policy:action/" +
     "policy:action-params" {
     case priority {
       uses action:priority;
@@ -128,25 +114,22 @@ module example-compa-diffserv {
     case max-rate {
       uses action:max-rate;
     }
-    case random-detect {
-      uses randomdetect;
-    }
     description
       "Augment the actions to policy entry";
   }
 
   augment "/policy:policies" +
-    "/policy:policy-entry" +
-    "/policy:classifier-entry" +
-    "/policy:classifier-action-entry" +
+    "/policy:policy" +
+    "/policy:classifier" +
+    "/policy:action" +
     "/policy:action-params" +
     "/diffserv:meter-inline" +
-    "/diffserv:meter-type" +
+    "/diffserv:meter-types" +
     "/diffserv:one-rate-two-color-meter-type" +
     "/diffserv:one-rate-two-color-meter" +
     "/diffserv:conform-action" +
-    "/diffserv:conform-2color-meter-action-params" +
-    "/diffserv:conform-2color-meter-action-val" {
+    "/diffserv:conform-2color-meter-action" +
+    "/diffserv:action-val" {
 
     description
       "augment the one-rate-two-color meter conform
@@ -154,7 +137,7 @@ module example-compa-diffserv {
     case meter-action-drop {
       description
         "meter drop";
-      uses action:drop;
+      uses drop;
     }
     case meter-action-mark-dscp {
       description
@@ -163,17 +146,17 @@ module example-compa-diffserv {
     }
   }
   augment "/policy:policies" +
-    "/policy:policy-entry" +
-    "/policy:classifier-entry" +
-    "/policy:classifier-action-entry" +
+    "/policy:policy" +
+    "/policy:classifier" +
+    "/policy:action" +
     "/policy:action-params" +
     "/diffserv:meter-inline" +
-    "/diffserv:meter-type" +
+    "/diffserv:meter-types" +
     "/diffserv:one-rate-two-color-meter-type" +
     "/diffserv:one-rate-two-color-meter" +
     "/diffserv:exceed-action" +
-    "/diffserv:exceed-2color-meter-action-params" +
-    "/diffserv:exceed-2color-meter-action-val" {
+    "/diffserv:exceed-2color-meter-action" +
+    "/diffserv:action-val" {
 
     description
       "augment the one-rate-two-color meter exceed
@@ -181,7 +164,7 @@ module example-compa-diffserv {
     case meter-action-drop {
       description
         "meter drop";
-      uses action:drop;
+      uses drop;
     }
     case meter-action-mark-dscp {
       description
@@ -190,17 +173,17 @@ module example-compa-diffserv {
     }
   }
   augment "/policy:policies" +
-    "/policy:policy-entry" +
-    "/policy:classifier-entry" +
-    "/policy:classifier-action-entry" +
+    "/policy:policy" +
+    "/policy:classifier" +
+    "/policy:action" +
     "/policy:action-params" +
     "/diffserv:meter-inline" +
-    "/diffserv:meter-type" +
+    "/diffserv:meter-types" +
     "/diffserv:one-rate-tri-color-meter-type" +
     "/diffserv:one-rate-tri-color-meter" +
     "/diffserv:conform-action" +
-    "/diffserv:conform-3color-meter-action-params" +
-    "/diffserv:conform-3color-meter-action-val" {
+    "/diffserv:conform-3color-meter-action" +
+    "/diffserv:action-val" {
 
     description
       "augment the one-rate-tri-color meter conform
@@ -208,7 +191,7 @@ module example-compa-diffserv {
     case meter-action-drop {
       description
         "meter drop";
-      uses action:drop;
+      uses drop;
     }
     case meter-action-mark-dscp {
       description
@@ -217,17 +200,17 @@ module example-compa-diffserv {
     }
   }
   augment "/policy:policies" +
-    "/policy:policy-entry" +
-    "/policy:classifier-entry" +
-    "/policy:classifier-action-entry" +
+    "/policy:policy" +
+    "/policy:classifier" +
+    "/policy:action" +
     "/policy:action-params" +
     "/diffserv:meter-inline" +
-    "/diffserv:meter-type" +
+    "/diffserv:meter-types" +
     "/diffserv:one-rate-tri-color-meter-type" +
     "/diffserv:one-rate-tri-color-meter" +
     "/diffserv:exceed-action" +
-    "/diffserv:exceed-3color-meter-action-params" +
-    "/diffserv:exceed-3color-meter-action-val" {
+    "/diffserv:exceed-3color-meter-action" +
+    "/diffserv:action-val" {
 
     description
       "augment the one-rate-tri-color meter exceed
@@ -235,7 +218,7 @@ module example-compa-diffserv {
     case meter-action-drop {
       description
         "meter drop";
-      uses action:drop;
+      uses drop;
     }
     case meter-action-mark-dscp {
       description
@@ -244,17 +227,17 @@ module example-compa-diffserv {
     }
   }
   augment "/policy:policies" +
-    "/policy:policy-entry" +
-    "/policy:classifier-entry" +
-    "/policy:classifier-action-entry" +
+    "/policy:policy" +
+    "/policy:classifier" +
+    "/policy:action" +
     "/policy:action-params" +
     "/diffserv:meter-inline" +
-    "/diffserv:meter-type" +
+    "/diffserv:meter-types" +
     "/diffserv:one-rate-tri-color-meter-type" +
     "/diffserv:one-rate-tri-color-meter" +
     "/diffserv:violate-action" +
-    "/diffserv:violate-3color-meter-action-params" +
-    "/diffserv:violate-3color-meter-action-val" {
+    "/diffserv:violate-3color-meter-action" +
+    "/diffserv:action-val" {
 
     description
       "augment the one-rate-tri-color meter conform
@@ -262,7 +245,7 @@ module example-compa-diffserv {
     case meter-action-drop {
       description
         "meter drop";
-      uses action:drop;
+      uses drop;
     }
     case meter-action-mark-dscp {
       description
@@ -272,17 +255,17 @@ module example-compa-diffserv {
   }
 
   augment "/policy:policies" +
-    "/policy:policy-entry" +
-    "/policy:classifier-entry" +
-    "/policy:classifier-action-entry" +
+    "/policy:policy" +
+    "/policy:classifier" +
+    "/policy:action" +
     "/policy:action-params" +
     "/diffserv:meter-inline" +
-    "/diffserv:meter-type" +
+    "/diffserv:meter-types" +
     "/diffserv:two-rate-tri-color-meter-type" +
     "/diffserv:two-rate-tri-color-meter" +
     "/diffserv:conform-action" +
-    "/diffserv:conform-3color-meter-action-params" +
-    "/diffserv:conform-3color-meter-action-val" {
+    "/diffserv:conform-3color-meter-action" +
+    "/diffserv:action-val" {
 
     description
       "augment the one-rate-tri-color meter conform
@@ -290,7 +273,7 @@ module example-compa-diffserv {
     case meter-action-drop {
       description
         "meter drop";
-      uses action:drop;
+      uses drop;
     }
     case meter-action-mark-dscp {
       description
@@ -299,17 +282,17 @@ module example-compa-diffserv {
     }
   }
   augment "/policy:policies" +
-    "/policy:policy-entry" +
-    "/policy:classifier-entry" +
-    "/policy:classifier-action-entry" +
+    "/policy:policy" +
+    "/policy:classifier" +
+    "/policy:action" +
     "/policy:action-params" +
     "/diffserv:meter-inline" +
-    "/diffserv:meter-type" +
+    "/diffserv:meter-types" +
     "/diffserv:two-rate-tri-color-meter-type" +
     "/diffserv:two-rate-tri-color-meter" +
     "/diffserv:exceed-action" +
-    "/diffserv:exceed-3color-meter-action-params" +
-    "/diffserv:exceed-3color-meter-action-val" {
+    "/diffserv:exceed-3color-meter-action" +
+    "/diffserv:action-val" {
 
     description
       "augment the two-rate-tri-color meter exceed
@@ -317,7 +300,7 @@ module example-compa-diffserv {
     case meter-action-drop {
       description
         "meter drop";
-      uses action:drop;
+      uses drop;
     }
     case meter-action-mark-dscp {
       description
@@ -326,17 +309,17 @@ module example-compa-diffserv {
     }
   }
   augment "/policy:policies" +
-    "/policy:policy-entry" +
-    "/policy:classifier-entry" +
-    "/policy:classifier-action-entry" +
+    "/policy:policy" +
+    "/policy:classifier" +
+    "/policy:action" +
     "/policy:action-params" +
     "/diffserv:meter-inline" +
-    "/diffserv:meter-type" +
+    "/diffserv:meter-types" +
     "/diffserv:two-rate-tri-color-meter-type" +
     "/diffserv:two-rate-tri-color-meter" +
     "/diffserv:violate-action" +
-    "/diffserv:violate-3color-meter-action-params" +
-    "/diffserv:violate-3color-meter-action-val" {
+    "/diffserv:violate-3color-meter-action" +
+    "/diffserv:action-val" {
 
     description
       "augment the two-rate-tri-color meter violate
@@ -344,7 +327,7 @@ module example-compa-diffserv {
     case meter-action-drop {
       description
         "meter drop";
-      uses action:drop;
+      uses drop;
     }
     case meter-action-mark-dscp {
       description
@@ -354,12 +337,12 @@ module example-compa-diffserv {
   }
 
   augment "/policy:policies" +
-    "/policy:policy-entry" +
-    "/policy:classifier-entry" +
-    "/policy:classifier-action-entry" +
+    "/policy:policy" +
+    "/policy:classifier" +
+    "/policy:action" +
     "/policy:action-params" +
     "/diffserv:meter-inline" +
-    "/diffserv:meter-type" +
+    "/diffserv:meter-types" +
     "/diffserv:one-rate-two-color-meter-type" +
     "/diffserv:one-rate-two-color-meter" {
 
@@ -379,12 +362,12 @@ module example-compa-diffserv {
   }
 
   augment "/policy:policies" +
-    "/policy:policy-entry" +
-    "/policy:classifier-entry" +
-    "/policy:classifier-action-entry" +
+    "/policy:policy" +
+    "/policy:classifier" +
+    "/policy:action" +
     "/policy:action-params" +
     "/diffserv:meter-inline" +
-    "/diffserv:meter-type" +
+    "/diffserv:meter-types" +
     "/diffserv:one-rate-tri-color-meter-type" +
     "/diffserv:one-rate-tri-color-meter" {
     description
@@ -407,12 +390,12 @@ module example-compa-diffserv {
     }
   }
   augment "/policy:policies" +
-    "/policy:policy-entry" +
-    "/policy:classifier-entry" +
-    "/policy:classifier-action-entry" +
+    "/policy:policy" +
+    "/policy:classifier" +
+    "/policy:action" +
     "/policy:action-params" +
     "/diffserv:meter-inline" +
-    "/diffserv:meter-type" +
+    "/diffserv:meter-types" +
     "/diffserv:two-rate-tri-color-meter-type" +
     "/diffserv:two-rate-tri-color-meter" {
     description

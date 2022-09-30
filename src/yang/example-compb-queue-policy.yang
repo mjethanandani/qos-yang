@@ -1,5 +1,5 @@
 module example-compb-queue-policy {
-  yang-version 1;
+  yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:example-compb-queue-policy";
   prefix queue-plcy;
 
@@ -58,9 +58,9 @@ module example-compb-queue-policy {
   }
 
   augment "/policy:policies" +
-          "/policy:policy-entry" +
-          "/policy:classifier-entry" +
-          "/policy:filter-entry" {
+          "/policy:policy" +
+          "/policy:classifier" +
+          "/policy:filter" {
     /*
      * Does NOT support "logical-not" of forwarding class.
      * Use "must"?
@@ -79,7 +79,7 @@ module example-compb-queue-policy {
   }
 
   identity compb-queue {
-    base policy:action-type;
+    base qos-types:action-type;
     description
       "compb-queue action type";
   }
@@ -99,9 +99,9 @@ module example-compb-queue-policy {
   }
   
   augment "/policy:policies" +
-          "/policy:policy-entry" +
-          "/policy:classifier-entry" +
-          "/policy:classifier-action-entry" {
+          "/policy:policy" +
+          "/policy:classifier" +
+          "/policy:action" {
     choice action-params {
       description
         "Choice of action types";
