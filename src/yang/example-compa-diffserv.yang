@@ -3,54 +3,54 @@ module example-compa-diffserv {
   namespace "urn:ietf:params:xml:ns:yang:example-compa-diffserv";
   prefix example;
 
-  import ietf-qos-classifier {
-    prefix classifier;
-    reference "RFC XXXX: YANG Model for QoS";
+  import iana-qos-types {
+    prefix qos-types;
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
-  import ietf-qos-policy {
+  import ietf-traffic-policy {
     prefix policy;
-    reference "RFC XXXX: YANG Model for QoS";
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
   import ietf-qos-action {
     prefix action;
-    reference "RFC XXXX: YANG Model for QoS";
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
   import ietf-diffserv {
     prefix diffserv;
-    reference "RFC XXXX: YANG Model for QoS";
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
-
-  organization
-    "Company A";
+  organization "Company A";
   contact
     "Editor:   XYZ
-               <mailto:xyz@compa.com>";
+              <mailto:xyz@compa.com>";
   description
     "This module contains a collection of YANG definitions of
      companyA diffserv specification extension.";
-
   revision YYYY-MM-DD {
     description
       "Initial revision for diffserv actions on network packets";
     reference
-      "RFC 6020: YANG - A Data Modeling Language for the
-                 Network Configuration Protocol (NETCONF)";
+      "RFC 7950: The YANG 1.1 Data Modeling Language";
   }
 
   identity default-policy-type {
-    base policy:policy-type;
+    base qos-types:policy-type;
     description
       "This defines default policy-type";
   }
 
   identity qos-group {
-    base classifier:filter-type;
+    base qos-types:filter-type;
     description
       "qos-group filter-type";
   }
 
-  grouping qos-group-cfg {
-    list qos-group-cfg {
+  grouping qos-group {
+    list qos-group {
       key "qos-group-min qos-group-max";
       description
         "list of dscp ranges";
@@ -62,7 +62,7 @@ module example-compa-diffserv {
       leaf qos-group-max {
         type uint8;
         description
-          "maximum value of qos-group range";
+          "Maximum value of qos-group range";
       }
     }
     description
@@ -102,11 +102,11 @@ module example-compa-diffserv {
       "Random detect attributes";
   }
 
-  augment "/classifier:classifiers/" +
-    "classifier:classifier-entry/" +
-    "classifier:filter-entry/diffserv:filter-param" {
+  augment "/policy:classifiers/" +
+    "policy:classifier-entry/" +
+    "policy:filter-entry/diffserv:filter-param" {
     case qos-group {
-      uses qos-group-cfg;
+      uses qos-group;
       description
         "Filter containing list of qos-group ranges.
         Qos-group represent packet metadata information
@@ -117,8 +117,8 @@ module example-compa-diffserv {
   }
   augment "/policy:policies/policy:policy-entry/" +
     "policy:classifier-entry/" +
-    "policy:classifier-action-entry-cfg/" +
-    "policy:action-cfg-params" {
+    "policy:classifier-action-entry/" +
+    "policy:action-params" {
     case priority {
       uses action:priority;
     }
@@ -138,8 +138,8 @@ module example-compa-diffserv {
   augment "/policy:policies" +
     "/policy:policy-entry" +
     "/policy:classifier-entry" +
-    "/policy:classifier-action-entry-cfg" +
-    "/policy:action-cfg-params" +
+    "/policy:classifier-action-entry" +
+    "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-type" +
     "/diffserv:one-rate-two-color-meter-type" +
@@ -165,8 +165,8 @@ module example-compa-diffserv {
   augment "/policy:policies" +
     "/policy:policy-entry" +
     "/policy:classifier-entry" +
-    "/policy:classifier-action-entry-cfg" +
-    "/policy:action-cfg-params" +
+    "/policy:classifier-action-entry" +
+    "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-type" +
     "/diffserv:one-rate-two-color-meter-type" +
@@ -192,8 +192,8 @@ module example-compa-diffserv {
   augment "/policy:policies" +
     "/policy:policy-entry" +
     "/policy:classifier-entry" +
-    "/policy:classifier-action-entry-cfg" +
-    "/policy:action-cfg-params" +
+    "/policy:classifier-action-entry" +
+    "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-type" +
     "/diffserv:one-rate-tri-color-meter-type" +
@@ -219,8 +219,8 @@ module example-compa-diffserv {
   augment "/policy:policies" +
     "/policy:policy-entry" +
     "/policy:classifier-entry" +
-    "/policy:classifier-action-entry-cfg" +
-    "/policy:action-cfg-params" +
+    "/policy:classifier-action-entry" +
+    "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-type" +
     "/diffserv:one-rate-tri-color-meter-type" +
@@ -246,8 +246,8 @@ module example-compa-diffserv {
   augment "/policy:policies" +
     "/policy:policy-entry" +
     "/policy:classifier-entry" +
-    "/policy:classifier-action-entry-cfg" +
-    "/policy:action-cfg-params" +
+    "/policy:classifier-action-entry" +
+    "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-type" +
     "/diffserv:one-rate-tri-color-meter-type" +
@@ -274,8 +274,8 @@ module example-compa-diffserv {
   augment "/policy:policies" +
     "/policy:policy-entry" +
     "/policy:classifier-entry" +
-    "/policy:classifier-action-entry-cfg" +
-    "/policy:action-cfg-params" +
+    "/policy:classifier-action-entry" +
+    "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-type" +
     "/diffserv:two-rate-tri-color-meter-type" +
@@ -301,8 +301,8 @@ module example-compa-diffserv {
   augment "/policy:policies" +
     "/policy:policy-entry" +
     "/policy:classifier-entry" +
-    "/policy:classifier-action-entry-cfg" +
-    "/policy:action-cfg-params" +
+    "/policy:classifier-action-entry" +
+    "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-type" +
     "/diffserv:two-rate-tri-color-meter-type" +
@@ -328,8 +328,8 @@ module example-compa-diffserv {
   augment "/policy:policies" +
     "/policy:policy-entry" +
     "/policy:classifier-entry" +
-    "/policy:classifier-action-entry-cfg" +
-    "/policy:action-cfg-params" +
+    "/policy:classifier-action-entry" +
+    "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-type" +
     "/diffserv:two-rate-tri-color-meter-type" +
@@ -356,8 +356,8 @@ module example-compa-diffserv {
   augment "/policy:policies" +
     "/policy:policy-entry" +
     "/policy:classifier-entry" +
-    "/policy:classifier-action-entry-cfg" +
-    "/policy:action-cfg-params" +
+    "/policy:classifier-action-entry" +
+    "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-type" +
     "/diffserv:one-rate-two-color-meter-type" +
@@ -367,12 +367,12 @@ module example-compa-diffserv {
       "augment the one-rate-two-color meter with" +
       "color classifiers";
     container conform-color {
-      uses classifier:classifier-entry-generic-attr;
+      uses policy:generic-classifier-attr;
       description
         "conform color classifier container";
     }
     container exceed-color {
-      uses classifier:classifier-entry-generic-attr;
+      uses policy:generic-classifier-attr;
       description
         "exceed color classifier container";
     }
@@ -381,8 +381,8 @@ module example-compa-diffserv {
   augment "/policy:policies" +
     "/policy:policy-entry" +
     "/policy:classifier-entry" +
-    "/policy:classifier-action-entry-cfg" +
-    "/policy:action-cfg-params" +
+    "/policy:classifier-action-entry" +
+    "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-type" +
     "/diffserv:one-rate-tri-color-meter-type" +
@@ -391,17 +391,17 @@ module example-compa-diffserv {
       "augment the one-rate-tri-color meter with" +
       "color classifiers";
     container conform-color {
-      uses classifier:classifier-entry-generic-attr;
+      uses policy:generic-classifier-attr;
       description
         "conform color classifier container";
     }
     container exceed-color {
-      uses classifier:classifier-entry-generic-attr;
+      uses policy:generic-classifier-attr;
       description
         "exceed color classifier container";
     }
     container violate-color {
-      uses classifier:classifier-entry-generic-attr;
+      uses policy:generic-classifier-attr;
       description
         "violate color classifier container";
     }
@@ -409,8 +409,8 @@ module example-compa-diffserv {
   augment "/policy:policies" +
     "/policy:policy-entry" +
     "/policy:classifier-entry" +
-    "/policy:classifier-action-entry-cfg" +
-    "/policy:action-cfg-params" +
+    "/policy:classifier-action-entry" +
+    "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-type" +
     "/diffserv:two-rate-tri-color-meter-type" +
@@ -419,17 +419,17 @@ module example-compa-diffserv {
       "augment the two-rate-tri-color meter with" +
       "color classifiers";
     container conform-color {
-      uses classifier:classifier-entry-generic-attr;
+      uses policy:generic-classifier-attr;
       description
         "conform color classifier container";
     }
     container exceed-color {
-      uses classifier:classifier-entry-generic-attr;
+      uses policy:generic-classifier-attr;
       description
         "exceed color classifier container";
     }
     container violate-color {
-      uses classifier:classifier-entry-generic-attr;
+      uses policy:generic-classifier-attr;
       description
         "violate color classifier container";
     }

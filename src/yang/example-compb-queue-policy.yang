@@ -3,10 +3,12 @@ module example-compb-queue-policy {
   namespace "urn:ietf:params:xml:ns:yang:example-compb-queue-policy";
   prefix queue-plcy;
 
-  import ietf-qos-classifier {
-    prefix classifier;
+  import iana-qos-types {
+    prefix qos-types;
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
-  import ietf-qos-policy {
+  import ietf-traffic-policy {
     prefix policy;
   }
 
@@ -34,19 +36,19 @@ module example-compb-queue-policy {
 
   revision YYYY-MM-DD {
     description
-      "Latest revision of diffserv policy";
+      "Initial revision of diffserv policy";
     reference
       "RFC XXXX: A YANG Data Model for Quality of Service (QoS).";
   }
 
   identity forwarding-class {
-    base classifier:filter-type;
+    base qos-types:filter-type;
     description
        "Forwarding class filter type";
   }
 
-  grouping forwarding-class-cfg {
-    leaf forwarding-class-cfg {
+  grouping forwarding-class {
+    leaf forwarding-class {
       type string;
       description
         "forwarding-class name";
@@ -66,8 +68,8 @@ module example-compb-queue-policy {
     choice filter-params {
       description
         "Choice of filters";
-      case forwarding-class-cfg {
-        uses forwarding-class-cfg;
+      case forwarding-class {
+        uses forwarding-class;
         description
           "Filter Type Internal-loss-priority";
       }
@@ -99,8 +101,8 @@ module example-compb-queue-policy {
   augment "/policy:policies" +
           "/policy:policy-entry" +
           "/policy:classifier-entry" +
-          "/policy:classifier-action-entry-cfg" {
-    choice action-cfg-params {
+          "/policy:classifier-action-entry" {
+    choice action-params {
       description
         "Choice of action types";
       case compb-queue {

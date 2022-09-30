@@ -10,7 +10,7 @@ module example-compb-scheduler-policy {
       "RFC XXXX: A YANG Data Model for Quality of Service (QoS).";
   }
 
-  import ietf-qos-policy {
+  import ietf-traffic-policy {
     prefix policy;
     reference
       "RFC XXXX: A YANG Data Model for Quality of Service (QoS).";
@@ -29,7 +29,7 @@ module example-compb-scheduler-policy {
 
   revision YYYY-MM-DD {
     description
-      "Latest revision of diffserv policy";
+      "Initial revision of diffserv policy";
     reference
       "RFC XXXX: A YANG Data Model for Quality of Service (QoS).";
   }
@@ -57,8 +57,8 @@ module example-compb-scheduler-policy {
   augment "/policy:policies" +
     "/policy:policy-entry" +
     "/policy:classifier-entry" +
-    "/policy:classifier-action-entry-cfg" {
-    choice action-cfg-params {
+    "/policy:classifier-action-entry" {
+    choice action-params {
       case scheduler {
         uses action:scheduler;
       }

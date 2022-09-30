@@ -3,7 +3,12 @@ module example-compc-qos-policy {
   namespace "urn:example-compc-qos-policy";
   prefix "compcqos";
 
-  import ietf-qos-policy {
+  import iana-qos-types {
+    prefix qos-types;
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
+  }
+  import ietf-traffic-policy {
     prefix "pol";
     reference
       "RFC XXXX: A YANG Data Model for Quality of Service (QoS).";
@@ -32,7 +37,7 @@ module example-compc-qos-policy {
   /* identities */
 
   identity compc-qos-policy {
-    base pol:policy-type;
+    base qos-types:policy-type;
   }
   identity mdrr-queuing-policy {
     base compc-qos-policy;
@@ -117,7 +122,7 @@ module example-compc-qos-policy {
   }
 
   deviation "/pol:policies/pol:policy-entry/pol:classifier-entry" +
-    "/pol:classifier-action-entry-cfg" {
+    "/pol:classifier-action-entry" {
     deviate add {
       max-elements 1;
       must "action-type = 'compc-qos-action'" {
@@ -227,7 +232,7 @@ module example-compc-qos-policy {
     }
   }
   augment "/pol:policies/pol:policy-entry/pol:classifier-entry" +
-    "/pol:classifier-action-entry-cfg/pol:action-cfg-params" {
+    "/pol:classifier-action-entry-cfg/pol:action-params" {
     when "../../../pol:type = 'compc-qos-policy')" {
       description
         "Configurations for a classifier-policy-type policy";
