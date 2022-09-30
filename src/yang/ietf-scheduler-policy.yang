@@ -47,7 +47,7 @@ module ietf-scheduler-policy {
   }
 
   grouping filter-match-all {
-    container match-all-cfg {
+    container match-all {
       leaf match-all-action {
         type empty;
         description
@@ -80,7 +80,7 @@ module ietf-scheduler-policy {
       "Augments Queue policy Classifier with common filter types";
   }
 
-  grouping queue-policy-name-cfg {
+  grouping queue-policy-name {
     container queue-policy-name {
       leaf queue-policy {
         type string ;
@@ -107,7 +107,7 @@ module ietf-scheduler-policy {
         uses action:scheduler;
       }
       case queue-policy-name {
-        uses queue-policy-name-cfg;
+        uses queue-policy-name;
       }
     description
       "augments scheduler template reference to scheduler policy";

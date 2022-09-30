@@ -227,7 +227,7 @@
       of values of same packet header field, presence or absence of
       some values or range of values of a packet field or a
       combination thereof. The QoS classifier is defined in the
-      ietf-qos-classifier module.</t>
+      ietf-traffic-policy module.</t>
 
       <t>A classifier entry contains one or more packet conditioning
       functions. A packet conditioning function is typically based on
@@ -300,12 +300,12 @@
       modules, a scheduler policy module, a queuing policy module and
       one DiffServ module.</t>
 
-      <t>ietf-qos-classifier consists of classifier entries identified
-      by a classifier entry name. Each entry MAY contain a list of
+      <t>ietf-traffic-policy module contains list of classifier entries
+      identified by a classifier entry name. Each entry MAY contain a list of
       filter entries.  When no filter entry is present in a classifier
       entry, it matches all traffic.</t>
 
-      <t>An ietf-traffic-policy module contains list of policy objects identified
+      <t>ietf-traffic-policy module also contains list of policy objects identified
       by a policy name and policy type which MUST be provided. With different
       values of policy types, each vendor MAY define their own construct of
       policy for different QoS functionalities. Each vendor MAY augment
@@ -331,7 +331,7 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-traffic-policy@YYYY-MM-DD-sub-tree.txt)
 INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)
     ]]></artwork>
       </figure>
-   <t>ietf-qos-target module contains reference of qos-policy and augments
+   <t>ietf-traffic-policy module contains reference of qos-policy and augments
    ietf-interfaces <xref target="RFC8343"/> module. A single policy of a particular 
    policy-type can be applied on an interface in each direction of  
    traffic. Policy-type is of type identity and is populated in a
@@ -608,7 +608,7 @@ INSERT_TEXT_FROM_FILE(../bin/example-compb-scheduler-policy@YYYY-MM-DD.yang)
 Company C vendor augmentation is based on Ericsson's implementation differentiated QoS.  This implementation first sorts traffic based on a classifier, which can sort traffic into one or more traffic forwarding classes.  Then, a policer or meter policy references the classifier and its traffic forwarding classes to specify different service levels for each traffic forwarding class.
 </t>
       <t>
-Because each classifier sorts traffic into one or more traffic forwarding classes, this type of classifier does not align with ietf-qos-classifier.yang, which defines one traffic forwarding class per classifier.  Additionally, Company C's policing and metering policies relies on the classifier's pre-defined traffic forwarding classes to provide differentiated services, rather than redefining the patterns within a policing or metering policy, as is defined in ietf-diffserv.yang. 
+Because each classifier sorts traffic into one or more traffic forwarding classes, this type of classifier does not align with ietf-traffic-policy.yang classifier template definition, which defines one traffic forwarding class per classifier.  Additionally, Company C's policing and metering policies relies on the classifier's pre-defined traffic forwarding classes to provide differentiated services, rather than redefining the patterns within a policing or metering policy, as is defined in ietf-diffserv.yang. 
 </t>
       <t>
 Due to these differences, even though Company C uses all the building blocks of classifier and policy, Company C's augmentation does not use ietf-diffserv.yang to provide differentiated service levels.  Instead, Company C's augmentation uses the basic building blocks, ietf-traffic-policy.yang to provide differentiated services.
