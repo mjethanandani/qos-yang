@@ -20,7 +20,7 @@ do
         printf "$name.yang failed pyang validation\n"
         printf "$response\n\n"
         echo
-	rm yang/*-tree.txt.tmp
+	rm ../bin/*-tree.txt.tmp
         exit 1
     fi
     fold -w 71 $name-tree.txt.tmp > $name-tree.txt
@@ -55,7 +55,7 @@ do
         printf "$name.yang failed generation of sub-tree diagram\n"
         printf "$response\n\n"
         echo
-	rm yang/*-sub-tree.txt.tmp
+	rm ../bin/*-sub-tree.txt.tmp
         exit 1
     fi
     fold -w 71 $name-sub-tree.txt.tmp > $name-sub-tree.txt
@@ -63,6 +63,26 @@ done
 rm ../bin/*-sub-tree.txt.tmp
 
 echo "Validating examples"
+
+for i in ../bin/example-comp*-*\@$(date +%Y-%m-%d).yang
+do
+    name=$(echo $i | cut -f 1-3 -d '.')
+    echo "Validating $name.yang using pyang"
+    if test "${name#^example}" = "$name"; then
+        response=`pyang --ietf --lint --strict --canonical -p ../bin/yang-parameters  -p ../bin -f tree --max-line-length=72 --tree-line-length=69 $name.yang > $name-tree.txt.tmp`
+    else 
+        response=`pyang --ietf --strict --canonical -p ../bin/yang-parameters  -p ../bin -f tree --max-line-length=72 --tree-line-length=69 $name.yang > $name-tree.txt.tmp`
+    fi
+    if [ $? -ne 0 ]; then
+        printf "$name.yang failed pyang validation\n"
+        printf "$response\n\n"
+        echo
+	rm ../bin/*-tree.txt.tmp
+        exit 1
+    fi
+    fold -w 71 $name-tree.txt.tmp > $name-tree.txt
+done
+rm ../bin/*-tree.txt.tmp
 
 for i in yang/example-qos-configuration-a.*.*.xml
 do
