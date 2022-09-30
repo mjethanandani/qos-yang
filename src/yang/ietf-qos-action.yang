@@ -121,7 +121,7 @@ module ietf-qos-action {
   grouping conform-3color-meter-action-params {
     description
       "meter action parameters";
-    list conform-3color-meter-action-params {
+    list conform-3color-meter-action {
       key "action-type";
       ordered-by user;
       description
@@ -144,7 +144,7 @@ module ietf-qos-action {
   grouping exceed-3color-meter-action-params {
     description
       "meter action parameters";
-    list exceed-3color-meter-action-params {
+    list exceed-3color-meter-action {
       key "action-type";
       ordered-by user;
       description
@@ -167,7 +167,7 @@ module ietf-qos-action {
   grouping violate-3color-meter-action-params {
     description
       "meter action parameters";
-    list violate-3color-meter-action-params {
+    list violate-3color-meter-action {
       key "action-type";
       ordered-by user;
       description
