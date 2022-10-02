@@ -144,10 +144,10 @@ module ietf-qos-oper {
   grouping classifier-statistics {
     description
       "Statistics for a classifier";
-    leaf classifier-name {
+    leaf name {
       type string;
       description
-        "Classifier Entry Name";
+        "Classifier Name";
     }
     leaf classified-pkts {
       type yang:zero-based-counter64;
