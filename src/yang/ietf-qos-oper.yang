@@ -141,10 +141,10 @@ module ietf-qos-oper {
         "Bytes of packets dropped by meter";
     }
   }
-  grouping classifier-entry-statistics {
+  grouping classifier-statistics {
     description
-      "Statistics for a classifier entry";
-    leaf classifier-entry-name {
+      "Statistics for a classifier";
+    leaf classifier-name {
       type string;
       description
         "Classifier Entry Name";
@@ -153,20 +153,20 @@ module ietf-qos-oper {
       type yang:zero-based-counter64;
       description
         " Number of total packets which filtered
-          to a classifier-entry";
+          to a classifier";
     }
     leaf classified-bytes {
       type yang:zero-based-counter64;
       description
         " Number of total bytes which filtered
-          to a classifier-entry";
+          to a classifier";
     }
     leaf classified-rate {
       type yang:gauge64;
       units "bits-per-second";
       description
         " Rate of average data flow through a
-          classifier-entry";
+          classifier";
     }
   }
   grouping queuing-stats {
@@ -299,19 +299,19 @@ module ietf-qos-oper {
         leaf policy-name {
           type string;
           description
-            "Policy entry name for single level policy as well as
+            "Policy name for single level policy as well as
              for Hierarchical policies. For Hierarchical policies,
              this represent relative path as well as the last level
              policy name.";
         }
 
-        list classifier-statistics {
+        list classifier {
           description
-            "Classifier Statistics for each Classifier Entry in a
+            "Statistics for each Classifier in a
              Policy applied in a particular direction";
-          uses classifier-entry-statistics;
+          uses classifier-statistics;
         }
-        list named-statistics {
+        list named {
           description
             "Statistics for a statistics-name";
           leaf name {
@@ -327,13 +327,13 @@ module ietf-qos-oper {
           container non-aggregated {
             description
               "Statistics for non-aggregated statistics-name";
-            list classifier-statistics {
+            list classifier {
               description
-                "Classifier Statistics for each Classifier Entry in a
+                "Statistics for each Classifier in a
                  Policy applied in a particular direction";
-              uses classifier-entry-statistics;
+              uses classifier-statistics;
             }
-            list metering-statistics {
+            list metering {
               description
                 "Statistics for each Meter associated with
                  the Policy";
@@ -342,7 +342,7 @@ module ietf-qos-oper {
                  RFC2698: A Two Rate Three Color Marker";
               uses metering-stats;
             }
-            list queueing-statistics {
+            list queueing {
               description
                 "Statistics for each Queue associated with
                  the Policy";
@@ -350,7 +350,7 @@ module ietf-qos-oper {
             }
           }
         }
-        list metering-statistics {
+        list metering {
           description
             "Statistics for each Meter associated with the Policy";
           reference
@@ -358,7 +358,7 @@ module ietf-qos-oper {
              RFC2698: A Two Rate Three Color Marker";
           uses metering-stats;
         }
-        list queueing-statistics {
+        list queueing {
           description
             "Statistics for each Queue associated with the Policy";
           uses queuing-stats;
