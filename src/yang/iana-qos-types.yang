@@ -55,16 +55,6 @@ module iana-qos-types {
       "This feature allows action configuration to enable
        named counter in a classifier";
   }
-  feature policy-inline-classifier-config {
-    description
-      " This feature allows classifier configuration
-        directly under policy.";
-  }
-  feature classifier-template-feature {
-    description
-      " This feature allows classifier as template configuration
-        in a policy.";
-  }
 
   /*
    * Identities.

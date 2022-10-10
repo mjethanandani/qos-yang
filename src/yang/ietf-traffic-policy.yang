@@ -91,24 +91,12 @@ module ietf-traffic-policy {
   grouping inline-attr {
     description
       "attributes of inline classifier in a policy";
-    leaf inline {
-      type boolean;
-      default "false";
-      description
-        "Indication of inline classifier entry";
-    }
     leaf filter-operation {
       type qos-types:match-operation-type; 
       description
         "Filters are applicable as match-any or match-all filters";
     }
     list filter{
-      if-feature qos-types:policy-inline-classifier-config;
-      must " ../inline = 'true' " {
-        description
-          "For inline filter configuration, inline attribute" +
-          "must be true";
-      }
       key "type logical-not";
       uses filters;
       description
@@ -138,7 +126,6 @@ module ietf-traffic-policy {
     }
   }
   container classifiers {
-    if-feature qos-types:classifier-template-feature;
     description
       "list of classifier entry";
     list classifier{
@@ -191,7 +178,15 @@ module ietf-traffic-policy {
           description
             "classifier entry name";
         }
-        uses inline-attr;
+        choice classifier-type {
+          description
+            "Choice of inline classifier";
+          case inline {
+            uses inline-attr;
+            description
+              "inline classifier";
+          }
+        }
         uses classifier-action-entry;
       }
     }

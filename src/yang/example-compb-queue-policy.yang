@@ -57,10 +57,8 @@ module example-compb-queue-policy {
       "Forwarding class filter";
   }
 
-  augment "/policy:policies" +
-          "/policy:policy" +
-          "/policy:classifier" +
-          "/policy:filter" {
+  augment "/policy:policies/policy:policy/policy:classifier" +
+          "/policy:classifier-type/policy:inline/policy:filter" {
     /*
      * Does NOT support "logical-not" of forwarding class.
      * Use "must"?

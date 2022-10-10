@@ -50,7 +50,7 @@ module ietf-queue-policy {
   }
 
   augment "/policy:policies/policy:policy/policy:classifier" +
-          "/policy:filter" {
+          "/policy:classifier-type/policy:inline/policy:filter" {
     when "derived-from-or-self(../../policy:type, " +
          "'queue-policy:queue-policy-type')" {
       description
