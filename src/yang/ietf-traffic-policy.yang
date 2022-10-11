@@ -178,14 +178,12 @@ module ietf-traffic-policy {
           description
             "classifier entry name";
         }
-        choice classifier-type {
+        container inline {
+          presence "This container is present for when the device
+                    is configured for inline classification";
+          uses inline-attr;
           description
-            "Choice of inline classifier";
-          case inline {
-            uses inline-attr;
-            description
-              "inline classifier";
-          }
+            "Container for when an inline classification is desired.";
         }
         uses classifier-action-entry;
       }

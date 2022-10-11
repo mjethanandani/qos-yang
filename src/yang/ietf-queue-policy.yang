@@ -50,8 +50,8 @@ module ietf-queue-policy {
   }
 
   augment "/policy:policies/policy:policy/policy:classifier" +
-          "/policy:classifier-type/policy:inline/policy:filter" {
-    when "derived-from-or-self(../../policy:type, " +
+          "/policy:inline/policy:filter" {
+    when "derived-from-or-self(../../../policy:type, " +
          "'queue-policy:queue-policy-type')" {
       description
         "If policy type is queue policy, this filter can be used.";

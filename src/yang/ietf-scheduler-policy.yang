@@ -61,8 +61,8 @@ module ietf-scheduler-policy {
   }
 
   augment "/policy:policies/policy:policy/policy:classifier" +
-          "/policy:classifier-type/policy:inline/policy:filter" {
-        when "derived-from-or-self(../../policy:type, " +
+          "/policy:inline/policy:filter" {
+        when "derived-from-or-self(../../../policy:type, " +
              "'scheduler-policy:scheduler-policy-type')" {
             description
                "Only when policy type is scheduler-policy";
