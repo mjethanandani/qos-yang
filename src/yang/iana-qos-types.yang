@@ -384,16 +384,16 @@ module iana-qos-types {
 
   typedef match-operation-type {
     type enumeration {
-      enum match-all-operation {
+      enum match-all {
         description
           "Classifier entry filters logical AND operation";
       }
-      enum match-any-operation {
+      enum match-any {
         description
           "Classifier entry filters logical OR operation";
       }
     }
-    default "match-all-operation";
+    default "match-all";
     description
       "Filter match logical operation type";
   }
