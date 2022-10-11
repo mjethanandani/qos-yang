@@ -143,7 +143,7 @@ module example-compb-diffserv-filter-policy {
   augment "/policy:policies" +
           "/policy:policy" +
           "/policy:classifier" +
-          "/policy:classifier-type/policy:inline/policy:filter" +
+          "/policy:inline/policy:filter" +
           "/diffserv:filter-params" {
     case forwarding-class {
         uses forwarding-class;

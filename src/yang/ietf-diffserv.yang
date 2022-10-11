@@ -286,12 +286,12 @@ module ietf-diffserv {
       "augments diffserv filters to qos classifier";
   }
   augment "/policy:policies/policy:policy/policy:classifier" +
-          "/policy:classifier-type/policy:inline/policy:filter" {
-    when "derived-from-or-self(../../policy:type, " +
+          "/policy:inline/policy:filter" {
+    when "derived-from-or-self(../../../policy:type, " +
          "'qos-types:ipv4-diffserv-policy-type') or " +
-         "derived-from-or-self(../../policy:type, " +
+         "derived-from-or-self(../../../policy:type, " +
          "'qos-types:ipv6-diffserv-policy-type') or " +
-         "derived-from-or-self(../../policy:type, " +
+         "derived-from-or-self(../../../policy:type, " +
          "'qos-types:diffserv-policy-type')" {
       description
         "If policy type is v4, v6 or default diffserv,
