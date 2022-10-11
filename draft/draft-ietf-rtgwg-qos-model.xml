@@ -271,8 +271,8 @@
       two types of classifiers, the BA classifier, and the Multi-Field
       (MF) classifier which selects packets based on a value which is
       combination of one or more header fields. In the ietf-diffserv
-      module, this is realized by augmenting the QoS classification
-      module.</t>
+      module, this is realized by augmenting the classifier in
+      ietf-traffic-policy module.</t>
 
       <t>Traffic conditioning includes metering, shaping and/or
       marking.  A meter is used to measure the traffic against a given
