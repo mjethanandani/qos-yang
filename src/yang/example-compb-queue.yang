@@ -23,7 +23,7 @@ module example-compb-queue {
 
   revision YYYY-MM-DD {
     description
-      "Latest revision of diffserv based classifier";
+      "Initial revision of diffserv based classifier";
     reference
       "RFC XXXX: YANG Data Model for Quality of Service (QoS).";
   }
@@ -119,9 +119,7 @@ module example-compb-queue {
   }
 
   augment
-    "/compb-queue" +
-    "/queue-cfg" +
-    "/algorithmic-drop-cfg" +
+    "/compb-queue/queue/algorithmic-drop" +
     "/drop-algorithm" {
     case random-detect {
       list drop-profile-list {

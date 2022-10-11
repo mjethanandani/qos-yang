@@ -4,13 +4,18 @@ module example-compb-scheduler-policy {
             "example-compb-scheduler-policy";
   prefix scheduler-plcy;
 
+  import iana-qos-types {
+    prefix qos-types;
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
+  }
   import ietf-qos-action {
     prefix action;
     reference
       "RFC XXXX: A YANG Data Model for Quality of Service (QoS).";
   }
 
-  import ietf-qos-policy {
+  import ietf-traffic-policy {
     prefix policy;
     reference
       "RFC XXXX: A YANG Data Model for Quality of Service (QoS).";
@@ -29,13 +34,13 @@ module example-compb-scheduler-policy {
 
   revision YYYY-MM-DD {
     description
-      "Latest revision of diffserv policy";
+      "Initial revision of diffserv policy";
     reference
       "RFC XXXX: A YANG Data Model for Quality of Service (QoS).";
   }
 
   identity queue-policy {
-    base policy:action-type;
+    base qos-types:action-type;
     description
       "forwarding-class-queue action type";
   }
@@ -55,10 +60,10 @@ module example-compb-scheduler-policy {
   }
 
   augment "/policy:policies" +
-    "/policy:policy-entry" +
-    "/policy:classifier-entry" +
-    "/policy:classifier-action-entry-cfg" {
-    choice action-cfg-params {
+    "/policy:policy" +
+    "/policy:classifier" +
+    "/policy:action" {
+    choice action-params {
       case scheduler {
         uses action:scheduler;
       }
@@ -68,5 +73,7 @@ module example-compb-scheduler-policy {
       description
         "Augment the scheduler policy with a queue policy";
     }
+    description
+      "Augmentation of the scheduler policy with a queue policy";
   }
 }

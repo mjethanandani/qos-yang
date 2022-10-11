@@ -41,29 +41,19 @@ module iana-qos-types {
   /*
    * Features.
    */
-  feature child-policy-feature {
+  feature child-policy {
     description
       " This feature allows configuration of hierarchical policy.";
   }
-  feature count-feature {
+  feature count {
     description
       "This feature allows action configuration to enable
        counter in a classifier";
   }
-  feature named-counter-feature {
+  feature named-counter {
     description
       "This feature allows action configuration to enable
        named counter in a classifier";
-  }
-  feature policy-inline-classifier-config {
-    description
-      " This feature allows classifier configuration
-        directly under policy.";
-  }
-  feature classifier-template-feature {
-    description
-      " This feature allows classifier as template configuration
-        in a policy.";
   }
 
   /*
@@ -134,19 +124,19 @@ module iana-qos-types {
       "discard action type";
   }
   identity child-policy {
-    if-feature child-policy-feature;
+    if-feature child-policy;
     base action-type;
     description
       "child-policy action type";
   }
   identity count {
-    if-feature count-feature;
+    if-feature count;
     base action-type;
     description
       "count action type";
   }
   identity named-counter {
-    if-feature named-counter-feature;
+    if-feature named-counter;
     base action-type;
     description
       "name counter action type";
@@ -394,16 +384,16 @@ module iana-qos-types {
 
   typedef match-operation-type {
     type enumeration {
-      enum match-all-operation {
+      enum match-all {
         description
           "Classifier entry filters logical AND operation";
       }
-      enum match-any-operation {
+      enum match-any {
         description
           "Classifier entry filters logical OR operation";
       }
     }
-    default "match-all-operation";
+    default "match-all";
     description
       "Filter match logical operation type";
   }
