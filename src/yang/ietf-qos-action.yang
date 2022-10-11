@@ -430,7 +430,7 @@ module ietf-qos-action {
 
   grouping count {
     container count {
-    if-feature qos-types:count-feature;
+    if-feature qos-types:count;
       leaf count-action {
         type empty;
         description
@@ -445,7 +445,7 @@ module ietf-qos-action {
 
   grouping named-counter {
     container named-counter {
-    if-feature qos-types:named-counter-feature;
+    if-feature qos-types:named-counter;
       leaf count-name-action {
         type string;
         description
@@ -522,7 +522,7 @@ module ietf-qos-action {
   }
   grouping child-policy {
     container child-policy {
-      if-feature qos-types:child-policy-feature;
+      if-feature qos-types:child-policy;
       leaf policy-name {
         type string;
         description

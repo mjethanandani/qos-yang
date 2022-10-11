@@ -401,15 +401,15 @@ module ietf-diffserv {
       uses action:traffic-group-marking;
     }
     case child-policy {
-      if-feature qos-types:child-policy-feature;
+      if-feature qos-types:child-policy;
       uses action:child-policy;
     }
     case count {
-      if-feature qos-types:count-feature;
+      if-feature qos-types:count;
       uses action:count;
     }
     case named-count {
-      if-feature qos-types:named-counter-feature;
+      if-feature qos-types:named-counter;
       uses action:named-counter;
     }
     case queue-inline {
