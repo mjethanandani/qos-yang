@@ -196,6 +196,7 @@
 	    well-defined set of building blocks which are deployed
 	    in network nodes.</li>
 	    <li>DSCP: Differentiated Services Code Point</li>
+	    <li>ECN: Explicit Congestion Notification</li>
 	    <li>Marking: the process of setting the DS codepoint in
             a packet based on defined rules; pre-marking, re-marking.
 	    </li>
@@ -473,6 +474,69 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD.yang)
     </section>
 
     <section title="Security Considerations">
+      <t>The YANG module specified in this document defines a schema
+      for data that is designed to be accessed via network management
+      protocols such as <xref target="RFC6241">NETCONF</xref> or <xref
+      target="RFC8040">RESTCONF</xref>. The lowest NETCONF layer is
+      the secure transport layer, and the mandatory-to-implement
+      secure transport is <xref target="RFC6242">Secure Shell
+      (SSH)</xref>. The lowest RESTCONF layer is HTTPS, and the
+      mandatory-to-implement secure transport is <xref
+      target="RFC8446">TLS</xref>. The <xref target="RFC8341">NETCONF
+      Access Control Model (NACM) </xref> provides the means to
+      restrict access for particular NETCONF or RESTCONF users to a
+      preconfigured subset of all available NETCONF or RESTCONF
+      protocol operations and content.</t>
+
+      <t>There are a number of data nodes defined in this YANG module
+      that are writable/creatable/deletable (i.e., config true, which
+      is the default).  These data nodes may be considered sensitive
+      or vulnerable in some network environments. Write operations
+      (e.g., edit-config) to these data nodes without proper
+      protection can have a negative effect on network
+      operations. Some of the subtrees and data nodes and their
+      sensitivity/vulnerability are described here.</t>
+
+      <t>- 'filter-operation' and 'filter'. 'filter-operation'
+      includes the ability to 'match all', which is a logical AND
+      operation or 'match any', which is a logical OR operation. Both
+      the operations have an impact on the traffic that is being
+      classified. Similarly, the 'filter' list decides what parts of
+      the packet will examined, which will also impact the traffic
+      that is being classified.</t>
+
+      <t>- 'action'. The 'action' decides what action will be taken on
+      the packet. That includes whether the packet will be marked,
+      queued, or just discarded.</t>
+
+      <t>Some of the readable data nodes in this YANG module may be
+      considered sensitive or vulnerable in some network
+      environments. It is thus important to control read access (e.g.,
+      via get, get-config, or notification) to these data nodes. Some
+      of the subtrees and data nodes and their
+      sensitivity/vulnerability are:</t>
+
+      <t>- 'conform-pkts', 'conform-bytes', 'exceed-pkts',
+      'exceed-bytes', 'voilate-pkts' or 'voilate-bytes'. All these
+      statistics combined with their 'meter-id' are an indication of
+      what is happening in the network, and can allow for an intruder
+      insight into how to disrupt the traffic.</t>
+
+      <t>- 'tail-drop-pkts', 'red-drop-bytes', 'wred-stats' are
+      examples of statistics that indicate the kind of traffic that is
+      being profiled for drop or marked for Explicit Congestion
+      Notification (ECN), and can give an insight into the operation
+      of a network.</t>
+
+      <t>Some of the RPC operations in this YANG module may be
+      considered sensitive or vulnerable in some network
+      environments. It is thus important to control access to these
+      operations. These are the operations and their
+      sensitivity/vulnerability:</t>
+
+      <t>- The model allows for statistics to be cleared by the
+      'clear' RPC operation, causing all the individual statistics to
+      be cleared.</t>
     </section>
 
     <section anchor="ack" title="Acknowledgement">
@@ -539,15 +603,15 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD.yang)
 
     <references title="Informative References">
       &RFC2474;
-      
       &RFC2475;
-
       <?rfc include='reference.RFC.2697.xml'?>
-
       <?rfc include='reference.RFC.2698.xml'?>
-
+      <?rfc include='reference.RFC.6241.xml'?>
+      <?rfc include='reference.RFC.6242.xml'?>
+      <?rfc include='reference.RFC.8040.xml'?>
       <?rfc include='reference.RFC.8340.xml'?>
-
+      <?rfc include='reference.RFC.8341.xml'?>
+      <?rfc include='reference.RFC.8446.xml'?>
     </references>
 
     <!-- Change Log

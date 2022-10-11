@@ -102,7 +102,7 @@ module ietf-traffic-policy {
       description
         "Filters are applicable as match-any or match-all filters";
     }
-    list filter{
+    list filter {
       if-feature qos-types:policy-inline-classifier-config;
       must " ../inline = 'true' " {
         description
