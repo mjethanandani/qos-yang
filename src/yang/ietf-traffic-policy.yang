@@ -61,9 +61,9 @@ module ietf-traffic-policy {
     leaf logical-not {
       type boolean;
       description
-        "This is logical-not operator for a filter. When true, it
-         indicates filter looks for absence of a pattern defined
-         by the filter.";
+        "This is logical-not operator for filter values and/or value
+         ranges. When true, it indicates filter looks for absence
+         of values and/or value ranges defined by the filter.";
     }
   }
   grouping generic-classifier-attr {
