@@ -230,12 +230,11 @@
       ietf-traffic-policy module.</t>
 
       <t>One or more packet conditioning functions may be applied
-      to a classifier which may drop, mark, or delay network
-      packets. These are defined in the ietf-qos-action module.
-      A set of classifiers with corresponding conditioning
-      functions when arranged in order of priority represents a
-      QoS policy. These policies are defined in ietf-traffic-policy
-      module.</t>
+      to a classifier which may drop, mark, or delay packets
+      These are defined in the ietf-qos-action module. A set of
+      classifiers with corresponding conditioning functions when 
+      arranged in order of priority represent a QoS policy.
+      These policies are defined in ietf-traffic-policy module.</t>
 
       <t>The Meter meters each packet and passes the packet and the
       metering result to the Marker. Meter is modeled based on
@@ -289,14 +288,15 @@
     </section>
 
     <section title=" Modules Tree Structure">
-      <t>This document defines a base traffic policy module, a QoS specific
-      action module, separate policy modules for Scheduler, Queuing and
-      DiffServ policies and operational module for QoS counters.</t>
+      <t>This document defines a base traffic policy module, a QoS
+      specific action module, separate policy modules for Scheduler,
+      Queuing and DiffServ policies and operational module for QoS
+      counters.</t>
 
-      <t>ietf-traffic-policy module contains list of classifier entries
-      identified by a classifier entry name. Each entry MAY contain a list of
-      filter entries.  When no filter entry is present in a classifier
-      entry, it matches all traffic.</t>
+      <t>ietf-traffic-policy module contains list of classifiers
+      identified by a classifier name. Each classifier MAY contain a
+      list of filters. When no filter is present in a classifier, it
+      matches all traffic.</t>
 
       <t>This module also contains list of policy objects identified by a
       policy name and policy type which MUST be provided. With different
