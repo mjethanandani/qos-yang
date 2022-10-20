@@ -221,11 +221,16 @@
     </section>
     
     <section title="QoS Model Design">
-      <t> A classifier consists of set of rules which selects a 
-      group of packets when the rules are applied to different
-      different packet header. The rules may be based on any
-      combination of values or range of values of different
-      packet header field. The QoS classifier is defined in the
+      <t> A classifier consists of set of filters and an operation
+      that is performed on those filters. Each filter defines a rule
+      on a particular packet header or packet metadata field that
+      dictate how the packet will be classified based on that
+      particular field, e.g. whether it will be classified based on
+      DSCP, or will be classified based on source IPv4 address
+      prefix. The operation defines whether these filters are
+      logically AND or OR. The filters may be based on a combination
+      of values or range of values of different packet header fields
+      or packet metadata fields. The QoS classifier is defined in the
       ietf-traffic-policy module.</t>
 
       <t>One or more packet conditioning functions may be applied
