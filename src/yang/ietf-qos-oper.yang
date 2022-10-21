@@ -364,6 +364,21 @@ module ietf-qos-oper {
           uses queuing-stats;
         }
       }
+      action clear {
+        description
+          "Clear statistics action command. Execution of this command
+           should result in all the QoS interface counters to be
+           cleared and set to 0.";
+        input {
+          leaf category {
+            type identityref {
+              base qos-types:clear-counters-type;
+            }
+            description
+              "category of counters which is being cleared";
+          }
+        }
+      }
     }
   }
 }
