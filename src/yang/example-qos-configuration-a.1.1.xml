@@ -1,16 +1,41 @@
 <!--
-    This example shows a QoS classifier configuration.
+    This example shows a QoS classifier configuration. 
+    This classifier will match on any packet which has 
+    dscp value not in the range of 11-13 and source-port
+    value which is in the range of either 10000-10300 or
+    17540-19800. In other words, packets with dscp value
+    0-10 or 14-63 and source-port value 10000-10300 or
+    17540-19800
 -->
-
 <?xml version="1.0" encoding="UTF-8"?>
 <classifiers
     xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy"
     xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types">
   <classifier>
     <name>my-classifier</name>
+    <filter-operation>qt:match-all</filter-operation>
     <filter>
       <type>qt:dscp</type>
       <logical-not>true</logical-not>
+      <dscp
+        xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
+        <dscp-min>11</dscp-min>
+        <dscp-max>13</dscp-max>
+      </dscp>
+    </filter>
+    <filter>
+      <type>qt:source-port</type>
+      <logical-not>false</logical-not>
+        <source-port
+          xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
+          <source-port-min>10000</source-port-min>
+          <source-port-max>10300</source-port-max>
+        </source-port>
+        <source-port
+          xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
+          <source-port-min>l7540</source-port-min>
+          <source-port-max>19800</source-port-max>
+        </source-port>
     </filter>
   </classifier>
 </classifiers>
