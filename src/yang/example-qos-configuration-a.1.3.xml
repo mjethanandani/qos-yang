@@ -16,8 +16,8 @@
       <logical-not>false</logical-not>
       <protocol
 	  xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
-	<protocol-min>4</protocol-min>
-	<protocol-max>4</protocol-max>
+        <protocol-min>4</protocol-min>
+        <protocol-max>4</protocol-max>
       </protocol>
     </filter>
   </classifier>
