@@ -183,7 +183,8 @@ module ietf-traffic-policy {
                     is configured for inline classification";
           uses inline-attr;
           description
-            "Container for when an inline classification is desired.";
+            "Container for when an inline classification
+             is desired.";
         }
         uses classifier-action-entry;
       }

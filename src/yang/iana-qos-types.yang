@@ -434,4 +434,24 @@ module iana-qos-types {
       description
         "Mark packets that conform/exceed/violate to the set value.";
   }
+
+  identity clear-counters-type {
+    description
+      "Base identify for clear interface counters related options";
+  }
+  identity all-counters {
+    base clear-counters-type;
+      description
+        "clear all counters in both directions";
+  }
+  identity inbound-counters {
+    base clear-counters-type;
+      description
+        "clear counters in inbound direction";
+  }
+  identity outbound-counters {
+    base clear-counters-type;
+      description
+        "clear counters in outbound direction";
+  }
 }
