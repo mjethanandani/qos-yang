@@ -13,7 +13,7 @@
     xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types">
   <classifier>
     <name>my-classifier</name>
-    <filter-operation>qt:match-all</filter-operation>
+    <filter-operation>match-all</filter-operation>
     <filter>
       <type>qt:dscp</type>
       <logical-not>true</logical-not>
@@ -33,7 +33,7 @@
         </source-port>
         <source-port
           xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
-          <source-port-min>l7540</source-port-min>
+          <source-port-min>17540</source-port-min>
           <source-port-max>19800</source-port-max>
         </source-port>
     </filter>
