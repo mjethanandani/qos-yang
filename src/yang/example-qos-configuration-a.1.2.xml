@@ -22,10 +22,10 @@
             </dscp>
         </filter>
       </inline>
-      <action
-        xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
-	    <type>qt:dscp-marking</type>
-        <dscp>
+      <action>
+        <type>qt:dscp-marking</type>
+        <dscp
+          xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
           <dscp>23</dscp>
         </dscp>
       </action>
