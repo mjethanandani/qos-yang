@@ -36,9 +36,7 @@ idnits: $(next).txt
 	$(idnits) $<
 
 clean:
-	-rm -f $(draft).txt $(draft).html index.html
-	-rm -f $(next).txt $(next).html
-	-rm -f $(draft)-[0-9][0-9].xml
+	-rm -f $(draft)-[0-9][0-9].*
 ifeq (md,$(draft_type))
 	-rm -f $(draft).xml
 endif
@@ -62,7 +60,6 @@ $(next).xml: $(draft).xml ../src/yang/ietf-diffserv.yang ../src/yang/ietf-qos-ac
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/example-compb-queue-policy.yang > ../bin/example-compb-queue-policy\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/example-compb-queue.yang > ../bin/example-compb-queue\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/example-compb-scheduler-policy.yang > ../bin/example-compb-scheduler-policy\@$(shell date +%Y-%m-%d).yang
-	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/example-compc-qos-policy.yang > ../bin/example-compc-qos-policy\@$(shell date +%Y-%m-%d).yang
 
 	cd ../src; ./validate-and-gen-trees.sh; cd ..;
 	../src/insert-figures.sh $@ > tmp; mv tmp $@

@@ -64,7 +64,7 @@ rm ../bin/*-sub-tree.txt.tmp
 
 echo "Validating examples"
 
-for i in ../bin/example-comp*-*\@$(date +%Y-%m-%d).yang
+for i in ../bin/example-comp[a-b]*-*\@$(date +%Y-%m-%d).yang
 do
     name=$(echo $i | cut -f 1-3 -d '.')
     echo "Validating $name.yang using pyang"
