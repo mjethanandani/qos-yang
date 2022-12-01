@@ -468,9 +468,74 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD.yang)
     </section>
 
     <section title="IANA Considerations">
-      <t>
-         TBD
-      </t>
+      <t>This document registers seven URIs and seven YANG
+      modules.</t>
+
+      <section title="URI Registration">
+        <t>Following the format in the <xref target="RFC3688">IETF XML
+        registry</xref>, the following registration is requested to
+        be made:
+	<figure>
+          <artwork><![CDATA[
+	  URI: urn:ietf:params:xml:ns:yang:iana-qos-types
+	  URI: urn:ietf:params:xml:ns:yang:ietf-diffserv
+	  URI: urn:ietf:params:xml:ns:yang:ietf-qos-action
+	  URI: urn:ietf:params:xml:ns:yang:ietf-qos-oper
+	  URI: urn:ietf:params:xml:ns:yang:ietf-queue-policy
+	  URI: urn:ietf:params:xml:ns:yang:ietf-scheduler-policy
+	  URI: urn:ietf:params:xml:ns:yang:ietf-traffic-policy
+	  ]]></artwork>
+        </figure>
+	</t>
+
+        <t>Registrant Contact: The IESG. XML: N/A, the requested URI
+        is an XML namespace.</t>
+      </section>
+
+      <section title="YANG Module Name Registration">
+        <t>This document registers seven YANG modules in the YANG
+        Module Names registry <xref target="RFC6020">YANG</xref>.</t>
+
+        <t><figure>
+            <artwork><![CDATA[
+	    name: iana-qos-types
+	    namespace: urn:ietf:params:xml:ns:yang:iana-qos-types
+	    prefix: qos-types
+	    reference: RFC XXXX
+
+	    name: ietf-diffserv
+	    namespace: urn:ietf:params:xml:ns:yang:ietf-diffserv
+	    prefix: diffserv
+	    reference: RFC XXXX
+
+	    name: ietf-qos-action
+	    namespace: urn:ietf:params:xml:ns:yang:ietf-qos-action
+	    prefix: action
+	    reference: RFC XXXX
+
+	    name: ietf-qos-oper
+	    namespace: urn:ietf:params:xml:ns:yang:ietf-qos-oper
+	    prefix: oper
+	    reference: RFC XXXX
+
+	    name: ietf-queue-policy
+	    namespace: urn:ietf:params:xml:ns:yang:ietf-queue-policy
+	    prefix: queue-policy
+	    reference: RFC XXXX
+
+	    name: ietf-scheduler-policy
+	    namespace: urn:ietf:params:xml:ns:yang:ietf-scheduler-policy
+	    prefix: scheduler-policy
+	    reference: RFC XXXX
+
+	    name: ietf-traffic-policy
+	    namespace: urn:ietf:params:xml:ns:yang:ietf-traffic-policy
+	    prefix: policy
+	    reference: RFC XXXX
+	    ]]></artwork>
+          </figure>
+	</t>
+      </section>
     </section>
 
     <section title="Security Considerations">
@@ -586,8 +651,6 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD.yang)
 
       &RFC2119;
 
-      <?rfc include='reference.RFC.8342.xml'?>
-
       &RFC3289;
 
       &RFC6020;
@@ -598,6 +661,8 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD.yang)
 
       &RFC8174;
 
+      <?rfc include='reference.RFC.8342.xml'?>
+
       &RFC8343;
     </references>
 
@@ -606,6 +671,7 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD.yang)
       &RFC2475;
       <?rfc include='reference.RFC.2697.xml'?>
       <?rfc include='reference.RFC.2698.xml'?>
+      <?rfc include='reference.RFC.3688.xml'?>
       <?rfc include='reference.RFC.6241.xml'?>
       <?rfc include='reference.RFC.6242.xml'?>
       <?rfc include='reference.RFC.8040.xml'?>
