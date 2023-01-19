@@ -667,22 +667,6 @@ INSERT_TEXT_FROM_FILE(../bin/example-compb-scheduler-policy@YYYY-MM-DD.yang)
     ]]></artwork>
         </figure>
       </section>
-      <section title="Example of Company C Diffserv Model">
-      <t>
-Company C vendor augmentation is based on Ericsson's implementation differentiated QoS.  This implementation first sorts traffic based on a classifier, which can sort traffic into one or more traffic forwarding classes.  Then, a policer or meter policy references the classifier and its traffic forwarding classes to specify different service levels for each traffic forwarding class.
-</t>
-      <t>
-Because each classifier sorts traffic into one or more traffic forwarding classes, this type of classifier does not align with ietf-traffic-policy.yang classifier template definition, which defines one traffic forwarding class per classifier.  Additionally, Company C's policing and metering policies relies on the classifier's pre-defined traffic forwarding classes to provide differentiated services, rather than redefining the patterns within a policing or metering policy, as is defined in ietf-diffserv.yang. 
-</t>
-      <t>
-Due to these differences, even though Company C uses all the building blocks of classifier and policy, Company C's augmentation does not use ietf-diffserv.yang to provide differentiated service levels.  Instead, Company C's augmentation uses the basic building blocks, ietf-traffic-policy.yang to provide differentiated services.
-</t>
-        <figure>
-          <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../bin/example-compc-qos-policy@YYYY-MM-DD.yang)
-      ]]></artwork>
-        </figure>
-      </section>
     </section>
     <section title="Configuration examples">
       <t>This section describes several examples of how the models defined in this draft can be used for configuration.</t>
