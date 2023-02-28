@@ -190,7 +190,7 @@ module ietf-qos-action {
   grouping single-rate-two-color-meter {
     container single-rate-two-color-meter {
       description
-        "A container for Baisc Single Rate Two Color Marker.";
+        "A container for Basic Single Rate Two Color Marker.";
 
       leaf committed-information-rate {
         type uint64;
