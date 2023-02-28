@@ -354,8 +354,8 @@ module ietf-qos-action {
       container violate-action {
         uses violate-3color-meter-action-params;
         description
-          "A packet is marked as violating, or red, if it exceeds both
-           CIR and PIR.";
+          "A packet is marked as violating, or red, if it exceeds
+           both CIR and PIR.";
         reference
           "RFC 2698: A Two Rate Three Color Marker.";
       }
