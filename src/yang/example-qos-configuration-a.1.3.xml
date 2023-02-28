@@ -33,10 +33,9 @@
       <name>ICMP</name>
       <action>
 	<type>qt:meter-inline</type>
-	<one-rate-two-color-meter
+	<single-rate-two-color-meter
 	    xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
-	  <committed-rate-value>128000</committed-rate-value>
-	  <committed-rate-unit>qt:bits-per-second</committed-rate-unit>
+	  <committed-information-rate>128000</committed-information-rate>
 	  <conform-action>
 	    <conform-2color-meter-action>
 	      <action-type>qt:action-transmit</action-type>
@@ -47,7 +46,7 @@
 	      <action-type>qt:action-drop</action-type>
 	    </exceed-2color-meter-action>
 	  </exceed-action>
-	</one-rate-two-color-meter>
+	</single-rate-two-color-meter>
       </action>
     </classifier>
   </policy>
