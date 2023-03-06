@@ -8,7 +8,6 @@
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC2474 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2474.xml">
 <!ENTITY RFC2475 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2475.xml">
-<!ENTITY RFC3289 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3289.xml">
 <!ENTITY RFC6020 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml">
 <!ENTITY RFC6991 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6991.xml">
 <!ENTITY RFC7950 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7950.xml">
@@ -185,9 +184,15 @@
 	</t>
         <t>
 	  <ul>
+	    <li>Behavior Aggregate (BA): A DS behavior aggregate.</li>
 	    <li>Classifier: an entity which selects packets based on
 	    the content of packet headers according to defined
 	    rules.</li>
+	    <li>DS behavior aggregate: A collection of packets with
+	    the same DS codepoint crossing a link in a particular
+	    direction.</li>
+	    <li>DS code point: A specific value of the DSCP portion of
+	    the DS field, used to select a PHB.</li>
 	    <li>DiffServ: Differentiated Services enhancements to
 	    the Internet protocol are intended to enable scalable
 	    service discrimination in the Internet without the need
@@ -206,16 +211,23 @@
 	    this process may be used to affect the operation of a
 	    marker, shaper, or dropper, and/or may be used for
             accounting and measurement purposes.</li>
-	    <li>Policing: the process of discarding packets (by a
-            dropper) within a traffic stream in accordance with the
-	    state of a corresponding meter enforcing a traffic
-            profile.</li>
+	    <li>MF Classifier: A multi-field (MF) classifier which
+	    selects packets based on the content of some arbitrary
+	    number of header fields; typically some combination of
+	    source address, destination address, DS field, protocol
+	    ID, source port and destination port.</li>
+	    <li>Per-Hop-Behavior (PHB): The externally observable
+	    forwarding behavior applied at a DS-compliant node to a DS
+	    behavior aggregate.</li>
+	    <li>Policing: the process of
+	    discarding packets (by a dropper) within a traffic stream
+	    in accordance with the state of a corresponding meter
+	    enforcing a traffic profile.</li>
 	    <li>RED: Random Early Detection</li>
 	    <li>Shaping: the process of delaying packets within a
-            traffic stream to cause it to conform to some defined
+	    traffic stream to cause it to conform to some defined
 	    traffic profile.</li>
-	    <li>WRED: Weighted Random
-	    Early Detection</li>
+	    <li>WRED: Weighted Random Early Detection</li>
 	  </ul>
 	</t>
       </section>
@@ -264,13 +276,12 @@
     </section>
 
     <section title="DiffServ Model Design">
-      <t>DiffServ architecture <xref target="RFC3289"/> and <xref
-      target="RFC2475"/> describe the architecture as a simple model
-      where traffic entering a network is classified and possibly
-      conditioned at the boundary of the network and assigned a
-      different Behavior Aggregate (BA). Each BA is identified by a
-      specific value of DSCP, and is used to select a Per Hop Behavior
-      (PHB).</t>
+      <t>DiffServ architecture <xref target="RFC2475"/> describes the
+      architecture as a simple model where traffic entering a network
+      is classified and possibly conditioned at the boundary of the
+      network and assigned a different Behavior Aggregate (BA). Each
+      BA is identified by a specific value of DSCP, and is used to
+      select a Per Hop Behavior (PHB).</t>
 
       <t>The packet classification policy identifies the subset of
       traffic which may receive a DiffServ by being conditioned or
@@ -650,8 +661,6 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD.yang)
       "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
 
       &RFC2119;
-
-      &RFC3289;
 
       &RFC6020;
 
