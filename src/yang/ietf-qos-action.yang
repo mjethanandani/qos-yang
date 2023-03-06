@@ -544,15 +544,15 @@ module ietf-qos-action {
 
       leaf burst-value {
         type uint64;
-        units "bytes-per-second";
+        units "bytes";
         description
-          "burst value";
+          "Burst value in bytes.";
       }
       description
-        "maximum rate attributes container";
+        "Maximum rate attributes container";
     }
     description
-      "maximum rate attributes";
+      "Grouping for maximum rate attributes";
   }
 
   grouping red-config-parameters {
