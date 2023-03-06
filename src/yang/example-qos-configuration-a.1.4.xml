@@ -16,8 +16,8 @@
       <logical-not>false</logical-not>
       <dscp
 	  xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
-        <dscp-min>46</dscp-min>
-        <dscp-max>46</dscp-max>
+        <min>46</min>
+        <max>46</max>
       </dscp>
     </filter>
   </classifier>
@@ -29,8 +29,8 @@
       <logical-not>false</logical-not>
       <dscp
 	  xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
-        <dscp-min>34</dscp-min>
-        <dscp-max>34</dscp-max>
+        <min>34</min>
+        <max>34</max>
       </dscp>
     </filter>
   </classifier>
@@ -42,8 +42,8 @@
       <logical-not>false</logical-not>
       <dscp
 	  xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
-        <dscp-min>10</dscp-min>
-        <dscp-max>10</dscp-max>
+        <min>10</min>
+        <max>10</max>
       </dscp>
     </filter>
   </classifier>
@@ -62,7 +62,7 @@
 	<queue
 	    xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
 	  <priority>
-	    <priority-level>1</priority-level>
+	    <level>1</level>
 	  </priority>
 	</queue>
       </action>
@@ -74,7 +74,7 @@
 	<queue
 	    xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
 	  <priority>
-	    <priority-level>2</priority-level>
+	    <level>2</level>
 	  </priority>
 	</queue>
       </action>
@@ -86,7 +86,7 @@
 	<queue
 	    xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
 	  <priority>
-	    <priority-level>3</priority-level>
+	    <level>3</level>
 	  </priority>
 	</queue>
       </action>
