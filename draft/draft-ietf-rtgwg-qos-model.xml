@@ -715,8 +715,8 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD.yang)
 v00 2010-09-17  SS    Initial version
     -->
 
-    <section anchor="appendixA" title="Company A, Company B and Company C examples">
-      <t>Company A, Company B and Company C Diffserv modules augments all the filter types of the QoS
+    <section anchor="appendixA" title="Company A and Company B examples">
+      <t>Company A and Company B Diffserv modules augments all the filter types of the QoS
       classifier module as well as the QoS policy module that allow it to
       define marking, metering, min-rate, max-rate actions. Queuing and
       metering counters are realized by augmenting of the QoS target
