@@ -234,13 +234,36 @@
     </section>
     
     <section title="QoS Model Design">
+      <figure>
+        <name>QoS Yang Modules Layout</name>
+        <artwork>
+         -------------   ------------   ------------   ------------
+        |             | |            | |            | |            |
+        | Diffserv    | | Queue      | | Scheduling | | QoS        |
+        | Policy      | | Policy     | | Policy     | | Oper       |
+        |             | |            | |            | |            |
+         -------------   ------------   ------------   ------------
+         -------------   ------------------------------------------
+        |             | |                                          |
+        | QoS Action  | |  Traffic Policy                          |
+        |             | | (Base Policy, Classifier, Target)        |
+        |             | |                                          |
+         -------------   ------------------------------------------
+        </artwork>
+      </figure>
+
+      <t> QoS Action and Traffic Policy are base Modules which are 
+      used by Diffserv, Queue and Scheduling Policy Modules as well
+      as by QoS Oper Module to derive respective module functionality.
+      </t>
+
       <t>A classifier consists of packets which may be grouped when a
       logical set of rules are applied on different packet header
       fields. The grouping may be based on different values or range
       of values of same packet header field, presence or absence of
       some values or range of values of a packet field or a
       combination thereof. The QoS classifier is defined in the
-      ietf-traffic-policy module.</t>
+      Traffic Policy module.</t>
 
       <t>A classifier entry contains one or more packet conditioning
       functions. A packet conditioning function is typically based on
@@ -248,12 +271,12 @@
       packets. A set of classifier entries with corresponding
       conditioning functions when arranged in order of priority
       represents a QoS policy. A QoS policy may contain one or more
-      classifier entries. These are defined in ietf-traffic-policy
+      classifier entries. These are defined in Traffic Policy
       module.</t>
 
       <t>Actions are configured in line with respect to the policy
       module.  These include marking, dropping or shaping. Actions are
-      defined in the ietf-qos-action module.</t>
+      defined in the QoS Action module.</t>
 
       <t>A meter qualifies if the traffic arrival rate is based on
       agreed upon rate and variability. A meter is modeled based on
@@ -262,8 +285,8 @@
       meter, <xref target="RFC2698">Two Rate Tri Color Marking
       (trTCM)</xref> meter, and Single Rate Two Color Marking meter.
       Different vendors can extend it with other types of meters as
-      well.
-      </t>
+      well.</t>
+
       <t>QoS operational model include QoS policy applied to an interface
       in each direction of traffic.  For each QoS policy applied to an
       interface the model further includes counters for associated
@@ -271,8 +294,7 @@
       modularize and for reusability, grouping have been defined for
       various counters of classifier, Meters and Queues.  The target is
       assumed to be interface but the groupings can be used for any other
-      target type where QoS policy is applied.
-      </t>
+      target type where QoS policy is applied.</t>
     </section>
 
     <section title="DiffServ Model Design">
@@ -289,7 +311,7 @@
       on the content of some portion of the packet header. There are
       two types of classifiers, the BA classifier, and the Multi-Field
       (MF) classifier which selects packets based on a value which is
-      combination of one or more header fields. In the ietf-diffserv
+      combination of one or more header fields. In the Diffserv Policy
       module, this is realized by augmenting the QoS classification
       module.</t>
 
@@ -312,12 +334,12 @@
       modules, a scheduler policy module, a queuing policy module and
       one DiffServ module.</t>
 
-      <t>ietf-traffic-policy module contains list of classifier entries
+      <t>Traffic Policy module contains list of classifier entries
       identified by a classifier entry name. Each entry MAY contain a list of
       filter entries.  When no filter entry is present in a classifier
       entry, it matches all traffic.</t>
 
-      <t>ietf-traffic-policy module also contains list of policy objects identified
+      <t>Traffic Policy module also contains list of policy objects identified
       by a policy name and policy type which MUST be provided. With different
       values of policy types, each vendor MAY define their own construct of
       policy for different QoS functionalities. Each vendor MAY augment
@@ -331,7 +353,7 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-traffic-policy@YYYY-MM-DD-sub-tree.txt)
     ]]></artwork>
       </figure>
 
-      <t>ietf-qos-action module contains grouping of set of QoS actions. These
+      <t>QoS Action module contains grouping of set of QoS actions. These
       include metering, marking, dropping and shaping. Marking sets DiffServ
       codepoint value in the classified packet. Color-aware and Color-blind
       meters are augmented by vendor specific modules based on the parameters
@@ -343,7 +365,7 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-traffic-policy@YYYY-MM-DD-sub-tree.txt)
 INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)
     ]]></artwork>
       </figure>
-   <t>ietf-traffic-policy module contains reference of qos-policy and augments
+   <t>Traffic Policy module contains reference of qos-policy and augments
    ietf-interfaces <xref target="RFC8343"/> module. A single policy of a particular 
    policy-type can be applied on an interface in each direction of  
    traffic. Policy-type is of type identity and is populated in a
