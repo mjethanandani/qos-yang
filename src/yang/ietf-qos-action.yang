@@ -544,9 +544,16 @@ module ietf-qos-action {
 
       leaf burst-value {
         type uint64;
-        units "bytes";
         description
           "Burst value in bytes.";
+      }
+
+      leaf burst-unit {
+        type identityref {
+          base qos-types:burst-unit-type;
+        }
+        description
+          "Unit specification for the burst value.";
       }
       description
         "Maximum rate attributes container";
