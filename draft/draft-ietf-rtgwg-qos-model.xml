@@ -252,9 +252,9 @@
         </artwork>
       </figure>
 
-      <t> QoS Action and Traffic Policy are base Modules which are 
-      used by Diffserv, Queue and Scheduling Policy Modules as well
-      as by QoS Oper Module to derive respective module functionality.
+      <t> QoS Action and Traffic Policy are base modules which are 
+      used by Diffserv, Queue and Scheduling Policy modules as well
+      as by QoS Oper module to derive respective module functionality.
       </t>
 
       <t>A classifier consists of packets which may be grouped when a
@@ -274,9 +274,9 @@
       classifier entries. These are defined in Traffic Policy
       module.</t>
 
-      <t>Actions are configured in line with respect to the policy
-      module.  These include marking, dropping or shaping. Actions are
-      defined in the QoS Action module.</t>
+      <t>QoS actions are configured in line or referred in a
+      Policy module.  These include marking, metering or queuing.
+      Actions are defined in the QoS Action module.</t>
 
       <t>A meter qualifies if the traffic arrival rate is based on
       agreed upon rate and variability. A meter is modeled based on
@@ -285,7 +285,14 @@
       meter, <xref target="RFC2698">Two Rate Tri Color Marking
       (trTCM)</xref> meter, and Single Rate Two Color Marking meter.
       Different vendors can extend it with other types of meters as
-      well.</t>
+      well. Meters are defined in QoS Action module</t>
+
+      <t> Queue Policy module allows Queues to be referred in a
+      policy. The match is based on Traffic-Group and action
+      params are used as defined in QoS Action module.</t>
+
+      <t> Scheduling Policy module defines a set of scheduling params
+      and associate Queue Policy with it.</t>
 
       <t>QoS operational model include QoS policy applied to an interface
       in each direction of traffic.  For each QoS policy applied to an
