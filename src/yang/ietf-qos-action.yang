@@ -608,6 +608,40 @@ module ietf-qos-action {
     description
       "Queue grouping";
   }
+
+  container queues {
+    description
+      "List of queue templates";
+               
+    list queue {
+      key "name";
+      description
+        "Queue entry template";
+    
+      leaf name {
+        type string;
+        description
+          "A unique name identifying this queue template";
+      }
+      uses queue;
+    }
+  }
+
+  grouping queue-reference {
+    container queue-reference {
+      leaf queue-name {
+        type string;
+        mandatory true;
+        description
+          "This leaf defines name of the  queue template referenced";
+      }
+      description
+        "Queue template reference";
+    }
+    description
+      "Queue template reference grouping";
+  }
+
   grouping scheduler {
     container scheduler {
       uses min-rate;
