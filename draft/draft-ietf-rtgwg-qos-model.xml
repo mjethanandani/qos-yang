@@ -129,7 +129,7 @@
       parameters. Traffic policy is augmented to include packet match
       and action parameters to define the Diffrentiated Services
       (DiffServ) policy, Queues policy and  Scheduler policy. Each
-      of these policies is defined as separate module. The Diffserv
+      of these policies are defined as separate modules. The Diffserv
       module is based on DiffServ architecture, and various
       references have been made to available standard architecture
       documents. QoS statistics counters are defined in QoS
