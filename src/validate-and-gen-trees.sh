@@ -69,9 +69,9 @@ do
     name=$(echo $i | cut -f 1-3 -d '.')
     echo "Validating $name.yang using pyang"
     if test "${name#^example}" = "$name"; then
-        response=`pyang --ietf --lint --strict --canonical -p ../bin/yang-parameters  -p ../bin -f tree --max-line-length=72 --tree-line-length=69 $name.yang > $name-tree.txt.tmp`
+        response=`pyang --lint --strict --canonical -p ../bin/yang-parameters  -p ../bin -f tree --max-line-length=72 --tree-line-length=69 $name.yang > $name-tree.txt.tmp`
     else 
-        response=`pyang --ietf --strict --canonical -p ../bin/yang-parameters  -p ../bin -f tree --max-line-length=72 --tree-line-length=69 $name.yang > $name-tree.txt.tmp`
+        response=`pyang --strict --canonical -p ../bin/yang-parameters  -p ../bin -f tree --max-line-length=72 --tree-line-length=69 $name.yang > $name-tree.txt.tmp`
     fi
     if [ $? -ne 0 ]; then
         printf "$name.yang failed pyang validation\n"
