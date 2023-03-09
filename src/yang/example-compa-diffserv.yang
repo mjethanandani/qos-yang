@@ -125,14 +125,14 @@ module example-compa-diffserv {
     "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-types" +
-    "/diffserv:one-rate-two-color-meter-type" +
-    "/diffserv:one-rate-two-color-meter" +
+    "/diffserv:single-rate-two-color-meter-type" +
+    "/diffserv:single-rate-two-color-meter" +
     "/diffserv:conform-action" +
     "/diffserv:action" +
     "/diffserv:action-val" {
 
     description
-      "augment the one-rate-two-color meter conform
+      "augment the single-rate-two-color meter conform
       with actions";
     case meter-action-drop {
       description
@@ -152,14 +152,14 @@ module example-compa-diffserv {
     "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-types" +
-    "/diffserv:one-rate-two-color-meter-type" +
-    "/diffserv:one-rate-two-color-meter" +
+    "/diffserv:single-rate-two-color-meter-type" +
+    "/diffserv:single-rate-two-color-meter" +
     "/diffserv:exceed-action" +
     "/diffserv:action" +
     "/diffserv:action-val" {
 
     description
-      "augment the one-rate-two-color meter exceed
+      "augment the single-rate-two-color meter exceed
       with actions";
     case meter-action-drop {
       description
@@ -179,8 +179,8 @@ module example-compa-diffserv {
     "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-types" +
-    "/diffserv:one-rate-tri-color-meter-type" +
-    "/diffserv:one-rate-tri-color-meter" +
+    "/diffserv:single-rate-three-color-meter-type" +
+    "/diffserv:single-rate-three-color-meter" +
     "/diffserv:conform-action" +
     "/diffserv:action" +
     "/diffserv:action-val" {
@@ -206,8 +206,8 @@ module example-compa-diffserv {
     "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-types" +
-    "/diffserv:one-rate-tri-color-meter-type" +
-    "/diffserv:one-rate-tri-color-meter" +
+    "/diffserv:single-rate-three-color-meter-type" +
+    "/diffserv:single-rate-three-color-meter" +
     "/diffserv:exceed-action" +
     "/diffserv:action" +
     "/diffserv:action-val" {
@@ -233,8 +233,8 @@ module example-compa-diffserv {
     "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-types" +
-    "/diffserv:one-rate-tri-color-meter-type" +
-    "/diffserv:one-rate-tri-color-meter" +
+    "/diffserv:single-rate-three-color-meter-type" +
+    "/diffserv:single-rate-three-color-meter" +
     "/diffserv:violate-action" +
     "/diffserv:action" +
     "/diffserv:action-val" {
@@ -261,8 +261,8 @@ module example-compa-diffserv {
     "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-types" +
-    "/diffserv:two-rate-tri-color-meter-type" +
-    "/diffserv:two-rate-tri-color-meter" +
+    "/diffserv:two-rate-three-color-meter-type" +
+    "/diffserv:two-rate-three-color-meter" +
     "/diffserv:conform-action" +
     "/diffserv:action" +
     "/diffserv:action-val" {
@@ -288,8 +288,8 @@ module example-compa-diffserv {
     "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-types" +
-    "/diffserv:two-rate-tri-color-meter-type" +
-    "/diffserv:two-rate-tri-color-meter" +
+    "/diffserv:two-rate-three-color-meter-type" +
+    "/diffserv:two-rate-three-color-meter" +
     "/diffserv:exceed-action" +
     "/diffserv:action" +
     "/diffserv:action-val" {
@@ -315,8 +315,8 @@ module example-compa-diffserv {
     "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-types" +
-    "/diffserv:two-rate-tri-color-meter-type" +
-    "/diffserv:two-rate-tri-color-meter" +
+    "/diffserv:two-rate-three-color-meter-type" +
+    "/diffserv:two-rate-three-color-meter" +
     "/diffserv:violate-action" +
     "/diffserv:action" +
     "/diffserv:action-val" {
@@ -343,11 +343,11 @@ module example-compa-diffserv {
     "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-types" +
-    "/diffserv:one-rate-two-color-meter-type" +
-    "/diffserv:one-rate-two-color-meter" {
+    "/diffserv:single-rate-two-color-meter-type" +
+    "/diffserv:single-rate-two-color-meter" {
 
     description
-      "augment the one-rate-two-color meter with" +
+      "augment the single-rate-two-color meter with" +
       "color classifiers";
     container conform-color {
       uses policy:generic-classifier-attr;
@@ -368,8 +368,8 @@ module example-compa-diffserv {
     "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-types" +
-    "/diffserv:one-rate-tri-color-meter-type" +
-    "/diffserv:one-rate-tri-color-meter" {
+    "/diffserv:single-rate-three-color-meter-type" +
+    "/diffserv:single-rate-three-color-meter" {
     description
       "augment the one-rate-tri-color meter with" +
       "color classifiers";
@@ -396,8 +396,8 @@ module example-compa-diffserv {
     "/policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-types" +
-    "/diffserv:two-rate-tri-color-meter-type" +
-    "/diffserv:two-rate-tri-color-meter" {
+    "/diffserv:two-rate-three-color-meter-type" +
+    "/diffserv:two-rate-three-color-meter" {
     description
       "augment the two-rate-tri-color meter with" +
       "color classifiers";

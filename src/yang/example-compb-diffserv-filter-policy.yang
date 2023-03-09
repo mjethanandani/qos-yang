@@ -254,8 +254,8 @@ module example-compb-diffserv-filter-policy {
   augment "/action:meters" +
           "/action:meter" +
           "/action:meter-types" +
-          "/action:one-rate-tri-color-meter-type" +
-          "/action:one-rate-tri-color-meter" {
+          "/action:single-rate-three-color-meter-type" +
+          "/action:single-rate-three-color-meter" {
      leaf one-rate-color-aware {
       type boolean;
       description
@@ -267,8 +267,8 @@ module example-compb-diffserv-filter-policy {
   augment "/action:meters" +
           "/action:meter" +
           "/action:meter-types" +
-          "/action:two-rate-tri-color-meter-type" +
-          "/action:two-rate-tri-color-meter" {
+          "/action:two-rate-three-color-meter-type" +
+          "/action:two-rate-three-color-meter" {
      leaf two-rate-color-aware {
       type boolean;
       description
@@ -283,8 +283,8 @@ module example-compb-diffserv-filter-policy {
   augment "/action:meters" +
           "/action:meter" +
           "/action:meter-types" +
-          "/action:one-rate-two-color-meter-type" +
-          "/action:one-rate-two-color-meter" +
+          "/action:single-rate-two-color-meter-type" +
+          "/action:single-rate-two-color-meter" +
           "/action:exceed-action" +
           "/action:action" +
           "/action:action-val" {
