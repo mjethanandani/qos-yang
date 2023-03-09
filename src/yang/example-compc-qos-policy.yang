@@ -72,7 +72,7 @@ module example-compc-qos-policy {
   }
 
   identity compc-qos-action {
-    base pol:action-type;
+    base qos-types:action-type;
   }
 
   /* groupings */
@@ -85,7 +85,7 @@ module example-compc-qos-policy {
 
   /* deviations */
 
-  deviation "/pol:policies/pol:policy-entry" {
+  deviation "/pol:policies/pol:policy" {
     deviate add {
       must "pol:type = compc-qos-policy" {
         description
@@ -95,7 +95,7 @@ module example-compc-qos-policy {
     }
   }
 
-  deviation "/pol:policies/pol:policy-entry/pol:classifier-entry" {
+  deviation "/pol:policies/pol:policy/pol:classifier" {
     deviate add {
       must "../per-class-action = 'true'" {
         description
@@ -105,27 +105,27 @@ module example-compc-qos-policy {
         " (../sub-type != 'pwfq-queuing-policy')) or " +
         "(((../sub-type = 'mdrr-queuing-policy') or " +
         "  (../sub-type = 'pwfq-queueing-policy')) and " +
-        " ((classifier-entry-name = '0') or " +
-        "  (classifier-entry-name = '1') or " +
-        "  (classifier-entry-name = '2') or " +
-        "  (classifier-entry-name = '3') or " +
-        "  (classifier-entry-name = '4') or " +
-        "  (classifier-entry-name = '5') or " +
-        "  (classifier-entry-name = '6') or " +
-        "  (classifier-entry-name = '7') or " +
-        "  (classifier-entry-name = '8')))" {
+        " ((name = '0') or " +
+        "  (name = '1') or " +
+        "  (name = '2') or " +
+        "  (name = '3') or " +
+        "  (name = '4') or " +
+        "  (name = '5') or " +
+        "  (name = '6') or " +
+        "  (name = '7') or " +
+        "  (name = '8')))" {
         description
           "MDRR queuing policy's or PWFQ queuing policy's " +
-          "classifier-entry-name is limited to the listed values";
+          "classifier-name is limited to the listed values";
       }
     }
   }
 
-  deviation "/pol:policies/pol:policy-entry/pol:classifier-entry" +
-    "/pol:classifier-action-entry" {
+  deviation "/pol:policies/pol:policy/pol:classifier" +
+    "/pol:action" {
     deviate add {
       max-elements 1;
-      must "action-type = 'compc-qos-action'" {
+      must "type = 'compc-qos-action'" {
         description
           "Only compc-qos-action is allowed";
       }
@@ -134,8 +134,8 @@ module example-compc-qos-policy {
 
   /* augments */
 
-  augment "/pol:policies/pol:policy-entry" {
-    when "pol:type = 'compc-qos-policy')" {
+  augment "/pol:policies/pol:policy" {
+    when "pol:type = 'compc-qos-policy'" {
       description
         "Additional nodes only for diffserv-policy";
     }
@@ -231,15 +231,15 @@ module example-compc-qos-policy {
       }
     }
   }
-  augment "/pol:policies/pol:policy-entry/pol:classifier-entry" +
-    "/pol:classifier-action-entry-cfg/pol:action-params" {
-    when "../../../pol:type = 'compc-qos-policy')" {
+  augment "/pol:policies/pol:policy/pol:classifier" +
+    "/pol:action/pol:action-params" {
+    when "../../pol:type = 'compc-qos-policy'" {
       description
         "Configurations for a classifier-policy-type policy";
     }
     case metering-or-policing-policy {
-      when "../../../sub-type = 'policing-policy' or "
-        + "../../../sub-type = 'metering-policy'" {
+      when "../../sub-type = 'policing-policy' or "
+        + "../../sub-type = 'metering-policy'" {
       }
       container dscp-marking {
         uses action:dscp-marking;
@@ -255,7 +255,7 @@ module example-compc-qos-policy {
       }
     }
     case mdrr-queuing-policy {
-      when "../../../sub-type = 'mdrr-queuing-policy'" {
+      when "../../sub-type = 'mdrr-queuing-policy'" {
         description
           "MDRR queue handling properties for the traffic " +
           "classified into current queue";
@@ -268,7 +268,7 @@ module example-compc-qos-policy {
       }
     }
     case pwfq-queuing-policy {
-      when "../../../sub-type = 'pwfq-queuing-policy'" {
+      when "../../sub-type = 'pwfq-queuing-policy'" {
         description
           "PWFQ queue handling properties for traffic " +
           "classified into current queue";
@@ -287,7 +287,7 @@ module example-compc-qos-policy {
       }
     }
     case forwarding-policy {
-      when "../../../sub-type = 'forwarding-policy'" {
+      when "../../sub-type = 'forwarding-policy'" {
         description
           "Forward policy handling properties for traffic " +
           "in this classifier";
