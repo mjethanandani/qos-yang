@@ -59,6 +59,7 @@ $(next).xml: $(draft).xml ../src/yang/ietf-diffserv.yang ../src/yang/ietf-qos-ac
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/iana-qos-types.yang > ../bin/iana-qos-types\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/example-compa-diffserv.yang > ../bin/example-compa-diffserv\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/example-compb-diffserv-filter-policy.yang > ../bin/example-compb-diffserv-filter-policy\@$(shell date +%Y-%m-%d).yang
+        sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/example-compb-queue-policy.yang > ../bin/example-compb-queue-policy\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/example-compb-queue.yang > ../bin/example-compb-queue\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/example-compb-scheduler-policy.yang > ../bin/example-compb-scheduler-policy\@$(shell date +%Y-%m-%d).yang
 	sed -e"s/YYYY-MM-DD/$(shell date +%Y-%m-%d)/" ../src/yang/example-compc-qos-policy.yang > ../bin/example-compc-qos-policy\@$(shell date +%Y-%m-%d).yang
