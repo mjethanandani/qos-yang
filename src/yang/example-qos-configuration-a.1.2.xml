@@ -17,8 +17,8 @@
 	      <logical-not>false</logical-not>
             <dscp
               xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
-              <dscp-min>21</dscp-min>
-              <dscp-max>22</dscp-max>
+              <min>21</min>
+              <max>22</max>
             </dscp>
         </filter>
       </inline>
