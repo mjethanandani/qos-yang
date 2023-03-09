@@ -5,7 +5,7 @@
 <!-- One method to get references from the online citation libraries.             
     There has to be one entity for each item to be referenced.                    
     An alternate method (rfc include) is described in the references. -->
-<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+
 <!ENTITY RFC2474 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2474.xml">
 <!ENTITY RFC2475 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2475.xml">
 <!ENTITY RFC6020 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml">
@@ -257,12 +257,11 @@
 
       <t>A meter qualifies if the traffic arrival rate is based on
       agreed upon rate and variability. A meter is modeled based on
-      commonly used alogrithms in industry, <xref
-      target="RFC2697">Single Rate Tri Color Marking (srTCM) </xref>
-      meter, <xref target="RFC2698">Two Rate Tri Color Marking
-      (trTCM)</xref> meter, and Single Rate Two Color Marking meter.
-      Different vendors can extend it with other types of meters as
-      well.
+      commonly used alogrithms in industry, <xref target="RFC2697">A
+      Single Rate Three Color Marking (srTCM) </xref> meter, <xref
+      target="RFC2698">A Two Rate Three Color Marker (trTCM)</xref>
+      meter, and Single Rate Two Color Marking meter.  Different
+      vendors can extend it with other types of meters as well.
       </t>
       <t>QoS operational model include QoS policy applied to an interface
       in each direction of traffic.  For each QoS policy applied to an
@@ -304,6 +303,32 @@
       policy module when metering is defined inline, and to the
       metering template when metering profile is referred in policy
       module. </t>
+
+      <section title="A Single Rate Three Color Marker">
+	<t>This document defines support for <xref target="RFC2697">A
+	Single Rate Three Color Marker (srTCM)</xref>, which is one of
+	the components in a <xref target="RFC2475">An Architecture for
+	Differentiated Services</xref>. The srTCM meters a traffic
+	stream and marks its packets according to three traffic
+	parameters, Committed Information Rate (CIR), Committed Burst
+	Size (CBS), and Excess Burst Size (EBS), to be either green,
+	yellow, or red.  A packet is marked green if it doesn't exceed
+	the CBS, yellow if it does exceed the CBS, but not the EBS,
+	and red otherwise.</t>
+      </section>
+
+      <section title="A Two Rate Three Color Marker">
+	<t>This document defines support for <xref target="RFC2698">A
+	Two Rate Three Color Marker (trTCM)</xref>, which is one of
+	the components in a <xref target="RFC2475">An Architecture for
+	Differentiated Services</xref>. The trTCM meters a traffic
+	stream and marks its packets according to two rates, Peak
+	Information Rate (PIR), the Committed Information Rate (CIR),
+	and their associated burst sizes to either green, yellow, or
+	red. A packet is marked red if it exceeds the PIR. Otherwise,
+	it is marked yellow or green dependeing on whether it exceeds
+	or does not exceed the CIR.</t>
+      </section>
 
     </section>
 
@@ -671,13 +696,12 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD.yang)
       &RFC8174;
 
       <?rfc include='reference.RFC.8342.xml'?>
-
-      &RFC8343;
+      <?rfc include='reference.RFC.8343.xml'?>
     </references>
 
     <references title="Informative References">
-      &RFC2474;
-      &RFC2475;
+      <?rfc include='reference.RFC.2474.xml'?>
+      <?rfc include='reference.RFC.2475.xml'?>
       <?rfc include='reference.RFC.2697.xml'?>
       <?rfc include='reference.RFC.2698.xml'?>
       <?rfc include='reference.RFC.3688.xml'?>
