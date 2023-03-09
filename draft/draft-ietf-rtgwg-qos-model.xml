@@ -252,10 +252,12 @@
         </artwork>
       </figure>
 
-      <t> QoS Action and Traffic Policy are base modules which are 
-      used by Diffserv, Queue and Scheduling Policy modules as well
-      as by QoS Oper module to derive respective module functionality.
-      </t>
+      <t> The above diagram depicts the design of the QoS model. It
+      uses Traffic Policy and QoS Action as base modules at the
+      bottom, which are augmented by the remaining modules on the
+      top to define different aspects of QoS. This structure allows
+      other models such as Policy Based Routing (PBR) to augment the
+      base modules and define PBR.</t>
 
       <t>A classifier consists of packets which may be grouped when a
       logical set of rules are applied on different packet header
@@ -289,10 +291,10 @@
 
       <t> Queue Policy module allows Queues to be referred in a
       policy. The match is based on Traffic-Group and action
-      params are used as defined in QoS Action module.</t>
+      parameters are used as defined in QoS Action module.</t>
 
-      <t> Scheduling Policy module defines a set of scheduling params
-      and associate Queue Policy with it.</t>
+      <t> Scheduling Policy module defines a set of scheduling
+      parameters and associates Queue Policy with it.</t>
 
       <t>QoS operational model include QoS policy applied to an interface
       in each direction of traffic.  For each QoS policy applied to an

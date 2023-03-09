@@ -700,12 +700,12 @@ module ietf-qos-action {
 
   container queues {
     description
-      "list of queue templates";
+      "List of queue templates";
                
     list queue {
       key "name";
       description
-        "queue entry template";
+        "Queue entry template";
     
       leaf name {
         type string;
@@ -725,10 +725,10 @@ module ietf-qos-action {
           "This leaf defines name of the  queue template referenced";
       }
       description
-        "queue template reference";
+        "Queue template reference";
     }
     description
-      "queue template reference grouping";
+      "Queue template reference grouping";
   }
 
   grouping scheduler {
