@@ -51,12 +51,12 @@ module ietf-qos-action {
   }
 
   grouping rate-value-unit {
-    leaf rate-value {
+    leaf value {
       type uint64;
       description
         "rate value";
     }
-    leaf rate-unit {
+    leaf unit {
       type identityref {
         base qos-types:rate-unit-type;
       }
@@ -67,11 +67,11 @@ module ietf-qos-action {
       "rate value and unit grouping";
   }
 
-  grouping conform-2color-meter-action-params {
+  grouping meter-action-params {
     description
       "meter action parameters";
 
-    list conform-2color-meter-action {
+    list action {
       key "action-type";
       ordered-by user;
       description
@@ -92,100 +92,6 @@ module ietf-qos-action {
     }
   }
 
-  grouping exceed-2color-meter-action-params {
-    description
-      "meter action parameters";
-
-    list exceed-2color-meter-action {
-      key "action-type";
-      ordered-by user;
-      description
-        "Configuration of basic-meter & associated actions";
-
-      leaf action-type {
-        type identityref {
-          base qos-types:meter-action-type;
-        }
-        description
-          "meter action type";
-      }
-
-      choice action-val {
-        description
-          " meter action based on choice of meter action type";
-      }
-    }
-  }
-
-
-  grouping conform-3color-meter-action-params {
-    description
-      "meter action parameters";
-    list conform-3color-meter-action {
-      key "action-type";
-      ordered-by user;
-      description
-        "Configuration of basic-meter & associated actions";
-
-      leaf action-type {
-        type identityref {
-          base qos-types:meter-action-type;
-        }
-        description
-          "Meter action type";
-      }
-      choice action-val {
-        description
-          "Meter action based on choice of meter action type";
-      }
-    }
-  }
-
-  grouping exceed-3color-meter-action-params {
-    description
-      "meter action parameters";
-    list exceed-3color-meter-action {
-      key "action-type";
-      ordered-by user;
-      description
-        "Configuration of basic-meter & associated actions";
-
-      leaf action-type {
-        type identityref {
-          base qos-types:meter-action-type;
-        }
-        description
-          "Meter action type";
-      }
-      choice action-val {
-        description
-          "Meter action based on choice of meter action type";
-      }
-    }
-  }
-
-  grouping violate-3color-meter-action-params {
-    description
-      "meter action parameters";
-    list violate-3color-meter-action {
-      key "action-type";
-      ordered-by user;
-      description
-        "Configuration of basic-meter & associated actions";
-
-      leaf action-type {
-        type identityref {
-          base qos-types:meter-action-type;
-        }
-        description
-          "Meter action type";
-      }
-      choice action-val {
-        description
-          "Meter action based on choice of meter action type";
-      }
-    }
-  }
 
   grouping single-rate-two-color-meter {
     container single-rate-two-color-meter {
@@ -207,14 +113,14 @@ module ietf-qos-action {
       }
 
       container conform-action {
-        uses conform-2color-meter-action-params;
+        uses meter-action-params;
         description
           "A packet is marked conforming, or green if it does not
            exceed CIR.";
       }
 
       container exceed-action {
-        uses exceed-2color-meter-action-params;
+        uses meter-action-params;
         description
           "A packet is marked exceeding, or yellow if it does
            exceed CIR.";
@@ -258,7 +164,7 @@ module ietf-qos-action {
       }
 
       container conform-action {
-        uses conform-3color-meter-action-params;
+        uses meter-action-params;
         description
           "A packet is marked conforming, or green if it does not
            exceed CBS.";
@@ -267,7 +173,7 @@ module ietf-qos-action {
       }
 
       container exceed-action {
-        uses exceed-3color-meter-action-params;
+        uses meter-action-params;
         description
           "A packet is marked exceeding, or yellow if it does exceed
            CBS, but not the EBS.";
@@ -276,7 +182,7 @@ module ietf-qos-action {
       }
 
       container violate-action {
-        uses violate-3color-meter-action-params;
+        uses meter-action-params;
         description
           "A packet is marked violating, or red if it is exceeds
            both CBS and EBS.";
@@ -334,7 +240,7 @@ module ietf-qos-action {
       }
 
       container conform-action {
-        uses conform-3color-meter-action-params;
+        uses meter-action-params;
         description
           "A packet is marked conforming, or green, if it does not
            exceed CIR.";
@@ -343,7 +249,7 @@ module ietf-qos-action {
       }
 
       container exceed-action {
-        uses exceed-3color-meter-action-params;
+        uses meter-action-params;
         description
           "A packet is marked exceeding, or yellow, if it exceeds
            CIR but not PIR.";
@@ -352,7 +258,7 @@ module ietf-qos-action {
       }
 
       container violate-action {
-        uses violate-3color-meter-action-params;
+        uses meter-action-params;
         description
           "A packet is marked as violating, or red, if it exceeds
            both CIR and PIR.";
@@ -477,7 +383,7 @@ module ietf-qos-action {
 
   grouping priority {
     container priority {
-      leaf priority-level {
+      leaf level {
         type uint8;
         description
           "priority level";
@@ -526,7 +432,7 @@ module ietf-qos-action {
   grouping child-policy {
     container child-policy {
       if-feature qos-types:child-policy;
-      leaf policy-name {
+      leaf name {
         type string;
         description
           "Hierarchical Policy";

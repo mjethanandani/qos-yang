@@ -286,7 +286,7 @@ module example-compb-diffserv-filter-policy {
           "/action:single-rate-two-color-meter-type" +
           "/action:single-rate-two-color-meter" +
           "/action:exceed-action" +
-          "/action:exceed-2color-meter-action" +
+          "/action:action" +
           "/action:action-val" {
     case meter-action-drop {
       description

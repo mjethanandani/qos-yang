@@ -16,8 +16,8 @@
       <logical-not>false</logical-not>
       <protocol
 	  xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
-        <protocol-min>4</protocol-min>
-        <protocol-max>4</protocol-max>
+        <min>4</min>
+        <max>4</max>
       </protocol>
     </filter>
   </classifier>
@@ -37,14 +37,14 @@
 	    xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
 	  <committed-information-rate>128000</committed-information-rate>
 	  <conform-action>
-	    <conform-2color-meter-action>
+	    <action>
 	      <action-type>qt:action-transmit</action-type>
-	    </conform-2color-meter-action>
+	    </action>
 	  </conform-action>
 	  <exceed-action>
-	    <exceed-2color-meter-action>
+	    <action>
 	      <action-type>qt:action-drop</action-type>
-	    </exceed-2color-meter-action>
+	    </action>
 	  </exceed-action>
 	</single-rate-two-color-meter>
       </action>

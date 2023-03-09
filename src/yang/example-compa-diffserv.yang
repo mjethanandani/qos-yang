@@ -128,7 +128,7 @@ module example-compa-diffserv {
     "/diffserv:single-rate-two-color-meter-type" +
     "/diffserv:single-rate-two-color-meter" +
     "/diffserv:conform-action" +
-    "/diffserv:conform-2color-meter-action" +
+    "/diffserv:action" +
     "/diffserv:action-val" {
 
     description
@@ -155,7 +155,7 @@ module example-compa-diffserv {
     "/diffserv:single-rate-two-color-meter-type" +
     "/diffserv:single-rate-two-color-meter" +
     "/diffserv:exceed-action" +
-    "/diffserv:exceed-2color-meter-action" +
+    "/diffserv:action" +
     "/diffserv:action-val" {
 
     description
@@ -182,7 +182,7 @@ module example-compa-diffserv {
     "/diffserv:single-rate-three-color-meter-type" +
     "/diffserv:single-rate-three-color-meter" +
     "/diffserv:conform-action" +
-    "/diffserv:conform-3color-meter-action" +
+    "/diffserv:action" +
     "/diffserv:action-val" {
 
     description
@@ -209,7 +209,7 @@ module example-compa-diffserv {
     "/diffserv:single-rate-three-color-meter-type" +
     "/diffserv:single-rate-three-color-meter" +
     "/diffserv:exceed-action" +
-    "/diffserv:exceed-3color-meter-action" +
+    "/diffserv:action" +
     "/diffserv:action-val" {
 
     description
@@ -236,7 +236,7 @@ module example-compa-diffserv {
     "/diffserv:single-rate-three-color-meter-type" +
     "/diffserv:single-rate-three-color-meter" +
     "/diffserv:violate-action" +
-    "/diffserv:violate-3color-meter-action" +
+    "/diffserv:action" +
     "/diffserv:action-val" {
 
     description
@@ -264,7 +264,7 @@ module example-compa-diffserv {
     "/diffserv:two-rate-three-color-meter-type" +
     "/diffserv:two-rate-three-color-meter" +
     "/diffserv:conform-action" +
-    "/diffserv:conform-3color-meter-action" +
+    "/diffserv:action" +
     "/diffserv:action-val" {
 
     description
@@ -291,7 +291,7 @@ module example-compa-diffserv {
     "/diffserv:two-rate-three-color-meter-type" +
     "/diffserv:two-rate-three-color-meter" +
     "/diffserv:exceed-action" +
-    "/diffserv:exceed-3color-meter-action" +
+    "/diffserv:action" +
     "/diffserv:action-val" {
 
     description
@@ -318,7 +318,7 @@ module example-compa-diffserv {
     "/diffserv:two-rate-three-color-meter-type" +
     "/diffserv:two-rate-three-color-meter" +
     "/diffserv:violate-action" +
-    "/diffserv:violate-3color-meter-action" +
+    "/diffserv:action" +
     "/diffserv:action-val" {
 
     description
