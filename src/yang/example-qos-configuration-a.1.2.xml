@@ -17,15 +17,15 @@
 	      <logical-not>false</logical-not>
             <dscp
               xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
-              <dscp-min>21</dscp-min>
-              <dscp-max>22</dscp-max>
+              <min>21</min>
+              <max>22</max>
             </dscp>
         </filter>
       </inline>
-      <action
-        xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
-	    <type>qt:dscp-marking</type>
-        <dscp>
+      <action>
+        <type>qt:dscp-marking</type>
+        <dscp
+          xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
           <dscp>23</dscp>
         </dscp>
       </action>

@@ -5,10 +5,10 @@
 <!-- One method to get references from the online citation libraries.             
     There has to be one entity for each item to be referenced.                    
     An alternate method (rfc include) is described in the references. -->
+    
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC2474 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2474.xml">
 <!ENTITY RFC2475 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2475.xml">
-<!ENTITY RFC3289 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3289.xml">
 <!ENTITY RFC6020 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml">
 <!ENTITY RFC6991 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6991.xml">
 <!ENTITY RFC7950 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7950.xml">
@@ -185,9 +185,15 @@
 	</t>
         <t>
 	  <ul>
+	    <li>Behavior Aggregate (BA): A DS behavior aggregate.</li>
 	    <li>Classifier: an entity which selects packets based on
 	    the content of packet headers according to defined
 	    rules.</li>
+	    <li>DS behavior aggregate: A collection of packets with
+	    the same DS codepoint crossing a link in a particular
+	    direction.</li>
+	    <li>DS code point: A specific value of the DSCP portion of
+	    the DS field, used to select a PHB.</li>
 	    <li>DiffServ: Differentiated Services enhancements to
 	    the Internet protocol are intended to enable scalable
 	    service discrimination in the Internet without the need
@@ -206,22 +212,54 @@
 	    this process may be used to affect the operation of a
 	    marker, shaper, or dropper, and/or may be used for
             accounting and measurement purposes.</li>
-	    <li>Policing: the process of discarding packets (by a
-            dropper) within a traffic stream in accordance with the
-	    state of a corresponding meter enforcing a traffic
-            profile.</li>
+	    <li>MF Classifier: A multi-field (MF) classifier which
+	    selects packets based on the content of some arbitrary
+	    number of header fields; typically some combination of
+	    source address, destination address, DS field, protocol
+	    ID, source port and destination port.</li>
+	    <li>Per-Hop-Behavior (PHB): The externally observable
+	    forwarding behavior applied at a DS-compliant node to a DS
+	    behavior aggregate.</li>
+	    <li>Policing: the process of
+	    discarding packets (by a dropper) within a traffic stream
+	    in accordance with the state of a corresponding meter
+	    enforcing a traffic profile.</li>
 	    <li>RED: Random Early Detection</li>
 	    <li>Shaping: the process of delaying packets within a
-            traffic stream to cause it to conform to some defined
+	    traffic stream to cause it to conform to some defined
 	    traffic profile.</li>
-	    <li>WRED: Weighted Random
-	    Early Detection</li>
+	    <li>WRED: Weighted Random Early Detection</li>
 	  </ul>
 	</t>
       </section>
     </section>
     
     <section title="QoS Model Design">
+      <figure>
+        <name>QoS Yang Modules Layout</name>
+        <artwork>
+         -------------   ------------   ------------   ------------
+        |             | |            | |            | |            |
+        | Diffserv    | | Queue      | | Scheduling | | QoS        |
+        | Policy      | | Policy     | | Policy     | | Oper       |
+        |             | |            | |            | |            |
+         -------------   ------------   ------------   ------------
+         -------------   ------------------------------------------
+        |             | |                                          |
+        | QoS Action  | |  Traffic Policy                          |
+        |             | | (Base Policy, Classifier, Target)        |
+        |             | |                                          |
+         -------------   ------------------------------------------
+        </artwork>
+      </figure>
+
+      <t> The above diagram depicts the design of the QoS model. It
+      uses Traffic Policy and QoS Action as base modules at the
+      bottom, which are augmented by the remaining modules on the
+      top to define different aspects of QoS. This structure allows
+      other models such as Policy Based Routing (PBR) to augment the
+      base modules and define PBR.</t>
+
       <t> A classifier consists of set of filters and an operation
       that is performed on those filters. Each filter defines a rule
       on a particular packet header or packet metadata field that
@@ -241,14 +279,25 @@
       arranged in order of priority represent a QoS policy.
       These policies are defined in Traffic Policy module.</t>
 
+      <t>QoS actions are configured in line or referred in a
+      Policy module.  These include marking, metering or queuing.
+      Actions are defined in the QoS Action module.</t>
+
       <t>Meter meters each packet and passes the packet and the
       metering result to the Marker. Meter is modeled based on
-      commonly used alogrithms in industry, <xref
-      target="RFC2697">Single Rate Tri Color Marking (srTCM) </xref>
-      meter, <xref target="RFC2698">Two Rate Tri Color Marking
-      (trTCM)</xref> meter, and Single Rate Two Color Marking meter.
-      Different vendors can extend it with other types of meters as
-      well. Meter is defined in QoS Action module</t>
+      commonly used alogrithms in industry, <xref target="RFC2697">A
+      Single Rate Three Color Marker (srTCM) </xref> meter, <xref
+      target="RFC2698">A Two Rate Three Color Marker (trTCM)</xref>
+      meter, and A Single Rate Two Color Marker meter. Different
+      vendors can extend it with other types of meters as well.
+      Meter is defined in QoS Action module</t>
+
+      <t> Queue Policy module allows Queues to be referred in a
+      policy. The match is based on Traffic-Group and action
+      parameters are used as defined in QoS Action module.</t>
+
+      <t> Scheduling Policy module defines a set of scheduling
+      parameters and associates Queue Policy with it.</t>
 
       <t>QoS counters are defined in QoS Oper module. It includes
       counters for Classifiers, Meters and Queues associated with a QoS
@@ -260,13 +309,12 @@
     </section>
 
     <section title="DiffServ Model Design">
-      <t>DiffServ architecture <xref target="RFC3289"/> and <xref
-      target="RFC2475"/> describe the architecture as a simple model
-      where traffic entering a network is classified and possibly
-      conditioned at the boundary of the network and assigned a
-      different Behavior Aggregate (BA). Each BA is identified by a
-      specific value of DSCP, and is used to select a Per Hop Behavior
-      (PHB).</t>
+      <t>DiffServ architecture <xref target="RFC2475"/> describes the
+      architecture as a simple model where traffic entering a network
+      is classified and possibly conditioned at the boundary of the
+      network and assigned a different Behavior Aggregate (BA). Each
+      BA is identified by a specific value of DSCP, and is used to
+      select a Per Hop Behavior (PHB).</t>
 
       <t>The packet classification policy identifies the subset of
       traffic which may receive a DiffServ by being conditioned or
@@ -274,7 +322,7 @@
       on the content of some portion of the packet header. There are
       two types of classifiers, the BA classifier, and the Multi-Field
       (MF) classifier which selects packets based on a value which is
-      combination of one or more header fields. In the Diffserv
+      combination of one or more header fields. In the Diffserv Policy
       module, this is realized by augmenting the classifier in
       Traffic Policy module.</t>
 
@@ -290,11 +338,38 @@
       metering template when metering profile is referred in policy
       module. </t>
 
+      <section title="A Single Rate Three Color Marker">
+	<t>This document defines support for <xref target="RFC2697">A
+	Single Rate Three Color Marker (srTCM)</xref>, which is one of
+	the components in a <xref target="RFC2475">An Architecture for
+	Differentiated Services</xref>. The srTCM meters a traffic
+	stream and marks its packets according to three traffic
+	parameters, Committed Information Rate (CIR), Committed Burst
+	Size (CBS), and Excess Burst Size (EBS), to be either green,
+	yellow, or red.  A packet is marked green if it doesn't exceed
+	the CBS, yellow if it does exceed the CBS, but not the EBS,
+	and red otherwise.</t>
+      </section>
+
+      <section title="A Two Rate Three Color Marker">
+	<t>This document defines support for <xref target="RFC2698">A
+	Two Rate Three Color Marker (trTCM)</xref>, which is one of
+	the components in a <xref target="RFC2475">An Architecture for
+	Differentiated Services</xref>. The trTCM meters a traffic
+	stream and marks its packets according to two rates, Peak
+	Information Rate (PIR), the Committed Information Rate (CIR),
+	and their associated burst sizes to either green, yellow, or
+	red. A packet is marked red if it exceeds the PIR. Otherwise,
+	it is marked yellow or green dependeing on whether it exceeds
+	or does not exceed the CIR.</t>
+      </section>
+
     </section>
 
     <section title=" Modules Tree Structure">
-      <t>This document defines a base traffic policy module, a QoS
-      specific action module, separate policy modules for Scheduler,
+
+      <t>This document defines a base Traffic Policy module, a QoS
+      specific Action module, separate policy modules for Scheduler,
       Queuing and DiffServ policies and operational module for QoS
       counters.</t>
 
@@ -329,6 +404,7 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-traffic-policy@YYYY-MM-DD-sub-tree.txt)
 INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)
     ]]></artwork>
       </figure>
+
       <t>Traffic Policy module contains reference of qos-policy and augments
       ietf-interfaces <xref target="RFC8343"/> module. A single policy of a particular 
       policy-type can be applied on an interface in each direction of  
@@ -475,9 +551,74 @@ INSERT_TEXT_FROM_FILE(../bin/iana-qos-types@YYYY-MM-DD.yang)
     </section>
 
     <section title="IANA Considerations">
-      <t>
-         TBD
-      </t>
+      <t>This document registers seven URIs and seven YANG
+      modules.</t>
+
+      <section title="URI Registration">
+        <t>Following the format in the <xref target="RFC3688">IETF XML
+        registry</xref>, the following registration is requested to
+        be made:
+	<figure>
+          <artwork><![CDATA[
+	  URI: urn:ietf:params:xml:ns:yang:iana-qos-types
+	  URI: urn:ietf:params:xml:ns:yang:ietf-diffserv
+	  URI: urn:ietf:params:xml:ns:yang:ietf-qos-action
+	  URI: urn:ietf:params:xml:ns:yang:ietf-qos-oper
+	  URI: urn:ietf:params:xml:ns:yang:ietf-queue-policy
+	  URI: urn:ietf:params:xml:ns:yang:ietf-scheduler-policy
+	  URI: urn:ietf:params:xml:ns:yang:ietf-traffic-policy
+	  ]]></artwork>
+        </figure>
+	</t>
+
+        <t>Registrant Contact: The IESG. XML: N/A, the requested URI
+        is an XML namespace.</t>
+      </section>
+
+      <section title="YANG Module Name Registration">
+        <t>This document registers seven YANG modules in the YANG
+        Module Names registry <xref target="RFC6020">YANG</xref>.</t>
+
+        <t><figure>
+            <artwork><![CDATA[
+	    name: iana-qos-types
+	    namespace: urn:ietf:params:xml:ns:yang:iana-qos-types
+	    prefix: qos-types
+	    reference: RFC XXXX
+
+	    name: ietf-diffserv
+	    namespace: urn:ietf:params:xml:ns:yang:ietf-diffserv
+	    prefix: diffserv
+	    reference: RFC XXXX
+
+	    name: ietf-qos-action
+	    namespace: urn:ietf:params:xml:ns:yang:ietf-qos-action
+	    prefix: action
+	    reference: RFC XXXX
+
+	    name: ietf-qos-oper
+	    namespace: urn:ietf:params:xml:ns:yang:ietf-qos-oper
+	    prefix: oper
+	    reference: RFC XXXX
+
+	    name: ietf-queue-policy
+	    namespace: urn:ietf:params:xml:ns:yang:ietf-queue-policy
+	    prefix: queue-policy
+	    reference: RFC XXXX
+
+	    name: ietf-scheduler-policy
+	    namespace: urn:ietf:params:xml:ns:yang:ietf-scheduler-policy
+	    prefix: scheduler-policy
+	    reference: RFC XXXX
+
+	    name: ietf-traffic-policy
+	    namespace: urn:ietf:params:xml:ns:yang:ietf-traffic-policy
+	    prefix: policy
+	    reference: RFC XXXX
+	    ]]></artwork>
+          </figure>
+	</t>
+      </section>
     </section>
 
     <section title="Security Considerations">
@@ -593,10 +734,6 @@ INSERT_TEXT_FROM_FILE(../bin/iana-qos-types@YYYY-MM-DD.yang)
 
       &RFC2119;
 
-      <?rfc include='reference.RFC.8342.xml'?>
-
-      &RFC3289;
-
       &RFC6020;
 
       &RFC6991;
@@ -605,14 +742,16 @@ INSERT_TEXT_FROM_FILE(../bin/iana-qos-types@YYYY-MM-DD.yang)
 
       &RFC8174;
 
-      &RFC8343;
+      <?rfc include='reference.RFC.8342.xml'?>
+      <?rfc include='reference.RFC.8343.xml'?>
     </references>
 
     <references title="Informative References">
-      &RFC2474;
-      &RFC2475;
+      <?rfc include='reference.RFC.2474.xml'?>
+      <?rfc include='reference.RFC.2475.xml'?>
       <?rfc include='reference.RFC.2697.xml'?>
       <?rfc include='reference.RFC.2698.xml'?>
+      <?rfc include='reference.RFC.3688.xml'?>
       <?rfc include='reference.RFC.6241.xml'?>
       <?rfc include='reference.RFC.6242.xml'?>
       <?rfc include='reference.RFC.8040.xml'?>
@@ -625,8 +764,8 @@ INSERT_TEXT_FROM_FILE(../bin/iana-qos-types@YYYY-MM-DD.yang)
 v00 2010-09-17  SS    Initial version
     -->
 
-    <section anchor="appendixA" title="Company A, Company B and Company C examples">
-      <t>Company A, Company B and Company C Diffserv modules augments all the filter types of the QoS
+    <section anchor="appendixA" title="Company A and Company B examples">
+      <t>Company A and Company B Diffserv modules augments all the filter types of the QoS
       classifier module as well as the QoS policy module that allow it to
       define marking, metering, min-rate, max-rate actions. Queuing and
       metering counters are realized by augmenting of the QoS target
@@ -672,22 +811,6 @@ INSERT_TEXT_FROM_FILE(../bin/example-compb-queue@YYYY-MM-DD.yang)
 
 INSERT_TEXT_FROM_FILE(../bin/example-compb-scheduler-policy@YYYY-MM-DD.yang)
     ]]></artwork>
-        </figure>
-      </section>
-      <section title="Example of Company C Diffserv Model">
-      <t>
-Company C vendor augmentation is based on Ericsson's implementation differentiated QoS.  This implementation first sorts traffic based on a classifier, which can sort traffic into one or more traffic forwarding classes.  Then, a policer or meter policy references the classifier and its traffic forwarding classes to specify different service levels for each traffic forwarding class.
-</t>
-      <t>
-Because each classifier sorts traffic into one or more traffic forwarding classes, this type of classifier does not align with ietf-traffic-policy.yang classifier template definition, which defines one traffic forwarding class per classifier.  Additionally, Company C's policing and metering policies relies on the classifier's pre-defined traffic forwarding classes to provide differentiated services, rather than redefining the patterns within a policing or metering policy, as is defined in ietf-diffserv.yang. 
-</t>
-      <t>
-Due to these differences, even though Company C uses all the building blocks of classifier and policy, Company C's augmentation does not use ietf-diffserv.yang to provide differentiated service levels.  Instead, Company C's augmentation uses the basic building blocks, ietf-traffic-policy.yang to provide differentiated services.
-</t>
-        <figure>
-          <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../bin/example-compc-qos-policy@YYYY-MM-DD.yang)
-      ]]></artwork>
         </figure>
       </section>
     </section>
