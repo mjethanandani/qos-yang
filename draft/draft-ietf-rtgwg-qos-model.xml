@@ -5,7 +5,8 @@
 <!-- One method to get references from the online citation libraries.             
     There has to be one entity for each item to be referenced.                    
     An alternate method (rfc include) is described in the references. -->
-
+    
+<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC2474 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2474.xml">
 <!ENTITY RFC2475 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2475.xml">
 <!ENTITY RFC6020 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6020.xml">
@@ -120,7 +121,7 @@
 
   <middle>
     <section anchor="intro" title="Introduction">
-      <t> This document defines a base YANG <xref target="RFC6020"/>
+      <t> This document defines a YANG <xref target="RFC6020"/>
       <xref target="RFC7950"/> model for Quality of Service (QoS)
       configuration and statistics parameters. Traffic Policy module 
       defines the basic building blocks to define a classifier, policy
@@ -259,35 +260,37 @@
       other models such as Policy Based Routing (PBR) to augment the
       base modules and define PBR.</t>
 
-      <t>A classifier consists of packets which may be grouped when a
-      logical set of rules are applied on different packet header
-      fields. The grouping may be based on different values or range
-      of values of same packet header field, presence or absence of
-      some values or range of values of a packet field or a
-      combination thereof. The QoS classifier is defined in the
+      <t> A classifier consists of set of filters and an operation
+      that is performed on those filters. Each filter defines a rule
+      on a particular packet header or packet metadata field that
+      dictate how the packet will be classified based on that
+      particular field, e.g. whether it will be classified based on
+      DSCP, or will be classified based on source IPv4 address
+      prefix. The operation defines whether these filters are
+      logically AND or OR. The filters may be based on a combination
+      of values or range of values of different packet header fields
+      or packet metadata fields. The QoS classifier is defined in the
       Traffic Policy module.</t>
 
-      <t>A classifier entry contains one or more packet conditioning
-      functions. A packet conditioning function is typically based on
-      direction of traffic and may drop, mark or delay network
-      packets. A set of classifier entries with corresponding
-      conditioning functions when arranged in order of priority
-      represents a QoS policy. A QoS policy may contain one or more
-      classifier entries. These are defined in Traffic Policy
-      module.</t>
+      <t>One or more packet conditioning functions may be applied
+      to a classifier which may drop, mark, or delay packets
+      These are defined in the QoS Action module. A set of
+      classifiers with corresponding conditioning functions when 
+      arranged in order of priority represent a QoS policy.
+      These policies are defined in Traffic Policy module.</t>
 
       <t>QoS actions are configured in line or referred in a
       Policy module.  These include marking, metering or queuing.
       Actions are defined in the QoS Action module.</t>
 
-      <t>A meter qualifies if the traffic arrival rate is based on
-      agreed upon rate and variability. A meter is modeled based on
+      <t>Meter meters each packet and passes the packet and the
+      metering result to the Marker. Meter is modeled based on
       commonly used alogrithms in industry, <xref target="RFC2697">A
       Single Rate Three Color Marker (srTCM) </xref> meter, <xref
       target="RFC2698">A Two Rate Three Color Marker (trTCM)</xref>
-      meter, and Single Rate Two Color Marker meter. Different
+      meter, and A Single Rate Two Color Marker meter. Different
       vendors can extend it with other types of meters as well.
-      Meters are defined in QoS Action module</t>
+      Meter is defined in QoS Action module</t>
 
       <t> Queue Policy module allows Queues to be referred in a
       policy. The match is based on Traffic-Group and action
@@ -296,14 +299,13 @@
       <t> Scheduling Policy module defines a set of scheduling
       parameters and associates Queue Policy with it.</t>
 
-      <t>QoS operational model include QoS policy applied to an interface
-      in each direction of traffic.  For each QoS policy applied to an
-      interface the model further includes counters for associated
-      Classifiers, Meters and Queues in a particular direction.  To
-      modularize and for reusability, grouping have been defined for
-      various counters of classifier, Meters and Queues.  The target is
-      assumed to be interface but the groupings can be used for any other
-      target type where QoS policy is applied.</t>
+      <t>QoS counters are defined in QoS Oper module. It includes
+      counters for Classifiers, Meters and Queues associated with a QoS
+      policy applied in each direction of traffic. To modularize and for
+      reusability, grouping have been defined for various counters of
+      Classifier, Meters and Queues.  The target is assumed to be
+      interface but the groupings can be used for any other target
+      type where QoS policy is applied.</t>
     </section>
 
     <section title="DiffServ Model Design">
@@ -321,8 +323,8 @@
       two types of classifiers, the BA classifier, and the Multi-Field
       (MF) classifier which selects packets based on a value which is
       combination of one or more header fields. In the Diffserv Policy
-      module, this is realized by augmenting the QoS classification
-      module.</t>
+      module, this is realized by augmenting the classifier in
+      Traffic Policy module.</t>
 
       <t>Traffic conditioning includes metering, shaping and/or
       marking.  A meter is used to measure the traffic against a given
@@ -365,17 +367,19 @@
     </section>
 
     <section title=" Modules Tree Structure">
-      <t>This document defines seven YANG modules - four QoS base
-      modules, a scheduler policy module, a queuing policy module and
-      one DiffServ module.</t>
 
-      <t>Traffic Policy module contains list of classifier entries
-      identified by a classifier entry name. Each entry MAY contain a list of
-      filter entries.  When no filter entry is present in a classifier
-      entry, it matches all traffic.</t>
+      <t>This document defines a base Traffic Policy module, a QoS
+      specific Action module, separate policy modules for Scheduler,
+      Queuing and DiffServ policies and operational module for QoS
+      counters.</t>
 
-      <t>Traffic Policy module also contains list of policy objects identified
-      by a policy name and policy type which MUST be provided. With different
+      <t>Traffic Policy module contains list of classifiers
+      identified by a classifier name. Each classifier MAY contain a
+      list of filters. When no filter is present in a classifier, it
+      matches all traffic.</t>
+
+      <t>This module also contains list of policy objects identified by a
+      policy name and policy type which MUST be provided. With different
       values of policy types, each vendor MAY define their own construct of
       policy for different QoS functionalities. Each vendor MAY augment
       classifier entry in a policy definition with a set of actions.</t>
@@ -400,14 +404,15 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-traffic-policy@YYYY-MM-DD-sub-tree.txt)
 INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)
     ]]></artwork>
       </figure>
-   <t>Traffic Policy module contains reference of qos-policy and augments
-   ietf-interfaces <xref target="RFC8343"/> module. A single policy of a particular 
-   policy-type can be applied on an interface in each direction of  
-   traffic. Policy-type is of type identity and is populated in a
-   vendor specific manner. This way it provides greater flexibility for each vendor
-   to define different policy types each with its own capabilities and 
-   restrictions.</t>    
-   <t>Classifier, metering and queuing counters are associated with a target. </t>
+
+      <t>Traffic Policy module contains reference of qos-policy and augments
+      ietf-interfaces <xref target="RFC8343"/> module. A single policy of a particular 
+      policy-type can be applied on an interface in each direction of  
+      traffic. Policy-type is of type identity and is populated in a
+      vendor specific manner. This way it provides greater flexibility for each vendor
+      to define different policy types each with its own capabilities and 
+      restrictions.</t>    
+      <t>Classifier, metering and queuing counters are associated with a target. </t>
 
       <t>Diffserv module augments QoS classifier module. Many of the YANG
       types defined in <xref target="RFC6991"/> are represented as leafs in
@@ -529,6 +534,16 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-scheduler-policy@YYYY-MM-DD.yang)
           <artwork><![CDATA[
 <CODE BEGINS>file "ietf-qos-oper@YYYY-MM-DD.yang"
 INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD.yang)
+<CODE ENDS>
+    ]]></artwork>
+        </figure>
+      </section>
+      <section title="iana-qos-types">
+        <figure>
+	  <name>iana-qos-types module</name>
+          <artwork><![CDATA[
+<CODE BEGINS>file "iana-qos-types@YYYY-MM-DD.yang"
+INSERT_TEXT_FROM_FILE(../bin/iana-qos-types@YYYY-MM-DD.yang)
 <CODE ENDS>
     ]]></artwork>
         </figure>
