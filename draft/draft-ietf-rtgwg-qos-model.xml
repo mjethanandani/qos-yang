@@ -840,6 +840,14 @@ INSERT_TEXT_FROM_FILE(../src/yang/example-qos-configuration-a.1.3.xml)
     ]]></artwork>
         </figure>
       </section>
+      <section title="Configuration example for QoS Queueing">
+        <figure>
+	  <name>Configuration example for QoS Queuing</name>
+          <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../src/yang/example-qos-configuration-a.1.4.xml)
+    ]]></artwork>
+        </figure>
+      </section>
     </section>
   </back>
 </rfc>
