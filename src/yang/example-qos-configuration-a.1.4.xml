@@ -53,7 +53,7 @@
     xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy"
     xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types">
   <policy>
-    <name>PRIORITY-QUEUING</name>
+    <name>QUEUEING-POLICY</name>
     <type>qt:diffserv-policy-type</type>
     <classifier>
       <name>VOICE</name>
@@ -129,7 +129,7 @@
 	xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy">
       <direction>qt:outbound</direction>
       <type>qt:diffserv-policy-type</type>
-      <name>PRIORITY-QUEUEING</name>
+      <name>QUEUEING-POLICY</name>
     </qos-target-policy>
   </interface>
 </interfaces>

@@ -280,7 +280,7 @@
       These policies are defined in Traffic Policy module.</t>
 
       <t>QoS actions are configured in line or referred in a
-      Policy module.  These include marking, metering or queuing.
+      Policy module.  These include marking, metering or queueing.
       Actions are defined in the QoS Action module.</t>
 
       <t>Meter meters each packet and passes the packet and the
@@ -370,7 +370,7 @@
 
       <t>This document defines a base Traffic Policy module, a QoS
       specific Action module, separate policy modules for Scheduler,
-      Queuing and DiffServ policies and operational module for QoS
+      Queueing and DiffServ policies and operational module for QoS
       counters.</t>
 
       <t>Traffic Policy module contains list of classifiers
@@ -412,14 +412,14 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)
       vendor specific manner. This way it provides greater flexibility for each vendor
       to define different policy types each with its own capabilities and 
       restrictions.</t>    
-      <t>Classifier, metering and queuing counters are associated with a target. </t>
+      <t>Classifier, metering and queueing counters are associated with a target. </t>
 
       <t>Diffserv module augments QoS classifier module. Many of the YANG
       types defined in <xref target="RFC6991"/> are represented as leafs in
       the classifier module.</t>
 
       <t>Metering and marking actions are realized by augmenting the QoS
-      policy-module. Any queuing, AQM and scheduling actions are part of
+      policy-module. Any queueing, AQM and scheduling actions are part of
       vendor specific augmentation. Statistics are realized by augmenting the
       QoS target module.</t>
      
@@ -432,7 +432,7 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)
       Metering counters include conform, exceed, violate, drop packets,
       and bytes.</t>
 
-      <t>Queuing counters include instantaneous, peak, average queue length,
+      <t>Queueing counters include instantaneous, peak, average queue length,
       as well as output conform, exceed, tail drop packets and bytes.</t>
 
       <t>Named statistics is defined as statistics which is tagged by a name.
@@ -440,7 +440,7 @@ INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)
       statistics is defined as counters which are aggregated across
       classifier entries in a policy applied to an interface in a
       particular direction.  Non-aggregated named statistics are counters
-      of classifier, metering or queuing which have the same tag name but
+      of classifier, metering or queueing which have the same tag name but
       maintained separately.</t>
 
       <figure>
@@ -767,7 +767,7 @@ v00 2010-09-17  SS    Initial version
     <section anchor="appendixA" title="Company A and Company B examples">
       <t>Company A and Company B Diffserv modules augments all the filter types of the QoS
       classifier module as well as the QoS policy module that allow it to
-      define marking, metering, min-rate, max-rate actions. Queuing and
+      define marking, metering, min-rate, max-rate actions. Queueing and
       metering counters are realized by augmenting of the QoS target
       module.</t>
 
@@ -842,7 +842,7 @@ INSERT_TEXT_FROM_FILE(../src/yang/example-qos-configuration-a.1.3.xml)
       </section>
       <section title="Configuration example for QoS Queueing">
         <figure>
-	  <name>Configuration example for QoS Queuing</name>
+	  <name>Configuration example for QoS Queueing</name>
           <artwork><![CDATA[
 INSERT_TEXT_FROM_FILE(../src/yang/example-qos-configuration-a.1.4.xml)
     ]]></artwork>
