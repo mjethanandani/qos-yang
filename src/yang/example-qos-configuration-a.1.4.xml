@@ -1,6 +1,6 @@
 <!--
-    This example shows a QoS policy configuration for a priority
-    queuing. For a description of the problem refer to:
+    This example shows a QoS policy configuration for queuing.
+    For a description of the problem refer to:
     https://networklessons.com/quality-of-service/queuing-configuration-example
 -->
 
@@ -23,7 +23,7 @@
   </classifier>
   <classifier>
     <name>VIDEO</name>
-    <description>class-map definition for VOICE</description>
+    <description>class-map definition for VIDEO</description>
     <filter>
       <type>qt:protocol</type>
       <logical-not>false</logical-not>
@@ -36,7 +36,7 @@
   </classifier>
   <classifier>
     <name>DATA</name>
-    <description>class-map definition for VOICE</description>
+    <description>class-map definition for DATA</description>
     <filter>
       <type>qt:protocol</type>
       <logical-not>false</logical-not>
@@ -53,7 +53,7 @@
     xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy"
     xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types">
   <policy>
-    <name>PRIORITY-QUEUING</name>
+    <name>QUEUEING-POLICY</name>
     <type>qt:diffserv-policy-type</type>
     <classifier>
       <name>VOICE</name>
@@ -64,6 +64,14 @@
 	  <priority>
 	    <level>1</level>
 	  </priority>
+	  <min-rate>
+	    <value>2000000</value>
+	    <unit>qt:bits-per-second</unit>
+	  </min-rate>
+	  <max-rate>
+	    <value>4000000</value>
+	    <unit>qt:bits-per-second</unit>
+	  </max-rate>
 	</queue>
       </action>
     </classifier>
@@ -76,6 +84,14 @@
 	  <priority>
 	    <level>2</level>
 	  </priority>
+	  <min-rate>
+	    <value>10000000</value>
+	    <unit>qt:bits-per-second</unit>
+	  </min-rate>
+	  <max-rate>
+	    <value>30000000</value>
+	    <unit>qt:bits-per-second</unit>
+	  </max-rate>
 	</queue>
       </action>
     </classifier>
@@ -86,8 +102,16 @@
 	<queue
 	    xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
 	  <priority>
-	    <level>3</level>
+	    <level>2</level>
 	  </priority>
+	  <min-rate>
+	    <value>8000000</value>
+	    <unit>qt:bits-per-second</unit>
+	  </min-rate>
+	  <max-rate>
+	    <value>18000000</value>
+	    <unit>qt:bits-per-second</unit>
+	  </max-rate>
 	</queue>
       </action>
     </classifier>
@@ -105,7 +129,7 @@
 	xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy">
       <direction>qt:outbound</direction>
       <type>qt:diffserv-policy-type</type>
-      <name>PRIORITY-QUEUEING</name>
+      <name>QUEUEING-POLICY</name>
     </qos-target-policy>
   </interface>
 </interfaces>
