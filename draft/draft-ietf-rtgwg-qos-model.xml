@@ -403,7 +403,6 @@
 	  <name>ietf-traffic-policy tree diagram</name>
           <artwork><![CDATA[
 	  INSERT_TEXT_FROM_FILE(../bin/ietf-traffic-policy@YYYY-MM-DD-sub-tree.txt)
-
 	  ]]></artwork>
 	</figure>
 
@@ -779,7 +778,7 @@ v00 2010-09-17  SS    Initial version
     <section anchor="appendixA" title="Company A and Company B examples">
       <t>Company A and Company B Diffserv modules augments all the filter types of the QoS
       classifier module as well as the QoS policy module that allow it to
-      define marking, metering, min-rate, max-rate actions. Queuing and
+      define marking, metering, min-rate, max-rate actions. Queueing and
       metering counters are realized by augmenting of the QoS target
       module.</t>
 
@@ -849,6 +848,14 @@ INSERT_TEXT_FROM_FILE(../src/yang/example-qos-configuration-a.1.2.xml)
 	  <name>Configuration example for QoS Policing</name>
           <artwork><![CDATA[
 INSERT_TEXT_FROM_FILE(../src/yang/example-qos-configuration-a.1.3.xml)
+    ]]></artwork>
+        </figure>
+      </section>
+      <section title="Configuration example for QoS Queueing">
+        <figure>
+	  <name>Configuration example for QoS Queueing</name>
+          <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../src/yang/example-qos-configuration-a.1.4.xml)
     ]]></artwork>
         </figure>
       </section>
