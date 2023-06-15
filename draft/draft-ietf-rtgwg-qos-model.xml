@@ -185,6 +185,8 @@
 	</t>
         <t>
 	  <ul>
+	    <li>Active Queue Managment (AQM): An activity that marks
+	    or drops packets before the queue is full.</li>
 	    <li>Behavior Aggregate (BA): A DS behavior aggregate.</li>
 	    <li>Classifier: an entity which selects packets based on
 	    the content of packet headers according to defined
@@ -282,9 +284,9 @@
       arranged in order of priority represent a QoS policy.
       These policies are defined in Traffic Policy module.</t>
 
-      <t>The QoS Action module define marking, metering and
-      queuing. QoS actions are configured in line or referred to in a
-      Policy module (Note, which Policy module?).</t>
+      <t>The QoS Action module defines marking, metering and
+      queuing. QoS actions are configured in line or referred to in
+      Diffserv, Queuing, and Scheduling Policy modules.</t>
 
       <t>A Meter meters each packet and passes the packet and the
       metering result to the Marker. Meter is modeled based on
@@ -390,7 +392,7 @@
 	types, each vendor MAY define their own construct of policy
 	for different QoS functionalities. Each vendor MAY augment
 	classifier entry in a policy definition with a set of
-	actions (Note, not clear what this sentence means).</t>
+	actions.</t>
 
 	<t>The module also augments ietf-interfaces <xref
 	target="RFC8343"/> module to add a target policy. A single
@@ -416,18 +418,11 @@
       </section>
 
       <section title="QoS Action Module">
-	<t>QoS Action module includes actions such as marking,
-	metering (Note, all I see is marking functions, no metering
-	functions in the module), or queuing. Metering and marking
-	actions are realized by augmenting the QoS Policy (Note, there
-	is nothing called a QoS Policy module any more) module. Any
-	queuing, AQM (Note, what is AQM) and scheduling (Note, there
-	are no scheduling actions in this module) actions are part of
-	vendor specific augmentation.  Other actions include dropping
-	and shaping. Marking sets DiffServ codepoint value in the
-	classified packet. Color-aware and Color-blind meters are
-	augmented by vendor specific modules based on the parameters
-	defined in action module.</t>
+	<t>QoS Action module includes actions such marking, metering,
+	or queuing. Metering, marking, queuing, and scheduling actions
+	are realized by augmenting the Traffic Policy module. Marking
+	sets DiffServ codepoint value in the classified
+	packet.</t>
 
 	<figure>
 	  <name>ietf-qos-actions tree diagram</name>
@@ -512,7 +507,7 @@
 
       <section title="Scheduler Policy Module">
 	<t> Scheduling Policy module defines a set of scheduling
-	parameters and associates a Queue Policy with it(Note, why is the queue-policy a string rather than a reference).</t>
+	parameters and associates a Queue Policy with it.</t>
 	<figure>
 	  <name>ietf-scheduler-policy tree diagram</name>
           <artwork><![CDATA[
