@@ -295,7 +295,7 @@
       target="RFC2698">A Two Rate Three Color Marker (trTCM)</xref>,
       and A Single Rate Two Color Marker. Different vendors can extend
       it with other types of meters as well.  Meter is defined in QoS
-      Action module</t>
+      Action module.</t>
 
       <t>Queue Policy module allows queues to be referred in a
       policy. The match is based on Traffic-Group and action
