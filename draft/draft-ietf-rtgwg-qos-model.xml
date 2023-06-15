@@ -460,7 +460,7 @@
         </figure>
       </section>
 
-      <section title="Qos Operational Module">
+      <section title="QoS Operational Module">
 	<t>QoS Operational module contains all operational
 	statistics. It contains statistics related to classifier,
 	metering, queueing, and named.</t>
