@@ -71,24 +71,31 @@ module ietf-qos-action {
     description
       "meter action parameters";
 
-    list action {
-      key "action-type";
-      ordered-by user;
+    leaf action-type {
+      type identityref {
+        base qos-types:meter-action-type;
+      }
       description
-        "Configuration of basic-meter & associated actions";
-
-      leaf action-type {
-        type identityref {
-          base qos-types:meter-action-type;
-        }
-        description
-          "meter action type";
+        "meter action type";
+    }
+    leaf dscp-mark {
+      type inet:dscp;
+      must "../action-type = 'qos-types:action-mark'" {
+        error-message
+        "The dscp must be marked when action-type is action-mark";
       }
-
-      choice action-val {
-        description
-          "Meter action based on choice of meter action type";
+      description
+        "dscp marking";
+    }
+    leaf traffic-group-mark {
+      type string;
+      must "../action-type = 'qos-types:action-mark'" {
+        error-message
+        "The traffic-group must be marked when action-type is
+         action-mark";
       }
+      description
+        "traffic group marking";
     }
   }
 

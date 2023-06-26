@@ -37,14 +37,10 @@
 	    xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
 	  <committed-information-rate>128000</committed-information-rate>
 	  <conform-action>
-	    <action>
-	      <action-type>qt:action-transmit</action-type>
-	    </action>
+	    <action-type>qt:action-transmit</action-type>
 	  </conform-action>
 	  <exceed-action>
-	    <action>
-	      <action-type>qt:action-drop</action-type>
-	    </action>
+	    <action-type>qt:action-drop</action-type>
 	  </exceed-action>
 	</single-rate-two-color-meter>
       </action>
