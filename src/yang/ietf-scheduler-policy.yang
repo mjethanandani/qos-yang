@@ -9,6 +9,11 @@ module ietf-scheduler-policy {
   import ietf-traffic-policy {
     prefix policy;
   }
+  import iana-qos-types {
+    prefix qos-types;
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
+  }
 
   organization
     "IETF Routing Area Working Group";
@@ -63,7 +68,7 @@ module ietf-scheduler-policy {
   augment "/policy:policies/policy:policy/policy:classifier" +
           "/policy:inline/policy:filter" {
         when "derived-from-or-self(../../../policy:type, " +
-             "'scheduler-policy:scheduler-policy-type')" {
+             "'qos-types:scheduler-policy-type')" {
             description
                "Only when policy type is scheduler-policy";
         }
@@ -80,26 +85,10 @@ module ietf-scheduler-policy {
       "Augments Queue policy Classifier with common filter types";
   }
 
-  grouping queue-policy-name {
-    container queue-policy-name {
-      leaf queue-policy {
-        type string ;
-        mandatory true;    
-        description
-          "This leaf defines name of the queue-policy";
-      }
-    description
-      "container for queue-policy name";
-    }
-    description
-      "queue-policy name grouping";
-  }
-  
-  
   augment "/policy:policies/policy:policy/policy:classifier" + 
           "/policy:action/policy:action-params" {
         when "derived-from-or-self(../../policy:type, " +
-             "'scheduler-policy:scheduler-policy-type')" {
+             "'qos-types:scheduler-policy-type')" {
             description
                "Only when policy type is scheduler-policy";
         }
@@ -107,7 +96,20 @@ module ietf-scheduler-policy {
         uses action:scheduler;
       }
       case queue-policy-name {
-        uses queue-policy-name;
+        container queue-policy-name {
+          leaf queue-policy {
+            type leafref  {
+                path "/policy:policies/policy:policy/policy:name";
+            }
+            must "/policy:policies/policy:policy/policy:type =" +
+                 "'qos-types:queue-policy-type'";
+            mandatory true;
+            description
+              "This leafref refers queue-policy name";
+          }
+        description
+          "container for queue-policy name";
+        }
       }
     description
       "augments scheduler template reference to scheduler policy";
