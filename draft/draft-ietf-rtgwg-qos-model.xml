@@ -239,6 +239,16 @@
     </section>
     
     <section title="QoS Model Design">
+      <t> The overall objective of this model design is to offer a
+      base set of models that can then be further augmented to provide
+      other methods such as Policy Based Routing (PBR) that would
+      augment the base modules defined in this draft to define
+      PBR. This document defines one such method called DiffServ. The
+      design also takes into consideration that vendors might want to
+      extend the model to add their own extensions, such as to Traffic
+      Policy, to provide constructs of policy for different QoS
+      functionalities."</t>
+
       <figure>
         <name>QoS Yang Modules Layout</name>
         <artwork>
@@ -260,9 +270,7 @@
       <t> The above diagram depicts the design of the QoS model. It
       uses Traffic Policy and QoS Action as base modules, which are
       augmented by the remaining modules on the top to define
-      different aspects of QoS. This structure allows other methods
-      such as Policy Based Routing (PBR) to augment the base modules
-      defined in this draft to define PBR.</t>
+      different aspects of QoS.</t>
 
       <t> The Classifer is defined as part of Traffic Policy Module. A
       classifier consists of set of filters and an operation that is
@@ -332,7 +340,7 @@
       Traffic Policy module.</t>
 
       <t>Traffic conditioning includes metering, shaping and/or
-      marking.  A meter is used to measure the traffic against a given
+      marking.  A Meter is used to measure the traffic against a given
       traffic profile. The traffic profile specifies the temporal
       property of the traffic. A packet that arrives is first
       determined to be in or out of the profile, which will result in
