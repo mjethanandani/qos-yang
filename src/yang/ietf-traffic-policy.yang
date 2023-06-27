@@ -68,19 +68,17 @@ module ietf-traffic-policy {
   }
   grouping generic-classifier-attr {
     description
-      "
-       Classifier generic attributes like name,
-       description, operation type
-      ";
+      "Classifier generic attributes like name,
+       description, operation type";
     leaf name {
       type string;
       description
-        "classifier entry name";
+        "Classifier entry name";
     }
     leaf description {
       type string;
       description
-        "classifier entry description statement";
+        "Classifier entry description statement";
     }
     leaf filter-operation {
       type qos-types:match-operation-type; 
@@ -131,7 +129,7 @@ module ietf-traffic-policy {
     list classifier{
       key "name";
       description
-        "each classifier entry contains a list of filters";
+        "Each classifier entry contains a list of filters";
       uses generic-classifier-attr;
       list filter {
         key "type logical-not";
@@ -147,12 +145,12 @@ module ietf-traffic-policy {
     list policy{
       key "name type";
       description
-        "policy template";
+        "Policy template";
 
       leaf name {
         type string;
         description
-          "policy name";
+          "Policy name";
       }
 
       leaf type {
@@ -160,12 +158,12 @@ module ietf-traffic-policy {
           base qos-types:policy-type;
         }
         description
-          "policy type";
+          "Policy type";
       }
       leaf description {
         type string;
         description
-          "policy description";
+          "Policy description";
       }
 
       list classifier{
@@ -176,7 +174,7 @@ module ietf-traffic-policy {
         leaf name {
           type string;
           description
-            "classifier entry name";
+            "Classifier entry name";
         }
         container inline {
           presence "This container is present for when the device
@@ -184,7 +182,7 @@ module ietf-traffic-policy {
           uses inline-attr;
           description
             "Container for when an inline classification
-             is desired.";
+             is configured.";
         }
         uses classifier-action-entry;
       }
@@ -196,7 +194,7 @@ module ietf-traffic-policy {
     list qos-target-policy {
       key "direction type";
       description
-        "policy target for inbound or outbound direction";
+        "Policy target for inbound or outbound direction";
       leaf direction {
         type identityref {
           base qos-types:direction;

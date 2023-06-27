@@ -56,29 +56,29 @@ module ietf-scheduler-policy {
       leaf match-all-action {
         type empty;
         description
-          "match all packets";
+          "Match all packets";
       }
       description
-        "the match-all action";
+        "Match-all filter container";
     }
     description
-      "the match-all filter grouping";
+      "Match-all filter grouping";
   }
 
   augment "/policy:policies/policy:policy/policy:classifier" +
           "/policy:inline/policy:filter" {
-        when "derived-from-or-self(../../../policy:type, " +
-             "'qos-types:scheduler-policy-type')" {
-            description
-               "Only when policy type is scheduler-policy";
-        }
+    when "derived-from-or-self(../../../policy:type, " +
+         "'qos-types:scheduler-policy-type')" {
+      description
+        "Augments only when policy type is scheduler-policy";
+    }
     choice filter-params {
       description
         "Choice of action types";
       case filter-match-all {
         uses filter-match-all;
         description
-          "filter match-all";
+          "Filter match-all";
       }
     }
     description
@@ -87,31 +87,32 @@ module ietf-scheduler-policy {
 
   augment "/policy:policies/policy:policy/policy:classifier" + 
           "/policy:action/policy:action-params" {
-        when "derived-from-or-self(../../policy:type, " +
-             "'qos-types:scheduler-policy-type')" {
-            description
-               "Only when policy type is scheduler-policy";
-        }
-      case scheduler {
-        uses action:scheduler;
-      }
-      case queue-policy-name {
-        container queue-policy-name {
-          leaf queue-policy {
-            type leafref  {
-                path "/policy:policies/policy:policy/policy:name";
-            }
-            must "/policy:policies/policy:policy/policy:type =" +
-                 "'qos-types:queue-policy-type'";
-            mandatory true;
-            description
-              "This leafref refers queue-policy name";
+    when "derived-from-or-self(../../policy:type, " +
+         "'qos-types:scheduler-policy-type')" {
+      description
+        "Augments only when policy type is scheduler-policy";
+    }
+    case scheduler {
+      uses action:scheduler;
+    }
+    case queue-policy-name {
+      container queue-policy-name {
+        leaf queue-policy {
+          type leafref  {
+            path "/policy:policies/policy:policy/policy:name";
           }
-        description
-          "container for queue-policy name";
+          must "/policy:policies/policy:policy/policy:type = " +
+               "'qos-types:queue-policy-type'";
+          mandatory true;
+          description
+            "This leafref refers to queue-policy name";
         }
+        description
+          "Container for queue-policy name";
       }
+    }
     description
-      "augments scheduler template reference to scheduler policy";
+      "Augments scheduler policy to add scheduler parameters
+       and a reference to queue-policy";
   }
 }

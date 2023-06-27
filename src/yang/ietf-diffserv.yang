@@ -58,11 +58,11 @@ module ietf-diffserv {
     list dscp {
       key "min max";
       description
-        "list of dscp ranges";
+        "List of dscp ranges";
       leaf min {
         type inet:dscp;
         description
-          "Minimum value of dscp min-max range";
+          "Minimum value of DSCP min-max range";
       }
       leaf max {
         type inet:dscp;
@@ -71,21 +71,21 @@ module ietf-diffserv {
           "The dscp-max must be greater than or equal to dscp-min";
         }
         description
-          "maximum value of dscp min-max range";
+          "Maximum value of DSCP min-max range";
       }
     }
     description
-      "Filter grouping containing list of dscp ranges";
+      "Filter grouping containing list of DSCP ranges";
   }
   grouping source-ipv4-prefix {
     list source-ipv4-prefix {
       key "prefix";
       description
-        "list of source ipv4 prefix";
+        "List of source ipv4 prefix";
       leaf prefix {
         type inet:ipv4-prefix;
         description
-          "source ipv4 prefix";
+          "Source ipv4 prefix";
       }
     }
     description
@@ -95,11 +95,11 @@ module ietf-diffserv {
     list destination-ipv4-prefix {
       key "prefix";
       description
-        "list of destination ipv4 prefix";
+        "List of destination ipv4 prefix";
       leaf prefix {
         type inet:ipv4-prefix;
         description
-          "destination ipv4 prefix";
+          "Destination ipv4 prefix";
       }
     }
     description
@@ -109,11 +109,11 @@ module ietf-diffserv {
     list source-ipv6-prefix {
       key "prefix";
       description
-        "list of source ipv6 prefix";
+        "List of source ipv6 prefix";
       leaf prefix {
         type inet:ipv6-prefix;
         description
-          "source ipv6 prefix";
+          "Source ipv6 prefix";
       }
     }
     description
@@ -123,11 +123,11 @@ module ietf-diffserv {
     list destination-ipv6-prefix {
       key "prefix";
       description
-        "list of destination ipv4 or ipv6 prefix";
+        "List of destination ipv4 or ipv6 prefix";
       leaf prefix {
         type inet:ipv6-prefix;
         description
-          "destination ipv6 prefix";
+          "Destination ipv6 prefix";
       }
     }
     description
@@ -137,11 +137,11 @@ module ietf-diffserv {
     list source-port {
       key "min max";
       description
-        "list of ranges of source port";
+        "List of ranges of source port";
       leaf min {
         type inet:port-number;
         description
-          "minimum value of source port range";
+          "Minimum value of source port range";
       }
       leaf max {
         type inet:port-number;
@@ -151,7 +151,7 @@ module ietf-diffserv {
            source-port-min";
         }
         description
-          "maximum value of source port range";
+          "Maximum value of source port range";
       }
     }
     description
@@ -165,7 +165,7 @@ module ietf-diffserv {
       leaf min {
         type inet:port-number;
         description
-          "minimum value of destination port range";
+          "Minimum value of destination port range";
       }
       leaf max {
         type inet:port-number;
@@ -175,7 +175,7 @@ module ietf-diffserv {
            destination-port-min";
         }
         description
-          "maximum value of destination port range";
+          "Maximum value of destination port range";
       }
     }
     description
@@ -185,7 +185,7 @@ module ietf-diffserv {
     list protocol {
       key "min max";
       description
-        "list of ranges of protocol values. Protocol refers to the
+        "List of ranges of protocol values. Protocol refers to the
          value in the protocol field of the ipv4 header and value
          in the 'next-header' field of ipv6 header. In ipv6 header,
          'next-header' field indicates first extension header or the
@@ -199,7 +199,7 @@ module ietf-diffserv {
           range "0..255";
         }
         description
-          "minimum value of protocol range";
+          "Minimum value of protocol range";
       }
       leaf max {
         type uint8 {
@@ -211,11 +211,11 @@ module ietf-diffserv {
            protocol-min";
         }
         description
-          "maximum value of protocol range";
+          "Maximum value of protocol range";
       }
     }
     description
-      "Filter grouping containing list of Protocol ranges";
+      "Filter grouping containing list of protocol ranges";
   }
   grouping traffic-group {
     container traffic-group {
@@ -225,10 +225,10 @@ module ietf-diffserv {
           "This leaf defines name of the traffic group referenced";
       }
     description
-      "traffic group container";
+      "Traffic group container";
     }
     description
-      "traffic group grouping";
+      "Traffic group grouping";
   }
 
   augment "/policy:classifiers/policy:classifier" + 
@@ -239,7 +239,7 @@ module ietf-diffserv {
       case dscp {
         uses dscp;
         description
-          "Filter containing list of dscp ranges";
+          "Filter containing list of DSCP ranges";
       }
       case source-ipv4-prefix {
         uses source-ipv4-prefix;
@@ -274,16 +274,16 @@ module ietf-diffserv {
       case protocol {
         uses protocol;
         description
-          "Filter Type Protocol";
+          "Filter type protocol";
       }
       case traffic-group {
         uses traffic-group;
         description
-          "Filter Type traffic-group";
+          "Filter type traffic-group";
       }
     }
     description
-      "augments diffserv filters to qos classifier";
+      "Augments diffserv filters to qos classifier";
   }
   augment "/policy:policies/policy:policy/policy:classifier" +
           "/policy:inline/policy:filter" {
@@ -362,12 +362,12 @@ module ietf-diffserv {
       case protocol {
         uses protocol;
         description
-          "Filter Type Protocol";
+          "Filter type Protocol";
       }
       case traffic-group {
         uses traffic-group;
         description
-          "Filter Type traffic-group";
+          "Filter type traffic-group";
       }
     }
     description

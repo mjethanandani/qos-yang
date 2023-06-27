@@ -59,21 +59,21 @@ module ietf-qos-oper {
     leaf pkts {
       type yang:zero-based-counter64;
       description
-        " Number of total matched packets associated
-          to a statistics name";
+        "Number of total matched packets associated
+         to a statistics name";
     }
     leaf bytes {
       type yang:zero-based-counter64;
       description
-        " Number of total matched bytes associated
-          to a statistics name";
+        "Number of total matched bytes associated
+         to a statistics name";
     }
     leaf rate {
       type yang:gauge64;
       units "bits-per-second";
       description
-        " Rate of average matched data which is associated
-          to a statistics name";
+        "Rate of average matched data which is associated
+         to a statistics name";
     }
   }
   grouping meter-stats {
@@ -152,21 +152,21 @@ module ietf-qos-oper {
     leaf classified-pkts {
       type yang:zero-based-counter64;
       description
-        " Number of total packets which filtered
-          to a classifier";
+        "Number of total packets which filtered
+         to a classifier";
     }
     leaf classified-bytes {
       type yang:zero-based-counter64;
       description
-        " Number of total bytes which filtered
-          to a classifier";
+        "Number of total bytes which filtered
+         to a classifier";
     }
     leaf classified-rate {
       type yang:gauge64;
       units "bits-per-second";
       description
-        " Rate of average data flow through a
-          classifier";
+        "Rate of average data flow through a
+         classifier";
     }
   }
   grouping queuing-stats {
@@ -239,7 +239,7 @@ module ietf-qos-oper {
       leaf profile {
         type uint8;
         description
-          "profile identifier for each color of traffic";
+          "Profile identifier for each color of traffic";
       }
       leaf drop-pkts {
         type yang:zero-based-counter64;
@@ -375,7 +375,7 @@ module ietf-qos-oper {
               base qos-types:clear-counters-type;
             }
             description
-              "category of counters which is being cleared";
+              "Category of counters which is being cleared";
           }
         }
       }

@@ -68,7 +68,7 @@ module ietf-queue-policy {
       case traffic-group-name {
         uses diffserv:traffic-group;
         description
-          "traffic group name";
+          "Traffic group name";
       }
     }
     description
@@ -80,7 +80,7 @@ module ietf-queue-policy {
     when "derived-from-or-self(../../policy:type,"  +
          "'qos-types:queue-policy-type')" {
       description
-        "queue policy actions.";
+        "Queue policy actions.";
     }
     case queue-template-name {
       uses action:queue-reference;
@@ -89,6 +89,6 @@ module ietf-queue-policy {
       uses action:queue;
     }
     description
-      "augments queue template reference to queue policy";
+      "Augments queue template reference to queue policy";
   }
 }

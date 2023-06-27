@@ -54,22 +54,22 @@ module ietf-qos-action {
     leaf value {
       type uint64;
       description
-        "rate value";
+        "Rate value";
     }
     leaf unit {
       type identityref {
         base qos-types:rate-unit-type;
       }
       description
-        "rate unit";
+        "Rate unit";
     }
     description
-      "rate value and unit grouping";
+      "Rate value and unit grouping";
   }
 
   grouping meter-action-params {
     description
-      "meter action parameters";
+      "Meter action parameters";
 
     list action {
       key "action-type";
@@ -82,7 +82,7 @@ module ietf-qos-action {
           base qos-types:meter-action-type;
         }
         description
-          "meter action type";
+          "Meter action type";
       }
 
       choice action-val {
@@ -298,17 +298,17 @@ module ietf-qos-action {
 
   container meters {
     description
-      "list of meter templates";
+      "List of meter templates";
 
     list meter {
       key "name";
       description
-        "meter entry template";
+        "Meter entry template";
 
       leaf name {
         type string;
         description
-          "meter identifier";
+          "Meter identifier";
       }
       uses meter;
     }
@@ -331,10 +331,10 @@ module ietf-qos-action {
           "This leaf defines type of the meter";
       }
       description
-        "meter reference name";
+        "Meter reference name";
     }
     description
-      "meter reference";
+      "Meter reference";
   }
 
   grouping count {
@@ -343,13 +343,13 @@ module ietf-qos-action {
       leaf count-action {
         type empty;
         description
-          "count action";
+          "Count action";
       }
       description
-        "the count action";
+        "Count action container";
     }
     description
-      "the count action grouping";
+      "Count action grouping";
   }
 
   grouping named-counter {
@@ -358,13 +358,13 @@ module ietf-qos-action {
       leaf count-name-action {
         type string;
         description
-          "count action";
+          "Named count action";
       }
       description
-        "the count action";
+        "Named count action container";
     }
     description
-      "the count action grouping";
+      "Named count action grouping";
   }
 
   grouping discard {
@@ -372,13 +372,13 @@ module ietf-qos-action {
       leaf discard {
         type empty;
         description
-          "discard action";
+          "Discard action";
       }
       description
-        "discard action";
+        "Discard action container";
     }
     description
-      "discard grouping";
+      "Discard action grouping";
   }
 
   grouping priority {
@@ -386,48 +386,48 @@ module ietf-qos-action {
       leaf level {
         type uint8;
         description
-          "priority level";
+          "Priority level action";
       }
       description
-        "priority attributes";
+        "Priority action container";
     }
     description
-      "priority attributes grouping";
+      "Priority action grouping";
   }
   grouping min-rate {
     container min-rate {
       uses rate-value-unit;
       description
-        "min guaranteed bandwidth";
+        "Min guaranteed bandwidth container";
     }
     description
-      "minimum rate grouping";
+      "Minimum rate grouping";
   }
   grouping dscp-marking {
     container dscp {
       leaf dscp {
         type inet:dscp;
         description
-          "dscp marking";
+          "DSCP marking";
       }
       description
-        "dscp marking container";
+        "DSCP marking container";
     }
     description
-      "dscp marking grouping";
+      "DSCP marking grouping";
   }
   grouping traffic-group-marking {
     container traffic-group {
       leaf traffic-group {
         type string;
         description
-          "traffic group marking";
+          "Traffic group marking";
       }
       description
-        "traffic group marking container";
+        "Traffic group marking container";
     }
     description
-      "traffic group marking grouping";
+      "Traffic group marking grouping";
   }
   grouping child-policy {
     container child-policy {
@@ -435,13 +435,13 @@ module ietf-qos-action {
       leaf name {
         type string;
         description
-          "Hierarchical Policy";
+          "Hierarchical policy";
       }
       description
-        "Hierarchical Policy configuration container";
+        "Hierarchical policy configuration container";
     }
     description
-      "Grouping of Hierarchical Policy configuration";
+      "Hierarchical policy configuration grouping";
   }
 
   grouping max-rate {
@@ -472,37 +472,37 @@ module ietf-qos-action {
     leaf min-threshold-val {
       type uint64;
       description
-       "minimum value of red threshold";
+       "Minimum value of red threshold";
     }
     leaf min-threshold-unit {
       type identityref {
         base qos-types:red-threshold-unit;
       }
       description
-       "unit of minimum red threshold";
+       "Unit of minimum red threshold";
     }
     leaf max-threshold-val {
       type uint64;
       description
-       "maximum value of red threshold";
+       "Maximum value of red threshold";
     }
     leaf max-threshold-unit {
       type identityref {
         base qos-types:red-threshold-unit;
       }
       description
-       "unit of maximum red threshold";
+       "Unit of maximum red threshold";
     }
     leaf weight {
       type uint8;
       description
-       "the decay factor for the average queue size
+       "The decay factor for the average queue size
         calculation. the numbers are 2's exponent";
     }
     leaf max-probability-val {
       type uint64;
       description
-       "value of maximum probability value. this value need
+       "Value of maximum probability value. this value need
         be interpreted along with max-probability-unit";
     }
     leaf max-probability-unit {
@@ -510,7 +510,7 @@ module ietf-qos-action {
         base qos-types:probability-unit;
       }
       description
-       "probability unit type as defined
+       "Probability unit type as defined
         by probability-unit";
     }
     description
@@ -528,7 +528,7 @@ module ietf-qos-action {
               leaf tail-drop {
                 type empty;
                 description
-                 "tail drop algorithm";
+                 "Tail drop algorithm";
               }
               description
                 "Tail Drop configuration container";
@@ -543,7 +543,7 @@ module ietf-qos-action {
                 type boolean;
                 default "false";
                 description
-                  "ecn is enabled on the queue";
+                  "ECN is enabled on the queue";
               }
               description
                 "Random Early Detect configuration";
@@ -556,44 +556,44 @@ module ietf-qos-action {
                 leaf profile {
                   type uint8;
                   description
-                    "profile id of each wred profile";
+                    "Profile id of each WRED profile";
                 }
                 leaf color-type {
                   type identityref {
                     base qos-types:wred-color-type;
                   }
                   description
-                    "wred color-type of each profile";
+                    "WRED color-type of each profile";
                 }
                 list color-val {
                   key "min max";
                   leaf min {
                     type uint8;
                     description
-                      "minimum value of color types";
+                      "Minimum value of color types";
                   }
                   leaf max {
                     type uint8;
                     description
-                      "maximum value of color types";
+                      "Maximum value of color types";
                   }
                   description
-                    "list of color markings which constitute
+                    "List of color markings which constitute
                      a traffic profile";
                 }
                 uses red-config-parameters;
                 description
-                  "list of RED profiles each with its own
+                  "List of RED profiles each with its own
                    threshold values";
               }
               leaf ecn-enabled {
                 type boolean;
                 default "false";
                 description
-                  "ecn is enabled on the queue";
+                  "ECN is enabled on the queue";
               }
               description
-                "Weighted Random Early Detect configuration";
+                "Weighted random early detect configuration";
             }
           }
           description

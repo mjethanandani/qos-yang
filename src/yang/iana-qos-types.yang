@@ -43,7 +43,7 @@ module iana-qos-types {
    */
   feature child-policy {
     description
-      " This feature allows configuration of hierarchical policy.";
+      "This feature allows configuration of hierarchical policy";
   }
   feature count {
     description
@@ -96,55 +96,55 @@ module iana-qos-types {
   identity dscp-marking {
     base action-type;
     description
-      "dscp marking action type";
+      "DSCP marking action type";
   }
   identity meter-inline {
     base action-type;
     description
-      "meter-inline action type";
+      "Meter inline action type";
   }
   identity meter-reference {
     base action-type;
     description
-      "meter reference action type";
+      "Meter reference action type";
   }
   identity queue {
     base action-type;
     description
-      "queue action type";
+      "Queue action type";
   }
   identity scheduler {
     base action-type;
     description
-      "scheduler action type";
+      "Scheduler action type";
   }
   identity discard {
     base action-type;
     description
-      "discard action type";
+      "Discard action type";
   }
   identity child-policy {
     if-feature child-policy;
     base action-type;
     description
-      "child-policy action type";
+      "Child-policy action type";
   }
   identity count {
     if-feature count;
     base action-type;
     description
-      "count action type";
+      "Count action type";
   }
   identity named-counter {
     if-feature named-counter;
     base action-type;
     description
-      "name counter action type";
+      "Name counter action type";
   }
   identity queue-policy-name {
     base action-type;
     description
-      "queue policy name";
+      "Queue policy name";
   }
   
   identity meter-type {
@@ -154,27 +154,27 @@ module iana-qos-types {
   identity one-rate-two-color {
     base meter-type;
     description
-      "one rate two color meter type";
+      "One rate two color meter type";
   }
   identity one-rate-tri-color {
     base meter-type;
     description
-      "one rate three color meter type";
+      "One rate three color meter type";
   }
   identity two-rate-tri-color {
     base meter-type;
     description
-      "two rate three color meter action type";
+      "Two rate three color meter action type";
   }
 
   identity drop-type {
     description
-      "drop algorithm";
+      "Drop algorithm";
   }
   identity tail-drop {
     base drop-type;
     description
-      "tail drop algorithm";
+      "Tail drop algorithm";
   }
   identity red {
     base drop-type;
@@ -189,140 +189,140 @@ module iana-qos-types {
 
   identity rate-unit-type {
     description
-      "base rate-unit type";
+      "Base rate-unit type";
   }
   identity bits-per-second {
     base rate-unit-type;
     description
-      "bits per second identity";
+      "Bits per second identity";
   }
   identity kilo-bits-per-second {
     base rate-unit-type;
     description
-      "kilo bits per second identity";
+      "Kilo bits per second identity";
   }
   identity mega-bits-per-second {
     base rate-unit-type;
     description
-      "mega bits per second identity";
+      "Mega bits per second identity";
   }
   identity giga-bits-per-second {
     base rate-unit-type;
     description
-      "mega bits per second identity";
+      "Mega bits per second identity";
   }
   identity percent {
     base rate-unit-type;
     description
-      "percentage";
+      "Percentage";
   }
 
   identity burst-unit-type {
     description
-      "base burst-unit type";
+      "Base burst-unit type";
   }
   identity bytes {
     base burst-unit-type;
     description
-      "bytes";
+      "Bytes";
   }
   identity kilo-bytes {
     base burst-unit-type;
     description
-      "kilo bytes";
+      "Kilo bytes";
   }
   identity mega-bytes {
     base burst-unit-type;
     description
-      "mega bytes";
+      "Mega bytes";
   }
   identity millisecond {
     base burst-unit-type;
     description
-      "milli seconds";
+      "Milli seconds";
   }
   identity microsecond {
     base burst-unit-type;
     description
-      "micro seconds";
+      "Micro seconds";
   }
   identity red-threshold-unit {
     description
-      "base red-unit type";
+      "Base red-unit type";
   }
   identity red-threshold-bytes {
     base red-threshold-unit;
     description
-      "bytes";
+      "Bytes";
   }
   identity red-threshold-kb {
     base red-threshold-unit;
     description
-      "kilo bytes";
+      "Kilo bytes";
   }
   identity red-threshold-mb {
     base red-threshold-unit;
     description
-      "mega bytes";
+      "Mega bytes";
   }
   identity red-threshold-ms {
     base red-threshold-unit;
     description
-      "milli seconds";
+      "Milli seconds";
   }
   identity red-threshold-us {
     base red-threshold-unit;
     description
-      "micro seconds";
+      "Micro seconds";
   }
   identity red-threshold-pc {
     base red-threshold-unit;
     description
-      "per-centage";
+      "Per-centage";
   }
   identity red-theshold-pt {
     base red-threshold-unit;
     description
-      "per-thousand";
+      "Per-thousand";
   }
   identity red-threshold-pm {
     base red-threshold-unit;
     description
-      "per-million";
+      "Per-million";
   }
   identity wred-color-type {
     description
-      "base wred color type";
+      "Base wred color type";
   }
   identity wred-color-dscp {
     base wred-color-type;
     description
-      "dscp wred color type";
+      "DSCP wred color type";
   }
 
   identity probability-unit {
     description
-      "base probability unit type";
+      "Base probability unit type";
   }
   identity probability-pc {
     base probability-unit;
     description
-      "probability in percentage";
+      "Probability in percentage";
   }
   identity probability-pt {
     base probability-unit;
     description
-      "probability in per thousand";
+      "Probability in per thousand";
   }
   identity probability-pm {
     base probability-unit;
     description
-      "probability in per million";
+      "Probability in per million";
   }
   identity probability-denominator {
     base probability-unit;
     description
-      "probability value is denominator value
+      "Probability value is denominator value
        while numerator is always 1";
   }
 
@@ -339,47 +339,47 @@ module iana-qos-types {
   identity source-ipv4-prefix {
     base filter-type;
     description
-      "source ipv4 prefix filter-type";
+      "Source ipv4 prefix filter-type";
   }
   identity destination-ipv4-prefix {
     base filter-type;
     description
-      "destination ipv4 prefix filter-type";
+      "Destination ipv4 prefix filter-type";
   }
   identity source-ipv6-prefix {
     base filter-type;
     description
-      "source ipv6 prefix filter-type";
+      "Source ipv6 prefix filter-type";
   }
   identity destination-ipv6-prefix {
     base filter-type;
     description
-      "destination ipv6 prefix filter-type";
+      "Destination ipv6 prefix filter-type";
   }
   identity source-port {
     base filter-type;
     description
-      "source port filter-type";
+      "Source port filter-type";
   }
   identity destination-port {
     base filter-type;
     description
-      "destination port filter-type";
+      "Destination port filter-type";
   }
   identity protocol {
     base filter-type;
     description
-      "protocol type filter-type";
+      "Protocol type filter-type";
   }
   identity traffic-group-name {
     base filter-type;
     description
-      "traffic-group filter type";
+      "Traffic-group filter type";
   }
   identity filter-match-all {
     base filter-type;
     description
-      "Traffic-group filter type";
+      "Match-all filter type";
   }
 
   typedef match-operation-type {
@@ -442,16 +442,16 @@ module iana-qos-types {
   identity all-counters {
     base clear-counters-type;
       description
-        "clear all counters in both directions";
+        "Clear all counters in both directions";
   }
   identity inbound-counters {
     base clear-counters-type;
       description
-        "clear counters in inbound direction";
+        "Clear counters in inbound direction";
   }
   identity outbound-counters {
     base clear-counters-type;
       description
-        "clear counters in outbound direction";
+        "Clear counters in outbound direction";
   }
 }
