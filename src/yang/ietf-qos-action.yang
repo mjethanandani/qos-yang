@@ -69,33 +69,33 @@ module ietf-qos-action {
 
   grouping meter-action-params {
     description
-      "meter action parameters";
+      "Meter action parameters";
 
     leaf action-type {
       type identityref {
         base qos-types:meter-action-type;
       }
       description
-        "meter action type";
+        "Meter action type";
     }
     leaf dscp-mark {
       type inet:dscp;
       must "../action-type = 'qos-types:action-mark'" {
         error-message
-        "The dscp must be marked when action-type is action-mark";
+          "DSCP must be marked when action-type is action-mark";
       }
       description
-        "dscp marking";
+        "DSCP marking";
     }
     leaf traffic-group-mark {
       type string;
       must "../action-type = 'qos-types:action-mark'" {
         error-message
-        "The traffic-group must be marked when action-type is
-         action-mark";
+          "Traffic-group must be marked when action-type is
+           action-mark";
       }
       description
-        "traffic group marking";
+        "Traffic group marking";
     }
   }
 
