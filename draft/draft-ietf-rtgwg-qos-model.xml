@@ -240,14 +240,14 @@
     
     <section title="QoS Model Design">
       <t> The overall objective of this model design is to offer a
-      base set of models that can then be further augmented to provide
-      other methods such as Policy Based Routing (PBR) that would
-      augment the base modules defined in this draft to define
+      base set of modules that can then be further augmented to
+      provide other models such as Policy Based Routing (PBR) that
+      would augment the base modules defined in this draft to define
       PBR. This document defines one such method called DiffServ. The
       design also takes into consideration that vendors might want to
-      extend the model to add their own extensions, such as to Traffic
-      Policy, to provide constructs of policy for different QoS
-      functionalities."</t>
+      extend the model to add their own extensions, such as to extend
+      Traffic Policy module, to provide constructs of policy for
+      different QoS functionalities."</t>
 
       <figure>
         <name>QoS Yang Modules Layout</name>
