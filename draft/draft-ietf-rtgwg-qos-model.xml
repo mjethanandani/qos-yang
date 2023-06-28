@@ -185,7 +185,7 @@
 	</t>
         <t>
 	  <ul>
-	    <li>Active Queue Managment (AQM): An activity that marks
+	    <li>Active Queue Management (AQM): An activity that marks
 	    or drops packets before the queue is full.</li>
 	    <li>Behavior Aggregate (BA): A DS behavior aggregate.</li>
 	    <li>Classifier: an entity which selects packets based on
@@ -239,6 +239,16 @@
     </section>
     
     <section title="QoS Model Design">
+      <t> The overall objective of this model design is to offer a
+      base set of modules that can then be further augmented to
+      provide other models such as Policy Based Routing (PBR) that
+      would augment the base modules defined in this draft to define
+      PBR. This document defines one such method called DiffServ. The
+      design also takes into consideration that vendors might want to
+      extend the model to add their own extensions, such as to extend
+      Traffic Policy module, to provide constructs of policy for
+      different QoS functionalities."</t>
+
       <figure>
         <name>QoS Yang Modules Layout</name>
         <artwork>
@@ -260,9 +270,7 @@
       <t> The above diagram depicts the design of the QoS model. It
       uses Traffic Policy and QoS Action as base modules, which are
       augmented by the remaining modules on the top to define
-      different aspects of QoS. This structure allows other methods
-      such as Policy Based Routing (PBR) to augment the base modules
-      defined in this draft to define PBR.</t>
+      different aspects of QoS.</t>
 
       <t> The Classifer is defined as part of Traffic Policy Module. A
       classifier consists of set of filters and an operation that is
@@ -290,7 +298,7 @@
 
       <t>A Meter meters each packet and passes the packet and the
       metering result to the Marker. Meter is modeled based on
-      commonly used alogrithms in industry, <xref target="RFC2697">A
+      commonly used algorithms in industry, <xref target="RFC2697">A
       Single Rate Three Color Marker (srTCM) </xref>, <xref
       target="RFC2698">A Two Rate Three Color Marker (trTCM)</xref>,
       and A Single Rate Two Color Marker. Different vendors can extend
@@ -332,7 +340,7 @@
       Traffic Policy module.</t>
 
       <t>Traffic conditioning includes metering, shaping and/or
-      marking.  A meter is used to measure the traffic against a given
+      marking.  A Meter is used to measure the traffic against a given
       traffic profile. The traffic profile specifies the temporal
       property of the traffic. A packet that arrives is first
       determined to be in or out of the profile, which will result in
@@ -365,7 +373,7 @@
 	Information Rate (PIR), the Committed Information Rate (CIR),
 	and their associated burst sizes to either green, yellow, or
 	red. A packet is marked red if it exceeds the PIR. Otherwise,
-	it is marked yellow or green dependeing on whether it exceeds
+	it is marked yellow or green depending on whether it exceeds
 	or does not exceed the CIR.</t>
       </section>
 

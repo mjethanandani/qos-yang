@@ -54,40 +54,41 @@ module ietf-qos-action {
     leaf value {
       type uint64;
       description
-        "rate value";
+        "Value for the rate that is configured.";
     }
+
     leaf unit {
       type identityref {
         base qos-types:rate-unit-type;
       }
       description
-        "rate unit";
+        "The unit used to specify the value.";
     }
     description
-      "rate value and unit grouping";
+      "Value and its unit grouping for rate.";
   }
 
   grouping meter-action-params {
     description
-      "meter action parameters";
+      "Meter action parameters.";
 
     list action {
       key "action-type";
       ordered-by user;
       description
-        "Configuration of basic-meter & associated actions";
+        "Configuration of basic-meter & associated actions.";
 
       leaf action-type {
         type identityref {
           base qos-types:meter-action-type;
         }
         description
-          "meter action type";
+          "Action type for metering.";
       }
 
       choice action-val {
         description
-          "Meter action based on choice of meter action type";
+          "Meter action based on choice of meter action type.";
       }
     }
   }
@@ -191,7 +192,7 @@ module ietf-qos-action {
       }
     }
     description
-      "Single Rate Three Color Marker attributes";
+      "Single Rate Three Color Marker attributes.";
   }
 
   grouping two-rate-three-color-meter {
@@ -298,17 +299,17 @@ module ietf-qos-action {
 
   container meters {
     description
-      "list of meter templates";
+      "List of meter templates.";
 
     list meter {
       key "name";
       description
-        "meter entry template";
+        "Meter entry template.";
 
       leaf name {
         type string;
         description
-          "meter identifier";
+          "A unique string to identify the meter.";
       }
       uses meter;
     }
@@ -320,36 +321,38 @@ module ietf-qos-action {
         type string ;
         mandatory true;    
         description
-          "This leaf defines name of the meter referenced";
+          "This leaf defines name of the meter referenced.";
       }
+
       leaf type {
         type identityref {
           base qos-types:meter-type;
         }
         mandatory true;    
         description
-          "This leaf defines type of the meter";
+          "This leaf defines type of the meter.";
       }
       description
-        "meter reference name";
+        "The name and type for meter reference.";
     }
     description
-      "meter reference";
+      "Grouping to define meter reference.";
   }
 
   grouping count {
     container count {
     if-feature qos-types:count;
+
       leaf count-action {
         type empty;
         description
-          "count action";
+          "Take an action if this is defined.";
       }
       description
-        "the count action";
+        "Container for whether to take an action for count.";
     }
     description
-      "the count action grouping";
+      "The count action grouping";
   }
 
   grouping named-counter {
@@ -358,7 +361,7 @@ module ietf-qos-action {
       leaf count-name-action {
         type string;
         description
-          "count action";
+          "A unique name for named counter.";
       }
       description
         "the count action";
@@ -553,60 +556,66 @@ module ietf-qos-action {
             container wred {
               list wred {
                 key "profile";
+
                 leaf profile {
                   type uint8;
                   description
-                    "profile id of each wred profile";
+                    "Profile id of each WRED profile.";
                 }
+
                 leaf color-type {
                   type identityref {
                     base qos-types:wred-color-type;
                   }
                   description
-                    "wred color-type of each profile";
+                    "WRED color-type of each profile.";
                 }
+
                 list color-val {
                   key "min max";
+
                   leaf min {
                     type uint8;
                     description
-                      "minimum value of color types";
+                      "Minimum value of color types.";
                   }
+
                   leaf max {
                     type uint8;
                     description
-                      "maximum value of color types";
+                      "Maximum value of color types.";
                   }
                   description
-                    "list of color markings which constitute
-                     a traffic profile";
+                    "List of color markings which constitute
+                     a traffic profile.";
                 }
                 uses red-config-parameters;
                 description
-                  "list of RED profiles each with its own
-                   threshold values";
+                  "List of RED profiles each with its own
+                   threshold values.";
               }
+
               leaf ecn-enabled {
                 type boolean;
                 default "false";
                 description
-                  "ecn is enabled on the queue";
+                  "ECN is enabled on the queue.";
               }
               description
-                "Weighted Random Early Detect configuration";
+                "Weighted Random Early Detect (WRED) configuration.";
             }
           }
           description
-            "Choice of Drop Algorithm";
+            "Choice of Drop Algorithm.";
         }
         description
-          "Algorithmic Drop configuration container";
+          "Algorithmic Drop configuration container.";
       }
       description
-        "Queue configuration container";
+        "Queue configuration container.";
     }
     description
-      "Queue grouping";
+      "Queue grouping.";
   }
 
   container queues {
@@ -647,9 +656,9 @@ module ietf-qos-action {
       uses min-rate;
       uses max-rate;
       description
-        "Schedular configuration container";
+        "Scheduler configuration container";
     }
     description
-      "Schedular configuration grouping";
+      "Scheduler configuration grouping";
   }
 }
