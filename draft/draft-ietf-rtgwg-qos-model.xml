@@ -185,7 +185,7 @@
 	</t>
         <t>
 	  <ul>
-	    <li>Active Queue Managment (AQM): An activity that marks
+	    <li>Active Queue Management (AQM): An activity that marks
 	    or drops packets before the queue is full.</li>
 	    <li>Behavior Aggregate (BA): A DS behavior aggregate.</li>
 	    <li>Classifier: an entity which selects packets based on
@@ -298,7 +298,7 @@
 
       <t>A Meter meters each packet and passes the packet and the
       metering result to the Marker. Meter is modeled based on
-      commonly used alogrithms in industry, <xref target="RFC2697">A
+      commonly used algorithms in industry, <xref target="RFC2697">A
       Single Rate Three Color Marker (srTCM) </xref>, <xref
       target="RFC2698">A Two Rate Three Color Marker (trTCM)</xref>,
       and A Single Rate Two Color Marker. Different vendors can extend
@@ -373,7 +373,7 @@
 	Information Rate (PIR), the Committed Information Rate (CIR),
 	and their associated burst sizes to either green, yellow, or
 	red. A packet is marked red if it exceeds the PIR. Otherwise,
-	it is marked yellow or green dependeing on whether it exceeds
+	it is marked yellow or green depending on whether it exceeds
 	or does not exceed the CIR.</t>
       </section>
 
