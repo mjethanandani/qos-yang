@@ -283,7 +283,10 @@
       filters may be based on a combination of values or range of
       values of different packet header fields or packet metadata
       fields. The QoS classifier is defined in the Traffic Policy
-      module.</t>
+      module. An example of how these filter definitions are used can
+      be seen in the DiffServ model. The DiffServ model augments the
+      filter node in the Classifier to add in DiffServ specific filter
+      parameters defined in Classifier.</t>
 
       <t>One or more packet conditioning functions may be applied
       to a classifier which may drop, mark, or delay packets.
