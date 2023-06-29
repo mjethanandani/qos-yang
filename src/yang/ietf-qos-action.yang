@@ -95,7 +95,7 @@ module ietf-qos-action {
            action-mark";
       }
       description
-        "Traffic group marking";
+        "A unique name to mark as a traffic group.";
     }
   }
 
