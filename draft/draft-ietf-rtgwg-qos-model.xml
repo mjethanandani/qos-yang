@@ -185,6 +185,8 @@
 	</t>
         <t>
 	  <ul>
+	    <li>Active Queue Management (AQM): An activity that marks
+	    or drops packets before the queue is full.</li>
 	    <li>Behavior Aggregate (BA): A DS behavior aggregate.</li>
 	    <li>Classifier: an entity which selects packets based on
 	    the content of packet headers according to defined
@@ -228,6 +230,8 @@
 	    <li>Shaping: the process of delaying packets within a
 	    traffic stream to cause it to conform to some defined
 	    traffic profile.</li>
+	    <li>Traffic-Group: is a metadata stored in a packet
+	    buffer.</li>
 	    <li>WRED: Weighted Random Early Detection</li>
 	  </ul>
 	</t>
@@ -235,6 +239,16 @@
     </section>
     
     <section title="QoS Model Design">
+      <t> The overall objective of this model design is to offer a
+      base set of modules that can then be further augmented to
+      provide other models such as Policy Based Routing (PBR) that
+      would augment the base modules defined in this draft to define
+      PBR. This document defines one such method called DiffServ. The
+      design also takes into consideration that vendors might want to
+      extend the model to add their own extensions, such as to extend
+      Traffic Policy module, to provide constructs of policy for
+      different QoS functionalities."</t>
+
       <figure>
         <name>QoS Yang Modules Layout</name>
         <artwork>
@@ -254,45 +268,44 @@
       </figure>
 
       <t> The above diagram depicts the design of the QoS model. It
-      uses Traffic Policy and QoS Action as base modules at the
-      bottom, which are augmented by the remaining modules on the
-      top to define different aspects of QoS. This structure allows
-      other models such as Policy Based Routing (PBR) to augment the
-      base modules and define PBR.</t>
+      uses Traffic Policy and QoS Action as base modules, which are
+      augmented by the remaining modules on the top to define
+      different aspects of QoS.</t>
 
-      <t> A classifier consists of set of filters and an operation
-      that is performed on those filters. Each filter defines a rule
-      on a particular packet header or packet metadata field that
-      dictate how the packet will be classified based on that
-      particular field, e.g. whether it will be classified based on
-      DSCP, or will be classified based on source IPv4 address
-      prefix. The operation defines whether these filters are
-      logically AND or OR. The filters may be based on a combination
-      of values or range of values of different packet header fields
-      or packet metadata fields. The QoS classifier is defined in the
-      Traffic Policy module.</t>
+      <t> The Classifer is defined as part of Traffic Policy Module. A
+      classifier consists of set of filters and an operation that is
+      performed on those filters. Each filter defines a rule on a
+      particular packet header or packet metadata field that dictate
+      how the packet will be classified based on that particular
+      field, e.g. whether it will be classified based on DSCP, or will
+      be classified based on source IPv4 address prefix. The operation
+      defines whether these filters are logically AND or OR. The
+      filters may be based on a combination of values or range of
+      values of different packet header fields or packet metadata
+      fields. The QoS classifier is defined in the Traffic Policy
+      module.</t>
 
       <t>One or more packet conditioning functions may be applied
-      to a classifier which may drop, mark, or delay packets
+      to a classifier which may drop, mark, or delay packets.
       These are defined in the QoS Action module. A set of
       classifiers with corresponding conditioning functions when 
       arranged in order of priority represent a QoS policy.
       These policies are defined in Traffic Policy module.</t>
 
-      <t>QoS actions are configured in line or referred in a
-      Policy module.  These include marking, metering or queueing.
-      Actions are defined in the QoS Action module.</t>
+      <t>The QoS Action module defines marking, metering and
+      queuing. QoS actions are configured in line or referred to in
+      Diffserv, Queuing, and Scheduling Policy modules.</t>
 
-      <t>Meter meters each packet and passes the packet and the
+      <t>A Meter meters each packet and passes the packet and the
       metering result to the Marker. Meter is modeled based on
-      commonly used alogrithms in industry, <xref target="RFC2697">A
-      Single Rate Three Color Marker (srTCM) </xref> meter, <xref
-      target="RFC2698">A Two Rate Three Color Marker (trTCM)</xref>
-      meter, and A Single Rate Two Color Marker meter. Different
-      vendors can extend it with other types of meters as well.
-      Meter is defined in QoS Action module</t>
+      commonly used algorithms in industry, <xref target="RFC2697">A
+      Single Rate Three Color Marker (srTCM) </xref>, <xref
+      target="RFC2698">A Two Rate Three Color Marker (trTCM)</xref>,
+      and A Single Rate Two Color Marker. Different vendors can extend
+      it with other types of meters as well.  Meter is defined in QoS
+      Action module.</t>
 
-      <t> Queue Policy module allows Queues to be referred in a
+      <t>Queue Policy module allows queues to be referred in a
       policy. The match is based on Traffic-Group and action
       parameters are used as defined in QoS Action module.</t>
 
@@ -327,7 +340,7 @@
       Traffic Policy module.</t>
 
       <t>Traffic conditioning includes metering, shaping and/or
-      marking.  A meter is used to measure the traffic against a given
+      marking.  A Meter is used to measure the traffic against a given
       traffic profile. The traffic profile specifies the temporal
       property of the traffic. A packet that arrives is first
       determined to be in or out of the profile, which will result in
@@ -360,193 +373,199 @@
 	Information Rate (PIR), the Committed Information Rate (CIR),
 	and their associated burst sizes to either green, yellow, or
 	red. A packet is marked red if it exceeds the PIR. Otherwise,
-	it is marked yellow or green dependeing on whether it exceeds
+	it is marked yellow or green depending on whether it exceeds
 	or does not exceed the CIR.</t>
       </section>
 
     </section>
 
-    <section title=" Modules Tree Structure">
-
-      <t>This document defines a base Traffic Policy module, a QoS
-      specific Action module, separate policy modules for Scheduler,
-      Queueing and DiffServ policies and operational module for QoS
-      counters.</t>
-
-      <t>Traffic Policy module contains list of classifiers
-      identified by a classifier name. Each classifier MAY contain a
-      list of filters. When no filter is present in a classifier, it
-      matches all traffic.</t>
-
-      <t>This module also contains list of policy objects identified by a
-      policy name and policy type which MUST be provided. With different
-      values of policy types, each vendor MAY define their own construct of
-      policy for different QoS functionalities. Each vendor MAY augment
-      classifier entry in a policy definition with a set of actions.</t>
-
-      <figure>
-	<name>ietf-traffic-policy tree diagram</name>
-        <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../bin/ietf-traffic-policy@YYYY-MM-DD-sub-tree.txt)
-
-    ]]></artwork>
-      </figure>
-
-      <t>QoS Action module contains grouping of set of QoS actions. These
-      include metering, marking, dropping and shaping. Marking sets DiffServ
-      codepoint value in the classified packet. Color-aware and Color-blind
-      meters are augmented by vendor specific modules based on the parameters
-      defined in action module.</t>
-
-      <figure>
-	<name>ietf-qos-actions tree diagram</name>
-        <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)
-    ]]></artwork>
-      </figure>
-
-      <t>Traffic Policy module contains reference of qos-policy and augments
-      ietf-interfaces <xref target="RFC8343"/> module. A single policy of a particular 
-      policy-type can be applied on an interface in each direction of  
-      traffic. Policy-type is of type identity and is populated in a
-      vendor specific manner. This way it provides greater flexibility for each vendor
-      to define different policy types each with its own capabilities and 
-      restrictions.</t>    
-      <t>Classifier, metering and queueing counters are associated with a target. </t>
-
-      <t>Diffserv module augments QoS classifier module. Many of the YANG
-      types defined in <xref target="RFC6991"/> are represented as leafs in
-      the classifier module.</t>
-
-      <t>Metering and marking actions are realized by augmenting the QoS
-      policy-module. Any queueing, AQM and scheduling actions are part of
-      vendor specific augmentation. Statistics are realized by augmenting the
-      QoS target module.</t>
-     
-      <t>Classifier statistics consist of list of classifier entries
-      identified by a classifier entry name.  Classifier counters include
-      matched packets and bytes, and average rate of traffic matching a
-      particular classifier.</t> 
-
-      <t> Metering statistics consist of meters identified by an identifier.
-      Metering counters include conform, exceed, violate, drop packets,
-      and bytes.</t>
-
-      <t>Queueing counters include instantaneous, peak, average queue length,
-      as well as output conform, exceed, tail drop packets and bytes.</t>
-
-      <t>Named statistics is defined as statistics which is tagged by a name.
-      This could be aggregated or non-aggregated.  Aggregated named
-      statistics is defined as counters which are aggregated across
-      classifier entries in a policy applied to an interface in a
-      particular direction.  Non-aggregated named statistics are counters
-      of classifier, metering or queueing which have the same tag name but
-      maintained separately.</t>
-
-      <figure>
-	<name>ietf-diffserv tree diagram</name>
-        <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../bin/ietf-diffserv@YYYY-MM-DD-sub-tree.txt)  
-  ]]></artwork>
-      </figure>
-      <figure>
-	<name>ietf-queue-policy tree diagram</name>
-        <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../bin/ietf-queue-policy@YYYY-MM-DD-sub-tree.txt)
-    ]]></artwork>
-      </figure>
-      <figure>
-	<name>ietf-scheduler-policy tree diagram</name>
-        <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../bin/ietf-scheduler-policy@YYYY-MM-DD-sub-tree.txt)
-    ]]></artwork>
-      </figure>
-      <figure>
-	<name>ietf-qos-oper tree diagram</name>
-        <artwork><![CDATA[
-INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD-sub-tree.txt)
-    ]]></artwork>
-      </figure>
-    </section>
-
-    <section title="Modules">
+    <section title="YANG Modules">
       <t>
       Modules defined in this draft import definitions from "Common
       YANG Data Types" <xref target="RFC6991"/> and "A YANG Data Model
       for Interface Management" <xref target="RFC8343"/>.
       </t>
 
-      <section title="ietf-traffic-policy">
+      <section title="Traffic Policy Module">
+
+	<t>Traffic Policy module contains list of classifiers
+	identified by a classifier name. Each classifier MAY contain a
+	list of filters. When no filter is present in a classifier, it
+	matches all traffic.</t>
+
+	<t>This module also contains list of policy objects identified
+	by a policy name and policy type which MUST be
+	provided. Policy-type is of type identity and is populated in
+	a vendor specific manner. With different values of policy
+	types, each vendor MAY define their own construct of policy
+	for different QoS functionalities. Each vendor MAY augment
+	classifier entry in a policy definition with a set of
+	actions.</t>
+
+	<t>The module also augments ietf-interfaces <xref
+	target="RFC8343"/> module to add a target policy. A single
+	policy of a particular policy-type can be applied on an
+	interface in each direction of traffic.</t>
+
+	<figure>
+	  <name>ietf-traffic-policy tree diagram</name>
+          <artwork><![CDATA[
+	  INSERT_TEXT_FROM_FILE(../bin/ietf-traffic-policy@YYYY-MM-DD-sub-tree.txt)
+	  ]]></artwork>
+	</figure>
+
         <figure>
 	  <name>ietf-traffic-policy module</name>
           <artwork><![CDATA[
-<CODE BEGINS> file "ietf-traffic-policy@YYYY-MM-DD.yang"
-INSERT_TEXT_FROM_FILE(../bin/ietf-traffic-policy@YYYY-MM-DD.yang)
-<CODE ENDS>
-    ]]></artwork>
+	  <CODE BEGINS> file "ietf-traffic-policy@YYYY-MM-DD.yang"
+	  INSERT_TEXT_FROM_FILE(../bin/ietf-traffic-policy@YYYY-MM-DD.yang)
+	  <CODE ENDS>
+	  ]]></artwork>
         </figure>
       </section>
 
-      <section title="ietf-qos-action">
+      <section title="QoS Action Module">
+	<t>QoS Action module includes actions such marking, metering,
+	or queuing. Metering, marking, queuing, and scheduling actions
+	are realized by augmenting the Traffic Policy module. Marking
+	sets DiffServ codepoint value in the classified
+	packet.</t>
+
+	<figure>
+	  <name>ietf-qos-actions tree diagram</name>
+          <artwork><![CDATA[
+	  INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)
+	  ]]></artwork>
+	</figure>
+
         <figure>
 	  <name>ietf-qos-actions module</name>
           <artwork><![CDATA[
-<CODE BEGINS>file "ietf-qos-action@YYYY-MM-DD.yang"
-INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD.yang)
-<CODE ENDS>
-    ]]></artwork>
+	  <CODE BEGINS>file "ietf-qos-action@YYYY-MM-DD.yang"
+	  INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD.yang)
+	  <CODE ENDS>
+	  ]]></artwork>
         </figure>
       </section>
 
-      <section title="ietf-diffserv">
+      <section title="Diffserv Module">
+	<t>Diffserv module augments Traffic Policy module.</t>
+
+	<figure>
+	  <name>ietf-diffserv tree diagram</name>
+          <artwork><![CDATA[
+	  INSERT_TEXT_FROM_FILE(../bin/ietf-diffserv@YYYY-MM-DD-sub-tree.txt)
+	  ]]></artwork>
+	</figure>
+
         <figure>
 	  <name>ietf-diffserv module</name>
           <artwork><![CDATA[
-<CODE BEGINS>file "ietf-diffserv@YYYY-MM-DD.yang"
-INSERT_TEXT_FROM_FILE(../bin/ietf-diffserv@YYYY-MM-DD.yang)
-<CODE ENDS>
-    ]]></artwork>
+	  <CODE BEGINS>file "ietf-diffserv@YYYY-MM-DD.yang"
+	  INSERT_TEXT_FROM_FILE(../bin/ietf-diffserv@YYYY-MM-DD.yang)
+	  <CODE ENDS>
+	  ]]></artwork>
         </figure>
       </section>
-      <section title="ietf-queue-policy">
-        <figure>
-	  <name>ietf-queue-policy module</name>
+
+      <section title="QoS Operational Module">
+	<t>QoS Operational module contains all operational
+	statistics. It contains statistics related to classifier,
+	metering, queueing, and named.</t>
+
+	<t>Classifier statistics consist of list of classifier entries
+	identified by a classifier entry name.  Classifier counters
+	include matched packets and bytes, and average rate of traffic
+	matching a particular classifier.</t>
+
+	<t>Metering statistics consist of meters identified by an
+	identifier.  Metering counters include conform, exceed,
+	violate, drop packets, and bytes.</t>
+
+	<t>Queuing counters include instantaneous, peak, average queue
+	length, as well as output conform, exceed, tail drop packets
+	and bytes.</t>
+
+	<t>Named statistics is defined as statistics which is tagged
+	by a name.  This could be aggregated or non-aggregated.
+	Aggregated named statistics is defined as counters which are
+	aggregated across classifier entries in a policy applied to an
+	interface in a particular direction.  Non-aggregated named
+	statistics are counters of classifier, metering or queuing
+	which have the same tag name but maintained separately.</t>
+
+	<t>A clear action is provided to clear all the statistics.</t>
+
+	<figure>
+	  <name>ietf-qos-oper tree diagram</name>
           <artwork><![CDATA[
-<CODE BEGINS>file "ietf-queue-policy@YYYY-MM-DD.yang"
-INSERT_TEXT_FROM_FILE(../bin/ietf-queue-policy@YYYY-MM-DD.yang)
-<CODE ENDS>
-    ]]></artwork>
-        </figure>
-      </section>
-      <section title="ietf-scheduler-policy">
-        <figure>
-	  <name>ietf-scheduler-policy module</name>
-          <artwork><![CDATA[
-<CODE BEGINS>file "ietf-scheduler-policy@YYYY-MM-DD.yang"
-INSERT_TEXT_FROM_FILE(../bin/ietf-scheduler-policy@YYYY-MM-DD.yang)
-<CODE ENDS>
-    ]]></artwork>
-        </figure>
-      </section>
-      <section title="ietf-qos-oper">
+	  INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD-sub-tree.txt)
+	  ]]></artwork>
+	</figure>
         <figure>
 	  <name>ietf-qos-oper module</name>
           <artwork><![CDATA[
-<CODE BEGINS>file "ietf-qos-oper@YYYY-MM-DD.yang"
-INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD.yang)
-<CODE ENDS>
-    ]]></artwork>
+	  <CODE BEGINS>file "ietf-qos-oper@YYYY-MM-DD.yang"
+	  INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD.yang)
+	  <CODE ENDS>
+	  ]]></artwork>
         </figure>
       </section>
-      <section title="iana-qos-types">
+
+      <section title="Scheduler Policy Module">
+	<t> Scheduling Policy module defines a set of scheduling
+	parameters and associates a Queue Policy with it.</t>
+	<figure>
+	  <name>ietf-scheduler-policy tree diagram</name>
+          <artwork><![CDATA[
+	  INSERT_TEXT_FROM_FILE(../bin/ietf-scheduler-policy@YYYY-MM-DD-sub-tree.txt)
+	  ]]></artwork>
+	</figure>
         <figure>
+	  <name>ietf-scheduler-policy module</name>
+          <artwork><![CDATA[
+	  <CODE BEGINS>file "ietf-scheduler-policy@YYYY-MM-DD.yang"
+	  INSERT_TEXT_FROM_FILE(../bin/ietf-scheduler-policy@YYYY-MM-DD.yang)
+	  <CODE ENDS>
+	  ]]></artwork>
+        </figure>
+      </section>
+
+      <section title="Queue Policy Module">
+	<t>Queue Policy module augments the Traffic Policy module. It
+	augments to allow queues to be referred to in a policy. The
+	match is based on Traffic-Group and action parameters which
+	are defined in QoS Action module.</t>
+
+	<figure>
+	  <name>ietf-queue-policy tree diagram</name>
+          <artwork><![CDATA[
+	  INSERT_TEXT_FROM_FILE(../bin/ietf-queue-policy@YYYY-MM-DD-sub-tree.txt)
+	  ]]></artwork>
+	</figure>
+
+        <figure>
+	  <name>ietf-queue-policy module</name>
+          <artwork><![CDATA[
+	  <CODE BEGINS>file "ietf-queue-policy@YYYY-MM-DD.yang"
+	  INSERT_TEXT_FROM_FILE(../bin/ietf-queue-policy@YYYY-MM-DD.yang)
+	  <CODE ENDS>
+	  ]]></artwork>
+        </figure>
+      </section>
+
+      <section title="IANA QoS Types Module">
+	<t>The QoS Types module contains all the type definitions used
+	by the other QoS modules.</t>
+
+	<figure>
 	  <name>iana-qos-types module</name>
           <artwork><![CDATA[
-<CODE BEGINS>file "iana-qos-types@YYYY-MM-DD.yang"
-INSERT_TEXT_FROM_FILE(../bin/iana-qos-types@YYYY-MM-DD.yang)
-<CODE ENDS>
-    ]]></artwork>
-        </figure>
+	  <CODE BEGINS>file "iana-qos-types@YYYY-MM-DD.yang"
+	  INSERT_TEXT_FROM_FILE(../bin/iana-qos-types@YYYY-MM-DD.yang)
+	  <CODE ENDS>
+	  ]]></artwork>
+	</figure>
       </section>
     </section>
 
