@@ -83,20 +83,6 @@ module example-compb-diffserv-filter-policy {
         "Internal loss priority filter type";
   }
 
-  grouping drop {
-    container drop {
-      leaf drop {
-        type empty;
-        description
-          "drop action";
-      }
-      description
-        "drop container";
-    }
-    description
-      "drop grouping";
-  }
-
   grouping forwarding-class {
     list forwarding-class {
       key "forwarding-class";
@@ -276,26 +262,6 @@ module example-compb-diffserv-filter-policy {
     }
     description
       "Augmentation of color-aware flag";
-  }
-  
-  /* example of augmenting a meter template with a
-  /* vendor specific action */
-  augment "/action:meters" +
-          "/action:meter" +
-          "/action:meter-types" +
-          "/action:single-rate-two-color-meter-type" +
-          "/action:single-rate-two-color-meter" +
-          "/action:exceed-action" +
-          "/action:action" +
-          "/action:action-val" {
-    case meter-action-drop {
-      description
-          "meter drop";
-           uses drop;
-    }
-
-    description
-      "Augment the actions to basic meter";
   }
   
 }
