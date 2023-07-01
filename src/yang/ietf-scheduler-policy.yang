@@ -67,11 +67,11 @@ module ietf-scheduler-policy {
 
   augment "/policy:policies/policy:policy/policy:classifier" +
           "/policy:inline/policy:filter" {
-        when "derived-from-or-self(../../../policy:type, " +
-             "'qos-types:scheduler-policy-type')" {
-            description
-               "Only when policy type is scheduler-policy";
-        }
+    when "derived-from-or-self(../../../policy:type, " +
+         "'qos-types:scheduler-policy-type')" {
+      description
+        "Only when policy type is scheduler-policy";
+      }
     choice filter-params {
       description
         "Choice of action types";
@@ -89,8 +89,8 @@ module ietf-scheduler-policy {
           "/policy:action/policy:action-params" {
     when "derived-from-or-self(../../policy:type, " +
          "'qos-types:scheduler-policy-type')" {
-        description
-           "Augments only when policy type is scheduler-policy.";
+      description
+        "Augments only when policy type is scheduler-policy.";
     }
     case scheduler {
       uses action:scheduler;
@@ -105,7 +105,7 @@ module ietf-scheduler-policy {
                "'qos-types:queue-policy-type'";
           mandatory true;
           description
-            "This leafref refers queue-policy name";
+            "This leafref refers to queue-policy name";
         }
         description
           "Container for queue-policy name.";
