@@ -65,6 +65,11 @@ module ietf-queue-policy {
         description
           "traffic group name";
       }
+      case filter-match-all {
+        uses diffserv:filter-match-all;
+        description
+          "Filter Type match-all";
+      }
     }
     description
       "Augments Queue policy Classifier with common filter types";

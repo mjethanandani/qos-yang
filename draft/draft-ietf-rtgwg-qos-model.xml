@@ -390,8 +390,7 @@
 
 	<t>Traffic Policy module contains list of classifiers
 	identified by a classifier name. Each classifier MAY contain a
-	list of filters. When no filter is present in a classifier, it
-	matches all traffic.</t>
+	list of filters.</t>
 
 	<t>This module also contains list of policy objects identified
 	by a policy name and policy type which MUST be

@@ -230,6 +230,19 @@ module ietf-diffserv {
     description
       "traffic group grouping";
   }
+  grouping filter-match-all {
+    container match-all {
+      leaf match-all-action {
+        type empty;
+        description
+          "match all packets";
+      }
+      description
+        "the match-all action";
+    }
+    description
+      "the match-all filter grouping";
+  }
 
   augment "/policy:classifiers/policy:classifier" + 
           "/policy:filter" {
@@ -280,6 +293,11 @@ module ietf-diffserv {
         uses traffic-group;
         description
           "Filter Type traffic-group";
+      }
+      case filter-match-all {
+        uses filter-match-all;
+        description
+          "Filter Type match-all";
       }
     }
     description
@@ -368,6 +386,11 @@ module ietf-diffserv {
         uses traffic-group;
         description
           "Filter Type traffic-group";
+      }
+      case filter-match-all {
+        uses filter-match-all;
+        description
+          "Filter Type match-all";
       }
     }
     description
