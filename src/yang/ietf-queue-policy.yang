@@ -68,7 +68,7 @@ module ietf-queue-policy {
       case filter-match-all {
         uses diffserv:filter-match-all;
         description
-          "Filter Type match-all";
+          "When the filter type is set to match all packets.";
       }
     }
     description

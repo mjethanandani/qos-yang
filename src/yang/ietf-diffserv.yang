@@ -232,16 +232,16 @@ module ietf-diffserv {
   }
   grouping filter-match-all {
     container match-all {
-      leaf match-all-action {
+      leaf action {
         type empty;
         description
-          "match all packets";
+          "When set, the filter matches all packets.";
       }
       description
-        "the match-all action";
+        "The match all action.";
     }
     description
-      "the match-all filter grouping";
+      "The match all filter grouping.";
   }
 
   augment "/policy:classifiers/policy:classifier" + 
@@ -297,7 +297,7 @@ module ietf-diffserv {
       case filter-match-all {
         uses filter-match-all;
         description
-          "Filter Type match-all";
+          "When the filter type is set to match all packets.";
       }
     }
     description
@@ -390,7 +390,7 @@ module ietf-diffserv {
       case filter-match-all {
         uses filter-match-all;
         description
-          "Filter Type match-all";
+          "When the filter type is set to match all packets.";
       }
     }
     description
