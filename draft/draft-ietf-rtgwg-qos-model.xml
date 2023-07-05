@@ -286,7 +286,7 @@
       module. An example of how these filter definitions are used can
       be seen in the DiffServ model. The DiffServ model augments the
       filter node in the Classifier to add in DiffServ specific filter
-      parameters defined in Classifier.</t>
+      parameters.</t>
 
       <t>One or more packet conditioning functions may be applied
       to a classifier which may drop, mark, or delay packets.
