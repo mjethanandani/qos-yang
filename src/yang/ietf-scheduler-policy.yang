@@ -12,6 +12,11 @@ module ietf-scheduler-policy {
   import ietf-diffserv {
     prefix diffserv;
   }
+  import iana-qos-types {
+    prefix qos-types;
+    reference
+      "RFC XXXX: YANG Models for Quality of Service (QoS).";
+  }
 
   organization
     "IETF Routing Area Working Group";
@@ -51,11 +56,11 @@ module ietf-scheduler-policy {
 
   augment "/policy:policies/policy:policy/policy:classifier" +
           "/policy:inline/policy:filter" {
-        when "derived-from-or-self(../../../policy:type, " +
-             "'scheduler-policy:scheduler-policy-type')" {
-            description
-               "Only when policy type is scheduler-policy";
-        }
+    when "derived-from-or-self(../../../policy:type, " +
+         "'qos-types:scheduler-policy-type')" {
+      description
+        "Only when policy type is scheduler-policy";
+      }
     choice filter-params {
       description
         "Choice of action types";
@@ -69,36 +74,34 @@ module ietf-scheduler-policy {
       "Augments Queue policy Classifier with common filter types";
   }
 
-  grouping queue-policy-name {
-    container queue-policy-name {
-      leaf queue-policy {
-        type string ;
-        mandatory true;    
-        description
-          "This leaf defines name of the queue-policy";
-      }
-    description
-      "container for queue-policy name";
-    }
-    description
-      "queue-policy name grouping";
-  }
-  
-  
   augment "/policy:policies/policy:policy/policy:classifier" + 
           "/policy:action/policy:action-params" {
-        when "derived-from-or-self(../../policy:type, " +
-             "'scheduler-policy:scheduler-policy-type')" {
-            description
-               "Only when policy type is scheduler-policy";
+    when "derived-from-or-self(../../policy:type, " +
+         "'qos-types:scheduler-policy-type')" {
+      description
+        "Augments only when policy type is scheduler-policy.";
+    }
+    case scheduler {
+      uses action:scheduler;
+    }
+    case queue-policy-name {
+      container queue-policy-name {
+        leaf queue-policy {
+          type leafref  {
+            path "/policy:policies/policy:policy/policy:name";
+          }
+          must "/policy:policies/policy:policy/policy:type =" +
+               "'qos-types:queue-policy-type'";
+          mandatory true;
+          description
+            "This leafref refers to queue-policy name";
         }
-      case scheduler {
-        uses action:scheduler;
+        description
+          "Container for queue-policy name.";
       }
-      case queue-policy-name {
-        uses queue-policy-name;
-      }
+    }
     description
-      "augments scheduler template reference to scheduler policy";
+      "Augments scheduler policy to add scheduler parameters
+       and a reference to queue-policy.";
   }
 }
