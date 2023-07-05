@@ -9,6 +9,9 @@ module ietf-scheduler-policy {
   import ietf-traffic-policy {
     prefix policy;
   }
+  import ietf-diffserv {
+    prefix diffserv;
+  }
   import iana-qos-types {
     prefix qos-types;
     reference
@@ -51,20 +54,6 @@ module ietf-scheduler-policy {
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
-  grouping filter-match-all {
-    container match-all {
-      leaf match-all-action {
-        type empty;
-        description
-          "match all packets";
-      }
-      description
-        "the match-all action";
-    }
-    description
-      "the match-all filter grouping";
-  }
-
   augment "/policy:policies/policy:policy/policy:classifier" +
           "/policy:inline/policy:filter" {
     when "derived-from-or-self(../../../policy:type, " +
@@ -76,7 +65,7 @@ module ietf-scheduler-policy {
       description
         "Choice of action types";
       case filter-match-all {
-        uses filter-match-all;
+        uses diffserv:filter-match-all;
         description
           "filter match-all";
       }
