@@ -100,192 +100,105 @@ module ietf-qos-action {
     }
   }
 
-
-  grouping single-rate-two-color-meter {
-    container single-rate-two-color-meter {
-      description
-        "A container for Basic Single Rate Two Color Marker.";
-
-      leaf committed-information-rate {
-        type uint64;
-        units "bytes-per-second";
-        description
-          "The value for Committed Information Rate (CIR).";
-      }
-
-      leaf committed-burst-size {
-        type uint64;
-        units "bytes";
-        description
-          "The value for Committed Burst Size (CBS).";
-      }
-
-      container conform-action {
-        uses meter-action;
-        description
-          "A packet is marked conforming, or green if it does not
-           exceed CIR.";
-      }
-
-      container exceed-action {
-        uses meter-action;
-        description
-          "A packet is marked exceeding, or yellow if it does
-           exceed CIR.";
-      }
-    }
-    description
-      "A grouping for Single Rate Two Color Meter attributes.";
-  }
-
-  grouping single-rate-three-color-meter {
-    container single-rate-three-color-meter {
-      description
-        "Grouping that defines the Single Rate Three Color Meter
-         (srTCM).";
-
-      leaf committed-information-rate {
-        type uint64;
-        units "bytes-per-second";
-        description
-          "The value for Committed Information Rate (CIR).";
-        reference
-          "RFC 2697: A Single Rate Three Color Marker.";
-      }
-
-      leaf committed-burst-size {
-        type uint64;
-        units "bytes";
-        description
-          "The value for Committed Burst Size (CBS).";
-        reference
-          "RFC 2697: A Single Rate Three Color Marker.";
-      }
-
-      leaf excess-burst-size {
-        type uint64;
-        units "bytes";
-        description
-          "The value for Excess Burst Size (EBS).";
-        reference
-          "RFC 2697: A Single Rate Three Color Marker.";
-      }
-
-      container conform-action {
-        uses meter-action;
-        description
-          "A packet is marked conforming, or green if it does not
-           exceed CBS.";
-        reference
-          "RFC 2697: A Single Rate Three Color Marker.";
-      }
-
-      container exceed-action {
-        uses meter-action;
-        description
-          "A packet is marked exceeding, or yellow if it does exceed
-           CBS, but not the EBS.";
-        reference
-          "RFC 2697: A Single Rate Three Color Marker.";
-      }
-
-      container violate-action {
-        uses meter-action;
-        description
-          "A packet is marked violating, or red if it is exceeds
-           both CBS and EBS.";
-        reference
-          "RFC 2697: A Single Rate Three Color Marker.";
-      }
-    }
-    description
-      "Single Rate Three Color Marker attributes.";
-  }
-
-  grouping two-rate-three-color-meter {
-    description
-      "A grouping that defines A Two Rate Three Color Meter
-       (trTCM).";
-    container two-rate-three-color-meter {
-      description
-        "A container that defines A Two Rate Three Color Meter
-         (trTCM).";
-
-      leaf committed-information-rate {
-        type uint64;
-        units "bytes-per-second";
-        description
-          "The value for Committed Information Rate (CIR).";
-        reference
-          "RFC 2698: A Two Rate Three Color Marker.";
-      }
-
-      leaf committed-burst-size {
-      type uint64;
-        units "bytes";
-        description
-          "The value for Commited Burst Size (CBS).";
-        reference
-          "RFC 2698: A Two Rate Three Color Marker.";
-      }
-
-      leaf peak-information-rate {
-        type uint64;
-        units "bytes-per-second";
-        description
-          "The value for Peak Information Rate (PIR).";
-        reference
-          "RFC 2698: A Two Rate Three Color Marker.";
-      }
-
-      leaf peak-burst-size {
-        type uint64;
-        units "bytes";
-        description
-          "The value for Peak Burst Size (PBS).";
-        reference
-          "RFC 2698: A Two Rate Three Color Marker.";
-      }
-
-      container conform-action {
-        uses meter-action;
-        description
-          "A packet is marked conforming, or green, if it does not
-           exceed CIR.";
-        reference
-          "RFC 2698: A Two Rate Three Color Marker.";
-      }
-
-      container exceed-action {
-        uses meter-action;
-        description
-          "A packet is marked exceeding, or yellow, if it exceeds
-           CIR but not PIR.";
-        reference
-          "RFC 2698: A Two Rate Three Color Marker.";
-      }
-
-      container violate-action {
-        uses meter-action;
-        description
-          "A packet is marked as violating, or red, if it exceeds
-           both CIR and PIR.";
-        reference
-          "RFC 2698: A Two Rate Three Color Marker.";
-      }
-    }
-  }
-
   grouping meter {
     choice meter-types {
       case single-rate-two-color-meter-type {
-        uses single-rate-two-color-meter;
+        container single-rate-two-color-meter {
+          description
+            "A container for Basic Single Rate Two Color Marker.";
+
+          leaf committed-information-rate {
+            type uint64;
+            units "bytes-per-second";
+            description
+              "The value for Committed Information Rate (CIR).";
+          }
+
+          leaf committed-burst-size {
+            type uint64;
+            units "bytes";
+            description
+              "The value for Committed Burst Size (CBS).";
+          }
+
+          container conform-action {
+            uses meter-action;
+            description
+              "A packet is marked conforming, or green if it does not
+               exceed CIR.";
+          }
+
+          container exceed-action {
+            uses meter-action;
+            description
+              "A packet is marked exceeding, or yellow if it does
+               exceed CIR.";
+          }
+        }
         description
           "A Basic Single Rate Two Color Meter.";
       }
 
       case single-rate-three-color-meter-type {
-        uses single-rate-three-color-meter;
+        container single-rate-three-color-meter {
+          description
+            "Container that defines the Single Rate Three Color Meter
+             (srTCM).";
+
+          leaf committed-information-rate {
+            type uint64;
+            units "bytes-per-second";
+            description
+              "The value for Committed Information Rate (CIR).";
+            reference
+              "RFC 2697: A Single Rate Three Color Marker.";
+          }
+
+          leaf committed-burst-size {
+            type uint64;
+            units "bytes";
+            description
+              "The value for Committed Burst Size (CBS).";
+            reference
+              "RFC 2697: A Single Rate Three Color Marker.";
+          }
+
+          leaf excess-burst-size {
+            type uint64;
+            units "bytes";
+            description
+              "The value for Excess Burst Size (EBS).";
+            reference
+              "RFC 2697: A Single Rate Three Color Marker.";
+          }
+
+          container conform-action {
+            uses meter-action;
+            description
+              "A packet is marked conforming, or green if it does not
+               exceed CBS.";
+            reference
+              "RFC 2697: A Single Rate Three Color Marker.";
+          }
+
+          container exceed-action {
+            uses meter-action;
+            description
+              "A packet is marked exceeding, or yellow if it does
+               exceed CBS, but not the EBS.";
+            reference
+              "RFC 2697: A Single Rate Three Color Marker.";
+          }
+
+          container violate-action {
+            uses meter-action;
+            description
+              "A packet is marked violating, or red if it is exceeds
+               both CBS and EBS.";
+            reference
+              "RFC 2697: A Single Rate Three Color Marker.";
+          }
+        }
         description
           "Singe Rate Three Color Meter (srTCM).";
         reference
@@ -293,7 +206,74 @@ module ietf-qos-action {
       }
 
       case two-rate-three-color-meter-type {
-        uses two-rate-three-color-meter;
+        container two-rate-three-color-meter {
+          description
+            "A container that defines A Two Rate Three Color Meter
+             (trTCM).";
+
+          leaf committed-information-rate {
+            type uint64;
+            units "bytes-per-second";
+            description
+              "The value for Committed Information Rate (CIR).";
+            reference
+              "RFC 2698: A Two Rate Three Color Marker.";
+          }
+
+          leaf committed-burst-size {
+            type uint64;
+            units "bytes";
+            description
+              "The value for Commited Burst Size (CBS).";
+            reference
+              "RFC 2698: A Two Rate Three Color Marker.";
+          }
+
+          leaf peak-information-rate {
+            type uint64;
+            units "bytes-per-second";
+            description
+              "The value for Peak Information Rate (PIR).";
+            reference
+              "RFC 2698: A Two Rate Three Color Marker.";
+          }
+
+          leaf peak-burst-size {
+            type uint64;
+            units "bytes";
+            description
+              "The value for Peak Burst Size (PBS).";
+            reference
+              "RFC 2698: A Two Rate Three Color Marker.";
+          }
+
+          container conform-action {
+            uses meter-action;
+            description
+              "A packet is marked conforming, or green, if it does not
+               exceed CIR.";
+            reference
+              "RFC 2698: A Two Rate Three Color Marker.";
+          }
+
+          container exceed-action {
+            uses meter-action;
+            description
+              "A packet is marked exceeding, or yellow, if it exceeds
+               CIR but not PIR.";
+            reference
+              "RFC 2698: A Two Rate Three Color Marker.";
+          }
+
+          container violate-action {
+            uses meter-action;
+            description
+              "A packet is marked as violating, or red, if it exceeds
+               both CIR and PIR.";
+            reference
+              "RFC 2698: A Two Rate Three Color Marker.";
+          }
+        }
         description
           "A Two Rate Three Color Marker.";
       }
