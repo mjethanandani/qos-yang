@@ -28,9 +28,9 @@ module ietf-qos-action {
 
   description
     "This module contains a collection of YANG definitions for
-     configuring qos specification implementations.
+     configuring QoS actions.
 
-     Copyright (c) 2021 IETF Trust and the persons identified as
+     Copyright (c) 2023 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -68,7 +68,7 @@ module ietf-qos-action {
       "Value and its unit grouping for rate.";
   }
 
-  grouping meter-action-params {
+  grouping meter-action {
     description
       "Configuration of meter actions.";
 
@@ -83,7 +83,7 @@ module ietf-qos-action {
       type inet:dscp;
       must "../action-type = 'qos-types:action-mark'" {
         error-message
-          "DSCP must be marked when action-type is action-mark";
+          "DSCP must be marked when action-type is action-mark.";
       }
       description
         "DSCP marking";
@@ -93,7 +93,7 @@ module ietf-qos-action {
       must "../action-type = 'qos-types:action-mark'" {
         error-message
           "Traffic-group must be marked when action-type is
-           action-mark";
+           action-mark.";
       }
       description
         "A unique name to mark as a traffic group.";
@@ -121,14 +121,14 @@ module ietf-qos-action {
       }
 
       container conform-action {
-        uses meter-action-params;
+        uses meter-action;
         description
           "A packet is marked conforming, or green if it does not
            exceed CIR.";
       }
 
       container exceed-action {
-        uses meter-action-params;
+        uses meter-action;
         description
           "A packet is marked exceeding, or yellow if it does
            exceed CIR.";
@@ -142,7 +142,7 @@ module ietf-qos-action {
     container single-rate-three-color-meter {
       description
         "Grouping that defines the Single Rate Three Color Meter
-        (srTCM).";
+         (srTCM).";
 
       leaf committed-information-rate {
         type uint64;
@@ -172,7 +172,7 @@ module ietf-qos-action {
       }
 
       container conform-action {
-        uses meter-action-params;
+        uses meter-action;
         description
           "A packet is marked conforming, or green if it does not
            exceed CBS.";
@@ -181,7 +181,7 @@ module ietf-qos-action {
       }
 
       container exceed-action {
-        uses meter-action-params;
+        uses meter-action;
         description
           "A packet is marked exceeding, or yellow if it does exceed
            CBS, but not the EBS.";
@@ -190,7 +190,7 @@ module ietf-qos-action {
       }
 
       container violate-action {
-        uses meter-action-params;
+        uses meter-action;
         description
           "A packet is marked violating, or red if it is exceeds
            both CBS and EBS.";
@@ -248,7 +248,7 @@ module ietf-qos-action {
       }
 
       container conform-action {
-        uses meter-action-params;
+        uses meter-action;
         description
           "A packet is marked conforming, or green, if it does not
            exceed CIR.";
@@ -257,7 +257,7 @@ module ietf-qos-action {
       }
 
       container exceed-action {
-        uses meter-action-params;
+        uses meter-action;
         description
           "A packet is marked exceeding, or yellow, if it exceeds
            CIR but not PIR.";
@@ -266,7 +266,7 @@ module ietf-qos-action {
       }
 
       container violate-action {
-        uses meter-action-params;
+        uses meter-action;
         description
           "A packet is marked as violating, or red, if it exceeds
            both CIR and PIR.";
@@ -359,7 +359,7 @@ module ietf-qos-action {
         "Container for whether to take an action for count.";
     }
     description
-      "The count action grouping";
+      "The count action grouping.";
   }
 
   grouping named-counter {
@@ -371,10 +371,10 @@ module ietf-qos-action {
           "A unique name for named counter.";
       }
       description
-        "the count action";
+        "The named counter action.";
     }
     description
-      "the count action grouping";
+      "The named counter action grouping.";
   }
 
   grouping discard {
@@ -382,13 +382,13 @@ module ietf-qos-action {
       leaf discard {
         type empty;
         description
-          "discard action";
+          "If defined this enables discard action.";
       }
       description
-        "discard action";
+        "Container for discard action.";
     }
     description
-      "discard grouping";
+      "Grouping for discard action.";
   }
 
   grouping priority {
@@ -396,62 +396,66 @@ module ietf-qos-action {
       leaf level {
         type uint8;
         description
-          "priority level";
+          "Priority level.";
       }
       description
-        "priority attributes";
+        "Container for priority.";
     }
     description
-      "priority attributes grouping";
+      "Grouping for priority.";
   }
+
   grouping min-rate {
     container min-rate {
       uses rate-value-unit;
       description
-        "min guaranteed bandwidth";
+        "Minimum guaranteed bandwidth.";
     }
     description
-      "minimum rate grouping";
+      "Grouping for minimum rate.";
   }
+
   grouping dscp-marking {
     container dscp {
       leaf dscp {
         type inet:dscp;
         description
-          "dscp marking";
+          "DSCP marking.";
       }
       description
-        "dscp marking container";
+        "Container for DSCP marking.";
     }
     description
-      "dscp marking grouping";
+      "Grouping for DSCP marking.";
   }
+
   grouping traffic-group-marking {
     container traffic-group {
       leaf traffic-group {
         type string;
         description
-          "traffic group marking";
+          "A unique name for traffic group.";
       }
       description
-        "traffic group marking container";
+        "Container for traffic group marking container.";
     }
     description
-      "traffic group marking grouping";
+      "Grouping for traffic group marking.";
   }
+
   grouping child-policy {
     container child-policy {
       if-feature qos-types:child-policy;
       leaf name {
         type string;
         description
-          "Hierarchical Policy";
+          "A unique name for hierarchical policy.";
       }
       description
-        "Hierarchical Policy configuration container";
+        "Hierarchical Policy configuration container.";
     }
     description
-      "Grouping of Hierarchical Policy configuration";
+      "Grouping of Hierarchical Policy configuration.";
   }
 
   grouping max-rate {
@@ -472,60 +476,67 @@ module ietf-qos-action {
           "Unit specification for the burst value.";
       }
       description
-        "Maximum rate attributes container";
+        "Maximum rate attributes container.";
     }
     description
-      "Grouping for maximum rate attributes";
+      "Grouping for maximum rate attributes.";
   }
 
   grouping red-config-parameters {
     leaf min-threshold-val {
       type uint64;
       description
-       "minimum value of red threshold";
+        "Minimum value of RED threshold.";
     }
+
     leaf min-threshold-unit {
       type identityref {
         base qos-types:red-threshold-unit;
       }
       description
-       "unit of minimum red threshold";
+        "Minimum RED threshold unit.";
     }
+
     leaf max-threshold-val {
       type uint64;
       description
-       "maximum value of red threshold";
+        "Maximum value of RED threshold.";
     }
+
     leaf max-threshold-unit {
       type identityref {
         base qos-types:red-threshold-unit;
       }
       description
-       "unit of maximum red threshold";
+        "Maximum RED threshold unit.";
     }
+
     leaf weight {
       type uint8;
       description
-       "the decay factor for the average queue size
-        calculation. the numbers are 2's exponent";
+        "The decay factor for the average queue size
+         calculation. The numbers is a 2's exponent.";
     }
+
     leaf max-probability-val {
       type uint64;
       description
-       "value of maximum probability value. this value need
-        be interpreted along with max-probability-unit";
+        "Value of maximum probability value. This value need
+         be interpreted along with max-probability-unit";
     }
+
     leaf max-probability-unit {
       type identityref {
         base qos-types:probability-unit;
       }
       description
-       "probability unit type as defined
-        by probability-unit";
+       "Probability unit type as defined
+        by probability-unit.";
     }
     description
-      "Random Early Detect Configuration Parameters";
+      "Random Early Detect (RED) configuration parameters.";
   }
+
   grouping queue {
     container queue {
       uses priority;
@@ -538,14 +549,15 @@ module ietf-qos-action {
               leaf tail-drop {
                 type empty;
                 description
-                 "tail drop algorithm";
+                  "When defined, tail drop algorithm is enabled.";
               }
               description
-                "Tail Drop configuration container";
+                "Tail Drop configuration container.";
             }
             description
-              "Tail Drop choice";
+              "Tail Drop choice.";
           }
+
           case red {
             container red {
               uses red-config-parameters;
@@ -553,12 +565,13 @@ module ietf-qos-action {
                 type boolean;
                 default "false";
                 description
-                  "ecn is enabled on the queue";
+                  "ECN is enabled on the queue.";
               }
               description
-                "Random Early Detect configuration";
+                "Random Early Detect (RED) configuration.";
             }
           }
+
           case wred {
             container wred {
               list wred {
@@ -627,12 +640,12 @@ module ietf-qos-action {
 
   container queues {
     description
-      "List of queue templates";
+      "List of queue templates.";
                
     list queue {
       key "name";
       description
-        "Queue entry template";
+        "Queue entry template.";
     
       leaf name {
         type string;
@@ -649,13 +662,13 @@ module ietf-qos-action {
         type string;
         mandatory true;
         description
-          "This leaf defines name of the  queue template referenced";
+          "This leaf defines name of the  queue template referenced.";
       }
       description
-        "Queue template reference";
+        "Queue template reference.";
     }
     description
-      "Queue template reference grouping";
+      "Queue template reference grouping.";
   }
 
   grouping scheduler {
@@ -663,9 +676,9 @@ module ietf-qos-action {
       uses min-rate;
       uses max-rate;
       description
-        "Scheduler configuration container";
+        "Scheduler configuration container.";
     }
     description
-      "Scheduler configuration grouping";
+      "Scheduler configuration grouping.";
   }
 }
