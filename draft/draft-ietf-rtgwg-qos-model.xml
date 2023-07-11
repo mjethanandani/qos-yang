@@ -712,10 +712,6 @@
     <t> The authors wish to thank Ruediger Geib, Fred Baker, Greg
     Misky, Tom Petch, Acee Lindem, many others for their helpful
     comments. </t>
-
-    <t> MITRE has approved this document for Public Release,
-    Distribution Unlimited, with Public Release Case Number
-    19-3027. </t>
     </section>
 
     <section anchor="contrib" title="Contributors">
@@ -724,6 +720,11 @@
     <artwork>
     <![CDATA[Norm Strahle      
     Email: nstrahle@juniper.net       .]]>
+    </artwork> </figure>
+    <figure>
+    <artwork>
+    <![CDATA[Shitanshu Shah
+    Email: svshah@cisco.com       .]]>
     </artwork> </figure>
     </section>
 </middle>
