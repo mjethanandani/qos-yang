@@ -211,10 +211,10 @@ module iana-qos-types {
     description
       "Burst specified in bytes.";
   }
-  identity millisecond {
+  identity microsecond {
     base burst-unit-type;
     description
-      "Burst specified in milliseconds.";
+      "Burst specified in microseconds.";
   }
 
   identity red-threshold-unit {
