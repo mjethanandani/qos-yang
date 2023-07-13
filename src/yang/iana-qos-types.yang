@@ -402,12 +402,12 @@ module iana-qos-types {
     description
       "This is identity of traffic direction";
   }
-  identity inbound {
+  identity ingress {
     base direction;
     description
       "Direction of traffic coming into the network entry";
   }
-  identity outbound {
+  identity egress {
     base direction;
     description
       "Direction of traffic going out of the network entry";
