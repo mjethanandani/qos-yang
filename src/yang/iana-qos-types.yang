@@ -349,12 +349,12 @@ module iana-qos-types {
     description
       "Base identity for traffic direction";
   }
-  identity ingress {
+  identity inbound {
     base direction;
     description
       "Direction of traffic coming into the network entry";
   }
-  identity egress {
+  identity outbound {
     base direction;
     description
       "Direction of traffic going out of the network entry";

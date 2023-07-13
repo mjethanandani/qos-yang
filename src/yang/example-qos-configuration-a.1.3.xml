@@ -57,7 +57,7 @@
     <type>ianaift:ethernetCsmacd</type>
     <qos-target-policy
 	xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy">
-      <direction>qt:ingress</direction>
+      <direction>qt:inbound</direction>
       <type>qt:diffserv-policy-type</type>
       <name>SINGLE-RATE-TWO-COLOR</name>
     </qos-target-policy>
