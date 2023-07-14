@@ -77,11 +77,12 @@ module example-compa-diffserv {
     container bw-remaining-percent {
       leaf value {
         type uint8;
+        units "percentage";
         description
           "Value for the rate that is configured.";
       }
-        description
-          "Remaining bandwidth of the link in percent.";
+      description
+        "Remaining bandwidth of the link in percent.";
     }
     description
       "Grouping for bandwidth remaining after
@@ -95,10 +96,10 @@ module example-compa-diffserv {
           "Mark metadata information in the network packet";
       }
       description
-        "Container for Qos-Group marking.";
+        "Container for QoS-Group marking.";
     }
     description
-      "Grouping for Qos-Group marking.";
+      "Grouping for QoS-Group marking.";
   }
 
   augment "/policy:classifiers/" +
@@ -108,7 +109,7 @@ module example-compa-diffserv {
       uses qos-group;
       description
         "Filter containing list of qos-group ranges.
-        Qos-group represent packet metadata information
+        QoS-group represent packet metadata information
         in a network packet.";
     }
     description
@@ -135,7 +136,7 @@ module example-compa-diffserv {
       uses qos-group-marking;
     }
     description
-      "Augment the actions to policy entry.";
+      "Augments policy entry to add actions.";
   }
 
   augment "/policy:policies" +
@@ -149,7 +150,7 @@ module example-compa-diffserv {
     "/diffserv:single-rate-two-color-meter" {
 
     description
-      "Augment the single-rate-two-color meter with" +
+      "Augment the single-rate-two-color meter to add" +
       "color classifiers.";
     container conform-color {
       uses policy:generic-classifier-attr;
@@ -173,7 +174,7 @@ module example-compa-diffserv {
     "/diffserv:single-rate-three-color-meter-type" +
     "/diffserv:single-rate-three-color-meter" {
     description
-      "Augment the one-rate-tri-color meter with" +
+      "Augment the one-rate-tri-color meter to add" +
       "color classifiers.";
     container conform-color {
       uses policy:generic-classifier-attr;

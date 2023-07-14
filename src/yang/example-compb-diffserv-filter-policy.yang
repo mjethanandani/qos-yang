@@ -45,7 +45,7 @@ module example-compb-diffserv-filter-policy {
 
   revision YYYY-MM-DD {
     description
-      "Initial revision of diffserv policy.";
+      "Initial revision of diffserv policy for Company B.";
     reference
       "RFC XXXX: YANG Data Model for QoS.";
   }
@@ -69,20 +69,20 @@ module example-compb-diffserv-filter-policy {
       leaf loss-priority {
         type enumeration {
           enum high {
-           description "High Loss Priority.";
+           description "High loss Priority.";
           }
           enum medium-high {
-           description "Medium-high Loss Priority.";
+           description "Medium to high loss priority.";
           }
           enum medium-low {
-           description "Medium-low Loss Priority.";
+           description "Medium to low loss priority.";
           }
           enum low {
-           description "Low Loss Priority.";
+           description "Low loss priority.";
           }
         }
         description
-          "Loss-priority.";
+          "Loss priority.";
       }
     }
     description
@@ -100,8 +100,8 @@ module example-compb-diffserv-filter-policy {
         "Filter Type Internal-loss-priority";
     }
     description 
-      "Augments Diffserv Classifier with vendor" +
-      " specific types.";
+      "Augments Diffserv Classifier with vendor " +
+      "specific types.";
   }
 
   /*************************************************
@@ -111,7 +111,7 @@ module example-compb-diffserv-filter-policy {
   identity mark-loss-priority {
     base qos-types:action-type;
     description
-      "mark loss-priority action type";
+      "Mark loss-priority action type.";
   }
 
   grouping mark-loss-priority {
@@ -119,20 +119,20 @@ module example-compb-diffserv-filter-policy {
       leaf loss-priority {
         type enumeration {
           enum high {
-           description "High Loss Priority.";
+           description "High loss Priority.";
           }
           enum medium-high {
-           description "Medium-high Loss Priority.";
+           description "Medium to high loss priority.";
           }
           enum medium-low {
-           description "Medium-low Loss Priority.";
+           description "Medium to low loss priority.";
           }
           enum low {
-           description "Low Loss Priority.";
+           description "Low loss priority.";
           }
         }
         description
-          "Loss-priority";
+          "Loss priority.";
       }
       description
         "Mark loss priority container.";
