@@ -19,7 +19,7 @@ module ietf-scheduler-policy {
   }
 
   organization
-    "IETF Routing Area Working Group";
+    "IETF Routing Area Working Group.";
 
   contact
     "WG Web:   <https://datatracker.ietf.org/wg/rtgwg/>
@@ -32,9 +32,9 @@ module ietf-scheduler-policy {
 
   description
     "This module contains a collection of YANG definitions for
-     configuring diffserv specification implementations.
+     configuring QoS scheduler policies.
 
-     Copyright (c) 2021 IETF Trust and the persons identified as
+     Copyright (c) 2023 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -49,7 +49,7 @@ module ietf-scheduler-policy {
 
   revision YYYY-MM-DD {
     description
-      "Initial version";
+      "Initial version.";
     reference
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
@@ -59,19 +59,20 @@ module ietf-scheduler-policy {
     when "derived-from-or-self(../../../policy:type, " +
          "'qos-types:scheduler-policy-type')" {
       description
-        "Only when policy type is scheduler-policy";
-      }
+        "This filter can be used only when policy type is
+         scheduler-policy.";
+    }
     choice filter-params {
       description
-        "Choice of action types";
+        "Choice of filter parameters.";
       case filter-match-all {
         uses diffserv:filter-match-all;
         description
-          "filter match-all";
+          "A filter that matches all packets.";
       }
     }
     description
-      "Augments Queue policy Classifier with common filter types";
+      "Augments Queue Policy Classifier to add filter parameters.";
   }
 
   augment "/policy:policies/policy:policy/policy:classifier" + 
@@ -79,29 +80,36 @@ module ietf-scheduler-policy {
     when "derived-from-or-self(../../policy:type, " +
          "'qos-types:scheduler-policy-type')" {
       description
-        "Augments only when policy type is scheduler-policy.";
+        "These actions apply only when policy type is
+         scheduler-policy.";
     }
-    case scheduler {
-      uses action:scheduler;
-    }
-    case queue-policy-name {
-      container queue-policy-name {
-        leaf queue-policy {
-          type leafref  {
-            path "/policy:policies/policy:policy/policy:name";
-          }
-          must "/policy:policies/policy:policy/policy:type =" +
-               "'qos-types:queue-policy-type'";
-          mandatory true;
-          description
-            "This leafref refers to queue-policy name";
-        }
-        description
-          "Container for queue-policy name.";
+    choice action {
+      case scheduler {
+        uses action:scheduler;
       }
+
+      case queue-policy-name {
+        container queue-policy-name {
+          leaf queue-policy {
+            type leafref  {
+              path "/policy:policies/policy:policy/policy:name";
+            }
+            must "derived-from-or-self(/policy:policies" +
+                 "/policy:policy/policy:type," +
+                 "'qos-types:queue-policy-type')";
+            mandatory true;
+            description
+              "This leafref refers to Queue policy name.";
+          }
+          description
+            "Container for Queue policy name.";
+        }
+      }
+      description
+	"A choice of action parameters.";
     }
     description
-      "Augments scheduler policy to add scheduler parameters
-       and a reference to queue-policy.";
+      "Augments Queue Policy Classifer to add in Action parameters
+       for Scheduler policy.";
   }
 }

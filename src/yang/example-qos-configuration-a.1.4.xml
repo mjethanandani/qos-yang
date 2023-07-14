@@ -127,7 +127,7 @@
     <type>ianaift:ethernetCsmacd</type>
     <qos-target-policy
 	xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy">
-      <direction>qt:outbound</direction>
+      <direction>qt:egress</direction>
       <type>qt:diffserv-policy-type</type>
       <name>QUEUEING-POLICY</name>
     </qos-target-policy>
