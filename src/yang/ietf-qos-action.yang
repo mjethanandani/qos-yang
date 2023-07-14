@@ -54,18 +54,21 @@ module ietf-qos-action {
     leaf value {
       type uint64;
       description
-        "Value for the rate that is configured.";
+        "Value for the rate that is configured, either in
+         bits-per-second or percentage.";
     }
 
     leaf unit {
       type identityref {
         base qos-types:rate-unit-type;
       }
+      default qos-types:bits-per-second;
       description
-        "The unit used to specify the value.";
+        "The unit for the value above, either in bits-per-second or
+         percentage.";
     }
     description
-      "Value and its unit grouping for rate.";
+      "Grouping for configuration of value and unit.";
   }
 
   grouping meter-action {
@@ -466,8 +469,10 @@ module ietf-qos-action {
         type identityref {
           base qos-types:burst-unit-type;
         }
+        default qos-types:bytes;
         description
-          "Unit specification for the burst value.";
+          "Burst value in bytes or milliseconds, with a default
+           of bytes.";
       }
       description
         "Maximum rate attributes container.";
@@ -487,8 +492,10 @@ module ietf-qos-action {
       type identityref {
         base qos-types:red-threshold-unit;
       }
+      default qos-types:red-threshold-bytes;
       description
-        "Minimum RED threshold unit.";
+        "The unit for minimum RED threshold value, with the default
+         of bytes.";
     }
 
     leaf max-threshold-val {
@@ -501,8 +508,10 @@ module ietf-qos-action {
       type identityref {
         base qos-types:red-threshold-unit;
       }
+      default qos-types:red-threshold-bytes;
       description
-        "Maximum RED threshold unit.";
+        "The unit for maximum RED threshold value, with the default
+         of bytes.";
     }
 
     leaf weight {
@@ -523,9 +532,9 @@ module ietf-qos-action {
       type identityref {
         base qos-types:probability-unit;
       }
+      default qos-types:probability-pc;
       description
-       "Probability unit type as defined
-        by probability-unit.";
+       "Probability unit type, with a default of percentage.";
     }
     description
       "Random Early Detect (RED) configuration parameters.";
@@ -581,6 +590,7 @@ module ietf-qos-action {
                   type identityref {
                     base qos-types:wred-color-type;
                   }
+                  default qos-types:wred-color-dscp;
                   description
                     "WRED color-type of each profile.";
                 }
