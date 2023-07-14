@@ -3,11 +3,11 @@ module ietf-scheduler-policy {
   namespace "urn:ietf:params:xml:ns:yang:ietf-scheduler-policy";
   prefix scheduler-policy;
 
-  import ietf-qos-action {
-    prefix action;
-  }
   import ietf-traffic-policy {
-    prefix policy;
+    prefix traffic-policy;
+  }
+  import ietf-qos-action {
+    prefix qos-action;
   }
   import ietf-diffserv {
     prefix diffserv;
@@ -54,9 +54,10 @@ module ietf-scheduler-policy {
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
-  augment "/policy:policies/policy:policy/policy:classifier" +
-          "/policy:inline/policy:filter" {
-    when "derived-from-or-self(../../../policy:type, " +
+  augment "/traffic-policy:policies/traffic-policy:policy" +
+          "/traffic-policy:classifier/traffic-policy:inline" +
+          "/traffic-policy:filter" {
+    when "derived-from-or-self(../../../traffic-policy:type, " +
          "'qos-types:scheduler-policy-type')" {
       description
         "Only when policy type is scheduler-policy";
@@ -74,24 +75,26 @@ module ietf-scheduler-policy {
       "Augments Queue policy Classifier with common filter types";
   }
 
-  augment "/policy:policies/policy:policy/policy:classifier" + 
-          "/policy:action/policy:action-params" {
-    when "derived-from-or-self(../../policy:type, " +
+  augment "/traffic-policy:policies/traffic-policy:policy" +
+          "/traffic-policy:classifier/traffic-policy:action" +
+          "/traffic-policy:action-params" {
+    when "derived-from-or-self(../../traffic-policy:type, " +
          "'qos-types:scheduler-policy-type')" {
       description
         "Augments only when policy type is scheduler-policy.";
     }
     case scheduler {
-      uses action:scheduler;
+      uses qos-action:scheduler;
     }
     case queue-policy-name {
       container queue-policy-name {
         leaf queue-policy {
           type leafref  {
-            path "/policy:policies/policy:policy/policy:name";
+            path "/traffic-policy:policies/traffic-policy:policy" +
+                 "/traffic-policy:name";
           }
-          must "/policy:policies/policy:policy/policy:type =" +
-               "'qos-types:queue-policy-type'";
+          must "/traffic-policy:policies/traffic-policy:policy" +
+               "/traffic-policy:type = 'qos-types:queue-policy-type'";
           mandatory true;
           description
             "This leafref refers to queue-policy name";

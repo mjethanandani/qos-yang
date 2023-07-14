@@ -9,7 +9,7 @@ module example-compb-queue-policy {
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
   import ietf-traffic-policy {
-    prefix policy;
+    prefix traffic-policy;
   }
 
   organization "Company B";
@@ -57,8 +57,9 @@ module example-compb-queue-policy {
       "Forwarding class filter";
   }
 
-  augment "/policy:policies/policy:policy/policy:classifier" +
-          "/policy:inline/policy:filter" {
+  augment "/traffic-policy:policies/traffic-policy:policy" +
+          "/traffic-policy:classifier/traffic-policy:inline" +
+          "/traffic-policy:filter" {
     choice filter-params {
       description
         "Choice of filters";
@@ -92,10 +93,10 @@ module example-compb-queue-policy {
       "compb-queue grouping";
   }
   
-  augment "/policy:policies" +
-          "/policy:policy" +
-          "/policy:classifier" +
-          "/policy:action" {
+  augment "/traffic-policy:policies" +
+          "/traffic-policy:policy" +
+          "/traffic-policy:classifier" +
+          "/traffic-policy:action" {
     choice action-params {
       description
         "Choice of action types";

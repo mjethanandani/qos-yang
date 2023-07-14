@@ -9,12 +9,12 @@ module example-compa-diffserv {
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
   import ietf-traffic-policy {
-    prefix policy;
+    prefix traffic-policy;
     reference
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
   import ietf-qos-action {
-    prefix action;
+    prefix qos-action;
     reference
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
@@ -88,9 +88,9 @@ module example-compa-diffserv {
       "drop grouping";
   }
 
-  augment "/policy:classifiers/" +
-    "policy:classifier/" +
-    "policy:filter/diffserv:filter-param" {
+  augment "/traffic-policy:classifiers/" +
+    "traffic-policy:classifier/" +
+    "traffic-policy:filter/diffserv:filter-param" {
     case qos-group {
       uses qos-group;
       description
@@ -101,28 +101,28 @@ module example-compa-diffserv {
     description
       "augmentation of classifier filters";
   }
-  augment "/policy:policies/policy:policy/" +
-    "policy:classifier/" +
-    "policy:action/" +
-    "policy:action-params" {
+  augment "/traffic-policy:policies/traffic-policy:policy/" +
+    "traffic-policy:classifier/" +
+    "traffic-policy:action/" +
+    "traffic-policy:action-params" {
     case priority {
-      uses action:priority;
+      uses qos-action:priority;
     }
     case min-rate {
-      uses action:min-rate;
+      uses qos-action:min-rate;
     }
     case max-rate {
-      uses action:max-rate;
+      uses qos-action:max-rate;
     }
     description
       "Augment the actions to policy entry";
   }
 
-  augment "/policy:policies" +
-    "/policy:policy" +
-    "/policy:classifier" +
-    "/policy:action" +
-    "/policy:action-params" +
+  augment "/traffic-policy:policies" +
+    "/traffic-policy:policy" +
+    "/traffic-policy:classifier" +
+    "/traffic-policy:action" +
+    "/traffic-policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-types" +
     "/diffserv:single-rate-two-color-meter-type" +
@@ -132,22 +132,22 @@ module example-compa-diffserv {
       "augment the single-rate-two-color meter with" +
       "color classifiers";
     container conform-color {
-      uses policy:generic-classifier-attr;
+      uses traffic-policy:generic-classifier-attr;
       description
         "conform color classifier container";
     }
     container exceed-color {
-      uses policy:generic-classifier-attr;
+      uses traffic-policy:generic-classifier-attr;
       description
         "exceed color classifier container";
     }
   }
 
-  augment "/policy:policies" +
-    "/policy:policy" +
-    "/policy:classifier" +
-    "/policy:action" +
-    "/policy:action-params" +
+  augment "/traffic-policy:policies" +
+    "/traffic-policy:policy" +
+    "/traffic-policy:classifier" +
+    "/traffic-policy:action" +
+    "/traffic-policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-types" +
     "/diffserv:single-rate-three-color-meter-type" +
@@ -156,26 +156,26 @@ module example-compa-diffserv {
       "augment the one-rate-tri-color meter with" +
       "color classifiers";
     container conform-color {
-      uses policy:generic-classifier-attr;
+      uses traffic-policy:generic-classifier-attr;
       description
         "conform color classifier container";
     }
     container exceed-color {
-      uses policy:generic-classifier-attr;
+      uses traffic-policy:generic-classifier-attr;
       description
         "exceed color classifier container";
     }
     container violate-color {
-      uses policy:generic-classifier-attr;
+      uses traffic-policy:generic-classifier-attr;
       description
         "violate color classifier container";
     }
   }
-  augment "/policy:policies" +
-    "/policy:policy" +
-    "/policy:classifier" +
-    "/policy:action" +
-    "/policy:action-params" +
+  augment "/traffic-policy:policies" +
+    "/traffic-policy:policy" +
+    "/traffic-policy:classifier" +
+    "/traffic-policy:action" +
+    "/traffic-policy:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-types" +
     "/diffserv:two-rate-three-color-meter-type" +
@@ -184,17 +184,17 @@ module example-compa-diffserv {
       "augment the two-rate-tri-color meter with" +
       "color classifiers";
     container conform-color {
-      uses policy:generic-classifier-attr;
+      uses traffic-policy:generic-classifier-attr;
       description
         "conform color classifier container";
     }
     container exceed-color {
-      uses policy:generic-classifier-attr;
+      uses traffic-policy:generic-classifier-attr;
       description
         "exceed color classifier container";
     }
     container violate-color {
-      uses policy:generic-classifier-attr;
+      uses traffic-policy:generic-classifier-attr;
       description
         "violate color classifier container";
     }
