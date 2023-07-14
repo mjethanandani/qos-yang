@@ -4,10 +4,10 @@ module ietf-diffserv {
   prefix diffserv;
 
   import ietf-traffic-policy {
-    prefix policy;
+    prefix traffic-policy;
   }
   import ietf-qos-action {
-    prefix action;
+    prefix qos-action;
   }
   import ietf-inet-types {
     prefix inet;
@@ -254,8 +254,8 @@ module ietf-diffserv {
       "The match all filter grouping.";
   }
 
-  augment "/policy:classifiers/policy:classifier" + 
-          "/policy:filter" {
+  augment "/traffic-policy:classifiers/traffic-policy:classifier" + 
+          "/traffic-policy:filter" {
     choice filter-param {
       description
         "Choice of filter types.";
@@ -323,13 +323,14 @@ module ietf-diffserv {
       "Augments QoS classifier to add in DiffServ filters.";
   }
 
-  augment "/policy:policies/policy:policy/policy:classifier" +
-          "/policy:inline/policy:filter" {
-    when "derived-from-or-self(../../../policy:type, " +
+  augment "/traffic-policy:policies/traffic-policy:policy" +
+          "/traffic-policy:classifier/traffic-policy:inline" +
+          "/traffic-policy:filter" {
+    when "derived-from-or-self(../../../traffic-policy:type, " +
          "'qos-types:ipv4-diffserv-policy-type') or " +
-         "derived-from-or-self(../../../policy:type, " +
+         "derived-from-or-self(../../../traffic-policy:type, " +
          "'qos-types:ipv6-diffserv-policy-type') or " +
-         "derived-from-or-self(../../../policy:type, " +
+         "derived-from-or-self(../../../traffic-policy:type, " +
          "'qos-types:diffserv-policy-type')" {
       description
         "If policy type is v4, v6 or default diffserv,
@@ -345,8 +346,8 @@ module ietf-diffserv {
       }
 
       case source-ipv4-prefix {
-        when "derived-from-or-self(/policy:policies/" +
-             "policy:policy/policy:type, " +
+        when "derived-from-or-self(/traffic-policy:policies/" +
+             "traffic-policy:policy/traffic-policy:type, " +
              "'qos-types:ipv6-diffserv-policy-type')" {
             description
                "If policy type is v6, this filter cannot be used.";
@@ -357,8 +358,8 @@ module ietf-diffserv {
       }
 
       case destination-ipv4-prefix {
-        when "derived-from-or-self(/policy:policies" +
-             "/policy:policy/policy:type, " +
+        when "derived-from-or-self(/traffic-policy:policies" +
+             "/traffic-policy:policy/traffic-policy:type, " +
              "'qos-types:ipv6-diffserv-policy-type')" {
             description
                "If policy type is v6, this filter cannot be used.";
@@ -369,8 +370,8 @@ module ietf-diffserv {
       }
 
       case source-ipv6-prefix {
-        when "derived-from-or-self(/policy:policies" +
-             "/policy:policy/policy:type, "+
+        when "derived-from-or-self(/traffic-policy:policies" +
+             "/traffic-policy:policy/traffic-policy:type, "+
              "'qos-types:ipv4-diffserv-policy-type')" {
             description
                "If policy type is v4, this filter cannot be used.";
@@ -381,8 +382,8 @@ module ietf-diffserv {
       }
 
       case destination-ipv6-prefix {
-        when "derived-from-or-self(/policy:policies" +
-             "/policy:policy/policy:type, " +
+        when "derived-from-or-self(/traffic-policy:policies" +
+             "/traffic-policy:policy/traffic-policy:type, " +
              "'qos-types:ipv4-diffserv-policy-type')" {
             description
                "If policy type is v4, this filter cannot be used.";
@@ -426,13 +427,14 @@ module ietf-diffserv {
       "Augments Diffserv Classifier with common filter types.";
   }
 
-  augment "/policy:policies/policy:policy/policy:classifier" + 
-          "/policy:action/policy:action-params" {
-    when "derived-from-or-self(../../policy:type, " +
+  augment "/traffic-policy:policies/traffic-policy:policy" +
+          "/traffic-policy:classifier/traffic-policy:action" +
+          "/traffic-policy:action-params" {
+    when "derived-from-or-self(../../traffic-policy:type, " +
          "'qos-types:ipv4-diffserv-policy-type') or " +
-         "derived-from-or-self(../../policy:type, " +
+         "derived-from-or-self(../../traffic-policy:type, " +
          "'qos-types:ipv6-diffserv-policy-type') or " +
-         "derived-from-or-self(../../policy:type, " +
+         "derived-from-or-self(../../traffic-policy:type, " +
          "'qos-types:diffserv-policy-type')" {
       description
         "If policy type is v4, v6 or default diffserv,
@@ -442,34 +444,34 @@ module ietf-diffserv {
       "Augments Diffserv Policy with action configuration.";
 
     case dscp-marking {
-      uses action:dscp-marking;
+      uses qos-action:dscp-marking;
     }
     case meter-inline {
-      uses action:meter;
+      uses qos-action:meter;
     }
     case meter-reference {
-      uses action:meter-reference;
+      uses qos-action:meter-reference;
     }
     case traffic-group-marking {
-      uses action:traffic-group-marking;
+      uses qos-action:traffic-group-marking;
     }
     case child-policy {
       if-feature qos-types:child-policy;
-      uses action:child-policy;
+      uses qos-action:child-policy;
     }
     case count {
       if-feature qos-types:count;
-      uses action:count;
+      uses qos-action:count;
     }
     case named-count {
       if-feature qos-types:named-counter;
-      uses action:named-counter;
+      uses qos-action:named-counter;
     }
     case queue-inline {
-      uses action:queue;
+      uses qos-action:queue;
     }
     case scheduler-inline {
-      uses action:scheduler;
+      uses qos-action:scheduler;
     }
   }
 }

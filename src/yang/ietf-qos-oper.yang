@@ -1,7 +1,7 @@
 module ietf-qos-oper {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-qos-oper";
-  prefix oper;
+  prefix qos-oper;
 
   import ietf-yang-types {
     prefix yang;
