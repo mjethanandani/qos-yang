@@ -105,7 +105,8 @@ module ietf-diffserv {
       }
     }
     description
-      "Filter grouping containing list of destination IPv4 prefixes.";
+      "Filter grouping containing list of destination IPv4
+       prefixes.";
   }
 
   grouping source-ipv6-prefix {
@@ -120,7 +121,8 @@ module ietf-diffserv {
       }
     }
     description
-      "Filter grouping containing list of source IPv6 prefixes.";
+      "Filter grouping containing list of source IPv6
+       prefixes.";
   }
 
   grouping destination-ipv6-prefix {
@@ -135,7 +137,8 @@ module ietf-diffserv {
       }
     }
     description
-      "Filter grouping containing list of destination IPv6 prefixes.";
+      "Filter grouping containing list of destination IPv6
+       prefixes.";
   }
 
   grouping source-port {

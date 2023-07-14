@@ -106,7 +106,7 @@ module ietf-scheduler-policy {
         }
       }
       description
-	"A choice of action parameters.";
+        "A choice of action parameters.";
     }
     description
       "Augments Queue Policy Classifer to add in Action parameters

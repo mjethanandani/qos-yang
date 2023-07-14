@@ -94,7 +94,7 @@ module ietf-queue-policy {
       uses action:queue;
     }
     description
-      "Augments Queue Policy action to add Queue template reference or
-       Queue inline.";
+      "Augments Queue Policy action to add Queue template reference
+       or Queue inline.";
   }
 }
