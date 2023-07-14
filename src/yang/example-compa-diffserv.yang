@@ -203,7 +203,7 @@ module example-compa-diffserv {
     "/diffserv:two-rate-three-color-meter-type" +
     "/diffserv:two-rate-three-color-meter" {
     description
-      "Augment the two-rate-tri-color meter with" +
+      "Augment the two-rate-tri-color meter to add" +
       "color classifiers.";
     container conform-color {
       uses policy:generic-classifier-attr;
