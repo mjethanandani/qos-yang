@@ -4,11 +4,6 @@ module example-compb-scheduler-policy {
             "example-compb-scheduler-policy";
   prefix scheduler-plcy;
 
-  import iana-qos-types {
-    prefix qos-types;
-    reference
-      "RFC XXXX: YANG Models for Quality of Service (QoS).";
-  }
   import ietf-qos-action {
     prefix action;
     reference
@@ -37,12 +32,6 @@ module example-compb-scheduler-policy {
       "Initial revision of diffserv policy";
     reference
       "RFC XXXX: A YANG Data Model for Quality of Service (QoS).";
-  }
-
-  identity queue-policy {
-    base qos-types:action-type;
-    description
-      "forwarding-class-queue action type";
   }
 
   grouping queue-policy-name {

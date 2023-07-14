@@ -41,37 +41,6 @@ module example-compb-queue-policy {
       "RFC XXXX: A YANG Data Model for Quality of Service (QoS).";
   }
 
-  identity forwarding-class {
-    base qos-types:filter-type;
-    description
-       "Forwarding class filter type";
-  }
-
-  grouping forwarding-class {
-    leaf forwarding-class {
-      type string;
-      description
-        "forwarding-class name";
-    }
-    description
-      "Forwarding class filter";
-  }
-
-  augment "/policy:policies/policy:policy/policy:classifier" +
-          "/policy:inline/policy:filter" {
-    choice filter-params {
-      description
-        "Choice of filters";
-      case forwarding-class {
-        uses forwarding-class;
-        description
-          "Filter Type Internal-loss-priority";
-      }
-    }
-    description 
-      "Augments Diffserv Classifier with fwd class filter";
-  }
-
   identity compb-queue {
     base qos-types:action-type;
     description
