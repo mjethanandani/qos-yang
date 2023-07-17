@@ -4,10 +4,10 @@ module ietf-queue-policy {
   prefix queue-policy;
 
   import ietf-traffic-policy {
-    prefix policy;
+    prefix traffic-policy;
   }
   import ietf-qos-action {
-    prefix action;
+    prefix qos-action;
   }
   import ietf-diffserv {
     prefix diffserv;
@@ -54,9 +54,10 @@ module ietf-queue-policy {
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
 
-  augment "/policy:policies/policy:policy/policy:classifier" +
-          "/policy:inline/policy:filter" {
-    when "derived-from-or-self(../../../policy:type, " +
+  augment "/traffic-policy:policies/traffic-policy:policy" +
+          "/traffic-policy:classifier/traffic-policy:inline" +
+          "/traffic-policy:filter" {
+    when "derived-from-or-self(../../../traffic-policy:type, " +
          "'qos-types:queue-policy-type')" {
       description
         "If policy type is queue policy, this filter can be used.";
@@ -80,18 +81,19 @@ module ietf-queue-policy {
       "Augments Queue policy Classifier with common filter types";
   }
 
-  augment "/policy:policies/policy:policy/policy:classifier" + 
-          "/policy:action/policy:action-params" {
-    when "derived-from-or-self(../../policy:type,"  +
+  augment "/traffic-policy:policies/traffic-policy:policy" +
+          "/traffic-policy:classifier/traffic-policy:action" +
+          "/traffic-policy:action-params" {
+    when "derived-from-or-self(../../traffic-policy:type,"  +
          "'qos-types:queue-policy-type')" {
       description
         "queue policy actions.";
     }
     case queue-template-name {
-      uses action:queue-reference;
+      uses qos-action:queue-reference;
     }
     case queue-inline {
-      uses action:queue;
+      uses qos-action:queue;
     }
     description
       "augments queue template reference to queue policy";
