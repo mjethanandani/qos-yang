@@ -55,7 +55,8 @@ module example-compa-diffserv {
     list qos-group {
       key "min max";
       description
-        "List of qos-group ranges.";
+        "List of qos-groups to match on. A QoS group is a set of
+         packets tagged as group.";
       leaf min {
         type uint8;
         description
@@ -81,7 +82,7 @@ module example-compa-diffserv {
         type uint8;
         units "percentage";
         description
-          "Value for the rate that is configured.";
+          "Percentage of the remaining bandwidth present.";
       }
       description
         "Remaining bandwidth of the link in percent.";
