@@ -32,7 +32,7 @@ module example-compa-diffserv {
      companyA diffserv specification extension.";
   revision YYYY-MM-DD {
     description
-      "Initial revision for diffserv actions on network packets";
+      "Initial revision for diffserv actions on network packets.";
     reference
       "RFC XXXX: A YANG Data Model for Quality of Service (QoS).";
   }
@@ -40,52 +40,69 @@ module example-compa-diffserv {
   identity default-policy-type {
     base qos-types:policy-type;
     description
-      "This defines default policy-type";
+      "This defines default policy-type.";
   }
 
   identity qos-group {
     base qos-types:filter-type;
     description
-      "qos-group filter-type";
-  }
-
-  identity drop {
-    base qos-types:action-type;
-    description
-      "drop action-type";
+      "Filter-type to match on  packet metadata. This metadata
+       can be used for packet marking, queuing for traffic in
+       egress direction.";
   }
 
   grouping qos-group {
     list qos-group {
-      key "qos-group-min qos-group-max";
+      key "min max";
       description
-        "list of dscp ranges";
-      leaf qos-group-min {
+        "List of qos-groups to match on. A QoS group is a set of
+         packets tagged as group.";
+      leaf min {
         type uint8;
         description
-          "Minimum value of qos-group range";
+          "Minimum value of qos-group range.";
       }
-      leaf qos-group-max {
+      leaf max {
         type uint8;
+        must ". >= ../min" {
+          error-message
+          "The qos-group max must be 
+           greater than or equal to qos-group min.";
+        }
         description
-          "Maximum value of qos-group range";
+          "Maximum value of qos-group range.";
       }
     }
     description
-      "Filter containing list of qos-group ranges";
+      "Filter containing list of qos-group ranges.";
   }
-  grouping drop {
-    container drop {
-      leaf drop {
-        type empty;
+  grouping bw-remaining-percent {
+    container bw-remaining-percent {
+      leaf value {
+        type uint8;
+        units "percentage";
         description
-          "drop action";
+          "Percentage of the remaining bandwidth present.";
       }
       description
-        "drop container";
+        "Remaining bandwidth of the link in percent.";
     }
     description
-      "drop grouping";
+      "Grouping for bandwidth remaining after
+      reserved and priority bandwidth.";
+  }
+  grouping qos-group-marking {
+    container qos-group {
+      leaf qos-group {
+        type uint8;
+        description
+          "Mark metadata information in the network packet";
+      }
+      description
+        "Container for QoS-Group marking.";
+    }
+    description
+      "Grouping for QoS-Group marking.";
   }
 
   augment "/traffic-policy:classifiers/" +
@@ -95,12 +112,13 @@ module example-compa-diffserv {
       uses qos-group;
       description
         "Filter containing list of qos-group ranges.
-        Qos-group represent packet metadata information
-        in a device. ";
+        QoS-group represent packet metadata information
+        in a network packet.";
     }
     description
-      "augmentation of classifier filters";
+      "Augmentation of classifier filters.";
   }
+
   augment "/traffic-policy:policies/traffic-policy:policy/" +
     "traffic-policy:classifier/" +
     "traffic-policy:action/" +
@@ -114,8 +132,14 @@ module example-compa-diffserv {
     case max-rate {
       uses qos-action:max-rate;
     }
+    case bw-remaining {
+      uses bw-remaining-percent;
+    }
+    case mark-qos-group {
+      uses qos-group-marking;
+    }
     description
-      "Augment the actions to policy entry";
+      "Augments policy entry to add actions.";
   }
 
   augment "/traffic-policy:policies" +
@@ -127,19 +151,18 @@ module example-compa-diffserv {
     "/diffserv:meter-types" +
     "/diffserv:single-rate-two-color-meter-type" +
     "/diffserv:single-rate-two-color-meter" {
-
     description
-      "augment the single-rate-two-color meter with" +
-      "color classifiers";
+      "Augment the single-rate-two-color meter to add" +
+      "color classifiers.";
     container conform-color {
       uses traffic-policy:generic-classifier-attr;
       description
-        "conform color classifier container";
+        "Conform color classifier container.";
     }
     container exceed-color {
       uses traffic-policy:generic-classifier-attr;
       description
-        "exceed color classifier container";
+        "Exceed color classifier container.";
     }
   }
 
@@ -153,24 +176,25 @@ module example-compa-diffserv {
     "/diffserv:single-rate-three-color-meter-type" +
     "/diffserv:single-rate-three-color-meter" {
     description
-      "augment the one-rate-tri-color meter with" +
-      "color classifiers";
+      "Augment the one-rate-tri-color meter to add" +
+      "color classifiers.";
     container conform-color {
       uses traffic-policy:generic-classifier-attr;
       description
-        "conform color classifier container";
+        "Conform color classifier container.";
     }
     container exceed-color {
       uses traffic-policy:generic-classifier-attr;
       description
-        "exceed color classifier container";
+        "Exceed color classifier container.";
     }
     container violate-color {
       uses traffic-policy:generic-classifier-attr;
       description
-        "violate color classifier container";
+        "Violate color classifier container.";
     }
   }
+
   augment "/traffic-policy:policies" +
     "/traffic-policy:policy" +
     "/traffic-policy:classifier" +
@@ -181,22 +205,22 @@ module example-compa-diffserv {
     "/diffserv:two-rate-three-color-meter-type" +
     "/diffserv:two-rate-three-color-meter" {
     description
-      "augment the two-rate-tri-color meter with" +
-      "color classifiers";
+      "Augment the two-rate-tri-color meter to add" +
+      "color classifiers.";
     container conform-color {
       uses traffic-policy:generic-classifier-attr;
       description
-        "conform color classifier container";
+        "Conform color classifier container.";
     }
     container exceed-color {
       uses traffic-policy:generic-classifier-attr;
       description
-        "exceed color classifier container";
+        "Exceed color classifier container.";
     }
     container violate-color {
       uses traffic-policy:generic-classifier-attr;
       description
-        "violate color classifier container";
+        "Violate color classifier container.";
     }
   }
 }
