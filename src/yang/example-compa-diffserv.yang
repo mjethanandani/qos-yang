@@ -46,7 +46,9 @@ module example-compa-diffserv {
   identity qos-group {
     base qos-types:filter-type;
     description
-      "Filter-type to match on  packet metadata.";
+      "Filter-type to match on  packet metadata. This metadata
+       can be used for packet marking, queuing for traffic in
+       egress direction.";
   }
 
   grouping qos-group {
