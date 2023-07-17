@@ -121,19 +121,18 @@
 
   <middle>
     <section anchor="intro" title="Introduction">
-      <t> This document defines a YANG <xref target="RFC6020"/>
-      <xref target="RFC7950"/> model for Quality of Service (QoS)
-      configuration and statistics parameters. Traffic Policy module 
-      defines the basic building blocks to define a classifier, policy
-      and target. QoS Action module defines QoS action related
-      parameters. Traffic policy is augmented to include packet match
-      and action parameters to define the Diffrentiated Services
-      (DiffServ) policy, Queues policy and  Scheduler policy. Each
-      of these policies are defined as separate modules. The Diffserv
-      module is based on DiffServ architecture, and various
-      references have been made to available standard architecture
-      documents. QoS statistics counters are defined in QoS
-      Operational module.</t>
+      <t> This document defines a <xref target="RFC7950">YANG
+      1.1</xref> model for Quality of Service (QoS) configuration and
+      statistics parameters. Traffic Policy module defines the basic
+      building blocks to define a classifier, policy and target. QoS
+      Action module defines QoS action related parameters. Traffic
+      policy is augmented to include packet match and action
+      parameters to define the Diffrentiated Services (DiffServ)
+      policy, Queues policy and Scheduler policy. Each of these
+      policies are defined as separate modules. The Diffserv module is
+      based on DiffServ architecture, and various references have been
+      made to available standard architecture documents. QoS
+      statistics counters are defined in QoS Operational module.</t>
 
       <t>DiffServ is a preferred approach for network service
       providers to offer services to different customers based on
@@ -143,19 +142,19 @@
       applied by upstream node or by the edge router on entry to the
       DiffServ network.</t>
 
-      <t> The YANG modules in this document conform to the Network
-      Management Datastore Architecture (NMDA) <xref
-      target="RFC8342"/>. </t>
+      <t> The YANG modules in this document conform to the <xref
+      target="RFC8342">Network Management Datastore Architecture
+      (NMDA)</xref>. </t>
 
       <t> Tree diagrams used in this document follow the notation
-      defined in <xref target="RFC8340"/></t>
+      defined in <xref target="RFC8340">YANG Tree Diagrams</xref>.</t>
 
       <section>
 	<name>Note to RFC Editor</name>
 	<t> Editorial Note: (To be removed by RFC Editor) </t>
-	<t> This draft contains several placeholder values that need to
-	be replaced with finalized values at the time of publication.
-	Please apply the following replacements:
+	<t> This draft contains several placeholder values that need
+	to be replaced with finalized values at the time of
+	publication.  Please apply the following replacements:
 	<ul>
 	  <li>"XXXX" --> the assigned RFC value for this draft both in
 	  this draft and in the yang modules under the revision
@@ -325,12 +324,13 @@
     </section>
 
     <section title="DiffServ Model Design">
-      <t>DiffServ architecture <xref target="RFC2475"/> describes the
-      architecture as a simple model where traffic entering a network
-      is classified and possibly conditioned at the boundary of the
-      network and assigned a different Behavior Aggregate (BA). Each
-      BA is identified by a specific value of DSCP, and is used to
-      select a Per Hop Behavior (PHB).</t>
+      <t><xref target="RFC2475">Definition of the Differentiated
+      Services Field (DS Field) in the IPv4 and IPv6 Headers</xref>
+      describes the architecture as a simple model where traffic
+      entering a network is classified and possibly conditioned at the
+      boundary of the network and assigned a different Behavior
+      Aggregate (BA). Each BA is identified by a specific value of
+      DSCP, and is used to select a Per Hop Behavior (PHB).</t>
 
       <t>The packet classification policy identifies the subset of
       traffic which may receive a DiffServ by being conditioned or
@@ -384,9 +384,10 @@
 
     <section title="YANG Modules">
       <t>
-      Modules defined in this draft import definitions from "Common
-      YANG Data Types" <xref target="RFC6991"/> and "A YANG Data Model
-      for Interface Management" <xref target="RFC8343"/>.
+      Modules defined in this draft import definitions from <xref
+      target="RFC6991">Common YANG Data Types</xref> and <xref
+      target="RFC8343">A YANG Data Model for Interface
+      Management</xref>.
       </t>
 
       <section title="Traffic Policy Module">
@@ -404,13 +405,13 @@
 	classifier entry in a policy definition with a set of
 	actions.</t>
 
-	<t>The module also augments ietf-interfaces <xref
-	target="RFC8343"/> module to add a target policy. A single
-	policy of a particular policy-type can be applied on an
-	interface in each direction of traffic.</t>
+	<t>The module also augments <xref target="RFC8343">A YANG Data
+	Model for Interface Management</xref> module to add a target
+	policy. A single policy of a particular policy-type can be
+	applied on an interface in each direction of traffic.</t>
 
 	<figure>
-	  <name>ietf-traffic-policy tree diagram</name>
+	  <name>ietf-traffic-policy abridged tree diagram</name>
           <artwork><![CDATA[
 	  INSERT_TEXT_FROM_FILE(../bin/ietf-traffic-policy@YYYY-MM-DD-sub-tree.txt)
 	  ]]></artwork>
@@ -434,7 +435,7 @@
 	packet.</t>
 
 	<figure>
-	  <name>ietf-qos-actions tree diagram</name>
+	  <name>ietf-qos-actions abridged tree diagram</name>
           <artwork><![CDATA[
 	  INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-sub-tree.txt)
 	  ]]></artwork>
@@ -454,7 +455,7 @@
 	<t>Diffserv module augments Traffic Policy module.</t>
 
 	<figure>
-	  <name>ietf-diffserv tree diagram</name>
+	  <name>ietf-diffserv abridged tree diagram</name>
           <artwork><![CDATA[
 	  INSERT_TEXT_FROM_FILE(../bin/ietf-diffserv@YYYY-MM-DD-sub-tree.txt)
 	  ]]></artwork>
@@ -499,7 +500,7 @@
 	<t>A clear action is provided to clear all the statistics.</t>
 
 	<figure>
-	  <name>ietf-qos-oper tree diagram</name>
+	  <name>ietf-qos-oper abridged tree diagram</name>
           <artwork><![CDATA[
 	  INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD-sub-tree.txt)
 	  ]]></artwork>
@@ -518,7 +519,7 @@
 	<t> Scheduling Policy module defines a set of scheduling
 	parameters and associates a Queue Policy with it.</t>
 	<figure>
-	  <name>ietf-scheduler-policy tree diagram</name>
+	  <name>ietf-scheduler-policy abridged abridged tree diagram</name>
           <artwork><![CDATA[
 	  INSERT_TEXT_FROM_FILE(../bin/ietf-scheduler-policy@YYYY-MM-DD-sub-tree.txt)
 	  ]]></artwork>
@@ -540,7 +541,7 @@
 	are defined in QoS Action module.</t>
 
 	<figure>
-	  <name>ietf-queue-policy tree diagram</name>
+	  <name>ietf-queue-policy abridged tree diagram</name>
           <artwork><![CDATA[
 	  INSERT_TEXT_FROM_FILE(../bin/ietf-queue-policy@YYYY-MM-DD-sub-tree.txt)
 	  ]]></artwork>
@@ -782,11 +783,62 @@
       <?rfc include='reference.RFC.8446.xml'?>
     </references>
 
-    <!-- Change Log
-v00 2010-09-17  SS    Initial version
-    -->
+    <section anchor="appendixA" title="Complete tree Diagrams">
+      <t>This section carries complete tree diagrams of each module
+      defined in this draft. The tree diagrams use the notation
+      defined in <xref target="RFC8340">YANG Tree Diagrams</xref>.</t>
 
-    <section anchor="appendixA" title="Company A and Company B examples">
+      <section title="Traffic Policy Module Tree Diagram">
+        <figure>
+	        <name>Traffic Policy Tree Diagram</name>
+          <artwork><![CDATA[
+	        INSERT_TEXT_FROM_FILE(../bin/ietf-traffic-policy@YYYY-MM-DD-tree.txt)
+	        ]]></artwork>
+        </figure>
+      </section>
+            <section title="QoS Action Module Tree Diagram">
+        <figure>
+	        <name>QoS Action Module Tree Diagram</name>
+          <artwork><![CDATA[
+	        INSERT_TEXT_FROM_FILE(../bin/ietf-qos-action@YYYY-MM-DD-tree.txt)
+	        ]]></artwork>
+        </figure>
+      </section>
+      <section title="DiffServ Module Tree Diagram">
+        <figure>
+	        <name>DiffServ Module Tree Diagram</name>
+          <artwork><![CDATA[
+	        INSERT_TEXT_FROM_FILE(../bin/ietf-diffserv@YYYY-MM-DD-tree.txt)
+	        ]]></artwork>
+        </figure>
+      </section>
+      <section title="QoS Operational Module Tree Diagram">
+        <figure>
+	        <name>QoS Operational Module Tree Diagram</name>
+          <artwork><![CDATA[
+	        INSERT_TEXT_FROM_FILE(../bin/ietf-qos-oper@YYYY-MM-DD-tree.txt)
+	        ]]></artwork>
+        </figure>
+      </section>
+      <section title="Scheduler Policy Module Tree Diagram">
+        <figure>
+	        <name>Scheduler Policy Module Tree Diagram</name>
+          <artwork><![CDATA[
+	        INSERT_TEXT_FROM_FILE(../bin/ietf-scheduler-policy@YYYY-MM-DD-tree.txt)
+	        ]]></artwork>
+        </figure>
+      </section>
+      <section title="Queue Policy Module Tree Diagram">
+        <figure>
+	        <name>Queue Policy Module Tree Diagram</name>
+          <artwork><![CDATA[
+	        INSERT_TEXT_FROM_FILE(../bin/ietf-queue-policy@YYYY-MM-DD-tree.txt)
+	        ]]></artwork>
+        </figure>
+      </section>
+    </section>
+
+    <section title="Company A and Company B examples">
       <t>Company A and Company B Diffserv modules augments all the filter types of the QoS
       classifier module as well as the QoS policy module that allow it to
       define marking, metering, min-rate, max-rate actions. Queueing and
