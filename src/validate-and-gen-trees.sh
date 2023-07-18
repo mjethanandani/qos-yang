@@ -7,7 +7,6 @@ if [ ! -d ../bin/yang-parameters ]; then
    rsync -avz --delete rsync.iana.org::assignments/yang-parameters ../bin/
 fi
 
-pyang --ietf --lint --strict --canonical -p ../bin/yang-parameters  -p ../bin -f tree --max-line-length=72 --tree-line-length=69  ../bin/ietf-traffic-policy\@$(date +%Y-%m-%d).yang ../bin/ietf-qos-action\@$(date +%Y-%m-%d).yang ../bin/ietf-diffserv\@$(date +%Y-%m-%d).yang ../bin/iana-qos-types\@$(date +%Y-%m-%d).yang ../bin/ietf-queue-policy\@$(date +%Y-%m-%d).yang ../bin/ietf-scheduler-policy\@$(date +%Y-%m-%d).yang > output-tree.txt.tmp
 for i in ../bin/ietf-*\@$(date +%Y-%m-%d).yang
 do
     name=$(echo $i | cut -f 1-3 -d '.')
