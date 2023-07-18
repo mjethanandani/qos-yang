@@ -233,7 +233,8 @@ module ietf-qos-oper {
     leaf exceed-pkts {
       type yang:zero-based-counter64;
       description
-        "Number of packets that exceed the peak rate and peak burst.";
+        "Number of packets that exceed the peak rate and peak
+         burst.";
     }
 
     leaf exceed-bytes {

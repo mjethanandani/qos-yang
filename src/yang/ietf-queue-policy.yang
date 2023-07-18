@@ -19,7 +19,7 @@ module ietf-queue-policy {
   }
 
   organization
-    "IETF Routing Area Working Group";
+    "IETF Routing Area Working Group.";
 
   contact
     "WG Web:   <https://datatracker.ietf.org/wg/rtgwg/>
@@ -32,9 +32,9 @@ module ietf-queue-policy {
 
   description
     "This module contains a collection of YANG definitions for
-     configuring diffserv specification implementations.
+     QoS queue policies.
 
-     Copyright (c) 2021 IETF Trust and the persons identified as
+     Copyright (c) 2023 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -49,7 +49,7 @@ module ietf-queue-policy {
 
   revision YYYY-MM-DD {
     description
-      "Initial version";
+      "Initial version.";
     reference
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
   }
@@ -60,16 +60,16 @@ module ietf-queue-policy {
     when "derived-from-or-self(../../../traffic-policy:type, " +
          "'qos-types:queue-policy-type')" {
       description
-        "If policy type is queue policy, this filter can be used.";
+        "If policy type is Queue Policy, this filter can be used.";
     }
 
     choice filter-params {
       description
-        "Choice of action types";
+        "Choice of Action types.";
       case traffic-group-name {
         uses diffserv:traffic-group;
         description
-          "traffic group name";
+          "Traffic group name.";
       }
       case filter-match-all {
         uses diffserv:filter-match-all;
@@ -78,24 +78,31 @@ module ietf-queue-policy {
       }
     }
     description
-      "Augments Queue policy Classifier with common filter types";
+      "Augments Queue Policy to add filter types.";
   }
 
-  augment "/traffic-policy:policies/traffic-policy:policy" +
-          "/traffic-policy:classifier/traffic-policy:action" +
-          "/traffic-policy:action-params" {
-    when "derived-from-or-self(../../traffic-policy:type,"  +
+  augment "/policy:policies/policy:policy/policy:classifier" + 
+          "/policy:action" {
+    when "derived-from-or-self(../../policy:type,"  +
          "'qos-types:queue-policy-type')" {
       description
-        "queue policy actions.";
+        "Queue Policy actions.";
     }
-    case queue-template-name {
-      uses qos-action:queue-reference;
-    }
-    case queue-inline {
-      uses qos-action:queue;
+
+    choice action-params {
+      description
+        "Choice of different action parameters that can be taken.";
+
+      case queue-template-name {
+        uses action:queue-reference;
+      }
+
+      case queue-inline {
+        uses action:queue;
+      }
     }
     description
-      "augments queue template reference to queue policy";
+      "Augments Queue Policy action to add Queue template reference
+       or Queue inline.";
   }
 }

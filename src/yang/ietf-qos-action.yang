@@ -666,7 +666,8 @@ module ietf-qos-action {
         type string;
         mandatory true;
         description
-          "This leaf defines name of the  queue template referenced.";
+          "This leaf defines name of the  queue template
+           referenced.";
       }
       description
         "Queue template reference.";
