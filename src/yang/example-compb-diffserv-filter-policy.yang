@@ -147,7 +147,7 @@ module example-compb-diffserv-filter-policy {
           "/traffic-policy:action" +
           "/traffic-policy:action-params" {
     case traffic-group-marking {
-      uses action:traffic-group-marking;
+      uses qos-action:traffic-group-marking;
       description
         "Mark traffic group in the packet.";
     }
