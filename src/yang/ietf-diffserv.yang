@@ -4,10 +4,10 @@ module ietf-diffserv {
   prefix diffserv;
 
   import ietf-traffic-policy {
-    prefix policy;
+    prefix traffic-policy;
   }
   import ietf-qos-action {
-    prefix action;
+    prefix qos-action;
   }
   import ietf-inet-types {
     prefix inet;
@@ -257,8 +257,8 @@ module ietf-diffserv {
       "The match all filter grouping.";
   }
 
-  augment "/policy:classifiers/policy:classifier" + 
-          "/policy:filter" {
+  augment "/traffic-policy:classifiers/traffic-policy:classifier" + 
+          "/traffic-policy:filter" {
     choice filter-param {
       description
         "Choice of filter types.";
@@ -326,13 +326,14 @@ module ietf-diffserv {
       "Augments QoS classifier to add in DiffServ filters.";
   }
 
-  augment "/policy:policies/policy:policy/policy:classifier" +
-          "/policy:inline/policy:filter" {
-    when "derived-from-or-self(../../../policy:type, " +
+  augment "/traffic-policy:policies/traffic-policy:policy" +
+          "/traffic-policy:classifier/traffic-policy:inline" +
+          "/traffic-policy:filter" {
+    when "derived-from-or-self(../../../traffic-policy:type, " +
          "'qos-types:ipv4-diffserv-policy-type') or " +
-         "derived-from-or-self(../../../policy:type, " +
+         "derived-from-or-self(../../../traffic-policy:type, " +
          "'qos-types:ipv6-diffserv-policy-type') or " +
-         "derived-from-or-self(../../../policy:type, " +
+         "derived-from-or-self(../../../traffic-policy:type, " +
          "'qos-types:diffserv-policy-type')" {
       description
         "If policy type is v4, v6 or default diffserv,
@@ -348,8 +349,8 @@ module ietf-diffserv {
       }
 
       case source-ipv4-prefix {
-        when "derived-from-or-self(/policy:policies/" +
-             "policy:policy/policy:type, " +
+        when "derived-from-or-self(/traffic-policy:policies/" +
+             "traffic-policy:policy/traffic-policy:type, " +
              "'qos-types:ipv6-diffserv-policy-type')" {
             description
                "If policy type is v6, this filter cannot be used.";
@@ -360,8 +361,8 @@ module ietf-diffserv {
       }
 
       case destination-ipv4-prefix {
-        when "derived-from-or-self(/policy:policies" +
-             "/policy:policy/policy:type, " +
+        when "derived-from-or-self(/traffic-policy:policies" +
+             "/traffic-policy:policy/traffic-policy:type, " +
              "'qos-types:ipv6-diffserv-policy-type')" {
             description
                "If policy type is v6, this filter cannot be used.";
@@ -372,8 +373,8 @@ module ietf-diffserv {
       }
 
       case source-ipv6-prefix {
-        when "derived-from-or-self(/policy:policies" +
-             "/policy:policy/policy:type, "+
+        when "derived-from-or-self(/traffic-policy:policies" +
+             "/traffic-policy:policy/traffic-policy:type, "+
              "'qos-types:ipv4-diffserv-policy-type')" {
             description
                "If policy type is v4, this filter cannot be used.";
@@ -384,8 +385,8 @@ module ietf-diffserv {
       }
 
       case destination-ipv6-prefix {
-        when "derived-from-or-self(/policy:policies" +
-             "/policy:policy/policy:type, " +
+        when "derived-from-or-self(/traffic-policy:policies" +
+             "/traffic-policy:policy/traffic-policy:type, " +
              "'qos-types:ipv4-diffserv-policy-type')" {
             description
                "If policy type is v4, this filter cannot be used.";
@@ -433,9 +434,9 @@ module ietf-diffserv {
           "/policy:action" {
     when "derived-from-or-self(../../policy:type, " +
          "'qos-types:ipv4-diffserv-policy-type') or " +
-         "derived-from-or-self(../../policy:type, " +
+         "derived-from-or-self(../../traffic-policy:type, " +
          "'qos-types:ipv6-diffserv-policy-type') or " +
-         "derived-from-or-self(../../policy:type, " +
+         "derived-from-or-self(../../traffic-policy:type, " +
          "'qos-types:diffserv-policy-type')" {
       description
         "If policy type is v4, v6 or default diffserv,

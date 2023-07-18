@@ -1,7 +1,7 @@
 module ietf-qos-action { 
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-qos-action";
-  prefix action;
+  prefix qos-action;
 
   import ietf-inet-types {
     prefix inet;

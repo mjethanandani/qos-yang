@@ -4,7 +4,7 @@ module example-compb-queue {
   prefix compb-queue;
 
   import ietf-qos-action {
-    prefix action;
+    prefix qos-action;
     reference "RFC XXXX: YANG Model for QoS";
   }
 
@@ -36,7 +36,7 @@ module example-compb-queue {
       description
         "A unique name identifying this queue";
     }
-    uses action:queue;
+    uses qos-action:queue;
     container excess-rate {
       choice excess-rate-type {
         case percent {
