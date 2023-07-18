@@ -922,6 +922,14 @@ INSERT_TEXT_FROM_FILE(../src/yang/example-qos-configuration-a.1.4.xml)
     ]]></artwork>
         </figure>
       </section>
+      <section title="Configuration example for QoS Scheduling">
+        <figure>
+	  <name>Configuration example for QoS Scheduling</name>
+          <artwork><![CDATA[
+INSERT_TEXT_FROM_FILE(../src/yang/example-qos-configuration-a.1.5.xml)
+    ]]></artwork>
+        </figure>
+      </section>
     </section>
   </back>
 </rfc>
