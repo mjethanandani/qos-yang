@@ -84,7 +84,7 @@ do
 done
 rm ../bin/*-tree.txt.tmp
 
-for i in yang/example-qos-configuration-a.*.*.xml
+for i in yang/example-qos-configuration-a.1.[1-5].xml
 do
     name=$(echo $i | cut -f 1-3 -d '.')
     echo "Validating $name.xml"

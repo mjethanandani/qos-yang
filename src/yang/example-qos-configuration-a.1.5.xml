@@ -1,0 +1,124 @@
+<!--
+    This example shows a QoS policy configuration for scheduling.
+-->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<classifiers
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy"
+    xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types">
+  <classifier>
+    <name>VOICE</name>
+    <description>class-map definition for VOICE</description>
+    <filter>
+      <type>qt:protocol</type>
+      <logical-not>false</logical-not>
+      <dscp
+	  xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
+        <min>46</min>
+        <max>46</max>
+      </dscp>
+    </filter>
+  </classifier>
+  <classifier>
+    <name>VIDEO</name>
+    <description>class-map definition for VIDEO</description>
+    <filter>
+      <type>qt:protocol</type>
+      <logical-not>false</logical-not>
+      <dscp
+	  xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
+        <min>34</min>
+        <max>34</max>
+      </dscp>
+    </filter>
+  </classifier>
+  <classifier>
+    <name>DATA</name>
+    <description>class-map definition for DATA</description>
+    <filter>
+      <type>qt:protocol</type>
+      <logical-not>false</logical-not>
+      <dscp
+	  xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
+        <min>10</min>
+        <max>10</max>
+      </dscp>
+    </filter>
+  </classifier>
+</classifiers>
+
+<policies
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy"
+    xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types">
+  <policy>
+    <name>SCHEDULER-POLICY</name>
+    <type>qt:diffserv-policy-type</type>
+    <classifier>
+      <name>VOICE</name>
+      <action>
+	<type>qt:scheduler</type>
+	<scheduler
+	    xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
+	  <min-rate>
+	    <value>2000000</value>
+	    <unit>qt:bits-per-second</unit>
+	  </min-rate>
+	  <max-rate>
+	    <value>4000000</value>
+	    <unit>qt:bits-per-second</unit>
+	  </max-rate>
+	</scheduler>
+      </action>
+    </classifier>
+    <classifier>
+      <name>VIDEO</name>
+      <action>
+	<type>qt:scheduler</type>
+	<scheduler
+	    xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
+	  <min-rate>
+	    <value>10000000</value>
+	    <unit>qt:bits-per-second</unit>
+	  </min-rate>
+	  <max-rate>
+	    <value>30000000</value>
+	    <unit>qt:bits-per-second</unit>
+	  </max-rate>
+	</scheduler>
+      </action>
+    </classifier>
+    <classifier>
+      <name>DATA</name>
+      <action>
+	<type>qt:scheduler</type>
+	<scheduler
+	    xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
+	  <min-rate>
+	    <value>8000000</value>
+	    <unit>qt:bits-per-second</unit>
+	  </min-rate>
+	  <max-rate>
+	    <value>18000000</value>
+	    <unit>qt:bits-per-second</unit>
+	  </max-rate>
+	</scheduler>
+      </action>
+    </classifier>
+  </policy>
+</policies>
+
+<interfaces
+    xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces"
+    xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types"
+    xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">
+  <interface>
+    <name>FastEthernet 0/0</name>
+    <type>ianaift:ethernetCsmacd</type>
+    <qos-target-policy
+	xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy">
+      <direction>qt:egress</direction>
+      <type>qt:scheduler-policy-type</type>
+      <name>SCHEDULER-POLICY</name>
+    </qos-target-policy>
+  </interface>
+</interfaces>
