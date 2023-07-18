@@ -111,31 +111,6 @@ module ietf-traffic-policy {
     }
   }
 
-  grouping classifier-action-entry {
-    description
-      "List of actions for a Classifier.";
-
-    list action {
-      key "type";
-      ordered-by user;
-      description
-        "List of action for a Classifier.";
-
-      leaf type {
-        type identityref {
-          base qos-types:action-type;
-        }
-        description
-          "Type of action.";
-      }
-
-      choice action-params {
-        description
-          "Choice of action types.";
-      }
-    }
-  }
-
   container classifiers {
     description
       "List of classifier entries.";
@@ -205,7 +180,22 @@ module ietf-traffic-policy {
             "Container for when an inline classification
              is desired..";
         }
-        uses classifier-action-entry;
+
+        list action {
+          key "type";
+          ordered-by user;
+          description
+            "List of action for a Classifier.";
+
+          leaf type {
+            type identityref {
+              base qos-types:action-type;
+            }
+            description
+              "Type of action.";
+          }
+
+        }
       }
     }
   }

@@ -81,17 +81,24 @@ module ietf-queue-policy {
   }
 
   augment "/policy:policies/policy:policy/policy:classifier" + 
-          "/policy:action/policy:action-params" {
+          "/policy:action" {
     when "derived-from-or-self(../../policy:type,"  +
          "'qos-types:queue-policy-type')" {
       description
         "Queue Policy actions.";
     }
-    case queue-template-name {
-      uses action:queue-reference;
-    }
-    case queue-inline {
-      uses action:queue;
+
+    choice action-params {
+      description
+        "Choice of different action parameters that can be taken.";
+
+      case queue-template-name {
+        uses action:queue-reference;
+      }
+
+      case queue-inline {
+        uses action:queue;
+      }
     }
     description
       "Augments Queue Policy action to add Queue template reference
