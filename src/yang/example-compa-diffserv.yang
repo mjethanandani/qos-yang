@@ -121,32 +121,35 @@ module example-compa-diffserv {
 
   augment "/traffic-policy:policies/traffic-policy:policy/" +
     "traffic-policy:classifier/" +
-    "traffic-policy:action/" +
-    "traffic-policy:action-params" {
-    case priority {
-      uses qos-action:priority;
-    }
-    case min-rate {
-      uses qos-action:min-rate;
-    }
-    case max-rate {
-      uses qos-action:max-rate;
-    }
-    case bw-remaining {
-      uses bw-remaining-percent;
-    }
-    case mark-qos-group {
-      uses qos-group-marking;
+    "traffic-policy:action" {
+    choice action-params {
+      case priority {
+	uses qos-action:priority;
+      }
+      case min-rate {
+	uses qos-action:min-rate;
+      }
+      case max-rate {
+	uses qos-action:max-rate;
+      }
+      case bw-remaining {
+	uses bw-remaining-percent;
+      }
+      case mark-qos-group {
+	uses qos-group-marking;
+      }
+      description
+	"Choice of action parameters.";
     }
     description
-      "Augments policy entry to add actions.";
+      "Augments policy entry to add action parameters.";
   }
 
   augment "/traffic-policy:policies" +
     "/traffic-policy:policy" +
     "/traffic-policy:classifier" +
     "/traffic-policy:action" +
-    "/traffic-policy:action-params" +
+    "/diffserv:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-types" +
     "/diffserv:single-rate-two-color-meter-type" +
@@ -170,7 +173,7 @@ module example-compa-diffserv {
     "/traffic-policy:policy" +
     "/traffic-policy:classifier" +
     "/traffic-policy:action" +
-    "/traffic-policy:action-params" +
+    "/diffserv:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-types" +
     "/diffserv:single-rate-three-color-meter-type" +
@@ -199,7 +202,7 @@ module example-compa-diffserv {
     "/traffic-policy:policy" +
     "/traffic-policy:classifier" +
     "/traffic-policy:action" +
-    "/traffic-policy:action-params" +
+    "/diffserv:action-params" +
     "/diffserv:meter-inline" +
     "/diffserv:meter-types" +
     "/diffserv:two-rate-three-color-meter-type" +

@@ -1,7 +1,8 @@
 <!--
     This example shows a QoS policy configuration for queuing.
     For a description of the problem refer to:
-    https://networklessons.com/quality-of-service/queuing-configuration-example
+    https://networklessons.com/quality-of-service/
+            queuing-configuration-example
 -->
 
 <?xml version="1.0" encoding="UTF-8"?>
