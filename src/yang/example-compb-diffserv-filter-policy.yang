@@ -145,7 +145,7 @@ module example-compb-diffserv-filter-policy {
           "/traffic-policy:policy" +
           "/traffic-policy:classifier" +
           "/traffic-policy:action" +
-          "/traffic-policy:action-params" {
+          "/diffserv:action-params" {
     case traffic-group-marking {
       uses qos-action:traffic-group-marking;
       description
