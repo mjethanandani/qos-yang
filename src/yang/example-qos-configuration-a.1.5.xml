@@ -19,14 +19,14 @@
           <type>qt:traffic-group-name</type>
           <logical-not>false</logical-not>
           <traffic-group
-    	  xmlns="urn:ietf:params:xml:ns:yang:ietf-queue-policy">
+	      xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
             <name>voice</name>
           </traffic-group>
         </filter>
       </inline> 
       <action>
 	<type>qt:queue</type>
-	<queue xmlns="urn:ietf:params:xml:ns:yang:ietf-queue-policy">
+	<queue xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
 	  <priority>
 	    <level>1</level>
 	  </priority>
@@ -48,7 +48,7 @@
           <type>qt:traffic-group-name</type>
           <logical-not>false</logical-not>
           <traffic-group
-    	  xmlns="urn:ietf:params:xml:ns:yang:ietf-queue-policy">
+              xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
             <name>video</name>
           </traffic-group>
         </filter>
@@ -56,7 +56,7 @@
       <action>
 	<type>qt:queue</type>
 	<queue
-	  xmlns="urn:ietf:params:xml:ns:yang:ietf-queue-policy">
+            xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
 	  <priority>
 	    <level>2</level>
 	  </priority>
@@ -78,7 +78,7 @@
           <type>qt:traffic-group-name</type>
           <logical-not>false</logical-not>
           <traffic-group
-    	  xmlns="urn:ietf:params:xml:ns:yang:ietf-queue-policy">
+              xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
             <name>data</name>
           </traffic-group>
         </filter>
@@ -86,7 +86,7 @@
       <action>
 	<type>qt:queue</type>
 	<queue
-	  xmlns="urn:ietf:params:xml:ns:yang:ietf-queue-policy">
+            xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
 	  <priority>
 	    <level>2</level>
 	  </priority>
@@ -102,11 +102,6 @@
       </action>
     </classifier>
   </policy>
-</policies>
-
-<policies
-    xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy"
-    xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types">
   <policy>
     <name>SCHEDULING-POLICY</name>
     <type>qt:scheduler-policy-type</type>
@@ -117,7 +112,7 @@
           <type>qt:filter-match-all</type>
           <logical-not>false</logical-not>
           <match-all
-    	  xmlns="urn:ietf:params:xml:ns:yang:ietf-scheduler-policy">
+              xmlns="urn:ietf:params:xml:ns:yang:ietf-diffserv">
             <action></action>
           </match-all>
         </filter>
@@ -125,7 +120,7 @@
       <action>
 	<type>qt:scheduler</type>
 	<scheduler
-    	  xmlns="urn:ietf:params:xml:ns:yang:ietf-scheduler-policy">
+            xmlns="urn:ietf:params:xml:ns:yang:ietf-scheduler-policy">
 	  <min-rate>
 	    <value>20000000</value>
 	    <unit>qt:bits-per-second</unit>
@@ -139,7 +134,7 @@
       <action>
 	<type>qt:queue-policy-name</type>
 	<queue-policy-name
-    	  xmln:sch="urn:ietf:params:xml:ns:yang:ietf-scheduler-policy">
+            xmlns="urn:ietf:params:xml:ns:yang:ietf-scheduler-policy">
           <queue-policy>QUEUEING-POLICY</queue-policy>
 	</queue-policy-name>
       </action>
@@ -157,7 +152,7 @@
     <qos-target-policy
 	xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy">
       <direction>qt:egress</direction>
-      <type>qt:scheduling-policy-type</type>
+      <type>qt:scheduler-policy-type</type>
       <name>SCHEDULING-POLICY</name>
     </qos-target-policy>
   </interface>
