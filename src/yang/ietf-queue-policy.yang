@@ -66,7 +66,7 @@ module ietf-queue-policy {
     choice filter-params {
       description
         "Choice of Action types.";
-      case traffic-group-name {
+      case traffic-group {
         uses diffserv:traffic-group;
         description
           "Traffic group name.";
