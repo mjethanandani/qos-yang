@@ -32,7 +32,7 @@ module ietf-diffserv {
 
   description
     "This module contains a collection of YANG definitions for
-     configuring diffserv specification implementations.
+     configuring DiffServ specification implementations.
 
      Copyright (c) 2023 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
@@ -336,7 +336,7 @@ module ietf-diffserv {
          "derived-from-or-self(../../../traffic-policy:type, " +
          "'qos-types:diffserv-policy-type')" {
       description
-        "If policy type is v4, v6 or default diffserv,
+        "If policy type is v4, v6 or default DiffServ,
          this filter can be used.";
     }
     choice filter-params {
@@ -439,7 +439,7 @@ module ietf-diffserv {
          "derived-from-or-self(../../traffic-policy:type, " +
          "'qos-types:diffserv-policy-type')" {
       description
-        "If policy type is v4, v6 or default diffserv,
+        "If policy type is v4, v6 or default DiffServ,
          these actions can be used.";
     }
     description

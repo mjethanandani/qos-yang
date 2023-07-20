@@ -127,9 +127,9 @@
       building blocks to define a classifier, policy and target. QoS
       Action module defines QoS action related parameters. Traffic
       policy is augmented to include packet match and action
-      parameters to define the Diffrentiated Services (DiffServ)
+      parameters to define the Differentiated Services (DiffServ)
       policy, Queues policy and Scheduler policy. Each of these
-      policies are defined as separate modules. The Diffserv module is
+      policies are defined as separate modules. The DiffServ module is
       based on DiffServ architecture, and various references have been
       made to available standard architecture documents. QoS
       statistics counters are defined in QoS Operational module.</t>
@@ -240,7 +240,7 @@
     <section title="QoS Model Design">
       <t> The overall objective of this model design is to offer a
       base set of modules that can then be further augmented to
-      provide other models, such as Diffrentiated Services (DiffServ)
+      provide other models, such as Differentiated Services (DiffServ)
       and Policy Based Routing (PBR). Those models 
       would augment the base modules defined in this draft to define 
       their own model. This document defines one such model, DiffServ. The
@@ -254,7 +254,7 @@
         <artwork>
          -------------   ------------   ------------   ------------
         |             | |            | |            | |            |
-        | Diffserv    | | Queue      | | Scheduling | | QoS        |
+        | DiffServ    | | Queue      | | Scheduling | | QoS        |
         | Policy      | | Policy     | | Policy     | | Oper       |
         |             | |            | |            | |            |
          -------------   ------------   ------------   ------------
@@ -272,7 +272,7 @@
       augmented by the remaining modules on the top to define
       different aspects of QoS.</t>
 
-      <t> The Classifer is defined as part of Traffic Policy Module. A
+      <t> The Classifier is defined as part of Traffic Policy Module. A
       classifier consists of set of filters and an operation that is
       performed on those filters. Each filter defines a rule on a
       particular packet header or packet metadata field that dictate
@@ -296,7 +296,7 @@
 
       <t>The QoS Action module defines marking, metering and
       queuing. QoS actions are configured in line or referred to in
-      Diffserv, Queuing, and Scheduling Policy modules.</t>
+      DiffServ, Queuing, and Scheduling Policy modules.</t>
 
       <t>A Meter meters each packet and passes the packet and the
       metering result to the Marker. Meter is modeled based on
@@ -338,7 +338,7 @@
       on the content of some portion of the packet header. There are
       two types of classifiers, the BA classifier, and the Multi-Field
       (MF) classifier which selects packets based on a value which is
-      combination of one or more header fields. In the Diffserv Policy
+      combination of one or more header fields. In the DiffServ Policy
       module, this is realized by augmenting the classifier in
       Traffic Policy module.</t>
 
@@ -451,7 +451,7 @@
         </figure>
       </section>
 
-      <section title="Diffserv Module">
+      <section title="DiffServ Module">
 	<t>DiffServ module augments Traffic Policy module to enable
   diffrentiated services for different types of packets.</t>
 
@@ -841,13 +841,13 @@
     </section>
 
     <section title="Company A and Company B examples">
-      <t>Company A and Company B Diffserv modules augments all the filter types of the QoS
+      <t>Company A and Company B DiffServ modules augments all the filter types of the QoS
       Classifier module as well as the QoS Policy module that allow it to
       define marking, metering, min-rate, max-rate actions. Queueing and
       metering counters are realized by augmenting of the QoS Target
       module.</t>
 
-      <section title="Example of Company A Diffserv Model">
+      <section title="Example of Company A DiffServ Model">
       <t> The following Company A vendor example augments the QoS and DiffServ model,
 demonstrating some of the following functionality:
       </t>
@@ -863,7 +863,7 @@ INSERT_TEXT_FROM_FILE(../bin/example-compa-diffserv@YYYY-MM-DD.yang)
     ]]></artwork>
         </figure>
       </section>
-      <section title="Example of Company B Diffserv Model">
+      <section title="Example of Company B DiffServ Model">
       <t> The following vendor example augments the QoS and DiffServ model,
 demonstrating some of the following functionality:
       </t>

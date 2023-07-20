@@ -105,15 +105,15 @@ module ietf-scheduler-policy {
                  "'qos-types:queue-policy-type')";
             mandatory true;
             description
-              "This leafref refers to Queue policy name.";
+              "This leafref refers to Queue Policy name.";
           }
           description
-            "Container for Queue policy name.";
+            "Container for Queue Policy name.";
         }
       }
     }
     description
-      "Augments Queue Policy Classifer to add in Action parameters
+      "Augments Queue Policy Classifier to add in Action parameters
        for Scheduler policy.";
   }
 }

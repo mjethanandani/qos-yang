@@ -32,7 +32,7 @@ module ietf-queue-policy {
 
   description
     "This module contains a collection of YANG definitions for
-     QoS queue policies.
+     QoS Queue policies.
 
      Copyright (c) 2023 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
