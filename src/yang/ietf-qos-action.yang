@@ -227,7 +227,7 @@ module ietf-qos-action {
         type uint64;
         units "bytes";
         description
-          "The value for Commited Burst Size (CBS).";
+          "The value for Committed Burst Size (CBS).";
         reference
           "RFC 2698: A Two Rate Three Color Marker.";
       }
