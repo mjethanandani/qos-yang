@@ -7,12 +7,12 @@ if [ ! -d ../bin/yang-parameters ]; then
    rsync -avz --delete rsync.iana.org::assignments/yang-parameters ../bin/
 fi
 
-for i in ../bin/ietf-*\@$(date +%Y-%m-%d).yang
+for i in ../bin/*\@$(date +%Y-%m-%d).yang
 do
     name=$(echo $i | cut -f 1-3 -d '.')
     echo "Validating $name.yang using pyang"
     if test "${name#^example}" = "$name"; then
-        response=`pyang --ietf --lint --strict --canonical -p ../bin/yang-parameters  -p ../bin -f tree --max-line-length=72 --tree-line-length=69 $name.yang > $name-tree.txt.tmp`
+        response=`pyang --lint --strict --canonical -p ../bin/yang-parameters  -p ../bin -f tree --max-line-length=72 --tree-line-length=69 $name.yang > $name-tree.txt.tmp`
     else            
         response=`pyang --ietf --strict --canonical -p ../bin/yang-parameters  -p ../bin -f tree --max-line-length=72 --tree-line-length=69 $name.yang > $name-tree.txt.tmp`
     fi
