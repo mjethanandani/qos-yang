@@ -66,7 +66,7 @@ module ietf-queue-policy {
     choice filter-params {
       description
         "Choice of Action types.";
-      case traffic-group-name {
+      case traffic-group {
         uses diffserv:traffic-group;
         description
           "Traffic group name.";
@@ -81,9 +81,9 @@ module ietf-queue-policy {
       "Augments Queue Policy to add filter types.";
   }
 
-  augment "/policy:policies/policy:policy/policy:classifier" + 
-          "/policy:action" {
-    when "derived-from-or-self(../../policy:type,"  +
+  augment "/traffic-policy:policies/traffic-policy:policy" +
+          "/traffic-policy:classifier/traffic-policy:action" {
+    when "derived-from-or-self(../../traffic-policy:type,"  +
          "'qos-types:queue-policy-type')" {
       description
         "Queue Policy actions.";
@@ -94,11 +94,11 @@ module ietf-queue-policy {
         "Choice of different action parameters that can be taken.";
 
       case queue-template-name {
-        uses action:queue-reference;
+        uses qos-action:queue-reference;
       }
 
       case queue-inline {
-        uses action:queue;
+        uses qos-action:queue;
       }
     }
     description
