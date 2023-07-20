@@ -178,7 +178,7 @@ module ietf-traffic-policy {
           uses inline-attr;
           description
             "Container for when an inline classification
-             is desired..";
+             is desired.";
         }
 
         list action {
