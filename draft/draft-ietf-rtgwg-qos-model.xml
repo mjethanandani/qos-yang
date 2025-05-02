@@ -50,7 +50,7 @@
   <?rfc compact="yes" ?>
 
   <front>
-    <title abbrev="YANG Models for QoS">YANG Models for Quality of Service (QoS)</title>
+    <title abbrev="YANG Models for QoS">YANG Models for Quality of Service (QoS) in IP networks</title>
 
     <author fullname="Aseem Choudhary" initials="A." surname="Choudhary">
       <organization>Aviatrix Systems</organization>
@@ -113,57 +113,72 @@
     <date/>
 
     <abstract>
-      <t>This document describes a YANG model for configuration and
-      operational data of Quality of Service (QoS) in network devices.
+      <t>
+	This document describes a YANG model for management of Quality
+	of Service (QoS) in IP networks.
       </t>
     </abstract>
   </front>
 
   <middle>
     <section anchor="intro" title="Introduction">
-      <t> This document defines a <xref target="RFC7950">YANG
-      1.1</xref> model for Quality of Service (QoS) configuration and
-      statistics parameters. Traffic Policy module defines the basic
-      building blocks to define a classifier, policy and target. QoS
-      Action module defines QoS action related parameters. Traffic
-      policy is augmented to include packet match and action
-      parameters to define the Differentiated Services (DiffServ)
-      policy, Queues policy and Scheduler policy. Each of these
-      policies are defined as separate modules. The DiffServ module is
-      based on DiffServ architecture, and various references have been
-      made to available standard architecture documents. QoS
-      statistics counters are defined in QoS Operational module.</t>
+      <t>
+	This document defines a <xref target="RFC7950">YANG 1.1</xref>
+	model for Quality of Service (QoS) configuration and
+	operational parameters as they relate to IP networks. Traffic
+	Policy module defines the basic building blocks to define a
+	classifier, policy and target. QoS Action module defines QoS
+	action related parameters. Traffic policy is augmented to
+	include packet match and action parameters to define the
+	Differentiated Services (DiffServ) policy, Queues policy and
+	Scheduler policy. Each of these policies are defined as
+	separate modules. The DiffServ module is based on DiffServ
+	architecture, and various references have been made to
+	available standard architecture documents. QoS statistics
+	counters are defined in QoS Operational module.
+      </t>
 
-      <t>DiffServ is a preferred approach for network service
-      providers to offer services to different customers based on
-      their network Quality-of-Service (QoS) objectives. The traffic
-      streams are differentiated based on DiffServ Code Points (DSCP)
-      carried in the IP header of each packet. The DSCP markings are
-      applied by upstream node or by the edge router on entry to the
-      DiffServ network.</t>
+      <t>
+	DiffServ is a preferred approach for network service
+	providers to offer services to different customers
+	based on their network QoS objectives. The traffic
+	streams are differentiated based on DiffServ Code Points
+	(DSCP) carried in the IP header of each packet. The DSCP
+	markings are applied by upstream node or by the edge router on
+	entry to the DiffServ network.
+      </t>
 
-      <t> The YANG modules in this document conform to the <xref
-      target="RFC8342">Network Management Datastore Architecture
-      (NMDA)</xref>. </t>
+      <t>
+	The YANG modules in this document conform to the <xref
+	target="RFC8342">Network Management Datastore Architecture
+	(NMDA)</xref>.
+      </t>
 
-      <t> Tree diagrams used in this document follow the notation
-      defined in <xref target="RFC8340">YANG Tree Diagrams</xref>.</t>
+      <t>
+	Tree diagrams used in this document follow the notation
+	defined in <xref target="RFC8340">YANG Tree Diagrams</xref>.
+      </t>
 
       <section>
 	<name>Note to RFC Editor</name>
 	<t> Editorial Note: (To be removed by RFC Editor) </t>
-	<t> This draft contains several placeholder values that need
-	to be replaced with finalized values at the time of
-	publication.  Please apply the following replacements:
-	<ul>
-	  <li>"XXXX" --> the assigned RFC value for this draft both in
-	  this draft and in the yang modules under the revision
-	  statement.</li>
+	<t>
+	  This draft contains several placeholder values that need to
+	  be replaced with finalized values at the time of
+	  publication.  Please apply the following replacements:
+	  <ul>
+	    <li>
+	      "XXXX" --> the assigned RFC value for this draft both in
+	      this draft and in the yang modules under the revision
+	      statement.
+	    </li>
 
-	  <li>The "revision" date in model, in the format XXXX-XX-XX,
-	  needs to be updated with the date the draft gets
-	  approved.</li>
-	</ul>
+	    <li>
+	      The "revision" date in model, in the format XXXX-XX-XX,
+	      needs to be updated with the date the draft gets
+	      approved.
+	    </li>
+	  </ul>
 	</t>
       </section>
       
