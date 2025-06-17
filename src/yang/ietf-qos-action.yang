@@ -322,7 +322,10 @@ module ietf-qos-action {
   grouping meter-reference {
     container meter {
       leaf name {
-        type string ;
+        type leafref  {
+          path "/qos-action:meters/" +
+               "qos-action:meter/qos-action:name";
+        }
         mandatory true;    
         description
           "This leaf defines name of the meter referenced.";
@@ -663,7 +666,10 @@ module ietf-qos-action {
   grouping queue-reference {
     container queue-reference {
       leaf queue-name {
-        type string;
+        type leafref  {
+          path "/qos-action:queues/" +
+               "qos-action:queue/qos-action:name";
+        }
         mandatory true;
         description
           "This leaf defines name of the  queue template
