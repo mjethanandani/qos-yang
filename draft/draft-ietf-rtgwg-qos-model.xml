@@ -190,6 +190,7 @@
 	    <li>Classifier: an entity which selects packets based on
 	    the content of packet headers according to defined
 	    rules.</li>
+            <li>CoDel: Controlled Delay AQM algorithm</li>
 	    <li>DS behavior aggregate: A collection of packets with
 	    the same DS codepoint crossing a link in a particular
 	    direction.</li>
@@ -204,6 +205,7 @@
 	    in network nodes.</li>
 	    <li>DSCP: Differentiated Services Code Point</li>
 	    <li>ECN: Explicit Congestion Notification</li>
+            <li>FQ-CoDel: Flow Queue Controlled Delay AQM algorithm</li>
 	    <li>Marking: the process of setting the DS codepoint in
             a packet based on defined rules; pre-marking, re-marking.
 	    </li>

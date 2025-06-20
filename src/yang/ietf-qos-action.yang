@@ -543,6 +543,24 @@ module ietf-qos-action {
       "Random Early Detect (RED) configuration parameters.";
   }
 
+  grouping codel-config-parameters {
+    leaf target {
+      type uint64;
+      default 5000;
+      description
+        "target time in microseconds spent by each packet in queue.";
+    }
+
+    leaf interval {
+      type uint64;
+      default 100000;
+      description
+        "The time in microsecond for minimum interval for congestion to persist before algorithm kicks in ";
+    }
+    description
+      "CoDel configuration parameters.";
+  }
+
   grouping queue {
     container queue {
       uses priority;
@@ -632,6 +650,41 @@ module ietf-qos-action {
                 "Weighted Random Early Detect (WRED) configuration.";
             }
           }
+
+          case codel {
+            container codel {
+              uses codel-config-parameters;
+              leaf ecn-enabled {
+                type boolean;
+                default "false";
+                description
+                  "ECN is enabled on the queue.";
+              }
+              description
+                "CoDel configuration.";
+            }
+          }
+
+          case fq-codel {
+            container fq-codel {
+              uses codel-config-parameters;
+              leaf flows {
+                type uint64;
+                default 1024;
+                description
+                  "The maximum number of flow queues.";
+              }
+              leaf ecn-enabled {
+                type boolean;
+                default "false";
+                description
+                  "ECN is enabled on the queue.";
+              }
+              description
+                "FQ-CoDel configuration.";
+            }
+          }
+
           description
             "Choice of Drop Algorithm.";
         }
