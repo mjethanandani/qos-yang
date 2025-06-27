@@ -245,8 +245,11 @@
 	    <li>Shaping: the process of delaying packets within a
 	    traffic stream to cause it to conform to some defined
 	    traffic profile.</li>
-	    <li>Traffic-Group: is a metadata stored in a packet
-	    buffer.</li>
+	    <li>Traffic-Group: a logical collection of packets or
+	    flows that share similar service requirements and are
+	    treated collectively for traffic management purposes,
+	    including prioritization, shaping, policing, or resource
+	    reservation.</li>
 	    <li>WRED: Weighted Random Early Detection</li>
 	  </ul>
 	</t>
@@ -257,11 +260,11 @@
       <t> The overall objective of this model design is to offer a
       base set of modules that can then be further augmented to
       provide other models, such as Differentiated Services (DiffServ)
-      and Policy Based Routing (PBR). Those models 
-      would augment the base modules defined in this draft to define 
-      their own model. This document defines one such model, DiffServ. The
+      and Policy Based Routing (PBR). Those models would augment the
+      base modules defined in this draft to define their own
+      model. This document defines one such model, DiffServ. The
       design also takes into consideration that vendors might want to
-      extend the model to add their own extensions, such as to extend
+      extend the model to add their own extensions, such as the
       Traffic Policy module, to provide constructs of policy for
       different QoS functionalities."</t>
 
@@ -324,7 +327,7 @@
       Action module.</t>
 
       <t>Queue Policy module allows queues to be referred in a
-      policy. The match is based on traffic group and action
+      policy. The match is based on Traffic Group and action
       parameters are used as defined in QoS Action module.</t>
 
       <t> Scheduling Policy module defines a set of scheduling
@@ -555,7 +558,7 @@
       <section title="Queue Policy Module">
 	<t>Queue Policy module augments the Traffic Policy module. It
 	augments to allow queues to be referred to in a policy. The
-	match is based on Traffic group and action parameters which
+	match is based on Traffic Group and action parameters which
 	are defined in QoS Action module.</t>
 
 	<figure>
