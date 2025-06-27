@@ -139,13 +139,14 @@
       </t>
 
       <t>
-	DiffServ is a preferred approach for network service
-	providers to offer services to different customers
-	based on their network QoS objectives. The traffic
-	streams are differentiated based on DiffServ Code Points
-	(DSCP) carried in the IP header of each packet. The DSCP
-	markings are applied by upstream node or by the edge router on
-	entry to the DiffServ network.
+	While there are other approaches to offering QoS services,
+	this document focuses on DiffServ as the approach for
+	providers to offer services to different customers based on
+	their network QoS objectives. The traffic streams are
+	differentiated based on DiffServ Code Points (DSCP) carried in
+	the IP header of each packet. The DSCP markings are applied by
+	upstream node or by the edge router on entry to the DiffServ
+	network.
       </t>
 
       <t>
