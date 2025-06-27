@@ -10,7 +10,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classifiers
     xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy"
-    xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types">
+    xmlns:qt="urn:ietf:params:xml:ns:yang:ietf-qos-types">
   <classifier>
     <name>my-classifier</name>
     <filter-operation>match-all</filter-operation>
