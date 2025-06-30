@@ -218,9 +218,13 @@
 	    number of header fields; typically some combination of
 	    source address, destination address, DS field, protocol
 	    ID, source port and destination port.</li>
-	    <li>Per-Hop-Behavior (PHB): The externally observable
-	    forwarding behavior applied at a DS-compliant node to a DS
-	    behavior aggregate.</li>
+	    <li>Per-Hop-Behavior (PHB): A description of the externally
+            observable forwarding treatment applied at a differentiated
+            services-compliant node to a behavior aggregate
+            <xref target="RFC2474"></xref>. The description of a PHB
+            SHOULD be sufficiently detailed to allow the construction
+            of predictable services, as documented in
+            <xref target="RFC2475"></xref>.</li>
 	    <li>Policing: the process of
 	    discarding packets (by a dropper) within a traffic stream
 	    in accordance with the state of a corresponding meter
