@@ -546,16 +546,19 @@ module ietf-qos-action {
   grouping codel-config-parameters {
     leaf target {
       type uint64;
+      units "microseconds";
       default 5000;
       description
-        "target time in microseconds spent by each packet in queue.";
+        "Target time in microseconds spent by each packet in queue.";
     }
 
     leaf interval {
       type uint64;
+      units "microseconds";
       default 100000;
       description
-        "The time in microsecond for minimum interval for congestion to persist before algorithm kicks in ";
+        "The time in microsecond for minimum interval for congestion
+         to persist before algorithm kicks in. ";
     }
     description
       "CoDel configuration parameters.";
@@ -644,7 +647,8 @@ module ietf-qos-action {
                 type boolean;
                 default "false";
                 description
-                  "ECN is enabled on the queue.";
+                  "When configure as true, ECN is enabled on
+                   the queue.";
               }
               description
                 "Weighted Random Early Detect (WRED) configuration.";
@@ -658,7 +662,8 @@ module ietf-qos-action {
                 type boolean;
                 default "false";
                 description
-                  "ECN is enabled on the queue.";
+                  "When configure as true, ECN is enabled on
+                   the queue.";
               }
               description
                 "CoDel configuration.";

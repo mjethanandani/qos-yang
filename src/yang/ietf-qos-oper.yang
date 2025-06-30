@@ -188,15 +188,15 @@ module ietf-qos-oper {
         leaf ecn-marked-pkts {
           type yang:zero-based-counter64;
           description
-            "Total number of packets that were marked with ECN because
-             of WRED.";
+            "Total number of packets that were marked with ECN
+             because of WRED.";
         }
 
         leaf ecn-marked-bytes {
           type yang:zero-based-counter64;
           description
-            "Total number of bytes that were marked with ECN because of
-             WRED.";
+            "Total number of bytes that were marked with ECN because
+             of WRED.";
         }
       }
       description
@@ -207,13 +207,15 @@ module ietf-qos-oper {
       leaf drop-pkts {
         type yang:zero-based-counter64;
         description
-          "Total number of packets dropped because of CoDel or FQ-CoDel.";
+          "Total number of packets dropped because of CoDel
+           or FQ-CoDel.";
       }
 
       leaf drop-bytes {
         type yang:zero-based-counter64;
         description
-          "Total number of bytes dropped because of CoDel or FQ-CoDel.";
+          "Total number of bytes dropped because of CoDel
+           or FQ-CoDel.";
       }
 
       leaf ecn-marked-pkts {
@@ -226,8 +228,8 @@ module ietf-qos-oper {
       leaf ecn-marked-bytes {
         type yang:zero-based-counter64;
         description
-          "Total number of bytes that were marked with ECN because of
-           CoDel or FQ-CoDel.";
+          "Total number of bytes that were marked with ECN because
+           of CoDel or FQ-CoDel.";
       }
 
       leaf new-flow-count {
