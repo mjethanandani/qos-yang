@@ -9,7 +9,7 @@
     xmlns:qp="urn:ietf:params:xml:ns:yang:ietf-queue-policy"
     xmlns:sp="urn:ietf:params:xml:ns:yang:ietf-scheduler-policy"
     xmlns:ds="urn:ietf:params:xml:ns:yang:ietf-diffserv"
-    xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types">
+    xmlns:qt="urn:ietf:params:xml:ns:yang:ietf-qos-types">
   <policy>
     <name>QUEUEING-POLICY</name>
     <type>qt:queue-policy-type</type>
@@ -145,7 +145,7 @@
 
 <interfaces
     xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces"
-    xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types"
+    xmlns:qt="urn:ietf:params:xml:ns:yang:ietf-qos-types"
     xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">
   <interface>
     <name>FastEthernet 0/0</name>

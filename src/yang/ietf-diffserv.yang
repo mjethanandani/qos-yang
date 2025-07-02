@@ -12,7 +12,7 @@ module ietf-diffserv {
   import ietf-inet-types {
     prefix inet;
   }
-  import iana-qos-types {
+  import ietf-qos-types {
     prefix qos-types;
     reference
       "RFC XXXX: YANG Models for Quality of Service (QoS).";

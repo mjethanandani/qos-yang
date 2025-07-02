@@ -583,10 +583,10 @@
 	by the other QoS modules.</t>
 
 	<figure>
-	  <name>iana-qos-types module</name>
+	  <name>ietf-qos-types module</name>
           <artwork><![CDATA[
-	  <CODE BEGINS>file "iana-qos-types@YYYY-MM-DD.yang"
-	  INSERT_TEXT_FROM_FILE(../bin/iana-qos-types@YYYY-MM-DD.yang)
+	  <CODE BEGINS>file "ietf-qos-types@YYYY-MM-DD.yang"
+	  INSERT_TEXT_FROM_FILE(../bin/ietf-qos-types@YYYY-MM-DD.yang)
 	  <CODE ENDS>
 	  ]]></artwork>
 	</figure>
@@ -603,7 +603,7 @@
         be made:
 	<figure>
           <artwork><![CDATA[
-	  URI: urn:ietf:params:xml:ns:yang:iana-qos-types
+	  URI: urn:ietf:params:xml:ns:yang:ietf-qos-types
 	  URI: urn:ietf:params:xml:ns:yang:ietf-diffserv
 	  URI: urn:ietf:params:xml:ns:yang:ietf-qos-action
 	  URI: urn:ietf:params:xml:ns:yang:ietf-qos-oper
@@ -624,8 +624,8 @@
 
         <t><figure>
             <artwork><![CDATA[
-	    name: iana-qos-types
-	    namespace: urn:ietf:params:xml:ns:yang:iana-qos-types
+	    name: ietf-qos-types
+	    namespace: urn:ietf:params:xml:ns:yang:ietf-qos-types
 	    prefix: qos-types
 	    reference: RFC XXXX
 
