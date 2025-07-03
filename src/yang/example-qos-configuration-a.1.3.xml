@@ -8,7 +8,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classifiers
     xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy"
-    xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types">
+    xmlns:qt="urn:ietf:params:xml:ns:yang:ietf-qos-types">
   <classifier>
     <name>ICMP</name>
     <description>class-map definition for ICMP</description>
@@ -26,7 +26,7 @@
 
 <policies
     xmlns="urn:ietf:params:xml:ns:yang:ietf-traffic-policy"
-    xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types">
+    xmlns:qt="urn:ietf:params:xml:ns:yang:ietf-qos-types">
   <policy>
     <name>SINGLE-RATE-TWO-COLOR</name>
     <type>qt:diffserv-policy-type</type>
@@ -51,7 +51,7 @@
 
 <interfaces
     xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces"
-    xmlns:qt="urn:ietf:params:xml:ns:yang:iana-qos-types"
+    xmlns:qt="urn:ietf:params:xml:ns:yang:ietf-qos-types"
     xmlns:ianaift="urn:ietf:params:xml:ns:yang:iana-if-type">
   <interface>
     <name>FastEthernet 0/0</name>

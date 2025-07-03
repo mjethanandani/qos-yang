@@ -12,7 +12,7 @@ module ietf-scheduler-policy {
   import ietf-diffserv {
     prefix diffserv;
   }
-  import iana-qos-types {
+  import ietf-qos-types {
     prefix qos-types;
     reference
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
