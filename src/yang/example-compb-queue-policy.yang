@@ -3,7 +3,7 @@ module example-compb-queue-policy {
   namespace "urn:ietf:params:xml:ns:yang:example-compb-queue-policy";
   prefix queue-plcy;
 
-  import iana-qos-types {
+  import ietf-qos-types {
     prefix qos-types;
     reference
       "RFC XXXX: YANG Models for Quality of Service (QoS).";

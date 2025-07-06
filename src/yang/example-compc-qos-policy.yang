@@ -3,7 +3,7 @@ module example-compc-qos-policy {
   namespace "urn:example-compc-qos-policy";
   prefix "compcqos";
 
-  import iana-qos-types {
+  import ietf-qos-types {
     prefix qos-types;
     reference
       "RFC XXXX: YANG Models for Quality of Service (QoS).";

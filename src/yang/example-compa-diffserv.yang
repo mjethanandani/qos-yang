@@ -3,7 +3,7 @@ module example-compa-diffserv {
   namespace "urn:ietf:params:xml:ns:yang:example-compa-diffserv";
   prefix example;
 
-  import iana-qos-types {
+  import ietf-qos-types {
     prefix qos-types;
     reference
       "RFC XXXX: YANG Models for Quality of Service (QoS).";
