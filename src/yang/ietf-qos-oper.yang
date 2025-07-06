@@ -13,7 +13,7 @@ module ietf-qos-oper {
     reference
       "RFC8343: A YANG Data Model for Interface Management.";
   }
-  import iana-qos-types {
+  import ietf-qos-types {
     prefix qos-types;
     reference
       "RFC XXXX: YANG Models for Quality of Service (QoS).";

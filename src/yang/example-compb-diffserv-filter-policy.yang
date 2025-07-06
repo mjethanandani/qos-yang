@@ -4,7 +4,7 @@ module example-compb-diffserv-filter-policy {
             "example-compb-diffserv-filter-policy";
   prefix compb-filter-policy;
 
-  import iana-qos-types {
+  import ietf-qos-types {
     prefix qos-types;
     reference
       "RFC XXXX: YANG Models for Quality of Service (QoS).";

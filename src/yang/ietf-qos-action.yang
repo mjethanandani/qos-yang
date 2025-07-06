@@ -8,10 +8,10 @@ module ietf-qos-action {
     reference
       "RFC 6991: Common YANG Data Types";
   }
-  import iana-qos-types {
+  import ietf-qos-types {
     prefix qos-types;
     reference
-      "RFC XXXX: YANG Model for QoS";
+      "RFC XXXX: YANG Model for Quality of Service (QoS).";
   }
 
   organization
