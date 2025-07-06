@@ -322,7 +322,10 @@ module ietf-qos-action {
   grouping meter-reference {
     container meter {
       leaf name {
-        type string ;
+        type leafref  {
+          path "/qos-action:meters/" +
+               "qos-action:meter/qos-action:name";
+        }
         mandatory true;    
         description
           "This leaf defines name of the meter referenced.";
@@ -540,6 +543,27 @@ module ietf-qos-action {
       "Random Early Detect (RED) configuration parameters.";
   }
 
+  grouping codel-config-parameters {
+    leaf target {
+      type uint64;
+      units "microseconds";
+      default 5000;
+      description
+        "Target time in microseconds spent by each packet in queue.";
+    }
+
+    leaf interval {
+      type uint64;
+      units "microseconds";
+      default 100000;
+      description
+        "The time in microsecond for minimum interval for congestion
+         to persist before algorithm kicks in. ";
+    }
+    description
+      "CoDel configuration parameters.";
+  }
+
   grouping queue {
     container queue {
       uses priority;
@@ -623,12 +647,49 @@ module ietf-qos-action {
                 type boolean;
                 default "false";
                 description
-                  "ECN is enabled on the queue.";
+                  "When configure as true, ECN is enabled on
+                   the queue.";
               }
               description
                 "Weighted Random Early Detect (WRED) configuration.";
             }
           }
+
+          case codel {
+            container codel {
+              uses codel-config-parameters;
+              leaf ecn-enabled {
+                type boolean;
+                default "false";
+                description
+                  "When configure as true, ECN is enabled on
+                   the queue.";
+              }
+              description
+                "CoDel configuration.";
+            }
+          }
+
+          case fq-codel {
+            container fq-codel {
+              uses codel-config-parameters;
+              leaf flows {
+                type uint64;
+                default 1024;
+                description
+                  "The maximum number of flow queues.";
+              }
+              leaf ecn-enabled {
+                type boolean;
+                default "false";
+                description
+                  "ECN is enabled on the queue.";
+              }
+              description
+                "FQ-CoDel configuration.";
+            }
+          }
+
           description
             "Choice of Drop Algorithm.";
         }
@@ -663,7 +724,10 @@ module ietf-qos-action {
   grouping queue-reference {
     container queue-reference {
       leaf queue-name {
-        type string;
+        type leafref  {
+          path "/qos-action:queues/" +
+               "qos-action:queue/qos-action:name";
+        }
         mandatory true;
         description
           "This leaf defines name of the  queue template

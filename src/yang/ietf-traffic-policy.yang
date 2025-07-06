@@ -167,7 +167,13 @@ module ietf-traffic-policy {
           "Classifier configuration in a policy.";
 
         leaf name {
-          type string;
+          type union {
+            type string;
+            type leafref {
+              path "/traffic-policy:classifiers/" +
+              "traffic-policy:classifier/traffic-policy:name";
+            }
+          }
           description
             "A unique name for classifier entry.";
         }
@@ -227,7 +233,10 @@ module ietf-traffic-policy {
       }
 
       leaf name {
-        type string;
+        type leafref  {
+          path "/traffic-policy:policies/" +
+              "traffic-policy:policy/traffic-policy:name";
+        }
         mandatory true;
         description
           "A unique name for the Policy.";
