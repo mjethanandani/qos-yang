@@ -135,68 +135,111 @@ module ietf-qos-oper {
         "Total number of bytes tail-dropped.";
     }
 
-    leaf red-drop-pkts {
-      type yang:zero-based-counter64;
-      description
-        "Total number of packets dropped because of RED.";
-    }
-
-    leaf red-drop-bytes {
-      type yang:zero-based-counter64;
-      description
-        "Total number of bytes dropped because of RED.";
-    }
-
-    leaf red-ecn-marked-pkts {
-      type yang:zero-based-counter64;
-      description
-        "Total number of packets that were marked with ECN
-         because of RED.";
-    }
-
-    leaf red-ecn-marked-bytes {
-      type yang:zero-based-counter64;
-      description
-        "Total number of bytes that were marked with ECN because of
-         RED.";
-    }
-
-    list wred-stats {
-      config false;
-      description
-        "QoS WRED statistics.";
-
-      leaf profile {
-        type uint8;
-        description
-          "Profile identifier for each color of traffic.";
-      }
-
+    container red-statistics {
       leaf drop-pkts {
         type yang:zero-based-counter64;
         description
-          "Total number of packets dropped because of WRED.";
+          "Total number of packets dropped because of RED.";
       }
 
       leaf drop-bytes {
         type yang:zero-based-counter64;
         description
-          "Total number of bytes dropped because of WRED.";
+          "Total number of bytes dropped because of RED.";
       }
 
       leaf ecn-marked-pkts {
         type yang:zero-based-counter64;
         description
-          "Total number of packets that were marked with ECN because
-           of WRED.";
+          "Total number of packets that were marked with ECN
+           because of RED.";
       }
 
       leaf ecn-marked-bytes {
         type yang:zero-based-counter64;
         description
           "Total number of bytes that were marked with ECN because of
-           WRED.";
+           RED.";
       }
+
+      list wred-stats {
+        config false;
+        description
+          "QoS WRED statistics.";
+
+        leaf profile {
+          type uint8;
+          description
+            "Profile identifier for each color of traffic.";
+        }
+
+        leaf drop-pkts {
+          type yang:zero-based-counter64;
+          description
+            "Total number of packets dropped because of WRED.";
+        }
+
+        leaf drop-bytes {
+          type yang:zero-based-counter64;
+          description
+            "Total number of bytes dropped because of WRED.";
+        }
+
+        leaf ecn-marked-pkts {
+          type yang:zero-based-counter64;
+          description
+            "Total number of packets that were marked with ECN
+             because of WRED.";
+        }
+
+        leaf ecn-marked-bytes {
+          type yang:zero-based-counter64;
+          description
+            "Total number of bytes that were marked with ECN because
+             of WRED.";
+        }
+      }
+      description
+        "Container of all RED statistics.";
+    }
+
+    container codel-statistics {
+      leaf drop-pkts {
+        type yang:zero-based-counter64;
+        description
+          "Total number of packets dropped because of CoDel
+           or FQ-CoDel.";
+      }
+
+      leaf drop-bytes {
+        type yang:zero-based-counter64;
+        description
+          "Total number of bytes dropped because of CoDel
+           or FQ-CoDel.";
+      }
+
+      leaf ecn-marked-pkts {
+        type yang:zero-based-counter64;
+        description
+          "Total number of packets that were marked with ECN
+           because of CoDel or FQ-CoDel.";
+      }
+
+      leaf ecn-marked-bytes {
+        type yang:zero-based-counter64;
+        description
+          "Total number of bytes that were marked with ECN because
+           of CoDel or FQ-CoDel.";
+      }
+
+      leaf new-flow-count {
+        type yang:zero-based-counter64;
+        description
+          "Total number of flows that FQ-CoDel has identified and is
+           managing or has managed.";
+      }
+      description
+        "Container of all CoDel or FQ-CoDel statistics.";
     }
   }
 
